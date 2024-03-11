@@ -13,13 +13,13 @@ export default {
         <sidebar />
 
         <div class="ml-8 w-[1042px]">
-            <p class="font-bold font-gotham text-3xl text-sulfurblack">Quotes</p>
+            <p class="font-bold font-gotham text-3xl text-sulfurblack">Informasi CML</p>
             <hr>
 
             <div class="flex flex-col gap-4">
                 <div>
-                    <p class="font-gotham font-normal text-2xl text-black mb-2">Quotes</p>
-                    <input class="bg-grey pl-4 py-1 w-full rounded-full" type="text" name="Quotes" id="">
+                    <p class="font-gotham font-normal text-2xl text-black mb-2">Judul</p>
+                    <input class="bg-grey pl-4 py-1 w-full rounded-full" type="text" name="Judul" id="">
                 </div>
 
                 <div>

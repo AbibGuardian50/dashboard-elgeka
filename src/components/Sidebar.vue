@@ -35,10 +35,14 @@
                 <router-link to="/quotes">
                     <p class="font-gotham font-bold text-white opacity-70">Quotes</p>
                 </router-link>
-                <p class="font-gotham font-bold text-white opacity-70">Informasi CML</p>
-                <p class="font-gotham font-bold text-white opacity-70">Donasi</p>
+                <router-link to="/informasicml">
+                    <p class="font-gotham font-bold text-white opacity-70">Informasi CML</p>
+                </router-link>
+                <router-link to="/donasi">
+                    <p class="font-gotham font-bold text-white opacity-70">Donasi</p>
+                </router-link>
             </div>
 
 
-        </div>
+    </div>
 </div></template>

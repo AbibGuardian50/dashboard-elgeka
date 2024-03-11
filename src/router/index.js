@@ -16,6 +16,25 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue')
     },
+
+    {
+      path: '/donasi',
+      name: 'donasi',
+      // route level code-splitting
+      // this generates a separate chunk (Donasi.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/Donasi.vue')
+    },
+
+    {
+      path: '/informasicml',
+      name: 'informasicml',
+      // route level code-splitting
+      // this generates a separate chunk (Informasicml.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/Informasicml.vue')
+    },
+
     {
       path: '/',
       name: 'login',

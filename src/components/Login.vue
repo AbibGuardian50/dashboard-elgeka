@@ -20,6 +20,7 @@ export default {
                 if (response.data.code === 200) {
                     this.$router.push('/kelolaakun');
                     console.log(response)
+                    sessionStorage.setItem('tokenlogin', response.data.result.token)
                 } else {
                     this.error = 'email atau password yang dimasukkan salah, mohon coba lagi'
                 }

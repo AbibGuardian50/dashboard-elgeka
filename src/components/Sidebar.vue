@@ -25,22 +25,39 @@
             <div>
                 <div class="flex flex-col gap-2 pt-4">
                     <router-link to="/kelolaakun">
-                        <p class="font-gotham font-bold text-white opacity-70">Kelola Akun</p>
+                        <button class="focus:bg-[#EEEEED] px-4 focus:text-black focus:opacity-100 focus:font-inter focus:font-bold font-gotham font-bold text-white opacity-70">Kelola Akun</button>
                     </router-link>
+
                     <router-link to="/verifikasicerita">
-                        <p class="font-gotham font-bold text-white opacity-70">Verifikasi Cerita</p>
+                        <button class="focus:bg-[#EEEEED] px-4 focus:text-black focus:opacity-100 focus:font-inter focus:font-bold font-gotham font-bold text-white opacity-70">Verifikasi Cerita</button>
                     </router-link>
+
+                    <router-link to="/profilkomunitas">
+                        <button class="focus:bg-[#EEEEED] px-4 focus:text-black focus:opacity-100 focus:font-inter focus:font-bold font-gotham font-bold text-white opacity-70">Profil Komunitas</button>
+                    </router-link>
+
                     <router-link to="/komunitas">
-                        <p class="font-gotham font-bold text-white opacity-70">Komunitas</p>
+                        <button class="focus:bg-[#EEEEED] px-4 focus:text-black focus:opacity-100 focus:font-inter focus:font-bold font-gotham font-bold text-white opacity-70">Komunitas</button>
                     </router-link>
+
                     <router-link to="/quotes">
-                        <p class="font-gotham font-bold text-white opacity-70">Quotes</p>
+                        <button class="focus:bg-[#EEEEED] px-4 focus:text-black focus:opacity-100 focus:font-inter focus:font-bold font-gotham font-bold text-white opacity-70">Quotes</button>
                     </router-link>
+
                     <router-link to="/informasicml">
-                        <p class="font-gotham font-bold text-white opacity-70">Informasi CML</p>
+                        <button class="focus:bg-[#EEEEED] px-4 focus:text-black focus:opacity-100 focus:font-inter focus:font-bold font-gotham font-bold text-white opacity-70">Informasi CML</button>
                     </router-link>
+
                     <router-link to="/donasi">
-                        <p class="font-gotham font-bold text-white opacity-70">Donasi</p>
+                        <button class="focus:bg-[#EEEEED] px-4 focus:text-black focus:opacity-100 focus:font-inter focus:font-bold font-gotham font-bold text-white opacity-70">Donasi</button>
+                    </router-link>
+
+                    <router-link to="/verifikasicerita">
+                        <button class="focus:bg-[#EEEEED] px-4 focus:text-black focus:opacity-100 focus:font-inter focus:font-bold font-gotham font-bold text-white opacity-70">Kegiatan</button>
+                    </router-link>
+
+                    <router-link to="/verifikasicerita">
+                        <button class="focus:bg-[#EEEEED] px-4 focus:text-black focus:opacity-100 focus:font-inter focus:font-bold font-gotham font-bold text-white opacity-70">Peraturan Cerita</button>
                     </router-link>
                 </div>
 

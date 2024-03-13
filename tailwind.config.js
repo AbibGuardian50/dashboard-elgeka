@@ -18,6 +18,7 @@ export default {
         'bluegrey': '#64748b',
         'grey': '#D9D9D9',
         'orange': '#FF914C',
+        'yellow': '#F3D42F',
         'greynight': '#BBB2B0',
       },
       fontFamily: {

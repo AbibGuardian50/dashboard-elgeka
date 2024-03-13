@@ -38,7 +38,15 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (Donasi.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/Donasi.vue')
+      component: () => import('../views/Donasi.vue'),
+      beforeEnter: (to, from, next) => {
+        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        if (!tokenlogin) {
+          next('/')
+        } else {
+          next()
+        }
+      }
     },
 
     {
@@ -47,7 +55,15 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (Informasicml.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/Informasicml.vue')
+      component: () => import('../views/Informasicml.vue'),
+      beforeEnter: (to, from, next) => {
+        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        if (!tokenlogin) {
+          next('/')
+        } else {
+          next()
+        }
+      }
     },
 
     {
@@ -82,7 +98,32 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (Komunitas.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/Komunitas.vue')
+      component: () => import('../views/Komunitas.vue'),
+      beforeEnter: (to, from, next) => {
+        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        if (!tokenlogin) {
+          next('/')
+        } else {
+          next()
+        }
+      }
+    },
+
+    {
+      path: '/profilkomunitas',
+      name: 'profilkomunitas',
+      // route level code-splitting
+      // this generates a separate chunk (Komunitas.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/Profilkomunitas.vue'),
+      beforeEnter: (to, from, next) => {
+        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        if (!tokenlogin) {
+          next('/')
+        } else {
+          next()
+        }
+      }
     },
 
     {
@@ -91,7 +132,15 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (Quotes.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/Quotes.vue')
+      component: () => import('../views/Quotes.vue'),
+      beforeEnter: (to, from, next) => {
+        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        if (!tokenlogin) {
+          next('/')
+        } else {
+          next()
+        }
+      }
     },
 
     {
@@ -100,7 +149,17 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (Verifikasicerita.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/Verifikasicerita.vue')
+      component: () => import('../views/Verifikasicerita.vue'),
+      beforeEnter: (to, from, next) => {
+        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        if (!tokenlogin) {
+          next('/')
+        } else {
+          next()
+        }
+      }
+
+
     },
   ]
 })

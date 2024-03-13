@@ -94,7 +94,7 @@ export default {
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span
-                                    class="px-2 py-1 inline-flex text-base text-black leading-5 font-semibold rounded-md bg-[#ff8133]">
+                                    class="py-1 px-8 inline-flex text-base text-white leading-5 font-bold font-inter rounded-md bg-yellow">
                                     Pending
                                 </span>
                             </td>

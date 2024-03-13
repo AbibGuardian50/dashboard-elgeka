@@ -22,27 +22,45 @@
 
 
 
-            <div class="flex flex-col gap-2 pt-4">
-                <router-link to="/kelolaakun">
-                    <p class="font-gotham font-bold text-white opacity-70">Kelola Akun</p>
-                </router-link>
-                <router-link to="/verifikasicerita">
-                    <p class="font-gotham font-bold text-white opacity-70">Verifikasi Cerita</p>
-                </router-link>
-                <router-link to="/komunitas">
-                    <p class="font-gotham font-bold text-white opacity-70">Komunitas</p>
-                </router-link>
-                <router-link to="/quotes">
-                    <p class="font-gotham font-bold text-white opacity-70">Quotes</p>
-                </router-link>
-                <router-link to="/informasicml">
-                    <p class="font-gotham font-bold text-white opacity-70">Informasi CML</p>
-                </router-link>
-                <router-link to="/donasi">
-                    <p class="font-gotham font-bold text-white opacity-70">Donasi</p>
-                </router-link>
+            <div>
+                <div class="flex flex-col gap-2 pt-4">
+                    <router-link to="/kelolaakun">
+                        <p class="font-gotham font-bold text-white opacity-70">Kelola Akun</p>
+                    </router-link>
+                    <router-link to="/verifikasicerita">
+                        <p class="font-gotham font-bold text-white opacity-70">Verifikasi Cerita</p>
+                    </router-link>
+                    <router-link to="/komunitas">
+                        <p class="font-gotham font-bold text-white opacity-70">Komunitas</p>
+                    </router-link>
+                    <router-link to="/quotes">
+                        <p class="font-gotham font-bold text-white opacity-70">Quotes</p>
+                    </router-link>
+                    <router-link to="/informasicml">
+                        <p class="font-gotham font-bold text-white opacity-70">Informasi CML</p>
+                    </router-link>
+                    <router-link to="/donasi">
+                        <p class="font-gotham font-bold text-white opacity-70">Donasi</p>
+                    </router-link>
+                </div>
+
+                <div class="h-[50px] absolute w-full bottom-0 list-none pb-12s">
+                    <router-link to="/">
+                        <div class="flex gap-2">
+                            <img src="../assets/logout-logo.png" alt="Logo Logout">
+                            <p class="text-white font-inter font-bold text-base">Keluar</p>
+                        </div>
+                    </router-link>
+                </div>
             </div>
 
+            <!-- height: 50px;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    list-style-type: none;
+    padding-bottom: 2.5em; -->
 
+        </div>
     </div>
-</div></template>
+</template>

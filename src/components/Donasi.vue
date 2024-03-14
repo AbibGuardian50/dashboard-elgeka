@@ -13,7 +13,7 @@ export default {
         <sidebar />
 
         <div class="ml-8 w-[1042px]">
-            <p class="font-bold font-gotham text-3xl text-sulfurblack">Donasi</p>
+            <p class="font-bold font-gotham text-3xl text-sulfurblack py-4">Donasi</p>
             <hr>
 
             <div class="flex flex-col gap-4">
@@ -30,6 +30,10 @@ export default {
                 <div>
                     <p class="font-gotham font-normal text-2xl text-black mb-2">Media</p>
                     <input class="bg-grey pl-4 py-28 w-full rounded-lg" type="text" name="Media" id="">
+                </div>
+
+                <div class="flex flex-col items-center">
+                    <button class="bg-grey py-2 px-8 font-gotham font-bold text-black rounded-full">Simpan</button>
                 </div>
             </div>
 

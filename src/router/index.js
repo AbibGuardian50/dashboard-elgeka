@@ -110,6 +110,23 @@ const router = createRouter({
     },
 
     {
+      path: '/kegiatan',
+      name: 'kegiatan',
+      // route level code-splitting
+      // this generates a separate chunk (Kegiatan.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/Kegiatan.vue'),
+      beforeEnter: (to, from, next) => {
+        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        if (!tokenlogin) {
+          next('/')
+        } else {
+          next()
+        }
+      }
+    },
+
+    {
       path: '/profilkomunitas',
       name: 'profilkomunitas',
       // route level code-splitting

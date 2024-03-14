@@ -83,12 +83,6 @@ export default {
               <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-black text-base">
                 Status
               </th>
-              <!-- <th scope="col" class="px-6 py-3 text-left font-medium text-gray-500">
-                Role
-              </th>
-              <th scope="col" class="px-6 py-3 text-left font-medium text-gray-500">
-                Email
-              </th> -->
               <th scope="col" class="">
                 <button v-on:click="toggleModalCreateAdmin()"
                   class="bg-orange px-2 py-1 text-left font-gotham text-black text-base">+</button>
@@ -125,12 +119,6 @@ export default {
                   Active
                 </span>
               </td>
-              <!-- <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                Admin
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                jane.cooper@example.com
-              </td> -->
               <td class="px-6 py-4 whitespace-nowrap  text-sm font-medium">
                 <button href="#" v-on:click="toggleModalEditAdmin()"
                   class="py-1 px-8 rounded-[5px] bg-orange font-inter font-bold text-base text-white">Edit</button>

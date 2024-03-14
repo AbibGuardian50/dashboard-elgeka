@@ -87,7 +87,7 @@ export default {
                                 <button href="#"
                                     class="py-1 px-8 rounded-[5px] bg-orange font-inter font-bold text-base text-white">Lihat</button>
                             </td>
-                            <td class="px-6 py-4 max-w-[300px   ]">
+                            <td class="px-6 py-4 max-w-[300px]">
                                 <p class="text-base text-gray-900">Lorem ipsum dolor sit amet consectetur. Commodo
                                     adipiscing massa et sem. Neque elementum non facilisi eget. Eget quis et tortor cras
                                     sed. Nec vulputate neque non mi.</p>

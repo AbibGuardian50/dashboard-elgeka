@@ -127,6 +127,15 @@ const router = createRouter({
     },
 
     {
+      path: '/notfound',
+      name: 'notfound',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visitedcd .
+      component: () => import('../views/Notfound.vue')
+    },
+
+    {
       path: '/profilkomunitas',
       name: 'profilkomunitas',
       // route level code-splitting

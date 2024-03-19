@@ -1,0 +1,145 @@
+<script>
+import axios from 'axios'
+import Quill from "quill";
+import "quill/dist/quill.core.css";
+import "quill/dist/quill.bubble.css";
+import "quill/dist/quill.snow.css";
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
+
+export default {
+    async created() {
+        try {
+            const response = await axios.get(`https://elgeka-web-api-production.up.railway.app/api/v1/profilKomunitas`);
+            this.communityprofile = response.data.result.data;
+            console.log(this.communityprofile)
+            this.datacontent = this.communityprofile
+        } catch (error) {
+            console.error(error);
+        }
+    },
+    components: {
+        QuillEditor
+    },
+    data() {
+        return {
+            communityprofile: [],
+            edited: {
+                title: [],
+                content: [],
+                ig_link: [],
+                fb_link: [], 
+                twitter_link: [],
+            },
+        }
+    },
+    methods: {
+        editprofile() {
+            const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/profilKomunitas'
+            const tokenlogin = sessionStorage.getItem('tokenlogin')
+            axios.patch(url, this.edited, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
+                .then(response => {
+                    console.log(response.data)
+                    this.$router.push('/profilkomunitas')
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.$router.push('/profilkomunitas')
+                })
+        }
+    }
+}
+</script>
+
+<template>
+    <div>
+        <form v-if="communityprofile" @submit.prevent="editprofile()"
+            class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+            <div class="relative w-[100rem] my-6 mx-auto max-w-6xl">
+                <!--content-->
+                <div
+                    class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                    <!--header-->
+                    <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
+                        <h3 class="text-[40px] text-orange font-semibold font-poppins">
+                            Edit Profil Komunitas
+                        </h3>
+                        <button
+                            class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none">
+                            <span
+                                class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                            </span>
+                        </button>
+                    </div>
+                    <!--body-->
+                    <div class="flex flex-col gap-8 relative p-6">
+                        <div class="flex gap-2 flex-col">
+                            <label for="Judul" class="font-poppins font-bold text-base text-orange">Judul
+                            </label>
+                            <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text" name="Judul"
+                                id="" v-model="edited.title" :placeholder="communityprofile.title">
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-8 relative p-6">
+                        <div class="flex gap-2 flex-col">
+                            <label for="Deskripsi Komunitas" class="font-poppins font-bold text-base text-orange">Deskripsi
+                                Komunitas
+                            </label>
+                            <div class="border border-black py-2 min-w-[550px] pl-2 rounded-md" id="app">
+                                <quill-editor theme="snow" contentType="html" v-model:content="edited.content"></quill-editor>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-8 relative p-6">
+                        <div class="flex gap-2 flex-col">
+                            <label for="Link Instagram" class="font-poppins font-bold text-base text-orange">Link
+                                Instagram
+                            </label>
+                            <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
+                                name="Link Instagram" v-model="edited.ig_link" id=""
+                                :placeholder="communityprofile.ig_link">
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-8 relative p-6">
+                        <div class="flex gap-2 flex-col">
+                            <label for="Link Facebook" class="font-poppins font-bold text-base text-orange">Link
+                                Facebook
+                            </label>
+                            <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
+                                name="Link Facebook" id="" v-model="edited.fb_link" :placeholder="communityprofile.fb_link">
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-8 relative p-6">
+                        <div class="flex gap-2 flex-col">
+                            <label for="Link Twitter" class="font-poppins font-bold text-base text-orange">Link Twitter
+                            </label>
+                            <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
+                                name="Link Twitter" id="" v-model="edited.twitter_link"
+                                :placeholder="communityprofile.twitter_link">
+                        </div>
+                    </div>
+                    <!--footer-->
+                    <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
+                        <button
+                            class="text-white bg-orange border hover:text-white active:bg-orange-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
+                            type="submit">
+                            Update
+                        </button>
+                        <router-link to="/profilkomunitas">
+                            <button
+                            class="text-orange bg-white border active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                            type="button">
+                            Cancel
+                        </button>
+                        </router-link>
+                        
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</template>

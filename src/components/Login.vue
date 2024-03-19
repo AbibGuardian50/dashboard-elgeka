@@ -6,7 +6,10 @@ export default {
         return {
             email: [],
             password: [],
-            error: ''
+            error: '',
+            rememberMe: false,
+            rememberedEmail: '',
+            rememberedPassword: ''
         }
     },
     methods: {
@@ -21,6 +24,10 @@ export default {
                     this.$router.push('/kelolaakun');
                     console.log(response)
                     sessionStorage.setItem('tokenlogin', response.data.result.token)
+                    if (this.rememberMe) {
+                        localStorage.setItem('rememberedEmail', this.email);
+                        localStorage.setItem('rememberedPassword', this.password);
+                    }
                 } else {
                     this.error = 'email dan password yang dimasukkan salah, mohon coba lagi'
                 }
@@ -28,7 +35,16 @@ export default {
                 this.error = 'ada kesalahan dari sistem, mohon coba lagi'
             }
         }
+    },
+    mounted() {
+    const rememberedEmail = localStorage.getItem('rememberedEmail');
+    const rememberedPassword = localStorage.getItem('rememberedPassword'); // tambahkan ini
+    if (rememberedEmail && rememberedPassword) {
+        this.email = rememberedEmail;
+        this.password = rememberedPassword; // tambahkan ini
+        this.rememberMe = true; // Pastikan checkbox Remember Me diaktifkan
     }
+}
 }
 </script>
 
@@ -63,8 +79,8 @@ export default {
                 <!-- Remember Me Checkbox -->
                 <div class="mb-4 flex flex-col">
                     <div>
-                        <input type="checkbox" id="remember" name="remember" class="outline-[#D4A02C]">
-                        <label for="remember" class="font-[verdana] text-[#344054] font-normal text[14px] ml-2">Remember
+                        <input type="checkbox" id="remember" name="remember" class="outline-[#D4A02C]" v-model="rememberMe">
+                        <label for="rememberMe" class="font-[verdana] text-[#344054] font-normal text[14px] ml-2">Remember
                             Me</label>
                     </div>
                     <p class="pl-5 font-[verdana] font-normal text[14px] text-[#667085]">Save my login details for next

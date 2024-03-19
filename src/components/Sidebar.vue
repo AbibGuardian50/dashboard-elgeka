@@ -1,5 +1,13 @@
 <script>
-
+export default {
+    methods: {
+        logout() {
+        // Hapus token dari localStorage atau dari state aplikasi
+        sessionStorage.removeItem('tokenlogin'); // Contoh jika token disimpan di localStorage
+        // Lakukan langkah lain yang diperlukan saat logout
+    }
+    }
+}
 </script>
 
 <template>
@@ -52,10 +60,9 @@
                                 class="focus:bg-[#EEEEED] px-4 focus:text-black focus:opacity-100 focus:font-inter focus:font-bold font-gotham font-bold text-white opacity-70">Quotes</button>
                         </router-link>
 
-                        <router-link to="/informasicml">
+                        <router-link to="/berita">
                             <button
-                                class="focus:bg-[#EEEEED] px-4 focus:text-black focus:opacity-100 focus:font-inter focus:font-bold font-gotham font-bold text-white opacity-70">Informasi
-                                CML</button>
+                                class="focus:bg-[#EEEEED] px-4 focus:text-black focus:opacity-100 focus:font-inter focus:font-bold font-gotham font-bold text-white opacity-70">Berita</button>
                         </router-link>
 
                         <router-link to="/donasi">
@@ -68,11 +75,17 @@
                                 class="focus:bg-[#EEEEED] px-4 focus:text-black focus:opacity-100 focus:font-inter focus:font-bold font-gotham font-bold text-white opacity-70">Kegiatan</button>
                         </router-link>
 
-                        <router-link to="/verifikasicerita">
+                        <router-link to="/peraturancerita">
                             <button
                                 class="focus:bg-[#EEEEED] px-4 focus:text-black focus:opacity-100 focus:font-inter focus:font-bold font-gotham font-bold text-white opacity-70">Peraturan
                                 Cerita</button>
                         </router-link>
+
+                        <router-link to="/penguruskomunitas">
+                            <button
+                                class="focus:bg-[#EEEEED] px-4 focus:text-black focus:opacity-100 focus:font-inter focus:font-bold font-gotham font-bold text-white opacity-70">Pengurus Komunitas</button>
+                        </router-link>
+
                     </div>
                 </div>
             </div>
@@ -81,7 +94,7 @@
                 <router-link to="/">
                     <div class="flex justify-start gap-2">
                         <img src="../assets/logout-logo.png" alt="Logo Logout">
-                        <p class="text-white font-inter font-bold text-base">Keluar</p>
+                        <p @click="logout" class="text-white font-inter font-bold text-base">Keluar</p>
                     </div>
                 </router-link>
             </div>

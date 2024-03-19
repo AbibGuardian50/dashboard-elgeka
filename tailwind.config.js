@@ -14,17 +14,22 @@ export default {
         'sulfurblack': '#040503',
         'lightwhite': 'rgba(255, 255, 255, 0.7)',
         'milkwhite' : 'F9F0EE',
+        'offwhite': '#FFFFFFB2',
         'lightgrey': '#F6F6F6',
         'bluegrey': '#64748b',
         'grey': '#D9D9D9',
+        'green': '#7FFF74',
         'orange': '#FF914C',
+        'vibrantorange': '#FF6200',
         'yellow': '#F3D42F',
         'greynight': '#BBB2B0',
+        'silver': '#D0D5DD'
       },
       fontFamily: {
         'inter' : ['inter', 'sans-serif'],
         'poppins': ["Poppins", 'sans-serif'],
         'gotham': ["gotham", 'sans-serif'],
+        'verdana': ["verdana", 'sans-serif'],
       },
     },
     

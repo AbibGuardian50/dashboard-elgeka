@@ -29,7 +29,7 @@ export default {
 
                 <div>
                     <p class="font-gotham font-normal text-2xl text-black mb-2">Media</p>
-                    <input class="bg-grey pl-4 py-28 w-full rounded-lg" type="text" name="Media" id="">
+                    <input class="bg-grey pl-4 py-28 w-full rounded-lg" type="file" name="Media" id="">
                 </div>
 
                 <div class="flex flex-col items-center">

@@ -50,8 +50,8 @@ const router = createRouter({
     },
 
     {
-      path: '/informasicml',
-      name: 'informasicml',
+      path: '/berita',
+      name: 'berita',
       // route level code-splitting
       // this generates a separate chunk (Informasicml.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
@@ -75,6 +75,77 @@ const router = createRouter({
       component: () => import('../views/Login.vue')
     },
     {
+      path: '/editadmin/:id',
+      name: 'editadmin',
+      // route level code-splitting
+      // this generates a separate chunk (Editadmin.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/Editadmin.vue'),
+      beforeEnter: (to, from, next) => {
+        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        if (!tokenlogin) {
+          next('/')
+        } else {
+          next()
+        }
+      }
+
+    },
+    {
+      path: '/editkegiatan/:id',
+      name: 'editkegiatan',
+      // route level code-splitting
+      // this generates a separate chunk (Editkegiatan.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/Editkegiatan.vue'),
+      beforeEnter: (to, from, next) => {
+        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        if (!tokenlogin) {
+          next('/')
+        } else {
+          next()
+        }
+      }
+
+    },
+
+    {
+      path: '/editProfilKomunitas',
+      name: 'editProfilKomunitas',
+      // route level code-splitting
+      // this generates a separate chunk (EditProfilKomunitas.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/EditProfilKomunitas.vue'),
+      beforeEnter: (to, from, next) => {
+        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        if (!tokenlogin) {
+          next('/')
+        } else {
+          next()
+        }
+      }
+
+    },
+
+    {
+      path: '/Editpengurus/:id',
+      name: 'Editpengurus',
+      // route level code-splitting
+      // this generates a separate chunk (Editpengurus.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/Editpengurus.vue'),
+      beforeEnter: (to, from, next) => {
+        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        if (!tokenlogin) {
+          next('/')
+        } else {
+          next()
+        }
+      }
+
+    },
+
+    {
       path: '/kelolaakun',
       name: 'kelolaakun',
       // route level code-splitting
@@ -89,7 +160,7 @@ const router = createRouter({
           next()
         }
       }
-      
+
     },
 
     {
@@ -142,6 +213,40 @@ const router = createRouter({
       // this generates a separate chunk (Komunitas.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/Profilkomunitas.vue'),
+      beforeEnter: (to, from, next) => {
+        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        if (!tokenlogin) {
+          next('/')
+        } else {
+          next()
+        }
+      }
+    },
+
+    {
+      path: '/Penguruskomunitas',
+      name: 'Penguruskomunitas',
+      // route level code-splitting
+      // this generates a separate chunk (Komunitas.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/Penguruskomunitas.vue'),
+      beforeEnter: (to, from, next) => {
+        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        if (!tokenlogin) {
+          next('/')
+        } else {
+          next()
+        }
+      }
+    },
+
+    {
+      path: '/peraturancerita',
+      name: 'peraturancerita',
+      // route level code-splitting
+      // this generates a separate chunk (Komunitas.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/Peraturancerita.vue'),
       beforeEnter: (to, from, next) => {
         const tokenlogin = sessionStorage.getItem('tokenlogin');
         if (!tokenlogin) {

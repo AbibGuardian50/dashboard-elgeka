@@ -1,43 +1,183 @@
 <script>
 import Sidebar from "./Sidebar.vue"
+import axios from 'axios';
+import VueCookies from 'vue-cookies';
+
+import "quill/dist/quill.core.css";
+import "quill/dist/quill.bubble.css";
+import "quill/dist/quill.snow.css";
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 export default {
-    components: {
-        Sidebar
+    async created() {
+        try {
+            const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/donasi'
+            const response = await axios.get(url);
+            this.donasielgeka = response.data.result
+        } catch (error) {
+            console.error(error);
+        }
     },
+    components: {
+        Sidebar,
+        QuillEditor
+    },
+    data() {
+        return {
+            donasielgeka: [],
+            gambar_url: 'https://elgeka-web-api-production.up.railway.app/',
+            ShowEditDonasi: false,
+            edited: {
+                title: [],
+                donate_link: [],
+                content: [],
+                image: [],
+            },
+        }
+    },
+    methods: {
+        editdonasi() {
+            const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/donasi'
+            const tokenlogin = VueCookies.get('tokenlogin')
+            const formData = new FormData();
+            formData.append('title', this.edited.title);
+            formData.append('donate_link', this.edited.donate_link);
+            formData.append('content', this.edited.content);
+            formData.append('image', this.edited.image);
+            axios.patch(url, formData, { headers: { 'Authorization': `Bearer ${tokenlogin}`, 'Content-Type': 'multipart/form-data' } })
+                .then(response => {
+                    console.log(response.data)
+                    this.$router.push('/donasi')
+                    window.location.reload()
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.$router.push('/donasi')
+                })
+        },
+        handleFileChange(event) {
+            // Mengambil file yang dipilih oleh pengguna
+            const selectedFile = event.target.files[0];
+
+            // Mengatur file yang dipilih ke dalam variabel edited.image
+            this.edited.image = selectedFile;
+        },
+        toggleModalEditDonasi: function () {
+            this.ShowEditDonasi = !this.ShowEditDonasi;
+        },
+    }
 }
 </script>
 
 <template>
     <div class="flex">
         <sidebar />
-
         <div class="ml-8 w-[1042px]">
-            <p class="font-bold font-gotham text-3xl text-sulfurblack py-4">Donasi</p>
-            <hr>
+            <p class="font-gotham font-bold text-[30px] leading-6 text-sulfurblack my-4 border-b border-[#D0D5DD] pb-4">
+                Donasi</p>
+            <div v-if="donasielgeka.currentPage === 1"
+                class="bg-offwhite flex flex-col justify-center items-center border-2 border-orange m-auto min-w-7/12">
+                <p class="font-poppins font-bold text-[40px] text-orange text-center">{{ donasielgeka.data.title }}</p>
+                <img class="max-w-[314px] max-h-[283px] border-8 border-orange my-4"
+                    :src="gambar_url + donasielgeka.data.image_url" alt="Gambar QR" srcset="">
+                <a :href="donasielgeka.data.donate_link"
+                    class="font-poppins font-bold text-[40px] text-center hover:underline mb-2" target="_blank">{{
+                        donasielgeka.data.donate_link }}</a>
+                <p v-html="donasielgeka.data.content" class="font-poppins font-normal w-[673px] text-[16px] text-[#000000B2]"></p>
+                <button @click="toggleModalEditDonasi()"
+                    class="px-8 my-4 ml-[50rem] py-2 bg-orange flex flex-col justify-end items-end font-bold rounded-md text-white text-center text-[14px]">Edit</button>
 
-            <div class="flex flex-col gap-4">
+
+                <!-- Pop up modal edit tampilan Donasi... -->
                 <div>
-                    <p class="font-gotham font-normal text-2xl text-black mb-2">Link</p>
-                    <input class="bg-grey pl-4 py-1 w-full rounded-full" type="text" name="Link" id="">
+                    <form v-if="ShowEditDonasi" @submit.prevent="editdonasi()"
+                        class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+                        <div class="relative w-auto my-6 mx-auto max-w-6xl">
+                            <!--content-->
+                            <div
+                                class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                                <!--header-->
+                                <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
+                                    <h3 class="text-[40px] text-orange font-semibold font-poppins">
+                                        Edit Foto Sampul
+                                    </h3>
+                                    <button
+                                        class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                                        v-on:click="toggleModalEditDonasi()">
+                                        <span
+                                            class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                                        </span>
+                                    </button>
+                                </div>
+                                <!--body-->
+                                <div class="flex flex-col gap-8 relative p-6">
+                                    <div class="flex gap-2 flex-col">
+                                        <label for="Judul" class="font-poppins font-bold text-base text-orange">Judul
+                                        </label>
+                                        <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
+                                            name="Judul" id="Judul" :placeholder="donasielgeka.data.title"
+                                            v-model="edited.title">
+                                    </div>
+                                    <div class="flex gap-2 flex-col">
+                                        <label for="Link" class="font-poppins font-bold text-base text-orange">Link
+                                        </label>
+                                        <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
+                                            name="Link" id="Link" :placeholder="donasielgeka.data.donate_link"
+                                            v-model="edited.donate_link">
+                                    </div>
+                                    <div class="flex gap-2 flex-col">
+                                        <label for="Deskripsi"
+                                            class="font-poppins font-bold text-base text-orange">Deskripsi
+                                        </label>
+                                        <div class="border border-black py-2 min-w-[550px] pl-2 rounded-md" id="app">
+                                            <quill-editor theme="snow" contentType="html"
+                                                v-model:content="edited.content"></quill-editor>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-2 flex-col">
+                                        <label for="Foto Sampul" class="font-poppins font-bold text-base text-orange">Foto
+                                            Sampul
+                                        </label>
+                                        <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="file"
+                                            name="Foto Sampul" id="foto-sampul-input" @change="handleFileChange">
+                                    </div>
+                                </div>
+                                <!--footer-->
+                                <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
+                                    <button
+                                        class="text-white bg-orange border hover:text-white active:bg-orange-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
+                                        type="submit">
+                                        Simpan
+                                    </button>
+                                    <button
+                                        class="text-orange bg-white border active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                                        type="button" v-on:click="toggleModalEditDonasi()">
+                                        batal
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div v-if="ShowEditDonasi" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
                 </div>
 
-                <div>
-                    <p class="font-gotham font-normal text-2xl text-black mb-2">Deskripsi</p>
-                    <input class="bg-grey pl-4 py-8 w-full rounded-lg" type="text" name="Deskripsi" id="">
-                </div>
-
-                <div>
-                    <p class="font-gotham font-normal text-2xl text-black mb-2">Media</p>
-                    <input class="bg-grey pl-4 py-28 w-full rounded-lg" type="text" name="Media" id="">
-                </div>
-
-                <div class="flex flex-col items-center">
-                    <button class="bg-grey py-2 px-8 font-gotham font-bold text-black rounded-full">Simpan</button>
-                </div>
             </div>
 
 
         </div>
-    </div>
+
+
+</div>
+
 </template>
+
+<style>
+ol {
+    list-style-type: decimal;
+}
+
+ul {
+    list-style-type: disc;
+}
+</style>

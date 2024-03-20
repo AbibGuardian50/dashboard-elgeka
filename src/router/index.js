@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import VueCookies from 'vue-cookies';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,7 +12,7 @@ const router = createRouter({
 
     // beforeEach((to, from, next) => {
     //   if (to.matched.some(record => record.meta.requiresAuth)) {
-    //     const tokenlogin = sessionStorage.getItem('tokenlogin');
+    //     const tokenlogin = VueCookies.get('tokenlogin');
 
     //     if (!tokenlogin) {
     //       next('/');
@@ -40,7 +41,7 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/Donasi.vue'),
       beforeEnter: (to, from, next) => {
-        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        const tokenlogin = VueCookies.get('tokenlogin');
         if (!tokenlogin) {
           next('/')
         } else {
@@ -57,7 +58,7 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/Informasicml.vue'),
       beforeEnter: (to, from, next) => {
-        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        const tokenlogin = VueCookies.get('tokenlogin');
         if (!tokenlogin) {
           next('/')
         } else {
@@ -82,7 +83,7 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/Editadmin.vue'),
       beforeEnter: (to, from, next) => {
-        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        const tokenlogin = VueCookies.get('tokenlogin');
         if (!tokenlogin) {
           next('/')
         } else {
@@ -99,7 +100,7 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/Editkegiatan.vue'),
       beforeEnter: (to, from, next) => {
-        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        const tokenlogin = VueCookies.get('tokenlogin');
         if (!tokenlogin) {
           next('/')
         } else {
@@ -117,7 +118,7 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/EditProfilKomunitas.vue'),
       beforeEnter: (to, from, next) => {
-        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        const tokenlogin = VueCookies.get('tokenlogin');
         if (!tokenlogin) {
           next('/')
         } else {
@@ -135,7 +136,7 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/Editpengurus.vue'),
       beforeEnter: (to, from, next) => {
-        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        const tokenlogin = VueCookies.get('tokenlogin');
         if (!tokenlogin) {
           next('/')
         } else {
@@ -153,7 +154,7 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/Kelolaakun.vue'),
       beforeEnter: (to, from, next) => {
-        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        const tokenlogin = VueCookies.get('tokenlogin');
         if (!tokenlogin) {
           next('/')
         } else {
@@ -171,7 +172,7 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/Komunitas.vue'),
       beforeEnter: (to, from, next) => {
-        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        const tokenlogin = VueCookies.get('tokenlogin');
         if (!tokenlogin) {
           next('/')
         } else {
@@ -188,7 +189,7 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/Kegiatan.vue'),
       beforeEnter: (to, from, next) => {
-        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        const tokenlogin = VueCookies.get('tokenlogin');
         if (!tokenlogin) {
           next('/')
         } else {
@@ -214,7 +215,7 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/Profilkomunitas.vue'),
       beforeEnter: (to, from, next) => {
-        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        const tokenlogin = VueCookies.get('tokenlogin');
         if (!tokenlogin) {
           next('/')
         } else {
@@ -231,7 +232,7 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/Penguruskomunitas.vue'),
       beforeEnter: (to, from, next) => {
-        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        const tokenlogin = VueCookies.get('tokenlogin');
         if (!tokenlogin) {
           next('/')
         } else {
@@ -248,7 +249,7 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/Peraturancerita.vue'),
       beforeEnter: (to, from, next) => {
-        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        const tokenlogin = VueCookies.get('tokenlogin');
         if (!tokenlogin) {
           next('/')
         } else {
@@ -265,7 +266,7 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/Quotes.vue'),
       beforeEnter: (to, from, next) => {
-        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        const tokenlogin = VueCookies.get('tokenlogin');
         if (!tokenlogin) {
           next('/')
         } else {
@@ -282,7 +283,7 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/Verifikasicerita.vue'),
       beforeEnter: (to, from, next) => {
-        const tokenlogin = sessionStorage.getItem('tokenlogin');
+        const tokenlogin = VueCookies.get('tokenlogin');
         if (!tokenlogin) {
           next('/')
         } else {

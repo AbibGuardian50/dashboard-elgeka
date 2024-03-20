@@ -1,9 +1,11 @@
 <script>
+import VueCookies from 'vue-cookies';
 export default {
     methods: {
         logout() {
         // Hapus token dari localStorage atau dari state aplikasi
-        sessionStorage.removeItem('tokenlogin'); // Contoh jika token disimpan di localStorage
+        VueCookies.remove('tokenlogin'); // Contoh jika token disimpan di localStorage atau cookies
+        sessionStorage.removeItem('superAdmin');
         // Lakukan langkah lain yang diperlukan saat logout
     }
     }

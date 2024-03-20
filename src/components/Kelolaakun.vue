@@ -1,6 +1,7 @@
 <script>
 import axios from "axios"
 import Sidebar from "./Sidebar.vue"
+import VueCookies from 'vue-cookies';
 
 export default {
   components: {
@@ -8,7 +9,8 @@ export default {
   },
   async created() {
     try {
-      const tokenlogin = sessionStorage.getItem('tokenlogin')
+      const tokenlogin = VueCookies.get('tokenlogin')
+      
       if (tokenlogin) {
         const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/admin'
         const response = await axios.get(url, {
@@ -16,7 +18,8 @@ export default {
             Authorization: `Bearer ${tokenlogin}`
           },
         })
-        sessionStorage.getItem('tokenlogin')
+        const superAdmin = sessionStorage.getItem('superAdmin')
+        this.getRoles = superAdmin
         this.daftaradmin = response.data.result.data
         this.daftaradmin.sort((x, y) => x.id - y.id)
         this.daftaradmin.forEach((item, index) => {
@@ -36,21 +39,18 @@ export default {
     // const tokenlogin = sessionStorage.getItem('tokenlogin')
     // console.log(tokenlogin)
     return {
-      akunadmin: [
-        { no: 1, name: "Jane Cooper", email: "ABIB@gmail.com", status: "Aktif" },
-        { no: 2, name: "John Price", email: "John@gmail.com", status: "Aktif" },
-        { no: 3, name: "Jane Basnuril", email: "Basnuril@gmail.com", status: "Aktif" },
-      ],
       daftaradmin: [],
       error: '',
       noUrut: 0,
       showcreateadmin: false,
       showeditadmin: false,
       showdeleteadmin: false,
+      getRoles: false,
       form: {
         full_name: [],
         email: [],
         password: [],
+        superAdmin: [],
       },
       edited: {
         full_name: [],
@@ -74,10 +74,9 @@ export default {
     },
 
     createadmin() {
-      const tokenlogin = sessionStorage.getItem('tokenlogin')
+      const tokenlogin = VueCookies.get('tokenlogin')
       const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/admin/create'
       axios.post(url, this.form, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
-
         .then(response => {
           console.log(response.data);
           window.location.reload();
@@ -87,7 +86,7 @@ export default {
         })
     },
     editadmin(id) {
-      const tokenlogin = sessionStorage.getItem('tokenlogin')
+      const tokenlogin = VueCookies.get('tokenlogin')
       const url = `https://elgeka-web-api-production.up.railway.app/api/v1/admin/${id}`
       axios.patch(url, this.edited, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
         .then(response => {
@@ -139,7 +138,7 @@ export default {
               <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-sulfurblack text-base">
                 Status
               </th>
-              <th scope="col" class="">
+              <th v-if="getRoles === 'true'" scope="col" class="">
                 <button v-on:click="toggleModalCreateAdmin()"
                   class="bg-orange px-2 py-1 text-left font-gotham text-sulfurblack text-base">+</button>
               </th>
@@ -173,7 +172,7 @@ export default {
                   Aktif
                 </span>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap  text-sm font-medium">
+              <td v-if="getRoles === 'true'" class="px-6 py-4 whitespace-nowrap  text-sm font-medium">
                 <a :href="'editadmin/' + data.id">
                   <button
                     class="py-1 px-8 rounded-[5px] bg-orange font-inter font-bold text-base text-white">Edit</button>
@@ -233,7 +232,7 @@ export default {
                     <!-- <input class="border border-black py-4 min-w-[550px] pr-2 rounded-md" type="text" name="nama lengkap" id="" placeholder="  Muhammad Abieb Basnuril"> -->
                     <select
                       class="border bg-white border-black py-4 min-w-[550px] pl-2 rounded-md font-poppins font-medium text-base text-[#00000080]"
-                      name="Status" id="">
+                      name="Status" id="" v-model="form.superAdmin">
                       <option value="true" selected> aktif</option>
                       <option value="false"> nonaktif</option>
                     </select>

@@ -1,6 +1,7 @@
 <script>
 import Sidebar from "./Sidebar.vue"
 import axios from "axios"
+import VueCookies from 'vue-cookies';
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.bubble.css";
 import "quill/dist/quill.snow.css";
@@ -14,7 +15,7 @@ export default {
     },
     async created() {
         try {
-            const tokenlogin = sessionStorage.getItem('tokenlogin')
+            const tokenlogin = VueCookies.get('tokenlogin')
             if (tokenlogin) {
                 const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/kegiatanKomunitas'
                 const response = await axios.get(url, {
@@ -22,7 +23,7 @@ export default {
                         Authorization: `Bearer ${tokenlogin}`
                     },
                 })
-                sessionStorage.getItem('tokenlogin')
+                VueCookies.get('tokenlogin')
                 this.daftarkegiatan = response.data.result.data
                 // this.daftarkegiatan.sort((x, y) => x.id - y.id) supaya urut menurut id nya
                 this.daftarkegiatan.forEach((item, index) => {
@@ -60,7 +61,7 @@ export default {
             this.form.image = selectedFile;
         },
         createkegiatan() {
-            const tokenlogin = sessionStorage.getItem('tokenlogin')
+            const tokenlogin = VueCookies.get('tokenlogin')
             const formData = new FormData();
             formData.append('image', this.form.image);
             formData.append('title', this.form.title);
@@ -80,7 +81,7 @@ export default {
         },
         deletekegiatan(id) {
             if (confirm('Are you sure you want to delete this admin account?')) {
-                const tokenlogin = sessionStorage.getItem('tokenlogin')
+                const tokenlogin = VueCookies.get('tokenlogin')
                 const url = `https://elgeka-web-api-production.up.railway.app/api/v1/kegiatanKomunitas/${id}`
                 axios.delete(url, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
                     .then(response => {

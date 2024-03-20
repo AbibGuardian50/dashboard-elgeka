@@ -154,7 +154,7 @@ export default {
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="pr-4 inline-flex text-base leading-5 font-semibold rounded-full">
-                                    <img class="bg-[url('https://elgeka-web-api-production.up.railway.app/uploads/1710259003462-Screenshot%202024-03-12%20225622.png')] bg-cover bg-center w-[160px] max-h-[160px]"
+                                    <img class="bg-[url('https://i.pinimg.com/736x/c0/74/9b/c0749b7cc401421662ae901ec8f9f660.jpg')] bg-cover bg-center w-[160px] max-h-[160px]"
                                         :src="url + data.image_url">
 
                                 </span>

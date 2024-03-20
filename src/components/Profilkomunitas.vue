@@ -2,6 +2,7 @@
 import Sidebar from './Sidebar.vue'
 import moment from 'moment';
 import 'moment/locale/id';  
+import VueCookies from 'vue-cookies';
 import axios from 'axios'
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.bubble.css";
@@ -30,7 +31,7 @@ export default {
     methods: {
         formatDateTime(dateTimeString) {
             moment.locale('id');
-            return moment(dateTimeString).format('LLL'); // Format tanggal yang spesifik, sesuaikan dengan preferensi Anda
+            return moment(dateTimeString).format('LLL');
         },
         toggleModalEditProfilKomunitas: function () {
             this.ShowEditProfilKomunitas = !this.ShowEditProfilKomunitas;
@@ -47,7 +48,7 @@ export default {
         },
         editcoverphoto() {
             const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/profilKomunitas'
-            const tokenlogin = sessionStorage.getItem('tokenlogin')
+            const tokenlogin = VueCookies.get('tokenlogin')
             const formData = new FormData();
             formData.append('image', this.edited.image);
             axios.patch(url, formData, { headers: { 'Authorization': `Bearer ${tokenlogin}`, 'Content-Type': 'multipart/form-data' } })
@@ -290,5 +291,9 @@ export default {
 
 ol {
     list-style-type: decimal;
+}
+
+ul {
+    list-style-type: disc;
 }
 </style>

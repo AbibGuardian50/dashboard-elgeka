@@ -1,10 +1,12 @@
 <script>
 import axios from 'axios'
+import VueCookies from 'vue-cookies';
+
 export default {
     async created() {
         try {
             const id = this.$route.params.id
-            const tokenlogin = sessionStorage.getItem('tokenlogin')
+            const tokenlogin = VueCookies.get('tokenlogin')
             if (tokenlogin) {
                 const url = `https://elgeka-web-api-production.up.railway.app/api/v1/admin/${id}`
                 const response = await axios.get(url, {
@@ -13,6 +15,9 @@ export default {
                     },
                 })
                 this.daftaradmin = response.data.result.data
+                const superAdmin = sessionStorage.getItem('superAdmin')
+                this.getRoles = superAdmin
+                console.log(this.getRoles)
                 console.log(this.daftaradmin)
             } else {
                 this.error = 'dilarang akses halaman ini'
@@ -27,7 +32,7 @@ export default {
         },
 
         editadmin(id) {
-            const tokenlogin = sessionStorage.getItem('tokenlogin')
+            const tokenlogin = VueCookies.get('tokenlogin')
             const url = `https://elgeka-web-api-production.up.railway.app/api/v1/admin/${id}`
             axios.patch(url, this.edited, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
                 .then(response => {
@@ -45,10 +50,11 @@ export default {
     data() {
         return {
             showeditadmin: false,
+            getRoles: false,
             daftaradmin: '',
             edited: {
                 full_name: '',
-                email:''
+                email: ''
             }
 
         }
@@ -60,7 +66,7 @@ export default {
     <div>
         <form v-if="daftaradmin" @submit.prevent="editadmin(daftaradmin.id)"
             class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-            <div  class="relative w-auto my-6 mx-auto max-w-6xl">
+            <div v-if="getRoles === 'true'" class="relative w-auto my-6 mx-auto max-w-6xl">
                 <!--content-->
                 <div
                     class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -121,6 +127,10 @@ export default {
                         </router-link>
                     </div>
                 </div>
+            </div>
+            <div v-else>
+                <p class="font-bold font-poppins text-5xl">Dilarang Akses Halaman Ini</p>
+                <a href="/kelolaakun" class="hover:text-orange hover:underline font-bold font-poppins text-5xl">Klik Disini Untuk Kembali ke Halaman Sebelumnya</a>
             </div>
         </form>
         <div v-if="showeditadmin" class="opacity-25 fixed inset-0 z-40 bg-black"></div>

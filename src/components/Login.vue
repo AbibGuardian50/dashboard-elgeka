@@ -1,6 +1,6 @@
 <script>
 import axios from 'axios'
-
+import VueCookies from 'vue-cookies';
 export default {
     data() {
         return {
@@ -23,7 +23,8 @@ export default {
                 if (response.data.code === 200) {
                     this.$router.push('/kelolaakun');
                     console.log(response)
-                    sessionStorage.setItem('tokenlogin', response.data.result.token)
+                    VueCookies.set('tokenlogin', response.data.result.token)
+                    sessionStorage.setItem('superAdmin', response.data.result.user.superAdmin)
                     if (this.rememberMe) {
                         localStorage.setItem('rememberedEmail', this.email);
                         localStorage.setItem('rememberedPassword', this.password);

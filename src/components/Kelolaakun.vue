@@ -99,7 +99,7 @@ export default {
     },
     deleteadmin(id) {
       if (confirm('Are you sure you want to delete this admin account?')) {
-        const tokenlogin = sessionStorage.getItem('tokenlogin')
+        const tokenlogin = VueCookies.get('tokenlogin')
         const url = `https://elgeka-web-api-production.up.railway.app/api/v1/admin/${id}`
         axios.delete(url, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
           .then(response => {
@@ -233,8 +233,8 @@ export default {
                     <select
                       class="border bg-white border-black py-4 min-w-[550px] pl-2 rounded-md font-poppins font-medium text-base text-[#00000080]"
                       name="Status" id="" v-model="form.superAdmin">
-                      <option value="true" selected> aktif</option>
-                      <option value="false"> nonaktif</option>
+                      <option value="true">SuperAdmin</option>
+                      <option value="false">Admin</option>
                     </select>
                   </div>
 

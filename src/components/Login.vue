@@ -30,7 +30,7 @@ export default {
                         localStorage.setItem('rememberedPassword', this.password);
                     }
                 } else {
-                    this.error = 'email dan password yang dimasukkan salah, mohon coba lagi'
+                    this.error = 'email atau password yang dimasukkan salah, mohon coba lagi'
                 }
             } catch (error) {
                 this.error = 'ada kesalahan dari sistem, mohon coba lagi'

@@ -1,7 +1,7 @@
 <script>
 import Sidebar from "./Sidebar.vue"
 import axios from "axios"
-
+import VueCookies from 'vue-cookies';
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.bubble.css";
 import "quill/dist/quill.snow.css";
@@ -11,7 +11,7 @@ import '@vueup/vue-quill/dist/vue-quill.snow.css';
 export default {
     async created() {
         try {
-            const tokenlogin = sessionStorage.getItem('tokenlogin')
+            const tokenlogin = VueCookies.get('tokenlogin')
             if (tokenlogin) {
                 const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/memberKomunitas'
                 const response = await axios.get(url, {
@@ -19,7 +19,7 @@ export default {
                         Authorization: `Bearer ${tokenlogin}`
                     },
                 })
-                sessionStorage.getItem('tokenlogin')
+                VueCookies.get('tokenlogin')
                 this.daftarpengurus = response.data.result.data
                 // this.daftarpengurus.sort((x, y) => x.id - y.id) supaya urut menurut id nya
                 this.daftarpengurus.forEach((item, index) => {
@@ -57,7 +57,7 @@ export default {
     },
     methods: {
         createpengurus() {
-            const tokenlogin = sessionStorage.getItem('tokenlogin')
+            const tokenlogin = VueCookies.get('tokenlogin')
             const formData = new FormData();
             formData.append('full_name', this.form.full_name);
             formData.append('jabatan', this.form.jabatan);

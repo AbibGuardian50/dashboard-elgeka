@@ -87,8 +87,8 @@ export default {
                             <label for="Deskripsi Komunitas" class="font-poppins font-bold text-base text-orange">Deskripsi
                                 Komunitas
                             </label>
-                            <div class="border border-black py-2 min-w-[550px] pl-2 rounded-md" id="app">
-                                <quill-editor theme="snow" contentType="html" v-model:content="edited.content"></quill-editor>
+                            <div  class="border border-black py-2 min-w-[550px] pl-2 rounded-md" id="app">
+                                <quill-editor :toolbar="['bold', 'italic', 'underline','image']" theme="snow" contentType="html" v-model:content="edited.content"></quill-editor>
                             </div>
                         </div>
                     </div>

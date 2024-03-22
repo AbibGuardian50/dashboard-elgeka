@@ -135,9 +135,8 @@ export default {
   <div class="flex ">
     <Sidebar />
     <div class="px-8">
-      <p class="text-[30px] text-orange font-gotham font-bold">Kelola Akun</p>
+      <p class="text-[30px] text-orange font-gotham font-bold">Kelola Akun Admin</p>
       <hr>
-      <p class="font-gotham font-normal text-[20px] text-sulfurblack mt-4">Akun Admin</p>
       <div>
         <table class="min-w-full divide-y divide-gray-200 overflow-x-auto w-[1200px]">
           <thead class="bg-gray-50">

@@ -20,9 +20,8 @@ export default {
         <Sidebar />
 
         <div class="px-8">
-            <p class="font-gotham font-bold text-[30px] text-sulfurblack">Verifikasi Cerita</p>
+            <p class="font-gotham font-bold text-[30px] text-sulfurblack">Verifikasi Cerita User</p>
             <hr class="border-[#D0D5DD]">
-            <p class="my-4 font-gotham font-normal text-[20px] text-sulfurblack">Cerita User</p>
 
             <div>
                 <table class="min-w-full divide-y divide-gray-200 overflow-x-auto w-[1200px]">

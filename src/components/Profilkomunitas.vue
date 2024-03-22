@@ -82,8 +82,6 @@ export default {
         <div class="pl-8 pt-12">
             <p class="w-full font-gotham font-bold text-[30px] leading-6 mb-8 border-b pb-4 border-[#D0D5DD]">Update Komunitas</p>
 
-            <p class="font-gotham font-normal text-xl leading-6 mb-8">Tentang Komunitas</p>
-
             <div id="container" class="flex">
                 <div class="flex flex-col justify-center items-center m-auto gap-8">
                     <!-- Ubah profil komunitas -->

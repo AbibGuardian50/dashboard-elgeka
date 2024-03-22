@@ -108,7 +108,6 @@ export default {
         <div class="px-8">
             <p class="font-gotham font-bold text-[30px] text-sulfurblack">Informasi CML</p>
             <hr class="border-[#D0D5DD]">
-            <p class="my-4 font-gotham font-normal text-[20px] text-sulfurblack">Tentang CML</p>
             <div>
                 <table class="min-w-full divide-y divide-gray-200 overflow-x-auto max-w-[1400px]">
                     <thead class="bg-gray-50">

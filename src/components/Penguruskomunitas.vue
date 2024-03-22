@@ -112,7 +112,6 @@ export default {
         <div class="px-8">
             <p class="text-[30px] text-orange font-gotham font-bold">Pengurus Komunitas</p>
             <hr>
-            <p class="font-gotham font-normal text-[20px] text-sulfurblack mt-4">Pengurus Komunitas</p>
             <div>
                 <table class="min-w-full divide-y divide-gray-200 overflow-x-auto w-[1200px]">
                     <thead class="bg-gray-50">

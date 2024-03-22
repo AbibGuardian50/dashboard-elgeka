@@ -24,6 +24,7 @@ export default {
                     this.$router.push('/kelolaakun');
                     console.log(response)
                     VueCookies.set('tokenlogin', response.data.result.token)
+                    sessionStorage.setItem('id_user', response.data.result.user.id)
                     sessionStorage.setItem('superAdmin', response.data.result.user.superAdmin)
                     if (this.rememberMe) {
                         localStorage.setItem('rememberedEmail', this.email);

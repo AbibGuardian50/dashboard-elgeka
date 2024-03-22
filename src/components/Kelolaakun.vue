@@ -2,6 +2,8 @@
 import axios from "axios"
 import Sidebar from "./Sidebar.vue"
 import VueCookies from 'vue-cookies';
+import useToast from "vue-toastification";
+import 'vue-toastification/dist/index.css';
 
 export default {
   components: {
@@ -10,7 +12,7 @@ export default {
   async created() {
     try {
       const tokenlogin = VueCookies.get('tokenlogin')
-      
+
       if (tokenlogin) {
         const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/admin'
         const response = await axios.get(url, {
@@ -18,14 +20,21 @@ export default {
             Authorization: `Bearer ${tokenlogin}`
           },
         })
+        if (response.data.code === 400) {
+          console.log('Superadmin tidak bisa edit superadmin lainnya')
+        }
         const superAdmin = sessionStorage.getItem('superAdmin')
+        const idAdmin = sessionStorage.getItem('id_user')
+        this.idUser = idAdmin
         this.getRoles = superAdmin
+        this.daftarid = response.data.result.data.id
         this.daftaradmin = response.data.result.data
         this.daftaradmin.sort((x, y) => x.id - y.id)
         this.daftaradmin.forEach((item, index) => {
           item.no = index + 1;
         });
         console.log(this.daftaradmin)
+        console.log(this.idUser)
       } else {
         this.error = 'dilarang akses halaman ini'
       }
@@ -46,6 +55,8 @@ export default {
       showeditadmin: false,
       showdeleteadmin: false,
       getRoles: false,
+      idAdmin: "",
+      daftarid: "",
       form: {
         full_name: [],
         email: [],
@@ -92,9 +103,11 @@ export default {
         .then(response => {
           console.log(response.data)
           window.location.reload();
+          this.showErrorToast('Pesan kesalahan disini')
         })
         .catch(error => {
           console.log(error)
+          
         })
     },
     deleteadmin(id) {
@@ -108,10 +121,13 @@ export default {
           })
           .catch(error => {
             console.log(error)
+
           })
       }
-    }
+    },
+    
   },
+
 }
 </script>
 
@@ -137,6 +153,9 @@ export default {
               </th>
               <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-sulfurblack text-base">
                 Status
+              </th>
+              <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-sulfurblack text-base">
+                Roles
               </th>
               <th v-if="getRoles === 'true'" scope="col" class="">
                 <button v-on:click="toggleModalCreateAdmin()"
@@ -172,6 +191,16 @@ export default {
                   Aktif
                 </span>
               </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span v-if="data.superAdmin === true"
+                  class="py-2 px-8 inline-flex text-base leading-5 font-semibold rounded-md bg-[#F470FF]">
+                  Super Admin
+                </span>
+
+                <span v-else class="py-2 px-8 inline-flex text-base leading-5 font-semibold rounded-md bg-[#70C3FF]">
+                  Admin
+                </span>
+              </td>
               <td v-if="getRoles === 'true'" class="px-6 py-4 whitespace-nowrap  text-sm font-medium">
                 <a :href="'editadmin/' + data.id">
                   <button
@@ -180,6 +209,15 @@ export default {
                 <button href="#" @click="deleteadmin(data.id)"
                   class="py-1 px-8 rounded-[5px] bg-[#ff4c61] ml-2 font-inter font-bold text-base text-white">Hapus</button>
               </td>
+              <!-- <td v-if="getRoles === 'false' && idAdmin === daftarid"
+                class="px-6 py-4 whitespace-nowrap  text-sm font-medium">
+                <a :href="'editadmin/' + data.id">
+                  <button class="py-1 px-8 rounded-[5px] bg-orange font-inter font-bold text-base text-white">Edit
+                    admin</button>
+                </a>
+                <button href="#" @click="deleteadmin(data.id)"
+                  class="py-1 px-8 rounded-[5px] bg-[#ff4c61] ml-2 font-inter font-bold text-base text-white">Hapus</button>
+              </td> -->
             </tr>
             <!-- More rows... -->
 

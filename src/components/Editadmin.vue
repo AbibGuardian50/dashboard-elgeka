@@ -1,6 +1,9 @@
 <script>
 import axios from 'axios'
 import VueCookies from 'vue-cookies';
+import { useToast } from 'vue-toastification';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 export default {
     async created() {
@@ -27,46 +30,58 @@ export default {
         }
     },
     methods: {
+        // showToatWarning(){
+        //     toast.warning('Wow warning!',{
+        //         autoClose: 1000,
+        //     });   
+        // },
         toggleModalEditAdmin: function () {
             this.showeditadmin = !this.showeditadmin;
         },
-
         editadmin(id) {
             const tokenlogin = VueCookies.get('tokenlogin')
+            // const toast = useToast();
             const url = `https://elgeka-web-api-production.up.railway.app/api/v1/admin/${id}`
             axios.patch(url, this.edited, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
                 .then(response => {
-                    this.$router.push('/kelolaakun')
                     console.log(response.data)
-
+                    this.statuscode = response.data.code
+                    if (response.data.code === 201) {
+                        this.$router.push('/kelolaakun')
+                    } else if (response.data.code === 400){
+                        setTimeout(() => {
+                            this.$router.push('/kelolaakun');
+                        }, 5000);
+                    }
                 })
                 .catch(error => {
                     console.log(error)
-                    this.$router.push('/kelolaakun')
                 })
         },
     },
-
     data() {
         return {
             showeditadmin: false,
             getRoles: false,
+            statuscode: '',
             daftaradmin: '',
             edited: {
                 full_name: '',
                 email: ''
             }
-
         }
-    }
+    },
+    // setup() {
+    //     toast('welcome to my website');
+    // }
 }
 </script>
 
 <template>
     <div>
         <form v-if="daftaradmin" @submit.prevent="editadmin(daftaradmin.id)"
-            class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-            <div v-if="getRoles === 'true'" class="relative w-auto my-6 mx-auto max-w-6xl">
+            class="overflow-x-hidden overflow-y-auto inset-0 justify-center items-center flex">
+            <div v-if="getRoles === 'true'" class="relative w-auto my-6 mx-auto max-w-6xl flex flex-col-reverse">
                 <!--content-->
                 <div
                     class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -127,12 +142,33 @@ export default {
                         </router-link>
                     </div>
                 </div>
+                <div v-if="statuscode === 400" class="px-2 mt-4">
+
+                    <!-- Alert Error -->
+                    <div class="bg-[#fecdd3] px-6 py-4 mx-2 my-4 rounded-md text-lg flex items-center mx-auto max-w-lg">
+                        <svg viewBox="0 0 24 24" class="text-[#dc2626] w-5 h-5 sm:w-5 sm:h-5 mr-3">
+                            <path fill="currentColor"
+                                d="M11.983,0a12.206,12.206,0,0,0-8.51,3.653A11.8,11.8,0,0,0,0,12.207,11.779,11.779,0,0,0,11.8,24h.214A12.111,12.111,0,0,0,24,11.791h0A11.766,11.766,0,0,0,11.983,0ZM10.5,16.542a1.476,1.476,0,0,1,1.449-1.53h.027a1.527,1.527,0,0,1,1.523,1.47,1.475,1.475,0,0,1-1.449,1.53h-.027A1.529,1.529,0,0,1,10.5,16.542ZM11,12.5v-6a1,1,0,0,1,2,0v6a1,1,0,1,1-2,0Z">
+                            </path>
+                        </svg>
+                        <span class="text-[#991b1b]">Error, Superadmin tidak dapat melakukan edit dengan superadmin
+                            lainnya dan halaman ini akan dialihkan dalam 5 detik</span>
+                    </div>
+                    <!-- End Alert Error -->
+
+                </div>
             </div>
             <div v-else>
                 <p class="font-bold font-poppins text-5xl">Dilarang Akses Halaman Ini</p>
-                <a href="/kelolaakun" class="hover:text-orange hover:underline font-bold font-poppins text-5xl">Klik Disini Untuk Kembali ke Halaman Sebelumnya</a>
+                <a href="/kelolaakun" class="hover:text-orange hover:underline font-bold font-poppins text-5xl">Klik Disini
+                    Untuk Kembali ke Halaman Sebelumnya</a>
             </div>
+
+
+
         </form>
         <div v-if="showeditadmin" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+
+
     </div>
 </template>

@@ -55,7 +55,7 @@ export default {
             const url = `https://elgeka-web-api-production.up.railway.app/api/v1/memberKomunitas/${id}`
             axios.patch(url, formData, { headers: { 'Authorization': `Bearer ${tokenlogin}`, 'Content-Type': 'multipart/form-data' } })
                 .then(response => {
-                    this.$router.push('/profilkomunitas')
+                    this.$router.push('/penguruskomunitas')
                     console.log(response.data)
 
                 })

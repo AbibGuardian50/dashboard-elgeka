@@ -108,8 +108,8 @@ export default {
         <div class="px-8">
             <p class="font-gotham font-bold text-[30px] text-sulfurblack">Informasi CML</p>
             <hr class="border-[#D0D5DD]">
-            <div>
-                <table class="min-w-full divide-y divide-gray-200 overflow-x-auto max-w-[1400px]">
+            <div class="w-[1400px]">
+                <table class=" overflow-x-auto">
                     <thead class="bg-gray-50">
                         <tr>
                             <th scope="col" class="px-6 py-3 text-left font-gotham text-sulfurblack text-base font-normal">
@@ -124,9 +124,6 @@ export default {
                             <th scope="col" class="px-6 py-3 text-left font-gotham text-sulfurblack text-base font-normal">
                                 Deskripsi
                             </th>
-                            <th scope="col"
-                                class="px-6 py-3 text-left font-gotham text-sulfurblack text-base w-[300px] font-normal">
-                            </th>
                             <th scope="col" class="">
                                 <button v-on:click="toggleModalCreateBerita()"
                                     class="bg-orange px-2 py-1 text-left font-gotham text-sulfurblack text-base">+</button>
@@ -135,7 +132,7 @@ export default {
                     </thead>
 
                     <tbody v-for="data in daftarberita" :key="data.id" class="bg-white divide-y divide-gray-200">
-                        <tr>
+                        <tr class="border-b border-black">
                             <td class="px-6 py-4 whitespace-nowrap font-gotham font-normal text-sulfurblack text-base">
                                 {{ data.no }}
                             </td>
@@ -145,7 +142,7 @@ export default {
                             <td class="px-6 py-4 max-w-[200px]">
                                 <p class="font-gotham font-normal text-sulfurblack text-base">{{ data.kategori }}</p>
                             </td>
-                            <td class="px-6 py-4 max-w-[300px]">
+                            <td class="px-6 py-4 max-w-[400px]">
                                 <span v-html="data.content" class="text-base text-gray-900">
                                 </span>
                             </td>

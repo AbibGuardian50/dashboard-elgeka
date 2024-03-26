@@ -5,7 +5,10 @@ export default {
         logout() {
         // Hapus token dari localStorage atau dari state aplikasi
         VueCookies.remove('tokenlogin'); // Contoh jika token disimpan di localStorage atau cookies
-        sessionStorage.removeItem('superAdmin');
+        VueCookies.remove('superAdmin');
+        VueCookies.remove('email');
+        VueCookies.remove('fullname');
+        VueCookies.remove('id_user');
         // Lakukan langkah lain yang diperlukan saat logout
     },
     
@@ -89,10 +92,10 @@ export default {
                                 class="focus:bg-[#EEEEED] px-4 focus:text-black focus:opacity-100 focus:font-inter focus:font-bold font-gotham font-bold text-white opacity-70">Pengurus Komunitas</button>
                         </router-link>
 
-                        <!-- <router-link to="/editprofiladmin">
+                        <router-link to="/editprofiladmin">
                             <button
                                 class="focus:bg-[#EEEEED] px-4 focus:text-black focus:opacity-100 focus:font-inter focus:font-bold font-gotham font-bold text-white opacity-70">Edit Profil</button>
-                        </router-link> -->
+                        </router-link>
 
                     </div>
                 </div>

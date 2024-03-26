@@ -18,7 +18,7 @@ export default {
                     },
                 })
                 this.daftaradmin = response.data.result.data
-                const superAdmin = sessionStorage.getItem('superAdmin')
+                const superAdmin = VueCookies.get('superAdmin')
                 this.getRoles = superAdmin
                 console.log(this.getRoles)
                 console.log(this.daftaradmin)
@@ -45,8 +45,8 @@ export default {
             axios.patch(url, this.edited, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
                 .then(response => {
                     console.log(response.data)
-                    this.statuscode = response.data.code
-                    if (response.data.code === 201) {
+                    this.resulterror = response.data
+                    if (response.data.code === 200) {
                         this.$router.push('/kelolaakun')
                     } else if (response.data.code === 400){
                         setTimeout(() => {
@@ -63,11 +63,11 @@ export default {
         return {
             showeditadmin: false,
             getRoles: false,
-            statuscode: '',
+            resulterror: '',
             daftaradmin: '',
             edited: {
                 full_name: '',
-                email: ''
+                username: ''
             }
         }
     },
@@ -108,9 +108,9 @@ export default {
                         </div>
 
                         <div class="flex gap-2 flex-col">
-                            <label for="Email" class="font-poppins font-bold text-base text-orange">Email</label>
-                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="email" name="Email"
-                                v-model="edited.email" id="" :placeholder="daftaradmin.email">
+                            <label for="username" class="font-poppins font-bold text-base text-orange">Username</label>
+                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" name="username"
+                                v-model="edited.username" id="" :placeholder="daftaradmin.username">
                         </div>
 
                         <!-- <div class="flex gap-2 flex-col">
@@ -142,7 +142,7 @@ export default {
                         </router-link>
                     </div>
                 </div>
-                <div v-if="statuscode === 400" class="px-2 mt-4">
+                <div v-if="resulterror.message === 'Error Update Admin by ID: Unauthorized, Superadmins cannot update other superadmins'" class="px-2 mt-4">
 
                     <!-- Alert Error -->
                     <div class="bg-[#fecdd3] px-6 py-4 mx-2 my-4 rounded-md text-lg flex items-center mx-auto max-w-lg">
@@ -151,8 +151,7 @@ export default {
                                 d="M11.983,0a12.206,12.206,0,0,0-8.51,3.653A11.8,11.8,0,0,0,0,12.207,11.779,11.779,0,0,0,11.8,24h.214A12.111,12.111,0,0,0,24,11.791h0A11.766,11.766,0,0,0,11.983,0ZM10.5,16.542a1.476,1.476,0,0,1,1.449-1.53h.027a1.527,1.527,0,0,1,1.523,1.47,1.475,1.475,0,0,1-1.449,1.53h-.027A1.529,1.529,0,0,1,10.5,16.542ZM11,12.5v-6a1,1,0,0,1,2,0v6a1,1,0,1,1-2,0Z">
                             </path>
                         </svg>
-                        <span class="text-[#991b1b]">Error, Superadmin tidak dapat melakukan edit dengan superadmin
-                            lainnya dan halaman ini akan dialihkan dalam 5 detik</span>
+                        <span class="text-[#991b1b]">Error, superadmin tidak bisa edit superadmin lainnya</span>
                     </div>
                     <!-- End Alert Error -->
 

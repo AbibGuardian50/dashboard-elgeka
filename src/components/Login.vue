@@ -4,11 +4,11 @@ import VueCookies from 'vue-cookies';
 export default {
     data() {
         return {
-            email: [],
+            username: [],
             password: [],
             error: '',
             rememberMe: false,
-            rememberedEmail: '',
+            rememberedUsername: '',
             rememberedPassword: ''
         }
     },
@@ -17,21 +17,23 @@ export default {
             try {
                 const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/admin/login'
                 const response = await axios.post(url, {
-                    email: this.email,
+                    username: this.username,
                     password: this.password
                 })
                 if (response.data.code === 200) {
                     this.$router.push('/kelolaakun');
                     console.log(response)
                     VueCookies.set('tokenlogin', response.data.result.token)
-                    sessionStorage.setItem('id_user', response.data.result.user.id)
-                    sessionStorage.setItem('superAdmin', response.data.result.user.superAdmin)
+                    // VueCookies.set('fullname', response.data.result.user.full_name)
+                    // VueCookies.set('email', response.data.result.user.email)
+                    VueCookies.set('id_user', response.data.result.user.id)
+                    VueCookies.set('superAdmin', response.data.result.user.superAdmin)
                     if (this.rememberMe) {
-                        localStorage.setItem('rememberedEmail', this.email);
+                        localStorage.setItem('rememberedUsername', this.username);
                         localStorage.setItem('rememberedPassword', this.password);
                     }
                 } else {
-                    this.error = 'email atau password yang dimasukkan salah, mohon coba lagi'
+                    this.error = 'username atau password yang dimasukkan salah, mohon coba lagi'
                 }
             } catch (error) {
                 this.error = 'ada kesalahan dari sistem, mohon coba lagi'
@@ -39,12 +41,12 @@ export default {
         }
     },
     mounted() {
-    const rememberedEmail = localStorage.getItem('rememberedEmail');
-    const rememberedPassword = localStorage.getItem('rememberedPassword'); // tambahkan ini
-    if (rememberedEmail && rememberedPassword) {
-        this.email = rememberedEmail;
-        this.password = rememberedPassword; // tambahkan ini
-        this.rememberMe = true; // Pastikan checkbox Remember Me diaktifkan
+    const rememberedUsername = localStorage.getItem('rememberedUsername');
+    const rememberedPassword = localStorage.getItem('rememberedPassword');
+    if (rememberedUsername && rememberedPassword) {
+        this.username = rememberedUsername; // Perbaikan disini
+        this.password = rememberedPassword;
+        this.rememberMe = true;
     }
 }
 }
@@ -63,13 +65,13 @@ export default {
             <img class="w-[120px] pb-20" src="../assets/logo.png" alt="Logo">
             <h1 class="text-2xl font-bold font-[verdana] text-[32px] mb-4">Dashboard Admin</h1>
             <form @submit.prevent="login">
-                <!-- email Input -->
+                <!-- username Input -->
                 <div class="mb-4">
-                    <label for="email"
-                        class="block font-[verdana] font-normal text-[14px] text-[#344054] mb-2">Email</label>
-                    <input type="text" id="email" name="email" v-model="email" required
+                    <label for="username"
+                        class="block font-[verdana] font-normal text-[14px] text-[#344054] mb-2">username</label>
+                    <input type="text" id="username" name="username" v-model="username" required
                         class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
-                        autocomplete="off" placeholder="enter your email address">
+                        autocomplete="off" placeholder="enter your username">
                 </div>
                 <!-- Password Input -->
                 <div class="mb-4">

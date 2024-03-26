@@ -12,7 +12,6 @@ export default {
   async created() {
     try {
       const tokenlogin = VueCookies.get('tokenlogin')
-
       if (tokenlogin) {
         const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/admin'
         const response = await axios.get(url, {
@@ -23,9 +22,7 @@ export default {
         if (response.data.code === 400) {
           console.log('Superadmin tidak bisa edit superadmin lainnya')
         }
-        const superAdmin = sessionStorage.getItem('superAdmin')
-        const idAdmin = sessionStorage.getItem('id_user')
-        this.idUser = idAdmin
+        const superAdmin = VueCookies.get('superAdmin')
         this.getRoles = superAdmin
         this.daftarid = response.data.result.data.id
         this.daftaradmin = response.data.result.data
@@ -34,7 +31,6 @@ export default {
           item.no = index + 1;
         });
         console.log(this.daftaradmin)
-        console.log(this.idUser)
       } else {
         this.error = 'dilarang akses halaman ini'
       }
@@ -59,7 +55,7 @@ export default {
       daftarid: "",
       form: {
         full_name: [],
-        email: [],
+        username: [],
         password: [],
         superAdmin: [],
       },
@@ -111,7 +107,7 @@ export default {
         })
     },
     deleteadmin(id) {
-      if (confirm('Are you sure you want to delete this admin account?')) {
+      if (confirm('Apakah kamu yakin untuk menghapus akun admin ini?')) {
         const tokenlogin = VueCookies.get('tokenlogin')
         const url = `https://elgeka-web-api-production.up.railway.app/api/v1/admin/${id}`
         axios.delete(url, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
@@ -148,7 +144,7 @@ export default {
                 Nama Lengkap
               </th>
               <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-sulfurblack text-base">
-                Email
+                Username
               </th>
               <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-sulfurblack text-base">
                 Status
@@ -158,13 +154,13 @@ export default {
               </th>
               <th v-if="getRoles === 'true'" scope="col" class="">
                 <button v-on:click="toggleModalCreateAdmin()"
-                  class="bg-orange px-2 py-1 text-left font-gotham text-sulfurblack text-base">+</button>
+                  class="bg-orange px-4 py-1 rounded-md text-left font-inter font-semibold text-white text-base">Tambah</button>
               </th>
             </tr>
           </thead>
           <tbody v-for="data in daftaradmin" :key="data.id" class="bg-white divide-y divide-gray-200">
             <tr>
-              <td class="px-6 py-4 whitespace-nowrap font-gotham font-normal text-sulfurblack text-base">
+              <td class="px-6 py-4 whitespace-nowrap font-gotham font-normal  text-sulfurblack text-base">
                 {{ data.no }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
@@ -183,20 +179,20 @@ export default {
                 </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <p class="font-gotham font-normal text-sulfurblack text-base underline">{{ data.email }}</p>
+                <p class="font-gotham font-normal text-sulfurblack text-base underline">{{ data.username }}</p>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <span class="py-2 px-8 inline-flex text-base leading-5 font-semibold rounded-md bg-green">
+                <span class="inline-flex font-inter text-base text-[#52FF00] leading-5 font-extrabold rounded-md">
                   Aktif
                 </span>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 <span v-if="data.superAdmin === true"
-                  class="py-2 px-8 inline-flex text-base leading-5 font-semibold rounded-md bg-[#F470FF]">
+                  class="inline-flex font-inter text-base leading-5 font-bold rounded-md">
                   Super Admin
                 </span>
 
-                <span v-else class="py-2 px-8 inline-flex text-base leading-5 font-semibold rounded-md bg-[#70C3FF]">
+                <span v-else class="inline-flex font-inter text-base leading-5 font-bold rounded-md">
                   Admin
                 </span>
               </td>
@@ -253,9 +249,9 @@ export default {
                   </div>
 
                   <div class="flex gap-2 flex-col">
-                    <label for="Email" class="font-poppins font-bold text-base text-orange">Email</label>
-                    <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="email" name="Email" id=""
-                      v-model="form.email" placeholder="abib@gmail.com">
+                    <label for="username" class="font-poppins font-bold text-base text-orange">username</label>
+                    <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" name="username" id=""
+                      v-model="form.username" placeholder="admin abib">
                   </div>
 
                   <div class="flex gap-2 flex-col">

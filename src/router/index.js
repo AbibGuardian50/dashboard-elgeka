@@ -98,7 +98,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (EditBerita.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/EditBerita.vue'),
+      component: () => import('../views/Editberita.vue'),
       beforeEnter: (to, from, next) => {
         const tokenlogin = VueCookies.get('tokenlogin');
         if (!tokenlogin) {

@@ -86,12 +86,12 @@ export default {
                 <div class="flex flex-col justify-center items-center m-auto gap-8">
                     <!-- Ubah profil komunitas -->
                     <div v-if="profilkomunitas.currentPage === 1"
-                        class="bg-[#FF6200B2] px-32 pb-2 w-[1022px] left-[24rem] top-[10rem] isolate rounded-xl shadow-lg ring-1 ring-black/5">
+                        class="bg-offwhite px-32 pb-2 w-[1022px] left-[24rem] top-[10rem] isolate rounded-xl shadow-lg border-2 border-orange">
                         <div>
-                            <p class="font-bold font-poppins text-[40px] text-white text-center pt-4">PROFILE</p>
-                            <p class="font-bold font-poppins text-[40px] text-white text-center pb-4">{{ profilkomunitas.data.title }}</p>
+                            <p class="font-bold font-poppins text-[40px] text-black text-center pt-4">PROFILE</p>
+                            <p class="font-bold font-poppins text-[40px] text-black text-center pb-4">{{ profilkomunitas.data.title }}</p>
                             <div v-html="profilkomunitas.data.content"
-                                class="text-[16px] text-[#FFFFFFB2] font-normal font-poppins leading-6 pb-4 ">
+                                class="text-[16px] text-transparentblack font-normal font-poppins leading-6 pb-4 ">
 
                             </div>
                         </div>
@@ -107,7 +107,7 @@ export default {
 
                         <div class="flex justify-end items-end">
                             <a :href="'editprofilkomunitas'"><button
-                                    class="bg-white py-2 px-8 font-poppins font-bold text-xl leading-6 rounded-lg text-orange">Edit</button></a>
+                                    class="bg-orange py-2 px-8 font-poppins font-bold text-xl text-white leading-6 rounded-lg text-orange">Edit</button></a>
                         </div>
 
 
@@ -115,21 +115,21 @@ export default {
 
                     <!-- Ubah Foto Sampul -->
                     <div v-if="profilkomunitas.currentPage === 1"
-                        class="bg-[#FF6200B2] w-[1022px] left-[24rem] top-[40rem] isolate rounded-xl shadow-lg ring-1 ring-black/5">
+                        class="bg-offwhite w-[1022px] left-[24rem] top-[40rem] isolate rounded-xl shadow-lg border-2 border-orange">
                         <div class="flex ">
                             <img class="max-w-[340px] p-4 max-h-[200px]" :src="url + profilkomunitas.data.image_url"
                                 alt="foto-sampul">
                             <div>
-                                <p class="font-bold font-poppins text-[40px] text-white text-center pt-4">Ubah Foto Sampul
+                                <p class="font-bold font-poppins text-base text-black  py-4">Ubah Foto Sampul
                                 </p>
-                                <p class="text-[16px] text-[#FFFFFFB2] font-normal font-poppins leading-6 pb-4 ">Terakhir
+                                <p class="text-base text-[#FFFFFFB2] font-normal text-black font-poppins leading-6 pb-4 ">Terakhir
                                     Diubah : {{
                                 formatDateTime(profilkomunitas.data.updatedAt) }}</p>
                             </div>
 
                             <div class="flex flex-col justify-end ml-[9.5rem] pb-2">
                                 <button v-on:click="toggleModalEditFotoSampul()"
-                                    class=" bg-white py-2 px-8 font-poppins font-bold text-xl leading-6 rounded-lg text-orange">Edit</button>
+                                    class=" bg-orange py-2 px-8 font-poppins font-bold text-xl leading-6 rounded-lg text-white">Edit</button>
                             </div>
 
                         </div>

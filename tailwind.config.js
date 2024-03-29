@@ -12,6 +12,7 @@ export default {
         'white': '#ffffff',
         'black': '#263238',
         'sulfurblack': '#040503',
+        'transparentblack': '#000000B2',
         'lightwhite': 'rgba(255, 255, 255, 0.7)',
         'milkwhite' : 'F9F0EE',
         'offwhite': '#FFFFFFB2',

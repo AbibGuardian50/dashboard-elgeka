@@ -202,7 +202,7 @@ export default {
                     class="py-1 px-8 rounded-[5px] bg-orange font-inter font-bold text-base text-white">Edit</button>
                 </a>
                 <button href="#" @click="deleteadmin(data.id)"
-                  class="py-1 px-8 rounded-[5px] bg-[#ff4c61] ml-2 font-inter font-bold text-base text-white">Hapus</button>
+                  class="py-1 px-8 rounded-[5px] bg-[#ff4c61] ml-2 shadow-xl bg-offwhite bg-opacity-64 text-orange font-inter font-bold text-base ">Hapus</button>
               </td>
               <!-- <td v-if="getRoles === 'false' && idAdmin === daftarid"
                 class="px-6 py-4 whitespace-nowrap  text-sm font-medium">

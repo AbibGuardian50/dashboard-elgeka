@@ -34,7 +34,7 @@ export default {
     data() {
         return {
             daftarkegiatan: '',
-            edited: {
+            daftarkegiatan: {
                 title: '',
                 content: '',
                 tempat: '',
@@ -46,7 +46,7 @@ export default {
         editkegiatan(id) {
             const tokenlogin = VueCookies.get('tokenlogin')
             const url = `https://elgeka-web-api-production.up.railway.app/api/v1/kegiatanKomunitas/${id}`
-            axios.patch(url, this.edited, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
+            axios.patch(url, this.daftarkegiatan, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
                 .then(response => {
                     this.$router.push('/kegiatan')
                     console.log(response.data)
@@ -87,13 +87,13 @@ export default {
                         <div class="flex gap-2 flex-col">
                             <label for="Judul" class="font-poppins font-bold text-base text-orange">Judul</label>
                             <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
-                                v-model="edited.title" name="Judul" id="" :placeholder="daftarkegiatan.title">
+                                v-model="daftarkegiatan.title" name="Judul" id="" :placeholder="daftarkegiatan.title">
                         </div>
 
                         <div class="flex gap-2 flex-col">
                             <label for="tempat" class="font-poppins font-bold text-base text-orange">Tempat</label>
-                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" name="tempat"
-                                :placeholder="daftarkegiatan.tempat">
+                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" name="tempat" 
+                            v-model="daftarkegiatan.tempat" :placeholder="daftarkegiatan.tempat">
                         </div>
 
                         <div class="flex gap-2 flex-col">
@@ -101,14 +101,14 @@ export default {
                                 Kegiatan</label>
                             <div class="border border-black py-2 min-w-[550px] pl-2 rounded-md" id="app">
                                 <quill-editor theme="snow" contentType="html"
-                                    v-model:content="edited.content"><p>{{ daftarkegiatan.content }}</p></quill-editor>
+                                    v-model:content="daftarkegiatan.content"><p>{{ daftarkegiatan.content }}</p></quill-editor>
                             </div>
                         </div>
 
                         <div class="flex gap-2 flex-col">
                             <label for="Tanggal" class="font-poppins font-bold text-base text-orange">Tanggal</label>
                             <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" name="Tanggal"
-                                v-model="edited.date" id="" :placeholder="daftarkegiatan.date">
+                                v-model="daftarkegiatan.date" id="" :placeholder="daftarkegiatan.date">
                         </div>
 
 

@@ -76,7 +76,7 @@ export default {
         },
         deletepengurus(id) {
             if (confirm('Are you sure you want to delete this admin account?')) {
-                const tokenlogin = sessionStorage.getItem('tokenlogin')
+                const tokenlogin = VueCookies.get('tokenlogin')
                 const url = `https://elgeka-web-api-production.up.railway.app/api/v1/memberKomunitas/${id}`
                 axios.delete(url, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
                     .then(response => {
@@ -130,7 +130,7 @@ export default {
                             </th>
                             <th scope="col" class="">
                                 <button v-on:click="toggleModalCreatePengurus()"
-                                    class="bg-orange px-2 py-1 text-left font-gotham text-black text-base">+</button>
+                                    class="bg-orange px-2 py-1 text-left font-gotham text-white rounded-md text-base">Tambah</button>
                             </th>
                         </tr>
                     </thead>
@@ -164,7 +164,7 @@ export default {
                                         class="py-1 px-8 rounded-[5px] bg-orange font-inter font-bold text-base text-white">Edit</button>
                                 </a>
                                 <button href="#" @click="deletepengurus(data.id)"
-                                    class="py-1 px-8 rounded-[5px] bg-[#ff4c61] ml-2 font-inter font-bold text-base text-white">Hapus</button>
+                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-orange  ml-2 font-inter font-bold text-base">Hapus</button>
                             </td>
                         </tr>
                         <!-- More rows... -->

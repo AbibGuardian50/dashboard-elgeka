@@ -79,9 +79,9 @@ export default {
                     if (response.data.code === 201) {
                         setTimeout(() => {
                             window.location.reload();
-                        }, 5000);
+                        }, 2000);
                     } else if (response.data.code === 400) {
-                        cons
+                        
                     }
 
                 })
@@ -140,7 +140,7 @@ export default {
         <sidebar />
 
         <div class="px-8">
-            <p class="text-[30px] text-orange font-gotham font-bold">Pengurus Komunitas</p>
+            <p class="text-[30px] text-orange font-gotham font-bold">Quotes</p>
             <hr>
             <div>
                 <table class="min-w-full divide-y divide-gray-200 overflow-x-auto w-[1200px]">
@@ -181,8 +181,8 @@ export default {
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <p class="font-gotham font-normal text-sulfurblack text-base">{{ data.author_name }}</p>
+                            <td class="px-6 py-4 max-w-[250px]">
+                                <p class="font-gotham font-normal text-sulfurblack text-base ">{{ data.author_name }}</p>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="pr-4 inline-flex text-base leading-5 font-semibold rounded-full">
@@ -194,12 +194,12 @@ export default {
                                 <p class="font-gotham font-normal text-sulfurblack text-base">{{ data.quote }}</p>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap  text-sm font-medium">
-                                <a :href="'editpengurus/' + data.id">
+                                <a :href="'editquotes/' + data.id">
                                     <button
                                         class="py-1 px-8 rounded-[5px] bg-orange font-inter font-bold text-base text-white">Edit</button>
                                 </a>
-                                <!-- <button href="#" @click="deletequotes(data.id)"
-                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-orange  ml-2 font-inter font-bold text-base">Hapus</button> -->
+                                <button href="#" @click="deletequotes(data.id)"
+                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-orange  ml-2 font-inter font-bold text-base">Hapus</button>
                             </td>
                         </tr>
                         <!-- More rows... -->
@@ -246,6 +246,20 @@ export default {
                     <form v-if="showcreatequotes" @submit.prevent="createquote()"
                         class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
                         <div class="relative w-auto my-6 mx-auto max-w-6xl">
+                             <!-- Alert Error -->
+                            <div v-if="statuscode === 201" class="px-2 mt-4">
+                                <div
+                                    class="bg-[#473FE8] px-6 py-4 mx-2 my-4 rounded-md text-lg flex items-center mx-auto max-w-lg">
+                                    <svg viewBox="0 0 24 24" class="text-[#4576F5] w-5 h-5 sm:w-5 sm:h-5 mr-3">
+                                        <path fill="currentColor"
+                                            d="M11.983,0a12.206,12.206,0,0,0-8.51,3.653A11.8,11.8,0,0,0,0,12.207,11.779,11.779,0,0,0,11.8,24h.214A12.111,12.111,0,0,0,24,11.791h0A11.766,11.766,0,0,0,11.983,0ZM10.5,16.542a1.476,1.476,0,0,1,1.449-1.53h.027a1.527,1.527,0,0,1,1.523,1.47,1.475,1.475,0,0,1-1.449,1.53h-.027A1.529,1.529,0,0,1,10.5,16.542ZM11,12.5v-6a1,1,0,0,1,2,0v6a1,1,0,1,1-2,0Z">
+                                        </path>
+                                    </svg>
+                                    <span class="text-white">Berhasil membuat quotes, halaman akan refresh dalam 2
+                                        detik</span>
+                                </div>
+                                <!-- End Alert Error -->
+                            </div>
                             <!--content-->
                             <div
                                 class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -269,26 +283,30 @@ export default {
                                             class="font-poppins font-bold text-base text-orange">Author</label>
                                         <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
                                             name="Author" v-model="form.author_name" id=""
-                                            placeholder="Muhammad Abieb Basnuril">
+                                            placeholder="Muhammad Abieb Basnuril" required>
                                     </div>
 
                                     <div class="flex gap-2 flex-col">
                                         <label for="username"
                                             class="font-poppins font-bold text-base text-orange">Quotes</label>
                                         <textarea class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
-                                            name="username" id="" v-model="form.quote" placeholder="Masukkan Quotes"></textarea>
+                                            name="username" id="" v-model="form.quote" placeholder="Masukkan Quotes"
+                                            required></textarea>
                                     </div>
 
                                     <div class="flex gap-2 flex-col">
                                         <label for="Gambar"
                                             class="font-poppins font-bold text-base text-orange">Gambar</label>
                                         <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="file"
-                                            name="Password" @change="handleFileChange" id="">
+                                            name="Password" @change="handleFileChange" id="" required>
+                                        <p v-if="errorMessage" class="text-[#EF0307] font-semibold" >{{ errorMessage
+                                        }}</p>
                                     </div>
 
                                     <div class="flex gap-2 flex-col justify-end">
                                         <label for="Generate Quote"
-                                            class="font-poppins font-bold text-base text-orange">Generate Quote (ChatGPT)</label>
+                                            class="font-poppins font-bold text-base text-orange">Generate Quote
+                                            (ChatGPT)</label>
                                         <div class="flex flex-col">
                                             <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md"
                                                 type="text" name="username" id="" v-model="prompt"
@@ -318,7 +336,9 @@ export default {
                                     </button>
                                 </div>
                             </div>
+
                         </div>
+
                     </form>
                     <div v-if="showcreatequotes" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
                 </div>
@@ -374,19 +394,6 @@ export default {
 
 
 
-        <div v-if="statuscode === 201" class="px-2 mt-4">
 
-            <!-- Alert Error -->
-            <div class="bg-[#473FE8] px-6 py-4 mx-2 my-4 rounded-md text-lg flex items-center mx-auto max-w-lg">
-                <svg viewBox="0 0 24 24" class="text-[#4576F5] w-5 h-5 sm:w-5 sm:h-5 mr-3">
-                    <path fill="currentColor"
-                        d="M11.983,0a12.206,12.206,0,0,0-8.51,3.653A11.8,11.8,0,0,0,0,12.207,11.779,11.779,0,0,0,11.8,24h.214A12.111,12.111,0,0,0,24,11.791h0A11.766,11.766,0,0,0,11.983,0ZM10.5,16.542a1.476,1.476,0,0,1,1.449-1.53h.027a1.527,1.527,0,0,1,1.523,1.47,1.475,1.475,0,0,1-1.449,1.53h-.027A1.529,1.529,0,0,1,10.5,16.542ZM11,12.5v-6a1,1,0,0,1,2,0v6a1,1,0,1,1-2,0Z">
-                    </path>
-                </svg>
-                <span class="text-white">Berhasil membuat quotes, halaman akan refresh dalam 2 detik</span>
-            </div>
-            <!-- End Alert Error -->
-
-        </div>
     </div>
 </template>

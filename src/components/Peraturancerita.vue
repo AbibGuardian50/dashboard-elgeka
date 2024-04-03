@@ -26,8 +26,10 @@ export default {
         return {
             aturanblog: [],
             showeditaturanblog: false,
-            edited: {
-                content: [],
+            aturanblog: {
+                data: {
+                    content: [],
+                }
             }
         }
     },
@@ -38,7 +40,7 @@ export default {
         editaturan() {
             const tokenlogin = VueCookies.get('tokenlogin')
             const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/aturanBlog'
-            axios.patch(url, this.edited, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
+            axios.patch(url, this.aturanblog.data, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
                 .then(response => {
                     console.log(response.data)
                     window.location.reload()
@@ -102,7 +104,7 @@ export default {
                                         <label for="Judul" class="font-poppins font-bold text-base text-orange">Aturan Blog
                                         </label>
                                         <quill-editor theme="snow" contentType="html"
-                                            v-model:content="edited.content"></quill-editor>
+                                            v-model:content="aturanblog.data.content"></quill-editor>
                                     </div>
                                 </div>
                                 <!--footer-->

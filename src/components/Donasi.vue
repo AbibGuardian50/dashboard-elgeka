@@ -15,6 +15,7 @@ export default {
             const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/donasi'
             const response = await axios.get(url);
             this.donasielgeka = response.data.result
+            console.log(this.donasielgeka)
         } catch (error) {
             console.error(error);
         }
@@ -28,12 +29,19 @@ export default {
             donasielgeka: [],
             gambar_url: 'https://elgeka-web-api-production.up.railway.app/',
             ShowEditDonasi: false,
+            errorMessage: '',
+            donasielgeka: {
+                data: {
+                    title: '',
+                    donate_link: '',
+                    content: '',
+                }
+            },
             edited: {
-                title: [],
-                donate_link: [],
-                content: [],
                 image: [],
             },
+                
+            
         }
     },
     methods: {
@@ -41,10 +49,10 @@ export default {
             const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/donasi'
             const tokenlogin = VueCookies.get('tokenlogin')
             const formData = new FormData();
-            formData.append('title', this.edited.title);
-            formData.append('donate_link', this.edited.donate_link);
-            formData.append('content', this.edited.content);
-            formData.append('image', this.edited.image);
+            formData.append('title', this.donasielgeka.data.title);
+            formData.append('donate_link', this.donasielgeka.data.donate_link);
+            formData.append('content', this.donasielgeka.data.content);
+            formData.append('image', this.donasielgeka.data.image);
             axios.patch(url, formData, { headers: { 'Authorization': `Bearer ${tokenlogin}`, 'Content-Type': 'multipart/form-data' } })
                 .then(response => {
                     console.log(response.data)
@@ -61,7 +69,17 @@ export default {
             const selectedFile = event.target.files[0];
 
             // Mengatur file yang dipilih ke dalam variabel edited.image
-            this.edited.image = selectedFile;
+            this.donasielgeka.data.image = selectedFile;
+
+            const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+
+            if (!allowedExtensions.exec(selectedFile.name)) {
+                this.errorMessage = 'Hanya file JPEG, JPG, dan PNG yang diizinkan';
+            } else {
+                // Lakukan proses upload file
+                // this.uploadFile(file);
+                this.errorMessage = ''; // Bersihkan pesan error jika file valid
+            }
         },
         toggleModalEditDonasi: function () {
             this.ShowEditDonasi = !this.ShowEditDonasi;
@@ -84,7 +102,8 @@ export default {
                 <a :href="donasielgeka.data.donate_link"
                     class="font-poppins font-bold text-[40px] text-center hover:underline mb-2" target="_blank">{{
                         donasielgeka.data.donate_link }}</a>
-                <p v-html="donasielgeka.data.content" class="font-poppins font-normal w-[673px] text-[16px] text-[#000000B2]"></p>
+                <p v-html="donasielgeka.data.content"
+                    class="font-poppins font-normal w-[673px] text-[16px] text-[#000000B2]"></p>
                 <button @click="toggleModalEditDonasi()"
                     class="px-8 my-4 ml-[50rem] py-2 bg-orange flex flex-col justify-end items-end font-bold rounded-md text-white text-center text-[14px]">Edit</button>
 
@@ -100,7 +119,7 @@ export default {
                                 <!--header-->
                                 <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
                                     <h3 class="text-[40px] text-orange font-semibold font-poppins">
-                                        Edit Foto Sampul
+                                        Edit Donasi
                                     </h3>
                                     <button
                                         class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -117,14 +136,14 @@ export default {
                                         </label>
                                         <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
                                             name="Judul" id="Judul" :placeholder="donasielgeka.data.title"
-                                            v-model="edited.title">
+                                            v-model="donasielgeka.data.title">
                                     </div>
                                     <div class="flex gap-2 flex-col">
                                         <label for="Link" class="font-poppins font-bold text-base text-orange">Link
                                         </label>
                                         <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
                                             name="Link" id="Link" :placeholder="donasielgeka.data.donate_link"
-                                            v-model="edited.donate_link">
+                                            v-model="donasielgeka.data.donate_link">
                                     </div>
                                     <div class="flex gap-2 flex-col">
                                         <label for="Deskripsi"
@@ -132,7 +151,7 @@ export default {
                                         </label>
                                         <div class="border border-black py-2 min-w-[550px] pl-2 rounded-md" id="app">
                                             <quill-editor theme="snow" contentType="html"
-                                                v-model:content="edited.content"></quill-editor>
+                                                v-model:content="donasielgeka.data.content"></quill-editor>
                                         </div>
                                     </div>
                                     <div class="flex gap-2 flex-col">
@@ -141,6 +160,8 @@ export default {
                                         </label>
                                         <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="file"
                                             name="Foto Sampul" id="foto-sampul-input" @change="handleFileChange">
+                                            <p v-if="errorMessage" class="text-[#EF0307] font-semibold" >{{ errorMessage
+                                        }}</p>
                                     </div>
                                 </div>
                                 <!--footer-->
@@ -168,8 +189,7 @@ export default {
         </div>
 
 
-</div>
-
+    </div>
 </template>
 
 <style>

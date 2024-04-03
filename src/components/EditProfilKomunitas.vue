@@ -25,7 +25,7 @@ export default {
     data() {
         return {
             communityprofile: [],
-            edited: {
+            communityprofile: {
                 title: [],
                 content: [],
                 ig_link: [],
@@ -38,7 +38,7 @@ export default {
         editprofile() {
             const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/profilKomunitas'
             const tokenlogin = VueCookies.get('tokenlogin')
-            axios.patch(url, this.edited, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
+            axios.patch(url, this.communityprofile, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
                 .then(response => {
                     console.log(response.data)
                     this.$router.push('/profilkomunitas')
@@ -78,7 +78,7 @@ export default {
                             <label for="Judul" class="font-poppins font-bold text-base text-orange">Judul
                             </label>
                             <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text" name="Judul"
-                                id="" v-model="edited.title" :placeholder="communityprofile.title">
+                                id="" v-model="communityprofile.title" :placeholder="communityprofile.title">
                         </div>
                     </div>
 
@@ -88,7 +88,7 @@ export default {
                                 Komunitas
                             </label>
                             <div  class="border border-black py-2 min-w-[550px] pl-2 rounded-md" id="app">
-                                <quill-editor :toolbar="['bold', 'italic', 'underline','image']" theme="snow" contentType="html" v-model:content="edited.content"></quill-editor>
+                                <quill-editor :toolbar="['bold', 'italic', 'underline','image']" theme="snow" contentType="html" v-model:content="communityprofile.content"></quill-editor>
                             </div>
                         </div>
                     </div>
@@ -99,7 +99,7 @@ export default {
                                 Instagram
                             </label>
                             <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
-                                name="Link Instagram" v-model="edited.ig_link" id=""
+                                name="Link Instagram" v-model="communityprofile.ig_link" id=""
                                 :placeholder="communityprofile.ig_link">
                         </div>
                     </div>
@@ -110,7 +110,7 @@ export default {
                                 Facebook
                             </label>
                             <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
-                                name="Link Facebook" id="" v-model="edited.fb_link" :placeholder="communityprofile.fb_link">
+                                name="Link Facebook" id="" v-model="communityprofile.fb_link" :placeholder="communityprofile.fb_link">
                         </div>
                     </div>
 
@@ -119,7 +119,7 @@ export default {
                             <label for="Link Twitter" class="font-poppins font-bold text-base text-orange">Link Twitter
                             </label>
                             <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
-                                name="Link Twitter" id="" v-model="edited.twitter_link"
+                                name="Link Twitter" id="" v-model="communityprofile.twitter_link"
                                 :placeholder="communityprofile.twitter_link">
                         </div>
                     </div>

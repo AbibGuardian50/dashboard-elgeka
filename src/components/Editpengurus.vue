@@ -35,7 +35,7 @@ export default {
         return {
             daftarkegiatan: '',
             daftarpengurus: '',
-            edited: {
+            daftarpengurus: {
                 full_name: '',
                 jabatan: '',
                 quote: '',
@@ -47,10 +47,10 @@ export default {
         editpengurus(id) {
             const tokenlogin = VueCookies.get('tokenlogin')
             const formData = new FormData();
-            formData.append('full_name', this.edited.full_name);
-            formData.append('jabatan', this.edited.jabatan);
-            formData.append('quote', this.edited.quote);
-            formData.append('image', this.edited.image);
+            formData.append('full_name', this.daftarpengurus.full_name);
+            formData.append('jabatan', this.daftarpengurus.jabatan);
+            formData.append('quote', this.daftarpengurus.quote);
+            formData.append('image', this.daftarpengurus.image);
 
             const url = `https://elgeka-web-api-production.up.railway.app/api/v1/memberKomunitas/${id}`
             axios.patch(url, formData, { headers: { 'Authorization': `Bearer ${tokenlogin}`, 'Content-Type': 'multipart/form-data' } })
@@ -69,7 +69,7 @@ export default {
             const selectedFile = event.target.files[0];
 
             // Mengatur file yang dipilih ke dalam variabel edited.image
-            this.edited.image = selectedFile;
+            this.daftarpengurus.image = selectedFile;
         },
     }
 }
@@ -102,23 +102,23 @@ export default {
                         <div class="flex gap-2 flex-col">
                             <label for="nama lengkap" class="font-poppins font-bold text-base text-orange">Nama
                                 Lengkap</label>
-                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
-                                v-model="edited.full_name" name="nama lengkap" id=""
+                            <input required class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
+                                v-model="daftarpengurus.full_name" name="nama lengkap" id=""
                                 :placeholder="daftarpengurus.full_name">
                         </div>
 
                         <div class="flex gap-2 flex-col">
                             <label for="Peran" class="font-poppins font-bold text-base text-orange">Role
                             </label>
-                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
-                                v-model="edited.jabatan" name="Peran" id="" :placeholder="daftarpengurus.jabatan">
+                            <input required class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
+                                v-model="daftarpengurus.jabatan" name="Peran" id="" :placeholder="daftarpengurus.jabatan">
                         </div>
 
                         <div class="flex gap-2 flex-col">
                             <label for="Quote" class="font-poppins font-bold text-base text-orange">Deskripsi
                             </label>
-                            <quill-editor class="border border-black py-4 min-w-[550px] pl-2 rounded-md" theme="snow"
-                                contentType="html" v-model:content="edited.quote"></quill-editor>
+                            <quill-editor required class="border border-black py-4 min-w-[550px] pl-2 rounded-md" theme="snow"
+                                contentType="html" v-model:content="daftarpengurus.quote"></quill-editor>
                         </div>
 
                         <div class="flex gap-2 flex-col">

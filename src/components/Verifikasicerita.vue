@@ -91,7 +91,7 @@ export default {
               </th> -->
                             <th scope="col" class="">
                                 <button
-                                    class="bg-orange px-2 py-1 text-left font-gotham text-black text-base font-normal ml-24">+</button>
+                                    class="bg-orange px-2 py-1 text-left font-gotham text-black text-base font-normal ml-24">Tambah</button>
                             </th>
                         </tr>
                     </thead>
@@ -135,8 +135,8 @@ export default {
                                 <td class="px-6 py-4 whitespace-nowrap  text-base font-medium">
                                     <button href="#"
                                         class="py-1 px-8 rounded-[5px] bg-orange font-inter font-bold text-base text-white">Setuju</button>
-                                    <button href="#"
-                                        class="py-1 px-8 rounded-[5px] bg-[#ff4c61] ml-2 font-inter font-bold text-base text-white">Hapus</button>
+                                        <button href="#"
+                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-orange  ml-2 font-inter font-bold text-base">Hapus</button>
                                 </td>
                             </tr>
                         </tbody>

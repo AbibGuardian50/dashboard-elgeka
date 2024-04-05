@@ -31,6 +31,8 @@ export default {
                 ig_link: [],
                 fb_link: [], 
                 twitter_link: [],
+                visi: [],
+                misi: [],
             },
         }
     },
@@ -121,6 +123,26 @@ export default {
                             <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
                                 name="Link Twitter" id="" v-model="communityprofile.twitter_link"
                                 :placeholder="communityprofile.twitter_link">
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-8 relative p-6">
+                        <div class="flex gap-2 flex-col">
+                            <label for="Visi" class="font-poppins font-bold text-base text-orange">Visi
+                            </label>
+                            <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
+                                name="Visi" id="" v-model="communityprofile.visi"
+                                :placeholder="communityprofile.visi">
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-8 relative p-6">
+                        <div class="flex gap-2 flex-col">
+                            <label for="Misi" class="font-poppins font-bold text-base text-orange">Misi
+                            </label>
+                            <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
+                                name="Misi" id="" v-model="communityprofile.misi"
+                                :placeholder="communityprofile.misi">
                         </div>
                     </div>
                     <!--footer-->

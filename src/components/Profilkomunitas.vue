@@ -1,7 +1,7 @@
 <script>
 import Sidebar from './Sidebar.vue'
 import moment from 'moment';
-import 'moment/locale/id';  
+import 'moment/locale/id';
 import VueCookies from 'vue-cookies';
 import axios from 'axios'
 import "quill/dist/quill.core.css";
@@ -80,58 +80,81 @@ export default {
     <div class="flex">
         <Sidebar />
         <div class="pl-8 pt-12">
-            <p class="w-full font-gotham font-bold text-[30px] leading-6 mb-8 border-b pb-4 border-[#D0D5DD]">Update Komunitas</p>
+            <p class="w-full font-gotham font-bold text-[30px] leading-6 mb-8 border-b pb-4 border-[#D0D5DD]">Update
+                Komunitas</p>
 
             <div id="container" class="flex">
                 <div class="flex flex-col justify-center items-center m-auto gap-8">
                     <!-- Ubah profil komunitas -->
                     <div v-if="profilkomunitas.currentPage === 1"
-                        class="bg-offwhite px-32 pb-2 w-[1022px] left-[24rem] top-[10rem] isolate rounded-xl shadow-lg border-2 border-orange">
-                        <div>
-                            <p class="font-bold font-poppins text-[40px] text-black text-center pt-4">PROFILE</p>
-                            <p class="font-bold font-poppins text-[40px] text-black text-center pb-4">{{ profilkomunitas.data.title }}</p>
-                            <div v-html="profilkomunitas.data.content"
-                                class="text-[16px] text-transparentblack font-normal font-poppins leading-6 pb-4 ">
-
+                        class="bg-offwhite pb-2 w-[1022px] left-[24rem] top-[10rem] isolate rounded-xl shadow-lg border-2 border-orange">
+                        <div class="max-w-[2023px] min-[2400px]:mx-auto">
+                            <div class="flex mx-10 my-8 justify-between  ">
+                                <div class="w-9/12">
+                                    <p class="font-poppins font-bold text-[40px] text-fullblack">{{
+                                        profilkomunitas.data.title }}
+                                    </p>
+                                    <div class="font-poppins font-normal text-[12px] text-darkgrey pr-8" v-html="profilkomunitas.data.content">
+                                    </div>
+                                    <div class="mt-4 flex gap-4 ">
+                                        <a :href="profilkomunitas.data.twitter_link" target="_blank"><img
+                                                class="w-[44px] h-[44px]" src="../assets/Logo-X.png" alt="Twitter"></a>
+                                        <a :href="profilkomunitas.data.fb_link" target="_blank"><img
+                                                class="w-[44px] h-[44px]" src="../assets/Logo-Facebook.png"
+                                                alt="Facebook"></a>
+                                        <a :href="profilkomunitas.data.ig_link" target="_blank"><img
+                                                class="w-[44px] h-[44px]" src="../assets/Logo-Instagram.png"
+                                                alt="Instagram"></a>
+                                    </div>
+                                </div>
+                                <img class="w-3/12 max-w-[438px] max-h-[463px] max-xl:h-full" src="../assets/together.png"
+                                    alt="foto">
+                            </div>
+                            <div class="flex flex-col gap-12">
+                                <div
+                                    class="border-2 border-grey flex flex-col items-center px-4 pt-1 max-[900px]:w-auto w-[972px] m-auto relative">
+                                    <p
+                                        class="absolute bg-orange bottom-[75%] right-[46%] px-4 py-1 rounded-lg font-inter font-bold text-[20px] text-white">
+                                        VISI</p>
+                                    <p class="p-4 font-poppins font-normal text-[20px] text-darkgrey">{{
+                                        profilkomunitas.data.visi }}</p>
+                                </div>
+                                <div
+                                    class="border-2 border-grey flex flex-col items-center px-4 pt-1 max-[900px]:w-auto w-[972px] m-auto relative">
+                                    <p
+                                        class="absolute bg-orange bottom-[75%] right-[46%] px-4 py-1 rounded-lg font-inter font-bold text-[20px] text-white">
+                                        MISI</p>
+                                    <p class="p-4 font-poppins font-normal text-[20px] text-darkgrey">{{
+                                        profilkomunitas.data.misi }}</p>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="mt-4 right-4 absolute left-[82rem] top-[11rem] flex flex-col gap-4">
-                            <a :href="profilkomunitas.data.ig_link" target="_blank"><img class="w-[35px] h-[35px]"
-                                    src="../assets/Logo-Instagram.png" alt="Instagram"></a>
-                            <a :href="profilkomunitas.data.fb_link" target="_blank"><img class="w-[35px] h-[35px]"
-                                    src="../assets/Logo-Facebook.png" alt="Facebook"></a>
-                            <a :href="profilkomunitas.data.twitter_link" target="_blank"><img class="w-[35px] h-[35px]"
-                                    src="../assets/Logo-X.png" alt="Twitter"></a>
-                        </div>
-
-                        <div class="flex justify-end items-end">
+                        <div class="flex justify-end items-end py-4 pr-4">
                             <a :href="'editprofilkomunitas'"><button
                                     class="bg-orange py-2 px-8 font-poppins font-bold text-xl text-white leading-6 rounded-lg text-orange">Edit</button></a>
                         </div>
-
-
                     </div>
-
                     <!-- Ubah Foto Sampul -->
                     <div v-if="profilkomunitas.currentPage === 1"
                         class="bg-offwhite w-[1022px] left-[24rem] top-[40rem] isolate rounded-xl shadow-lg border-2 border-orange">
-                        <div class="flex ">
-                            <img class="max-w-[340px] p-4 max-h-[200px]" :src="url + profilkomunitas.data.image_url"
-                                alt="foto-sampul">
-                            <div>
-                                <p class="font-bold font-poppins text-base text-black  py-4">Ubah Foto Sampul
-                                </p>
-                                <p class="text-base text-[#FFFFFFB2] font-normal text-black font-poppins leading-6 pb-4 ">Terakhir
-                                    Diubah : {{
-                                formatDateTime(profilkomunitas.data.updatedAt) }}</p>
+                        <div class="flex justify-between ">
+                            <div class="flex">
+                                <img class="max-w-[340px] p-4 max-h-[200px]" :src="url + profilkomunitas.data.image_url"
+                                    alt="foto-sampul">
+                                <div>
+                                    <p class="font-bold font-poppins text-base text-black  py-4">Ubah Foto Sampul
+                                    </p>
+                                    <p
+                                        class="text-base text-[#FFFFFFB2] font-normal text-black font-poppins leading-6 pb-4 ">
+                                        Terakhir
+                                        Diubah : {{
+                                            formatDateTime(profilkomunitas.data.updatedAt) }}</p>
+                                </div>
                             </div>
-
-                            <div class="flex flex-col justify-end ml-[9.5rem] pb-2">
+                            <div class="flex justify-end items-end py-4 pr-4">
                                 <button v-on:click="toggleModalEditFotoSampul()"
-                                    class=" bg-orange py-2 px-8 font-poppins font-bold text-xl leading-6 rounded-lg text-white">Edit</button>
+                                    class="bg-orange py-2 px-8 font-poppins font-bold text-xl text-white leading-6 rounded-lg">Edit</button>
                             </div>
-
                         </div>
                     </div>
                 </div>

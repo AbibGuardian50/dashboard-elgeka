@@ -16,6 +16,7 @@ export default {
         'lightwhite': 'rgba(255, 255, 255, 0.7)',
         'milkwhite' : 'F9F0EE',
         'offwhite': '#FFFFFFB2',
+        'darkgrey': '#363636',
         'lightgrey': '#F6F6F6',
         'bluegrey': '#64748b',
         'grey': '#D9D9D9',

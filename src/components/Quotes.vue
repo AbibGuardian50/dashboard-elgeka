@@ -81,9 +81,7 @@ export default {
                             window.location.reload();
                         }, 2000);
                     } else if (response.data.code === 400) {
-                        
                     }
-
                 })
                 .catch(error => {
                     console.log(error)
@@ -102,7 +100,6 @@ export default {
                         console.log(error)
                     })
             }
-
         },
         formatDateTime(dateTimeString) {
             moment.locale('id');

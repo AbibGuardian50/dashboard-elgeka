@@ -182,8 +182,12 @@ export default {
                 <p class="font-gotham font-normal text-sulfurblack text-base underline">{{ data.username }}</p>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <span class="inline-flex font-inter text-base text-[#52FF00] leading-5 font-extrabold rounded-md">
+                <span v-if="data.is_active === true" class="inline-flex font-inter text-base text-[#52FF00] leading-5 font-extrabold rounded-md">
                   Aktif
+                </span>
+
+                <span v-if="data.is_active === false" class="inline-flex font-inter text-base text-[#52FF00] leading-5 font-extrabold rounded-md">
+                  Nonaktif
                 </span>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">

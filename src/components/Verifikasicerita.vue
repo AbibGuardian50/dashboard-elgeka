@@ -3,7 +3,7 @@ import Sidebar from "./Sidebar.vue"
 import axios from "axios"
 import VueCookies from 'vue-cookies';
 import moment from 'moment';
-import 'moment/locale/id';  
+import 'moment/locale/id';
 
 export default {
     async created() {
@@ -52,7 +52,6 @@ export default {
 <template>
     <div class="flex ">
         <Sidebar />
-
         <div class="px-8">
             <p class="font-gotham font-bold text-[30px] text-sulfurblack">Verifikasi Cerita User</p>
             <hr class="border-[#D0D5DD]">
@@ -83,63 +82,58 @@ export default {
                             <th scope="col" class="px-6 py-3 text-left font-gotham text-black text-base font-normal">
                                 Status
                             </th>
-                            <!-- <th scope="col" class="px-6 py-3 text-left font-medium text-gray-500 font-normal">
-                Role
-              </th>
-              <th scope="col" class="px-6 py-3 text-left font-medium text-gray-500 font-normal">
-                Email
-              </th> -->
-                            <th scope="col" class="">
-                                <button
-                                    class="bg-orange px-2 py-1 text-left font-gotham text-black text-base font-normal ml-24">Tambah</button>
-                            </th>
                         </tr>
                     </thead>
 
-                    
-                        <tbody v-for="data in DaftarVerifCerita" class="bg-white divide-y divide-gray-200">
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-base text-black text-center">
-                                    1
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-base text-black">
-                                    {{formatDateTime(data.createdAt)}}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
 
-                                        <div class="">
-                                            <div class="text-base font-medium text-gray-900">
-                                                {{ data.author_name }}
-                                            </div>
+                    <tbody v-for="data in DaftarVerifCerita" class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-base text-black text-center">
+                                1
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-base text-black">
+                                {{ formatDateTime(data.createdAt) }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
 
+                                    <div class="">
+                                        <div class="text-base font-medium text-gray-900">
+                                            {{ data.author_name }}
                                         </div>
+
                                     </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap  text-base font-medium">
-                                    <button href="#"
-                                        class="py-1 px-8 rounded-[5px] bg-orange font-inter font-bold text-base text-white">Lihat</button>
-                                </td>
-                                <td class="px-6 py-4 max-w-[300px]">
-                                    <p class="text-base text-gray-900">{{ data.title }}</p>
-                                </td>
-                                <td class="px-6 py-4 max-w-[300px]">
-                                    <p class="text-base text-gray-900">{{ data.content }}</p>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="py-2 px-8 inline-flex text-base text-white leading-5 font-bold font-inter rounded-md bg-yellow">
-                                        Pending
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap  text-base font-medium">
-                                    <button href="#"
-                                        class="py-1 px-8 rounded-[5px] bg-orange font-inter font-bold text-base text-white">Setuju</button>
-                                        <button href="#"
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap  text-base font-medium">
+                                <button href="#"
+                                    class="py-1 px-8 rounded-[5px] bg-orange font-inter font-bold text-base text-white">Lihat</button>
+                            </td>
+                            <td class="px-6 py-4 max-w-[300px]">
+                                <p class="text-base text-gray-900">{{ data.title }}</p>
+                            </td>
+                            <td class="px-6 py-4 max-w-[300px]">
+                                <div class="text-base text-gray-900" v-html="data.content"></div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span v-if="data.isVerified === true"
+                                    class="inline-flex text-base text-black leading-5 font-bold font-inter rounded-md">
+                                   Sudah di Verifikasi
+                                </span>
+
+                                <span v-if="data.isVerified === false"
+                                    class="inline-flex text-base text-black leading-5 font-bold font-inter rounded-md">
+                                   Pending
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap  text-base font-medium">
+                                <a :href="'editcerita/' + data.id"><button
+                                        class="py-1 px-8 rounded-[5px] bg-orange font-inter font-bold text-base text-white">Edit</button></a>
+                                <button href="#"
                                     class="py-1 px-8 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-orange  ml-2 font-inter font-bold text-base">Hapus</button>
-                                </td>
-                            </tr>
-                        </tbody>
+                            </td>
+                        </tr>
+                    </tbody>
 
                 </table>
             </div>

@@ -109,6 +109,25 @@ const router = createRouter({
       }
 
     },
+
+    {
+      path: '/editcerita/:id',
+      name: 'editcerita',
+      // route level code-splitting
+      // this generates a separate chunk (EditBerita.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/EditCerita.vue'),
+      beforeEnter: (to, from, next) => {
+        const tokenlogin = VueCookies.get('tokenlogin');
+        if (!tokenlogin) {
+          next('/')
+        } else {
+          next()
+        }
+      }
+
+    },
+
     {
       path: '/editkegiatan/:id',
       name: 'editkegiatan',

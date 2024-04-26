@@ -31,7 +31,7 @@ export default {
                 author_name: [],
                 title: [],
                 content: [],
-                isVerified: [],
+                isVerified: '',
             },
         }
     },
@@ -53,6 +53,7 @@ export default {
         editstory(id) {
             const url = `https://elgeka-web-api-production.up.railway.app/api/v1/blog/${id}`
             const tokenlogin = VueCookies.get('tokenlogin')
+            this.storyblog.isVerified = this.storyblog.isVerified.toString();
             axios.patch(url, this.storyblog, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
                 .then(response => {
                     console.log(response.data)
@@ -67,7 +68,7 @@ export default {
             try {
                 const tokenlogin = VueCookies.get('tokenlogin')
                 const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/blog/generate'
-                const response = await axios.post(url, { prompt: this.prompt }, { headers: { 'Authorization': `Bearer ${tokenlogin}` } });
+                const response = await axios.post(url, { prompt: this.prompt + "" + this.storyblog.content }, { headers: { 'Authorization': `Bearer ${tokenlogin}` } });
                 this.storyblog.content = response.data.result.generated_blog;
                 console.log(response.data);
             } catch (error) {

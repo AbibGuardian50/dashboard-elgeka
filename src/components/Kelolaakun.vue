@@ -186,7 +186,7 @@ export default {
                   Aktif
                 </span>
 
-                <span v-if="data.is_active === false" class="inline-flex font-inter text-base text-[#52FF00] leading-5 font-extrabold rounded-md">
+                <span v-if="data.is_active === false" class="inline-flex font-inter text-base text-red leading-5 font-extrabold rounded-md">
                   Nonaktif
                 </span>
               </td>

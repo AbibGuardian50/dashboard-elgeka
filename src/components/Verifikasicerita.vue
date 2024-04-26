@@ -17,6 +17,10 @@ export default {
                     },
                 })
                 this.DaftarVerifCerita = response.data.result.data
+                // this.DaftarVerifCerita.sort((x, y) => x.id - y.id)
+                this.DaftarVerifCerita.forEach((item, index) => {
+                    item.no = index + 1;
+                });
                 this.StatusVerifCerita = response.data.result.data.isVerified
                 console.log(this.StatusVerifCerita)
                 console.log(this.DaftarVerifCerita)
@@ -70,9 +74,6 @@ export default {
                                 Nama
                             </th>
                             <th scope="col" class="px-6 py-3 text-left font-gotham text-black text-base font-normal">
-                                Media
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left font-gotham text-black text-base font-normal">
                                 Judul
                             </th>
                             <th scope="col"
@@ -89,7 +90,7 @@ export default {
                     <tbody v-for="data in DaftarVerifCerita" class="bg-white divide-y divide-gray-200">
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap text-base text-black text-center">
-                                1
+                                {{ data.no }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-base text-black">
                                 {{ formatDateTime(data.createdAt) }}
@@ -105,10 +106,6 @@ export default {
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap  text-base font-medium">
-                                <button href="#"
-                                    class="py-1 px-8 rounded-[5px] bg-orange font-inter font-bold text-base text-white">Lihat</button>
-                            </td>
                             <td class="px-6 py-4 max-w-[300px]">
                                 <p class="text-base text-gray-900">{{ data.title }}</p>
                             </td>
@@ -118,12 +115,12 @@ export default {
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span v-if="data.isVerified === true"
                                     class="inline-flex text-base text-black leading-5 font-bold font-inter rounded-md">
-                                   Sudah di Verifikasi
+                                    Sudah di Verifikasi
                                 </span>
 
                                 <span v-if="data.isVerified === false"
                                     class="inline-flex text-base text-black leading-5 font-bold font-inter rounded-md">
-                                   Pending
+                                    Pending
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap  text-base font-medium">

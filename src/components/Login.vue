@@ -41,14 +41,17 @@ export default {
         }
     },
     mounted() {
-    const rememberedUsername = localStorage.getItem('rememberedUsername');
-    const rememberedPassword = localStorage.getItem('rememberedPassword');
-    if (rememberedUsername && rememberedPassword) {
-        this.username = rememberedUsername; // Perbaikan disini
-        this.password = rememberedPassword;
-        this.rememberMe = true;
+        if (this.$route.path === '/login') {
+            const rememberedUsername = localStorage.getItem('rememberedUsername');
+            const rememberedPassword = localStorage.getItem('rememberedPassword');
+            if (rememberedUsername && rememberedPassword) {
+                this.username = rememberedUsername; // Perbaikan disini
+                this.password = rememberedPassword;
+                this.rememberMe = true;
+            }
+        }
+
     }
-}
 }
 </script>
 

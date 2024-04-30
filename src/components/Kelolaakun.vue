@@ -55,8 +55,8 @@ export default {
       daftarid: "",
       form: {
         full_name: [],
-        username: [],
-        password: [],
+        username: '',
+        password: '',
         superAdmin: [],
       },
       edited: {

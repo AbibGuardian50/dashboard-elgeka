@@ -94,7 +94,6 @@ export default {
         handleFileChange(event) {
             // Mengambil file yang dipilih oleh pengguna
             const selectedFile = event.target.files[0];
-
             // Mengatur file yang dipilih ke dalam variabel edited.image
             this.form.image = selectedFile;
         },

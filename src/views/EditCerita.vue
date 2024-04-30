@@ -1,6 +1,7 @@
 <script>
-import axios from 'axios'
+import axios from 'axios';
 import Quill from "quill";
+import Sidebar from "./Sidebar.vue"
 import VueCookies from 'vue-cookies';
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.bubble.css";
@@ -20,7 +21,8 @@ export default {
         }
     },
     components: {
-        QuillEditor
+        QuillEditor,
+        Sidebar
     },
     data() {
         return {
@@ -80,93 +82,85 @@ export default {
 </script>
 
 <template>
-    <div>
-        <form v-if="storyblog" @submit.prevent="editstory(storyblog.id)"
-            class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-            <div class="relative w-[600px] my-6 mx-auto max-w-6xl">
-                <!--content-->
-                <div
-                    class="border border-red rounded-lg shadow-lg relative flex flex-col w-fit bg-white outline-none focus:outline-none">
-                    <!--header-->
-                    <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
-                        <h3 class="text-[40px] text-orange font-semibold font-poppins">
-                            Edit Cerita
-                        </h3>
-                        <button
-                            class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none">
-                            <span
-                                class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                            </span>
-                        </button>
-                    </div>
-                    <!--body-->
-                    <div class="flex flex-col gap-8 relative p-6">
-                        <div class="flex gap-2 flex-col">
-                            <label for="Nama" class="font-poppins font-bold text-base text-orange">Nama
-                            </label>
-                            <input class="border border-black py-2 min-w-[520px] max-w-[531px] pl-2 rounded-md" type="text"
-                                name="Nama" id="" v-model="storyblog.author_name">
-                        </div>
-                    </div>
+    <div class="flex">
+        <Sidebar />
 
-                    <div class="flex flex-col gap-8 relative p-6">
-                        <div class="flex gap-2 flex-col">
-                            <label for="Deskripsi Komunitas"
-                                class="font-poppins font-bold text-base text-orange">Cerita</label>
-                            <div class="border border-black py-2 min-w-[520px] max-w-[531px] pl-2 rounded-md" id="app">
-                                <quill-editor :toolbar="['bold', 'italic', 'underline', 'image']" theme="snow"
+        <div class="pl-8">
+            <div class="flex border-b border-silver mb-1 justify-between">
+                <p class="font-gotham font-bold text-[30px] text-sulfurblack py-2">Edit</p>
+            </div>
+
+
+            <div>
+                <form class="flex" v-if="storyblog" @submit.prevent="editstory(storyblog.id)">
+                    <div class="bg-[#EEE8E7] p-4">
+                        <p class="font-gotham font-bold text-[30px] text-sulfurblack py-2">{{ storyblog.title }}</p>
+                        <div class="py-2 min-w-[720px] max-w-[721px] rounded-md" id="app">
+                                <quill-editor class="font-poppins font-normal text-[20px] leading-7" :toolbar="['bold', 'italic', 'underline', 'image']"
                                     contentType="html" v-model:content="storyblog.content"></quill-editor>
                             </div>
-                        </div>
                     </div>
 
-                    <div class="flex flex-col gap-8 relative p-6">
-                        <div class="flex gap-2 flex-col">
+                    <div class="max-w-[325px] flex-col">
+
+
+                        <div class="flex gap-2 flex-col mt-8 px-2">
                             <label for="Status" class="font-poppins font-bold text-base text-orange">Status</label>
+                            <!-- <input class="border border-black py-4 min-w-[550px] pr-2 rounded-md" type="text" name="nama lengkap" id="" placeholder="  Muhammad Abieb Basnuril"> -->
                             <select
-                                class="border bg-white border-black py-4 min-w-[520px] max-w-[531px] pl-2 rounded-md font-poppins font-medium text-base text-[#00000080]"
+                                class="border bg-white border-silver py-4 min-w-[320px] max-w-[325px] pl-2 rounded-lg shadow-[0px_1px_2px_0px_rgba(16, 24, 40, 0.05)] px-2 font-poppins font-medium text-base text-[#00000080]"
                                 name="Status" id="" v-model="storyblog.isVerified">
                                 <option value="false">Pending</option>
-                                <option value="true">Verified</option>
+                                <option value="true">Disetujui</option>
                             </select>
                         </div>
 
-                    </div>
-
-                    <div class="flex flex-col gap-8 relative p-6">
-                        <div class="flex gap-2 flex-col">
-                            <label for="Generate Quote" class="font-poppins font-bold text-base text-orange">Generate Quote
-                                (ChatGPT)</label>
-                            <div class="flex flex-col">
-                                <input class="border border-black py-4 min-w-[520px] max-w-[531px] pl-2 rounded-md"
-                                    type="text" name="username" id="" v-model="prompt" placeholder="Enter prompt here">
-                                <button type="button"
-                                    class="w-[150px] py-1 bg-orange text-white font-poppins rounded-md my-2 flex flex-col"
-                                    @click="generateQuote">Generate</button>
-
+                        <div class="flex flex-col gap-8 relative mt-8 px-2">
+                            <div class="flex gap-2 flex-col">
+                                <label for="Generate Quote" class="font-poppins font-bold text-base text-orange">Generate
+                                    Quote
+                                    (ChatGPT)</label>
+                                <div class="flex flex-col justify-center items-center">
+                                    <input
+                                        class="border bg-white border-silver py-4 min-w-[320px] max-w-[325px] pl-2 rounded-lg shadow-[0px_1px_2px_0px_rgba(16, 24, 40, 0.05)] px-2 font-poppins font-medium text-base text-[#00000080]"
+                                        type="text" name="username" id="" v-model="prompt" placeholder="Enter prompt here">
+                                    <button type="button"
+                                        class=" px-4 py-1 bg-orange text-white font-poppins font-bold rounded-lg my-2 flex flex-col"
+                                        @click="generateQuote">Generate</button>
+                                </div>
                             </div>
                         </div>
 
+                        <div class="px-6 py-4 mt-4 flex items-center justify-center text-base font-medium">
+                            <a><button type="submit"
+                                    class="py-1 px-4 rounded-[5px] bg-orange font-inter font-bold text-base text-white">Simpan</button></a>
+                            <button href="/verifikasicerita"
+                                class="py-1 px-4 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-orange  ml-2 font-inter font-bold text-base border border-orange">Batal</button>
+                        </div>
                     </div>
-
-                    <!--footer-->
-                    <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
-                        <button
-                            class="text-white bg-orange border hover:text-white active:bg-orange-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
-                            type="submit">
-                            Update
-                        </button>
-                        <router-link to="/verifikasicerita">
-                            <button
-                                class="text-orange bg-white border active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
-                                type="button">
-                                Cancel
-                            </button>
-                        </router-link>
-
-                    </div>
-                </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 </template>
+
+<style>
+/* select {
+    direction: rtl;
+}
+
+select option {
+    direction: ltr;
+} */
+
+/* .ql-toolbar.ql-snow {
+    border : 0
+} */
+
+.ql-container {
+    font-size : 20px;
+    font-weight: 400;
+    line-height: 30px;
+    color: #000000B2;
+}
+</style>

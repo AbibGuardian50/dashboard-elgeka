@@ -4,6 +4,9 @@ import axios from "axios"
 import VueCookies from 'vue-cookies';
 import moment from 'moment';
 import 'moment/locale/id';
+import { format } from 'date-fns';
+import id from 'date-fns/locale/id';
+import idLocale from 'date-fns/locale/id';
 
 export default {
     async created() {
@@ -45,9 +48,23 @@ export default {
         }
     },
     methods: {
-        formatDateTime(dateTimeString) {
-            moment.locale('id');
-            return moment(dateTimeString).format('LLL');
+        formatDate(dateString) {
+            // Ubah format tanggal
+            return format(new Date(dateString), 'dd MMMM yyyy HH:mm', { locale: id });
+        },
+        deletecerita(id) {
+            if (confirm('Apakah kamu yakin untuk menghapus cerita ini?')) {
+                const tokenlogin = VueCookies.get('tokenlogin')
+                const url = `https://elgeka-web-api-production.up.railway.app/api/v1/blog/${id}`
+                axios.delete(url, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
+                    .then(response => {
+                        console.log(response.data)
+                        window.location.reload();
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+            }
         },
     }
 }
@@ -57,62 +74,34 @@ export default {
     <div class="flex ">
         <Sidebar />
         <div class="px-8">
-            <p class="font-gotham font-bold text-[30px] text-sulfurblack">Verifikasi Cerita User</p>
+            <p class="font-gotham font-bold text-[30px] text-sulfurblack py-2">Verifikasi Cerita</p>
+            <hr class="border-[#D0D5DD]">
+            <p class="font-gotham font-normal text-[20px] text-sulfurblack py-2">Cerita User</p>
             <hr class="border-[#D0D5DD]">
 
             <div>
                 <table class="min-w-full divide-y divide-gray-200 overflow-x-auto">
-                    <thead class="bg-gray-50">
+
+                    <tbody v-for="data in DaftarVerifCerita" :key="data.id" class="bg-white divide-y divide-gray-200">
                         <tr>
-                            <th scope="col" class="px-6 py-3 text-left font-gotham text-black text-base font-normal">
-                                Nomor
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left font-gotham text-black text-base font-normal">
-                                Tanggal Dibuat
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left font-gotham text-black text-base font-normal">
-                                Nama
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left font-gotham text-black text-base font-normal">
-                                Judul
-                            </th>
-                            <th scope="col"
-                                class="px-6 py-3 text-left font-gotham text-black text-base w-[300px] font-normal">
-                                Cerita
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left font-gotham text-black text-base font-normal">
-                                Status
-                            </th>
-                        </tr>
-                    </thead>
-
-
-                    <tbody v-for="data in DaftarVerifCerita" class="bg-white divide-y divide-gray-200">
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-base text-black text-center">
-                                {{ data.no }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-base text-black">
-                                {{ formatDateTime(data.createdAt) }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-
-                                    <div class="">
-                                        <div class="text-base font-medium text-gray-900">
-                                            {{ data.author_name }}
-                                        </div>
-
-                                    </div>
+                            <div class="px-6 py-4 max-w-[400px] mr-32">
+                                <p class="text-[20px] leading-5 font-inter font-bold text-fullblack">{{ data.title }}</p>
+                                <div class="flex gap-1">
+                                    <p class="font-poppins font-normal text-[12px] leading-4 text-transparentblack">{{ data.author_name }}</p>
+                                    <p class="font-poppins font-normal text-[12px] leading-4 text-transparentblack">-</p>
+                                    <p class="font-poppins font-normal text-[12px] leading-4 text-transparentblack">{{ formatDate(data.createdAt) }}</p>
+                                    <p class="font-poppins font-normal text-[12px] leading-4 text-transparentblack ml-4" v-if="data.isVerified === false">Pending</p>
+                                    <p class="font-poppins font-normal text-[12px] leading-4 text-transparentblack ml-4" v-else-if="data.isVerified === true">Disetujui</p>
                                 </div>
+                            </div>
+
+                            <td class="px-6 py-4 whitespace-nowrap  text-base font-medium">
+                                <a :href="'editcerita/' + data.id"><button
+                                        class="py-1 px-8 rounded-[5px] bg-orange font-inter font-bold text-base text-white">Edit</button></a>
+                                <button href="#" @click="deletecerita(data.id)"
+                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-orange  ml-2 font-inter font-bold text-base">Hapus</button>
                             </td>
-                            <td class="px-6 py-4 max-w-[300px]">
-                                <p class="text-base text-gray-900">{{ data.title }}</p>
-                            </td>
-                            <td class="px-6 py-4 max-w-[300px]">
-                                <div class="text-base text-gray-900" v-html="data.content"></div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <!-- <td class="px-6 py-4 whitespace-nowrap">
                                 <span v-if="data.isVerified === true"
                                     class="inline-flex text-base text-black leading-5 font-bold font-inter rounded-md">
                                     Sudah di Verifikasi
@@ -122,13 +111,8 @@ export default {
                                     class="inline-flex text-base text-black leading-5 font-bold font-inter rounded-md">
                                     Pending
                                 </span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap  text-base font-medium">
-                                <a :href="'editcerita/' + data.id"><button
-                                        class="py-1 px-8 rounded-[5px] bg-orange font-inter font-bold text-base text-white">Edit</button></a>
-                                <button href="#"
-                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-orange  ml-2 font-inter font-bold text-base">Hapus</button>
-                            </td>
+                            </td> -->
+                            
                         </tr>
                     </tbody>
 

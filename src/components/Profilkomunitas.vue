@@ -87,7 +87,7 @@ export default {
                 <div class="flex flex-col justify-center items-center m-auto gap-8">
                     <!-- Ubah profil komunitas -->
                     <div v-if="profilkomunitas.currentPage === 1"
-                        class="bg-offwhite pb-2 w-[1022px] left-[24rem] top-[10rem] isolate rounded-xl shadow-lg border-2 border-orange">
+                        class="bg-offwhite pb-2 w-[1022px] left-[24rem] top-[10rem] isolate rounded-xl shadow-lg border-2 border-teal">
                         <div class="max-w-[2023px] min-[2400px]:mx-auto">
                             <div class="flex mx-10 my-8 justify-between  ">
                                 <div class="w-9/12">
@@ -114,7 +114,7 @@ export default {
                                 <div
                                     class="border-2 border-grey flex flex-col items-center px-4 pt-1 max-[900px]:w-auto w-[972px] m-auto relative">
                                     <p
-                                        class="absolute bg-orange bottom-[75%] right-[46%] px-4 py-1 rounded-lg font-inter font-bold text-[20px] text-white">
+                                        class="absolute bg-teal bottom-[75%] right-[46%] px-4 py-1 rounded-lg font-inter font-bold text-[20px] text-white">
                                         VISI</p>
                                     <p class="p-4 font-poppins font-normal text-[20px] text-darkgrey">{{
                                         profilkomunitas.data.visi }}</p>
@@ -122,7 +122,7 @@ export default {
                                 <div
                                     class="border-2 border-grey flex flex-col items-center px-4 pt-1 max-[900px]:w-auto w-[972px] m-auto relative">
                                     <p
-                                        class="absolute bg-orange bottom-[75%] right-[46%] px-4 py-1 rounded-lg font-inter font-bold text-[20px] text-white">
+                                        class="absolute bg-teal bottom-[75%] right-[46%] px-4 py-1 rounded-lg font-inter font-bold text-[20px] text-white">
                                         MISI</p>
                                     <p class="p-4 font-poppins font-normal text-[20px] text-darkgrey">{{
                                         profilkomunitas.data.misi }}</p>
@@ -131,12 +131,12 @@ export default {
                         </div>
                         <div class="flex justify-end items-end py-4 pr-4">
                             <a :href="'editprofilkomunitas'"><button
-                                    class="bg-orange py-2 px-8 font-poppins font-bold text-xl text-white leading-6 rounded-lg text-orange">Edit</button></a>
+                                    class="bg-teal py-2 px-8 font-poppins font-bold text-xl text-white leading-6 rounded-lg text-teal">Edit</button></a>
                         </div>
                     </div>
                     <!-- Ubah Foto Sampul -->
                     <div v-if="profilkomunitas.currentPage === 1"
-                        class="bg-offwhite w-[1022px] left-[24rem] top-[40rem] isolate rounded-xl shadow-lg border-2 border-orange">
+                        class="bg-offwhite w-[1022px] left-[24rem] top-[40rem] isolate rounded-xl shadow-lg border-2 border-teal">
                         <div class="flex justify-between ">
                             <div class="flex">
                                 <img class="max-w-[340px] p-4 max-h-[200px]" :src="url + profilkomunitas.data.image_url"
@@ -153,7 +153,7 @@ export default {
                             </div>
                             <div class="flex justify-end items-end py-4 pr-4">
                                 <button v-on:click="toggleModalEditFotoSampul()"
-                                    class="bg-orange py-2 px-8 font-poppins font-bold text-xl text-white leading-6 rounded-lg">Edit</button>
+                                    class="bg-teal py-2 px-8 font-poppins font-bold text-xl text-white leading-6 rounded-lg">Edit</button>
                             </div>
                         </div>
                     </div>
@@ -173,7 +173,7 @@ export default {
                         class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                         <!--header-->
                         <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
-                            <h3 class="text-[40px] text-orange font-semibold font-poppins">
+                            <h3 class="text-[40px] text-teal font-semibold font-poppins">
                                 Edit Profil Komunitas
                             </h3>
                             <button
@@ -187,7 +187,7 @@ export default {
                         <!--body-->
                         <div class="flex flex-col gap-8 relative p-6">
                             <div class="flex gap-2 flex-col">
-                                <label for="Judul" class="font-poppins font-bold text-base text-orange">Judul
+                                <label for="Judul" class="font-poppins font-bold text-base text-teal">Judul
                                 </label>
                                 <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
                                     name="Judul" id="" placeholder="Judul">
@@ -197,7 +197,7 @@ export default {
                         <div class="flex flex-col gap-8 relative p-6">
                             <div class="flex gap-2 flex-col">
                                 <label for="Deskripsi Komunitas"
-                                    class="font-poppins font-bold text-base text-orange">Deskripsi Komunitas
+                                    class="font-poppins font-bold text-base text-teal">Deskripsi Komunitas
                                 </label>
                                 <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
                                     name="Deskripsi Komunitas" id="" placeholder="Deskripsi Komunitas">
@@ -206,7 +206,7 @@ export default {
 
                         <div class="flex flex-col gap-8 relative p-6">
                             <div class="flex gap-2 flex-col">
-                                <label for="Link Instagram" class="font-poppins font-bold text-base text-orange">Link
+                                <label for="Link Instagram" class="font-poppins font-bold text-base text-teal">Link
                                     Instagram
                                 </label>
                                 <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
@@ -216,7 +216,7 @@ export default {
 
                         <div class="flex flex-col gap-8 relative p-6">
                             <div class="flex gap-2 flex-col">
-                                <label for="Link Facebook" class="font-poppins font-bold text-base text-orange">Link
+                                <label for="Link Facebook" class="font-poppins font-bold text-base text-teal">Link
                                     Facebook
                                 </label>
                                 <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
@@ -226,7 +226,7 @@ export default {
 
                         <div class="flex flex-col gap-8 relative p-6">
                             <div class="flex gap-2 flex-col">
-                                <label for="Link Twitter" class="font-poppins font-bold text-base text-orange">Link Twitter
+                                <label for="Link Twitter" class="font-poppins font-bold text-base text-teal">Link Twitter
                                 </label>
                                 <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
                                     name="Link Twitter" id="" placeholder="Link Twitter">
@@ -235,12 +235,12 @@ export default {
                         <!--footer-->
                         <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
                             <router-link to="/createcerita"><button
-                                    class="text-white bg-orange border hover:text-white active:bg-orange-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
+                                    class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
                                     type="button">
                                     Simpan
                                 </button></router-link>
                             <button
-                                class="text-orange bg-white border active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                                class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
                                 type="button" v-on:click="toggleModalEditProfilKomunitas()">
                                 batal
                             </button>
@@ -261,7 +261,7 @@ export default {
                         class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                         <!--header-->
                         <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
-                            <h3 class="text-[40px] text-orange font-semibold font-poppins">
+                            <h3 class="text-[40px] text-teal font-semibold font-poppins">
                                 Edit Foto Sampul
                             </h3>
                             <button
@@ -275,7 +275,7 @@ export default {
                         <!--body-->
                         <div class="flex flex-col gap-8 relative p-6">
                             <div class="flex gap-2 flex-col">
-                                <label for="Foto Sampul" class="font-poppins font-bold text-base text-orange">Foto Sampul
+                                <label for="Foto Sampul" class="font-poppins font-bold text-base text-teal">Foto Sampul
                                 </label>
                                 <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="file"
                                     name="Foto Sampul" id="foto-sampul-input" @change="handleFileChange">
@@ -284,12 +284,12 @@ export default {
                         <!--footer-->
                         <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
                             <button
-                                class="text-white bg-orange border hover:text-white active:bg-orange-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
+                                class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
                                 type="submit">
                                 Simpan
                             </button>
                             <button
-                                class="text-orange bg-white border active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                                class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
                                 type="button" v-on:click="toggleModalEditFotoSampul()">
                                 batal
                             </button>

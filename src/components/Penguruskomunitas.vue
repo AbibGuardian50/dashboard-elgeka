@@ -109,12 +109,12 @@ export default {
         <Sidebar />
 
         <div class="px-8">
-            <p class="text-[30px] text-orange font-gotham font-bold">Pengurus Komunitas</p>
+            <p class="text-[30px] text-teal font-gotham font-bold">Pengurus Komunitas</p>
             <hr>
             <div>
                 <table class="min-w-full divide-y divide-gray-200 overflow-x-auto w-[1200px]">
                     <thead class="bg-gray-50">
-                        <tr class="border-b-[0.5px] border-b-orange">
+                        <tr class="border-b-[0.5px] border-b-teal">
                             <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-sulfurblack text-base">
                                 NO
                             </th>
@@ -129,7 +129,7 @@ export default {
                             </th>
                             <th scope="col" class="">
                                 <button v-on:click="toggleModalCreatePengurus()"
-                                    class="bg-orange px-2 py-1 text-left font-gotham text-white rounded-md text-base">Tambah</button>
+                                    class="bg-teal px-2 py-1 text-left font-gotham text-white rounded-md text-base">Tambah</button>
                             </th>
                         </tr>
                     </thead>
@@ -160,10 +160,10 @@ export default {
                             <td class="px-6 py-4 whitespace-nowrap  text-sm font-medium">
                                 <a :href="'editpengurus/' + data.id">
                                     <button
-                                        class="py-1 px-8 rounded-[5px] bg-orange font-inter font-bold text-base text-white">Edit</button>
+                                        class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button>
                                 </a>
                                 <button href="#" @click="deletepengurus(data.id)"
-                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-orange  ml-2 font-inter font-bold text-base">Hapus</button>
+                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-teal  ml-2 font-inter font-bold text-base">Hapus</button>
                             </td>
                         </tr>
                         <!-- More rows... -->
@@ -181,7 +181,7 @@ export default {
                                 class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                 <!--header-->
                                 <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
-                                    <h3 class="text-[40px] text-orange font-semibold font-poppins">
+                                    <h3 class="text-[40px] text-teal font-semibold font-poppins">
                                         Input
                                     </h3>
                                     <button
@@ -199,7 +199,7 @@ export default {
                                     <p class="font-gotham font-normal text-[20px] leading-6 text-sulfurblack">Input Pengurus
                                         Komunitas</p>
                                     <div class="flex gap-2 flex-col">
-                                        <label for="nama lengkap" class="font-poppins font-bold text-base text-orange">Nama
+                                        <label for="nama lengkap" class="font-poppins font-bold text-base text-teal">Nama
                                             Lengkap</label>
                                         <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
                                             v-model="form.full_name" name="nama lengkap" id=""
@@ -207,44 +207,38 @@ export default {
                                     </div>
 
                                     <div class="flex gap-2 flex-col">
-                                        <label for="Peran" class="font-poppins font-bold text-base text-orange">Role
+                                        <label for="Peran" class="font-poppins font-bold text-base text-teal">Role
                                         </label>
                                         <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
                                             v-model="form.jabatan" name="Peran" id="" placeholder="Peran/Jabatan">
                                     </div>
 
                                     <div class="flex gap-2 flex-col">
-                                        <label for="Quote" class="font-poppins font-bold text-base text-orange">Deskripsi
+                                        <label for="Quote" class="font-poppins font-bold text-base text-teal">Deskripsi
                                         </label>
                                         <div class="flex gap-2 flex-col">
                                             <quill-editor class="border border-black py-4 min-w-[550px] pl-2 rounded-md"
                                                 theme="snow" contentType="html"
                                                 v-model:content="form.quote"></quill-editor>
                                         </div>
-
                                     </div>
-
                                     <div class="flex gap-2 flex-col">
-                                        <label for="Foto Profil" class="font-poppins font-bold text-base text-orange">Gambar
+                                        <label for="Foto Profil" class="font-poppins font-bold text-base text-teal">Gambar
                                             Lengkap</label>
                                         <input @change="handleFileChange"
                                             class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="file"
                                             name="Foto Profil" id="">
                                     </div>
-
-
-
-
                                 </div>
                                 <!--footer-->
                                 <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
                                     <button
-                                        class="text-white bg-orange border hover:text-white active:bg-orange-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
+                                        class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
                                         type="submit">
                                         Simpan
                                     </button>
                                     <button @click="toggleModalCreatePengurus()"
-                                        class="text-orange bg-white border active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                                        class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
                                         type="button">
                                         Batal
                                     </button>
@@ -266,7 +260,7 @@ export default {
                                 class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                 <!--header-->
                                 <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
-                                    <h3 class="text-[40px] text-orange font-semibold font-poppins">
+                                    <h3 class="text-[40px] text-teal font-semibold font-poppins">
                                         Konfirmasi Hapus Akun Admin
                                     </h3>
                                     <button
@@ -280,12 +274,12 @@ export default {
                                 <!--footer-->
                                 <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
                                     <button @click="deleteAdmin(id)"
-                                        class="text-white bg-orange border hover:text-white active:bg-orange-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
+                                        class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
                                         type="submit">
                                         Hapus
                                     </button>
                                     <button
-                                        class="text-orange bg-white border active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                                        class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
                                         type="button" v-on:click="toggleModalDeleteAdmin()">
                                         batal
                                     </button>

@@ -126,7 +126,7 @@ export default {
                     class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                     <!--header-->
                     <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
-                        <h3 class="text-[40px] text-orange font-semibold font-poppins">
+                        <h3 class="text-[40px] text-teal font-semibold font-poppins">
                             Edit Quotes
                         </h3>
                         <!-- <button
@@ -140,20 +140,20 @@ export default {
                     <!--body-->
                     <div class="flex flex-col gap-8 relative p-6">
                         <div class="flex gap-2 flex-col">
-                            <label for="Author" class="font-poppins font-bold text-base text-orange">Author</label>
+                            <label for="Author" class="font-poppins font-bold text-base text-teal">Author</label>
                             <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" name="Author"
                                 v-model="quotesdata.author_name" id="" placeholder="Muhammad Abieb Basnuril" required>
                         </div>
 
                         <div class="flex gap-2 flex-col">
-                            <label for="username" class="font-poppins font-bold text-base text-orange">Quotes</label>
+                            <label for="username" class="font-poppins font-bold text-base text-teal">Quotes</label>
                             <textarea class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
                                 name="username" id="" v-model="quotesdata.quote" placeholder="Masukkan Quotes"
                                 required></textarea>
                         </div>
 
                         <div class="flex gap-2 flex-col">
-                            <label for="Gambar" class="font-poppins font-bold text-base text-orange">Gambar</label>
+                            <label for="Gambar" class="font-poppins font-bold text-base text-teal">Gambar</label>
                             <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="file"
                                 name="Password" @change="handleFileChange" id="">
                             <p v-if="errorMessage" class="text-[#EF0307] font-semibold" required>{{ errorMessage
@@ -161,13 +161,13 @@ export default {
                         </div>
 
                         <div class="flex gap-2 flex-col justify-end">
-                            <label for="Generate Quote" class="font-poppins font-bold text-base text-orange">Generate Quote
+                            <label for="Generate Quote" class="font-poppins font-bold text-base text-teal">Generate Quote
                                 (ChatGPT)</label>
                             <div class="flex flex-col">
                                 <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
                                     name="username" id="" v-model="prompt" placeholder="Enter prompt here">
                                 <p
-                                    class="w-[150px] hover:cursor-pointer text-center py-1 bg-orange text-white font-poppins rounded-md my-2 flex flex-col"
+                                    class="w-[150px] hover:cursor-pointer text-center py-1 bg-teal text-white font-poppins rounded-md my-2 flex flex-col"
                                     @click="generateQuote">Generate</p>
 
                             </div>
@@ -176,12 +176,12 @@ export default {
                     <!--footer-->
                     <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
                         <button
-                            class="text-white bg-orange border hover:text-white active:bg-orange-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
+                            class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
                             type="submit">
                             Simpan
                         </button>
                         <a href="/quotes"><button
-                                class="text-orange bg-white border active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                                class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
                                 type="button">
                                 Tidak Simpan
                             </button></a>

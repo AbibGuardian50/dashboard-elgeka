@@ -64,7 +64,7 @@ export default {
                     class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                     <!--header-->
                     <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
-                        <h3 class="text-[40px] text-orange font-semibold font-poppins">
+                        <h3 class="text-[40px] text-teal font-semibold font-poppins">
                             Edit Profil Komunitas
                         </h3>
                         <button
@@ -77,7 +77,7 @@ export default {
                     <!--body-->
                     <div class="flex flex-col gap-8 relative p-6">
                         <div class="flex gap-2 flex-col">
-                            <label for="Judul" class="font-poppins font-bold text-base text-orange">Judul
+                            <label for="Judul" class="font-poppins font-bold text-base text-teal">Judul
                             </label>
                             <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text" name="Judul"
                                 id="" v-model="communityprofile.title" :placeholder="communityprofile.title">
@@ -86,7 +86,7 @@ export default {
 
                     <div class="flex flex-col gap-8 relative p-6">
                         <div class="flex gap-2 flex-col">
-                            <label for="Deskripsi Komunitas" class="font-poppins font-bold text-base text-orange">Deskripsi
+                            <label for="Deskripsi Komunitas" class="font-poppins font-bold text-base text-teal">Deskripsi
                                 Komunitas
                             </label>
                             <div  class="border border-black py-2 min-w-[550px] pl-2 rounded-md" id="app">
@@ -97,7 +97,7 @@ export default {
 
                     <div class="flex flex-col gap-8 relative p-6">
                         <div class="flex gap-2 flex-col">
-                            <label for="Link Instagram" class="font-poppins font-bold text-base text-orange">Link
+                            <label for="Link Instagram" class="font-poppins font-bold text-base text-teal">Link
                                 Instagram
                             </label>
                             <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
@@ -108,7 +108,7 @@ export default {
 
                     <div class="flex flex-col gap-8 relative p-6">
                         <div class="flex gap-2 flex-col">
-                            <label for="Link Facebook" class="font-poppins font-bold text-base text-orange">Link
+                            <label for="Link Facebook" class="font-poppins font-bold text-base text-teal">Link
                                 Facebook
                             </label>
                             <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
@@ -118,7 +118,7 @@ export default {
 
                     <div class="flex flex-col gap-8 relative p-6">
                         <div class="flex gap-2 flex-col">
-                            <label for="Link Twitter" class="font-poppins font-bold text-base text-orange">Link Twitter
+                            <label for="Link Twitter" class="font-poppins font-bold text-base text-teal">Link Twitter
                             </label>
                             <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
                                 name="Link Twitter" id="" v-model="communityprofile.twitter_link"
@@ -128,7 +128,7 @@ export default {
 
                     <div class="flex flex-col gap-8 relative p-6">
                         <div class="flex gap-2 flex-col">
-                            <label for="Visi" class="font-poppins font-bold text-base text-orange">Visi
+                            <label for="Visi" class="font-poppins font-bold text-base text-teal">Visi
                             </label>
                             <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
                                 name="Visi" id="" v-model="communityprofile.visi"
@@ -138,7 +138,7 @@ export default {
 
                     <div class="flex flex-col gap-8 relative p-6">
                         <div class="flex gap-2 flex-col">
-                            <label for="Misi" class="font-poppins font-bold text-base text-orange">Misi
+                            <label for="Misi" class="font-poppins font-bold text-base text-teal">Misi
                             </label>
                             <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
                                 name="Misi" id="" v-model="communityprofile.misi"
@@ -148,13 +148,13 @@ export default {
                     <!--footer-->
                     <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
                         <button
-                            class="text-white bg-orange border hover:text-white active:bg-orange-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
+                            class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
                             type="submit">
                             Update
                         </button>
                         <router-link to="/profilkomunitas">
                             <button
-                            class="text-orange bg-white border active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                            class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
                             type="button">
                             Cancel
                         </button>

@@ -25,7 +25,8 @@ export default {
         'vibrantorange': '#FF6200',
         'yellow': '#F3D42F',
         'greynight': '#BBB2B0',
-        'silver': '#D0D5DD'
+        'silver': '#D0D5DD',
+        'teal': '#0A6B77',
       },
       fontFamily: {
         'inter' : ['inter', 'sans-serif'],

@@ -137,12 +137,12 @@ export default {
         <sidebar />
 
         <div class="px-8">
-            <p class="text-[30px] text-orange font-gotham font-bold">Quotes</p>
+            <p class="text-[30px] text-teal font-gotham font-bold">Quotes</p>
             <hr>
             <div>
                 <table class="min-w-full divide-y divide-gray-200 overflow-x-auto w-[1200px]">
                     <thead class="bg-gray-50">
-                        <tr class="border-b-[0.5px] border-b-orange">
+                        <tr class="border-b-[0.5px] border-b-teal">
                             <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-sulfurblack text-base">
                                 No
                             </th>
@@ -160,7 +160,7 @@ export default {
                             </th>
                             <th scope="col" class="">
                                 <button v-on:click="toggleModalCreateQuotes()"
-                                    class="py-1 px-6 rounded-[5px] bg-orange font-inter font-bold text-base text-white">Tambah</button>
+                                    class="py-1 px-6 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Tambah</button>
                             </th>
                         </tr>
                     </thead>
@@ -193,10 +193,10 @@ export default {
                             <td class="px-6 py-4 whitespace-nowrap  text-sm font-medium">
                                 <a :href="'editquotes/' + data.id">
                                     <button
-                                        class="py-1 px-8 rounded-[5px] bg-orange font-inter font-bold text-base text-white">Edit</button>
+                                        class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button>
                                 </a>
                                 <button href="#" @click="deletequotes(data.id)"
-                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-orange  ml-2 font-inter font-bold text-base">Hapus</button>
+                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-teal  ml-2 font-inter font-bold text-base">Hapus</button>
                             </td>
                         </tr>
                         <!-- More rows... -->
@@ -211,21 +211,21 @@ export default {
                                         class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                         <!--header-->
                                         <div
-                                            class="flex items-start justify-between p-5 border-b-2 border-orange rounded-t">
-                                            <h3 class="text-[40px] text-orange font-semibold font-poppins">
+                                            class="flex items-start justify-between p-5 border-b-2 border-teal rounded-t">
+                                            <h3 class="text-[40px] text-teal font-semibold font-poppins">
                                                 Konfirmasi Hapus Quotes
                                             </h3>
                                         </div>
                                         <!--footer-->
                                         <div
-                                            class="flex items-center justify-center p-6 border-t-2 border-orange rounded-b">
+                                            class="flex items-center justify-center p-6 border-t-2 border-teal rounded-b">
                                             <button
-                                                class="text-white bg-orange border hover:text-white active:bg-orange-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
+                                                class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
                                                 type="submit">
                                                 Hapus
                                             </button>
                                             <button
-                                                class="text-orange bg-white border active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                                                class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
                                                 type="button" v-on:click="toggleModalDeleteQuotes()">
                                                 batal
                                             </button>
@@ -262,7 +262,7 @@ export default {
                                 class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                 <!--header-->
                                 <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
-                                    <h3 class="text-[40px] text-orange font-semibold font-poppins">
+                                    <h3 class="text-[40px] text-teal font-semibold font-poppins">
                                         Tambah Quotes
                                     </h3>
                                     <button
@@ -277,7 +277,7 @@ export default {
                                 <div class="flex flex-col gap-8 relative p-6">
                                     <div class="flex gap-2 flex-col">
                                         <label for="Author"
-                                            class="font-poppins font-bold text-base text-orange">Author</label>
+                                            class="font-poppins font-bold text-base text-teal">Author</label>
                                         <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
                                             name="Author" v-model="form.author_name" id=""
                                             placeholder="Muhammad Abieb Basnuril" required>
@@ -285,7 +285,7 @@ export default {
 
                                     <div class="flex gap-2 flex-col">
                                         <label for="username"
-                                            class="font-poppins font-bold text-base text-orange">Quotes</label>
+                                            class="font-poppins font-bold text-base text-teal">Quotes</label>
                                         <textarea class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
                                             name="username" id="" v-model="form.quote" placeholder="Masukkan Quotes"
                                             required></textarea>
@@ -293,7 +293,7 @@ export default {
 
                                     <div class="flex gap-2 flex-col">
                                         <label for="Gambar"
-                                            class="font-poppins font-bold text-base text-orange">Gambar</label>
+                                            class="font-poppins font-bold text-base text-teal">Gambar</label>
                                         <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="file"
                                             name="Password" @change="handleFileChange" id="" required>
                                         <p v-if="errorMessage" class="text-[#EF0307] font-semibold" >{{ errorMessage
@@ -302,14 +302,14 @@ export default {
 
                                     <div class="flex gap-2 flex-col justify-end">
                                         <label for="Generate Quote"
-                                            class="font-poppins font-bold text-base text-orange">Generate Quote
+                                            class="font-poppins font-bold text-base text-teal">Generate Quote
                                             (ChatGPT)</label>
                                         <div class="flex flex-col">
                                             <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md"
                                                 type="text" name="username" id="" v-model="prompt"
                                                 placeholder="Enter prompt here">
                                             <button
-                                                class="w-[150px] py-1 bg-orange text-white font-poppins rounded-md my-2 flex flex-col"
+                                                class="w-[150px] py-1 bg-teal text-white font-poppins rounded-md my-2 flex flex-col"
                                                 @click="generateQuote">Generate</button>
                                             <!-- <textarea class="bg-offwhite text-black font-bold font-poppins px-2"
                                                 v-model="quote"></textarea> -->
@@ -322,12 +322,12 @@ export default {
                                 <!--footer-->
                                 <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
                                     <button
-                                        class="text-white bg-orange border hover:text-white active:bg-orange-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
+                                        class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
                                         type="submit">
                                         Simpan
                                     </button>
                                     <button
-                                        class="text-orange bg-white border active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                                        class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
                                         type="button" v-on:click="toggleModalCreateQuotes()">
                                         Tidak Simpan
                                     </button>
@@ -353,9 +353,9 @@ export default {
                 <div>
                     <input type="text" class="bg-grey pl-4 py-1 w-full rounded-full" v-model="prompt"
                         placeholder="Enter your prompt here">
-                    <button class="px-8 py-2 bg-orange text-white font-poppins rounded-md my-2"
+                    <button class="px-8 py-2 bg-teal text-white font-poppins rounded-md my-2"
                         @click="generateQuote">Generate Quote</button>
-                    <div class="bg-orange text-white font-bold font-poppins px-2" v-if="quote">{{ quote.generated_quote
+                    <div class="bg-teal text-white font-bold font-poppins px-2" v-if="quote">{{ quote.generated_quote
                     }}</div>
                     <div v-else>(Hasil Generate Quote akan tampil disini)</div>
                 </div>

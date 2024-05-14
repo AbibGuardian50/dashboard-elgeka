@@ -73,7 +73,7 @@ export default {
                 </div>
                 <div class="flex flex-col justify-end items-end" @click="toggleModalEditAturanBlog()">
                     <button
-                        class="py-1 px-8 bg-white font-poppins font-bold text-[14px] text-orange rounded-lg">Edit</button>
+                        class="py-1 px-8 bg-white font-poppins font-bold text-[14px] text-teal rounded-lg">Edit</button>
                 </div>
 
 
@@ -87,7 +87,7 @@ export default {
                                 class="border border-red rounded-lg shadow-lg relative flex flex-col max-w-[600px] bg-white outline-none focus:outline-none">
                                 <!--header-->
                                 <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
-                                    <h3 class="text-[40px] text-orange font-semibold font-poppins">
+                                    <h3 class="text-[40px] text-teal font-semibold font-poppins">
                                         Edit Aturan Blog
                                     </h3>
                                     <button
@@ -101,7 +101,7 @@ export default {
                                 <!--body-->
                                 <div class="flex flex-col gap-8 relative p-6">
                                     <div class="flex gap-2 flex-col">
-                                        <label for="Judul" class="font-poppins font-bold text-base text-orange">Aturan Blog
+                                        <label for="Judul" class="font-poppins font-bold text-base text-teal">Aturan Blog
                                         </label>
                                         <quill-editor theme="snow" contentType="html"
                                             v-model:content="aturanblog.data.content"></quill-editor>
@@ -110,12 +110,12 @@ export default {
                                 <!--footer-->
                                 <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
                                     <button
-                                        class="text-white bg-orange border hover:text-white active:bg-orange-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
+                                        class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
                                         type="submit">
                                         Simpan
                                     </button>
                                     <button
-                                        class="text-orange bg-white border active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                                        class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
                                         type="button" v-on:click="toggleModalEditAturanBlog()">
                                         batal
                                     </button>

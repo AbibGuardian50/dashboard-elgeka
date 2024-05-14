@@ -131,12 +131,12 @@ export default {
   <div class="flex ">
     <Sidebar />
     <div class="px-8">
-      <p class="text-[30px] text-orange font-gotham font-bold">Kelola Akun Admin</p>
+      <p class="text-[30px] text-teal font-gotham font-bold">Kelola Akun Admin</p>
       <hr>
       <div>
         <table class="min-w-full divide-y divide-gray-200 overflow-x-auto w-[1200px]">
           <thead class="bg-gray-50">
-            <tr class="border-b-[0.5px] border-b-orange">
+            <tr class="border-b-[0.5px] border-b-teal">
               <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-sulfurblack text-base">
                 NO
               </th>
@@ -154,7 +154,7 @@ export default {
               </th>
               <th v-if="getRoles === 'true'" scope="col" class="">
                 <button v-on:click="toggleModalCreateAdmin()"
-                  class="bg-orange px-4 py-1 rounded-md text-left font-inter font-semibold text-white text-base">Tambah</button>
+                  class="bg-teal px-4 py-1 rounded-md text-left font-inter font-semibold text-white text-base">Tambah</button>
               </th>
             </tr>
           </thead>
@@ -203,15 +203,15 @@ export default {
               <td v-if="getRoles === 'true'" class="px-6 py-4 whitespace-nowrap  text-sm font-medium">
                 <a :href="'editadmin/' + data.id">
                   <button
-                    class="py-1 px-8 rounded-[5px] bg-orange font-inter font-bold text-base text-white">Edit</button>
+                    class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button>
                 </a>
                 <button href="#" @click="deleteadmin(data.id)"
-                  class="py-1 px-8 rounded-[5px] bg-[#ff4c61] ml-2 shadow-xl bg-offwhite bg-opacity-64 text-orange font-inter font-bold text-base ">Hapus</button>
+                  class="py-1 px-8 rounded-[5px] bg-[#ff4c61] ml-2 shadow-xl bg-offwhite bg-opacity-64 text-teal font-inter font-bold text-base ">Hapus</button>
               </td>
               <!-- <td v-if="getRoles === 'false' && idAdmin === daftarid"
                 class="px-6 py-4 whitespace-nowrap  text-sm font-medium">
                 <a :href="'editadmin/' + data.id">
-                  <button class="py-1 px-8 rounded-[5px] bg-orange font-inter font-bold text-base text-white">Edit
+                  <button class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit
                     admin</button>
                 </a>
                 <button href="#" @click="deleteadmin(data.id)"
@@ -233,7 +233,7 @@ export default {
                 class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 <!--header-->
                 <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
-                  <h3 class="text-[40px] text-orange font-semibold font-poppins">
+                  <h3 class="text-[40px] text-teal font-semibold font-poppins">
                     Akun Admin
                   </h3>
                   <button
@@ -247,25 +247,25 @@ export default {
                 <!--body-->
                 <div class="flex flex-col gap-8 relative p-6">
                   <div class="flex gap-2 flex-col">
-                    <label for="nama lengkap" class="font-poppins font-bold text-base text-orange">Nama Lengkap</label>
+                    <label for="nama lengkap" class="font-poppins font-bold text-base text-teal">Nama Lengkap</label>
                     <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" name="nama lengkap"
                       v-model="form.full_name" id="" placeholder="Muhammad Abieb Basnuril">
                   </div>
 
                   <div class="flex gap-2 flex-col">
-                    <label for="username" class="font-poppins font-bold text-base text-orange">username</label>
+                    <label for="username" class="font-poppins font-bold text-base text-teal">username</label>
                     <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" name="username" id=""
                       v-model="form.username" placeholder="admin abib">
                   </div>
 
                   <div class="flex gap-2 flex-col">
-                    <label for="Password" class="font-poppins font-bold text-base text-orange">Password</label>
+                    <label for="Password" class="font-poppins font-bold text-base text-teal">Password</label>
                     <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="password" name="Password"
                       v-model="form.password" id="" placeholder="Masukkan Password">
                   </div>
 
                   <div class="flex gap-2 flex-col">
-                    <label for="Status" class="font-poppins font-bold text-base text-orange">Status</label>
+                    <label for="Status" class="font-poppins font-bold text-base text-teal">Status</label>
                     <!-- <input class="border border-black py-4 min-w-[550px] pr-2 rounded-md" type="text" name="nama lengkap" id="" placeholder="  Muhammad Abieb Basnuril"> -->
                     <select
                       class="border bg-white border-black py-4 min-w-[550px] pl-2 rounded-md font-poppins font-medium text-base text-[#00000080]"
@@ -280,12 +280,12 @@ export default {
                 <!--footer-->
                 <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
                   <button
-                    class="text-white bg-orange border hover:text-white active:bg-orange-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
+                    class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
                     type="submit">
                     Simpan
                   </button>
                   <button
-                    class="text-orange bg-white border active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                    class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
                     type="button" v-on:click="toggleModalCreateAdmin()">
                     Tidak Simpan
                   </button>
@@ -306,7 +306,7 @@ export default {
                 class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 <!--header-->
                 <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
-                  <h3 class="text-[40px] text-orange font-semibold font-poppins">
+                  <h3 class="text-[40px] text-teal font-semibold font-poppins">
                     Edit Akun Admin
                   </h3>
                   <button
@@ -320,18 +320,18 @@ export default {
                 <!--body-->
                 <div class="flex flex-col gap-8 relative p-6">
                   <div class="flex gap-2 flex-col">
-                    <label for="nama lengkap" class="font-poppins font-bold text-base text-orange">Nama
+                    <label for="nama lengkap" class="font-poppins font-bold text-base text-teal">Nama
                       Lengkap</label>
                     <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
                       v-model="edited.full_name" name="nama lengkap" id="" :placeholder="data.full_name">
                   </div>
                   <div class="flex gap-2 flex-col">
-                    <label for="Email" class="font-poppins font-bold text-base text-orange">Email</label>
+                    <label for="Email" class="font-poppins font-bold text-base text-teal">Email</label>
                     <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="email" name="Email"
                       v-model="edited.email" id="">
                   </div>
                   <!-- <div class="flex gap-2 flex-col">
-                        <label for="Status" class="font-poppins font-bold text-base text-orange">Status</label>
+                        <label for="Status" class="font-poppins font-bold text-base text-teal">Status</label>
                          <input class="border border-black py-4 min-w-[550px] pr-2 rounded-md" type="text" name="nama lengkap" id="" placeholder="  Muhammad Abieb Basnuril">
                         <select
                           class="border bg-white border-black py-4 min-w-[550px] pl-2 rounded-md font-poppins font-medium text-base text-[#00000080]"
@@ -344,12 +344,12 @@ export default {
                 <!--footer-->
                 <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
                   <button @click="editadmin(data.id)"
-                    class="text-white bg-orange border hover:text-white active:bg-orange-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
+                    class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
                     type="submit">
                     Simpan
                   </button>
                   <button
-                    class="text-orange bg-white border active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                    class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
                     type="button" v-on:click="toggleModalEditAdmin()">
                     batal
                   </button>
@@ -371,7 +371,7 @@ export default {
                 class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 <!--header-->
                 <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
-                  <h3 class="text-[40px] text-orange font-semibold font-poppins">
+                  <h3 class="text-[40px] text-teal font-semibold font-poppins">
                     Konfirmasi Hapus Akun Admin
                   </h3>
                   <button
@@ -385,12 +385,12 @@ export default {
                 <!--footer-->
                 <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
                   <button @click="deleteAdmin(id)"
-                    class="text-white bg-orange border hover:text-white active:bg-orange-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
+                    class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
                     type="submit">
                     Hapus
                   </button>
                   <button
-                    class="text-orange bg-white border active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                    class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
                     type="button" v-on:click="toggleModalDeleteAdmin()">
                     batal
                   </button>

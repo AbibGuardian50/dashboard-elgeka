@@ -69,25 +69,25 @@ export default {
         <Sidebar />
 
         <div>
-            <p class="pt-[4rem] ml-4 font-poppins font-semibold text-orange text-[32px]">Informasi Tentang anda</p>
+            <p class="pt-[4rem] ml-4 font-poppins font-semibold text-teal text-[32px]">Informasi Tentang anda</p>
             <div class="flex gap-16">
-                <div v-if="profiladmin.is_active === true" class="border border-orange mt-4 ml-4 pb-8 px-8">
+                <div v-if="profiladmin.is_active === true" class="border border-teal mt-4 ml-4 pb-8 px-8">
                     <div class="flex my-8 gap-8 items-center">
 
                         <div class="flex flex-col">
-                            <p class="font-poppins font-bold text-2xl text-orange">{{ profiladmin.full_name }}</p>
-                            <p class="font-poppins font-medium text-xl text-lightorange">{{ profiladmin.email }}</p>
+                            <p class="font-poppins font-bold text-2xl text-teal">{{ profiladmin.full_name }}</p>
+                            <p class="font-poppins font-medium text-xl text-lightteal">{{ profiladmin.email }}</p>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-8">
-                        <div class="w-96 pb-8 border border-orange flex flex-col">
-                            <p class="pl-8 py-8 font-poppins font-bold text-2xl text-orange text-left">Roles</p>
+                        <div class="w-96 pb-8 border border-teal flex flex-col">
+                            <p class="pl-8 py-8 font-poppins font-bold text-2xl text-teal text-left">Roles</p>
                             <p v-if="profiladmin.superAdmin === true"
-                                class="pl-8 text-lightorange font-poppins font-medium">
+                                class="pl-8 text-lightteal font-poppins font-medium">
                                 SuperAdmin</p>
                             <p v-if="profiladmin.superAdmin === false"
-                                class="pl-8 text-lightorange font-poppins font-medium">Admin
+                                class="pl-8 text-lightteal font-poppins font-medium">Admin
                             </p>
                         </div>
                     </div>
@@ -109,18 +109,18 @@ export default {
 
                     </div>
                     <div class="w-full flex flex-col">
-                        <p class="font-poppins font-bold text-[16px] text-orange text-center">Nama Lengkap</p>
+                        <p class="font-poppins font-bold text-[16px] text-teal text-center">Nama Lengkap</p>
                         <input type="text" name="" id="" :placeholder="profiladmin.full_name"
                             class="border border-black py-1 px-2" v-model="edited.full_name">
                     </div>
 
                     <div class="w-full flex flex-col">
-                        <p class="font-poppins font-bold text-[16px] text-orange text-center">Email</p>
+                        <p class="font-poppins font-bold text-[16px] text-teal text-center">Email</p>
                         <input type="email" name="" id="" :placeholder="profiladmin.email"
                             class=" py-1 px-2 border border-black" v-model="edited.email">
                     </div>
 
-                    <button type="submit" class="bg-orange mt-4 py-1 px-6">Ganti</button>
+                    <button type="submit" class="bg-teal mt-4 py-1 px-6">Ganti</button>
                 </form>
 
                 <div>

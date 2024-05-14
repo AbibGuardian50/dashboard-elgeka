@@ -18,9 +18,9 @@ export default {
 
 <template>
     <div class="flex">
-        <div class="bg-orange flex flex-col items-center pt-8 w-[310px] max-[1800px]:h-full h-screen">
+        <div class="bg-teal flex flex-col items-center pt-8 w-[310px] max-[1800px]:h-full h-screen">
             <div>
-                <img class="bg-white mb-8 rounded-md" src="../assets/logo.png" alt="">
+                <img class="mb-8 rounded-md" src="../assets/logoElgekaPutih1.png" alt="">
                 <form action="" class="relative w-max flex flex-row-reverse bg-white rounded-md pl-4 mb-4">
                     <input type="search" placeholder="Quick Find"
                         class="peer cursor-pointer relative z-10 h-12 w-12 rounded-md bg-transparent pl-4 outline-none w-full cursor-text pr-4" />

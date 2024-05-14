@@ -95,9 +95,9 @@ export default {
             <p class="font-gotham font-bold text-[30px] leading-6 text-sulfurblack my-4 border-b border-[#D0D5DD] pb-4">
                 Donasi</p>
             <div v-if="donasielgeka.currentPage === 1"
-                class="bg-offwhite flex flex-col justify-center items-center border-2 border-orange m-auto min-w-7/12">
-                <p class="font-poppins font-bold text-[40px] text-orange text-center">{{ donasielgeka.data.title }}</p>
-                <img class="max-w-[314px] max-h-[283px] border-8 border-orange my-4"
+                class="bg-offwhite flex flex-col justify-center items-center border-2 border-teal m-auto min-w-7/12">
+                <p class="font-poppins font-bold text-[40px] text-teal text-center">{{ donasielgeka.data.title }}</p>
+                <img class="max-w-[314px] max-h-[283px] border-8 border-teal my-4"
                     :src="gambar_url + donasielgeka.data.image_url" alt="Gambar QR" srcset="">
                 <a :href="donasielgeka.data.donate_link"
                     class="font-poppins font-bold text-[40px] text-center hover:underline mb-2" target="_blank">{{
@@ -105,7 +105,7 @@ export default {
                 <p v-html="donasielgeka.data.content"
                     class="font-poppins font-normal w-[673px] text-[16px] text-[#000000B2]"></p>
                 <button @click="toggleModalEditDonasi()"
-                    class="px-8 my-4 ml-[50rem] py-2 bg-orange flex flex-col justify-end items-end font-bold rounded-md text-white text-center text-[14px]">Edit</button>
+                    class="px-8 my-4 ml-[50rem] py-2 bg-teal flex flex-col justify-end items-end font-bold rounded-md text-white text-center text-[14px]">Edit</button>
 
 
                 <!-- Pop up modal edit tampilan Donasi... -->
@@ -118,7 +118,7 @@ export default {
                                 class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                 <!--header-->
                                 <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
-                                    <h3 class="text-[40px] text-orange font-semibold font-poppins">
+                                    <h3 class="text-[40px] text-teal font-semibold font-poppins">
                                         Edit Donasi
                                     </h3>
                                     <button
@@ -132,14 +132,14 @@ export default {
                                 <!--body-->
                                 <div class="flex flex-col gap-8 relative p-6">
                                     <div class="flex gap-2 flex-col">
-                                        <label for="Judul" class="font-poppins font-bold text-base text-orange">Judul
+                                        <label for="Judul" class="font-poppins font-bold text-base text-teal">Judul
                                         </label>
                                         <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
                                             name="Judul" id="Judul" :placeholder="donasielgeka.data.title"
                                             v-model="donasielgeka.data.title">
                                     </div>
                                     <div class="flex gap-2 flex-col">
-                                        <label for="Link" class="font-poppins font-bold text-base text-orange">Link
+                                        <label for="Link" class="font-poppins font-bold text-base text-teal">Link
                                         </label>
                                         <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
                                             name="Link" id="Link" :placeholder="donasielgeka.data.donate_link"
@@ -147,7 +147,7 @@ export default {
                                     </div>
                                     <div class="flex gap-2 flex-col">
                                         <label for="Deskripsi"
-                                            class="font-poppins font-bold text-base text-orange">Deskripsi
+                                            class="font-poppins font-bold text-base text-teal">Deskripsi
                                         </label>
                                         <div class="border border-black py-2 min-w-[550px] pl-2 rounded-md" id="app">
                                             <quill-editor theme="snow" contentType="html"
@@ -155,7 +155,7 @@ export default {
                                         </div>
                                     </div>
                                     <div class="flex gap-2 flex-col">
-                                        <label for="Foto Sampul" class="font-poppins font-bold text-base text-orange">Foto
+                                        <label for="Foto Sampul" class="font-poppins font-bold text-base text-teal">Foto
                                             Sampul
                                         </label>
                                         <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="file"
@@ -167,12 +167,12 @@ export default {
                                 <!--footer-->
                                 <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
                                     <button
-                                        class="text-white bg-orange border hover:text-white active:bg-orange-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
+                                        class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
                                         type="submit">
                                         Simpan
                                     </button>
                                     <button
-                                        class="text-orange bg-white border active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                                        class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
                                         type="button" v-on:click="toggleModalEditDonasi()">
                                         batal
                                     </button>

@@ -18,7 +18,7 @@ export default {
             <p>Tentang Komunitas</p>
 
             <div class="ml-8  flex flex-col justify-center items-center w-full mt-8">
-                <div class="bg-orange py-4 mb-4 w-[1080px] m-auto justify-center rounded-md">
+                <div class="bg-teal py-4 mb-4 w-[1080px] m-auto justify-center rounded-md">
                     <div class="flex flex-col items-center ">
                         <div class="flex gap-4">
                             <img src="../assets/tomple.png" alt="">
@@ -28,7 +28,7 @@ export default {
                     </div>
                 </div>
 
-                <div class="bg-orange py-4 mb-4 w-[1080px] m-auto justify-center rounded-md">
+                <div class="bg-teal py-4 mb-4 w-[1080px] m-auto justify-center rounded-md">
                     <div class="flex flex-col items-center ">
                         <div class="flex gap-4">
                             <img src="../assets/tomple.png" alt="">
@@ -38,7 +38,7 @@ export default {
                     </div>
                 </div>
 
-                <div class="bg-orange py-4 mb-4 w-[1080px] m-auto justify-center rounded-md">
+                <div class="bg-teal py-4 mb-4 w-[1080px] m-auto justify-center rounded-md">
                     <div class="flex flex-col items-center ">
                         <div class="flex gap-4">
                             <img src="../assets/tomple.png" alt="">

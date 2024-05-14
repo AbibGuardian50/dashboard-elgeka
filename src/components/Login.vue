@@ -96,7 +96,7 @@ export default {
                 <!-- Login Button -->
                 <div class="flex flex-col">
                     <button type="submit"
-                        class="bg-orange text-white font-semibold rounded-md py-2 px-4 w-full">Login</button>
+                        class="bg-teal text-white font-semibold rounded-md py-2 px-4 w-full">Login</button>
                     <!-- <div class="mt-6 text-blue-500">
                         <a href="#" class="hover:underline font-[verdana] font-normal text-[14px] text-center text-[#4D4D4F]">Forgot
                             Password?</a>

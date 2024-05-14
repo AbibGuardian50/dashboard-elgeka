@@ -97,9 +97,9 @@ export default {
 
                             <td class="px-6 py-4 whitespace-nowrap  text-base font-medium">
                                 <a :href="'editcerita/' + data.id"><button
-                                        class="py-1 px-8 rounded-[5px] bg-orange font-inter font-bold text-base text-white">Edit</button></a>
+                                        class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button></a>
                                 <button href="#" @click="deletecerita(data.id)"
-                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-orange  ml-2 font-inter font-bold text-base">Hapus</button>
+                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-teal  ml-2 font-inter font-bold text-base">Hapus</button>
                             </td>
                             <!-- <td class="px-6 py-4 whitespace-nowrap">
                                 <span v-if="data.isVerified === true"

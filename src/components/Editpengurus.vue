@@ -85,7 +85,7 @@ export default {
                     class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                     <!--header-->
                     <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
-                        <h3 class="text-[40px] text-orange font-semibold font-poppins">
+                        <h3 class="text-[40px] text-teal font-semibold font-poppins">
                             Edit
                         </h3>
                         <button
@@ -100,7 +100,7 @@ export default {
                     <div class="flex flex-col gap-8 relative p-6">
                         <p class="font-gotham font-normal text-[20px] leading-6 text-sulfurblack">Edit Pengurus Komunitas</p>
                         <div class="flex gap-2 flex-col">
-                            <label for="nama lengkap" class="font-poppins font-bold text-base text-orange">Nama
+                            <label for="nama lengkap" class="font-poppins font-bold text-base text-teal">Nama
                                 Lengkap</label>
                             <input required class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
                                 v-model="daftarpengurus.full_name" name="nama lengkap" id=""
@@ -108,21 +108,21 @@ export default {
                         </div>
 
                         <div class="flex gap-2 flex-col">
-                            <label for="Peran" class="font-poppins font-bold text-base text-orange">Role
+                            <label for="Peran" class="font-poppins font-bold text-base text-teal">Role
                             </label>
                             <input required class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
                                 v-model="daftarpengurus.jabatan" name="Peran" id="" :placeholder="daftarpengurus.jabatan">
                         </div>
 
                         <div class="flex gap-2 flex-col">
-                            <label for="Quote" class="font-poppins font-bold text-base text-orange">Deskripsi
+                            <label for="Quote" class="font-poppins font-bold text-base text-teal">Deskripsi
                             </label>
                             <quill-editor required class="border border-black py-4 min-w-[550px] pl-2 rounded-md" theme="snow"
                                 contentType="html" v-model:content="daftarpengurus.quote"></quill-editor>
                         </div>
 
                         <div class="flex gap-2 flex-col">
-                            <label for="Foto Profil" class="font-poppins font-bold text-base text-orange">Gambar
+                            <label for="Foto Profil" class="font-poppins font-bold text-base text-teal">Gambar
                                 Lengkap</label>
                             <input @change="handleFileChange" class="border border-black py-4 min-w-[550px] pl-2 rounded-md"
                                 type="file" name="Foto Profil" id="">
@@ -135,13 +135,13 @@ export default {
                     <!--footer-->
                     <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
                         <button
-                            class="text-white bg-orange border hover:text-white active:bg-orange-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
+                            class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
                             type="submit">
                             Simpan
                         </button>
                         <router-link to="/penguruskomunitas">
                             <button
-                                class="text-orange bg-white border active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                                class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
                                 type="button">
                                 batal
                             </button>

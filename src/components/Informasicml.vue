@@ -126,7 +126,7 @@ export default {
                             </th>
                             <th scope="col" class="">
                                 <button v-on:click="toggleModalCreateBerita()"
-                                    class="bg-orange px-2 py-1 text-left font-gotham text-sulfurblack text-base">+</button>
+                                    class="bg-teal px-2 py-1 text-left font-gotham text-sulfurblack text-base">+</button>
                             </th>
                         </tr>
                     </thead>
@@ -148,9 +148,9 @@ export default {
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap  text-sm font-medium">
                                 <a :href="'editberita/' + data.id"><button
-                                        class="py-1 px-8 rounded-[5px] bg-orange font-inter font-bold text-base text-white">Edit</button></a>
+                                        class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button></a>
                                         <button href="#" @click="deleteberita(data.id)"
-                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-orange  ml-2 font-inter font-bold text-base">Hapus</button>
+                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-teal  ml-2 font-inter font-bold text-base">Hapus</button>
                             </td>
                         </tr>
                         <!-- More rows... -->
@@ -166,7 +166,7 @@ export default {
                                 class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                 <!--header-->
                                 <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
-                                    <h3 class="text-[40px] text-orange font-semibold font-poppins">
+                                    <h3 class="text-[40px] text-teal font-semibold font-poppins">
                                         Berita CML
                                     </h3>
                                     <button
@@ -183,14 +183,14 @@ export default {
 
                                     <div class="flex gap-2 flex-col">
                                         <label for="Judul"
-                                            class="font-verdana font-normal text-base text-orange">Judul</label>
+                                            class="font-verdana font-normal text-base text-teal">Judul</label>
                                         <input class="border border-silver py-4 min-w-[550px] pl-2 rounded-md" type="text" required
                                             v-model="form.title" name="Judul" id="" >
                                     </div>
 
                                     <div class="flex gap-2 flex-col" required>
                                         <label for="Deskripsi Kegiatan"
-                                            class="font-verdana font-normal text-base text-orange">Deskripsi
+                                            class="font-verdana font-normal text-base text-teal">Deskripsi
                                             Berita</label>
                                         <div class="border border-silver py-2 min-w-[550px] pl-2 rounded-md" id="app">
                                             <quill-editor theme="snow" contentType="html" required
@@ -199,14 +199,14 @@ export default {
                                     </div>
 
                                     <div class="flex gap-2 flex-col">
-                                        <label for="Upload Foto" class="font-verdana font-normal text-base text-orange">Gambar</label>
+                                        <label for="Upload Foto" class="font-verdana font-normal text-base text-teal">Gambar</label>
                                         <input class="border border-silver py-2 min-w-[550px] pl-2 rounded-md" type="file"
                                             name="Foto Berita" id="foto-berita" @change="handleFileChange" required>
                                     </div>
 
                                     <div class="flex gap-2 flex-col">
                                         <label for="Kategori"
-                                            class="font-verdana font-normal text-base text-orange">Kategori</label>
+                                            class="font-verdana font-normal text-base text-teal">Kategori</label>
                                         <select name="" id="" class="border border-silver py-4 min-w-[550px] pl-2 rounded-md" required v-model="form.kategori">
                                             <option value="perkembanganCML" selected>Perkembangan CML</option>
                                             <option value="perkembanganKomunitas">Perkembangan Komunitas</option>
@@ -215,7 +215,7 @@ export default {
 
                                     <div class="flex gap-2 flex-col">
                                         <label for="doi_link"
-                                            class="font-verdana font-normal text-base text-orange">doi_link</label>
+                                            class="font-verdana font-normal text-base text-teal">doi_link</label>
                                         <input class="border border-silver py-4 min-w-[550px] pl-2 rounded-md" type="text" required
                                             v-model="form.doi_link" name="doi_link" id="" >
                                     </div>
@@ -224,13 +224,13 @@ export default {
                                 <!--footer-->
                                 <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
                                     <button
-                                        class="text-white bg-orange border hover:text-white active:bg-orange-600 font-bold uppercase text-sm px-12 py-3 rounded-md outline-none focus:outline-none mr-1 mb-1   "
+                                        class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded-md outline-none focus:outline-none mr-1 mb-1   "
                                         type="submit">
                                         Simpan
                                     </button>
 
                                     <button
-                                        class="text-orange bg-white border active:bg-orange-600 font-bold uppercase text-sm px-12 py-3 rounded-md outline-none focus:outline-none mr-1 mb-1"
+                                        class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded-md outline-none focus:outline-none mr-1 mb-1"
                                         type="button" v-on:click="toggleModalCreateBerita()">
                                         batal
                                     </button>

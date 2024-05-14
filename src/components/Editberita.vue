@@ -72,7 +72,7 @@ export default {
                     class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                     <!--header-->
                     <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
-                        <h3 class="text-[40px] text-orange font-semibold font-poppins">
+                        <h3 class="text-[40px] text-teal font-semibold font-poppins">
                             Edit berita Komunitas
                         </h3>
                         <button
@@ -86,19 +86,19 @@ export default {
                     <!--body-->
                     <div class="flex flex-col gap-8 relative p-6">
                         <div class="flex gap-2 flex-col">
-                            <label for="Judul" class="font-poppins font-bold text-base text-orange">Judul</label>
+                            <label for="Judul" class="font-poppins font-bold text-base text-teal">Judul</label>
                             <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
                                 v-model="edited.title" required name="Judul" id="" :placeholder="daftarberita.title">
                         </div>
 
                         <div class="flex gap-2 flex-col">
-                            <label for="doi_link" class="font-poppins font-bold text-base text-orange">doi_link</label>
+                            <label for="doi_link" class="font-poppins font-bold text-base text-teal">doi_link</label>
                             <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" name="tempat"
                                 v-model="edited.doi_link" required :placeholder="daftarberita.doi_link">
                         </div>
 
                         <div class="flex gap-2 flex-col">
-                            <label for="Kategori" class="font-verdana font-normal text-base text-orange">Kategori</label>
+                            <label for="Kategori" class="font-verdana font-normal text-base text-teal">Kategori</label>
                             <select name="" id="" class="border border-silver py-4 min-w-[550px] pl-2 rounded-md" required
                                 v-model="edited.kategori">
                                 <option value="perkembanganCML" selected>Perkembangan CML</option>
@@ -107,7 +107,7 @@ export default {
                         </div>
 
                         <div class="flex gap-2 flex-col" required>
-                            <label for="Deskripsi berita" class="font-poppins font-bold text-base text-orange">Deskripsi
+                            <label for="Deskripsi berita" class="font-poppins font-bold text-base text-teal">Deskripsi
                                 berita</label>
                             <div class="border border-black py-2 min-w-[550px] pl-2 rounded-md" id="app">
                                 <input type="text" name="" id="">
@@ -121,13 +121,13 @@ export default {
                     <!--footer-->
                     <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
                         <button
-                            class="text-white bg-orange border hover:text-white active:bg-orange-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
+                            class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
                             type="submit">
                             Simpan
                         </button>
                         <router-link to="/kegiatan">
                             <button
-                                class="text-orange bg-white border active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                                class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
                                 type="button">
                                 batal
                             </button>

@@ -30,7 +30,9 @@ export default {
                 this.daftarberita.forEach((item, index) => {
                     item.no = index + 1;
                 });
-                console.log(this.daftarberita   )
+                this.totalPages = Math.ceil(this.daftarberita.length / this.perPage);
+                this.updatePaginatedData();
+                console.log(this.daftarberita)
             } else {
                 this.error = 'dilarang akses halaman ini'
             }
@@ -50,10 +52,35 @@ export default {
                 image: [],
                 kategori: '',
                 doi_link: '',
-            }
+            },
+            perPage: 5,
+            currentPage: 1,
+            totalPages: 0,
+            paginatedBerita: []
         }
     },
     methods: {
+        updatePaginatedData() {
+            const startIndex = (this.currentPage - 1) * this.perPage;
+            const endIndex = startIndex + this.perPage;
+            this.paginatedBerita = this.daftarberita.slice(startIndex, endIndex);
+        },
+        goToPage(pageNumber) {
+            this.currentPage = pageNumber;
+            this.updatePaginatedData();
+        },
+        nextPage() {
+            if (this.currentPage < this.totalPages) {
+                this.currentPage++;
+                this.updatePaginatedData();
+            }
+        },
+        prevPage() {
+            if (this.currentPage > 1) {
+                this.currentPage--;
+                this.updatePaginatedData();
+            }
+        },
         handleFileChange(event) {
             // Mengambil file yang dipilih oleh pengguna
             const selectedFile = event.target.files[0];
@@ -126,12 +153,12 @@ export default {
                             </th>
                             <th scope="col" class="">
                                 <button v-on:click="toggleModalCreateBerita()"
-                                    class="bg-teal px-2 py-1 text-left font-gotham text-sulfurblack text-base">+</button>
+                                    class="bg-teal px-2 py-1 text-left font-gotham text-white text-base">Tambah</button>
                             </th>
                         </tr>
                     </thead>
 
-                    <tbody v-for="data in daftarberita" :key="data.id" class="bg-white divide-y divide-gray-200">
+                    <tbody v-for="data in paginatedBerita" :key="data.id" class="bg-white divide-y divide-gray-200">
                         <tr class="border-b border-black">
                             <td class="px-6 py-4 whitespace-nowrap font-gotham font-normal text-sulfurblack text-base">
                                 {{ data.no }}
@@ -143,19 +170,29 @@ export default {
                                 <p class="font-gotham font-normal text-sulfurblack text-base">{{ data.kategori }}</p>
                             </td>
                             <td class="px-6 py-4 max-w-[400px]">
-                                <span v-html="data.content" class="text-base text-gray-900">
+                                <span v-html="data.content"  class="line-clamp-4 text-base text-gray-900">
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap  text-sm font-medium">
                                 <a :href="'editberita/' + data.id"><button
                                         class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button></a>
-                                        <button href="#" @click="deleteberita(data.id)"
+                                <button href="#" @click="deleteberita(data.id)"
                                     class="py-1 px-8 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-teal  ml-2 font-inter font-bold text-base">Hapus</button>
                             </td>
                         </tr>
                         <!-- More rows... -->
                     </tbody>
                 </table>
+                <!-- Pagination navigation -->
+                <div class="ml-8 mt-4 flex justify-center">
+                    <button @click="prevPage" :disabled="currentPage === 1"
+                        class="px-4 py-2 mr-2 bg-teal  text-white rounded-md">Previous</button>
+                    <button v-for="pageNumber in totalPages" :key="pageNumber" @click="goToPage(pageNumber)"
+                        :class="{ 'bg-teal  text-white rounded-md': pageNumber === currentPage, 'bg-white text-blue-500 border border-blue-500 rounded-md': pageNumber !== currentPage }"
+                        class="px-4 py-2 mr-2">{{ pageNumber }}</button>
+                    <button @click="nextPage" :disabled="currentPage === totalPages"
+                        class="px-4 py-2 bg-teal  text-white rounded-md">Next</button>
+                </div>
                 <!-- Pop up Modal buat Berita baru... -->
                 <div>
                     <form v-if="showcreateberita" @submit.prevent="createberita()"
@@ -179,13 +216,14 @@ export default {
                                 </div>
                                 <!--body-->
                                 <div class="flex flex-col gap-8 relative p-6">
-                                    <p class="font-gotham font-normal text-[20px] leading-6 text-sulfurblack">Masukan Berita CML</p>
+                                    <p class="font-gotham font-normal text-[20px] leading-6 text-sulfurblack">Masukan Berita
+                                        CML</p>
 
                                     <div class="flex gap-2 flex-col">
                                         <label for="Judul"
                                             class="font-verdana font-normal text-base text-teal">Judul</label>
-                                        <input class="border border-silver py-4 min-w-[550px] pl-2 rounded-md" type="text" required
-                                            v-model="form.title" name="Judul" id="" >
+                                        <input class="border border-silver py-4 min-w-[550px] pl-2 rounded-md" type="text"
+                                            required v-model="form.title" name="Judul" id="">
                                     </div>
 
                                     <div class="flex gap-2 flex-col" required>
@@ -199,7 +237,8 @@ export default {
                                     </div>
 
                                     <div class="flex gap-2 flex-col">
-                                        <label for="Upload Foto" class="font-verdana font-normal text-base text-teal">Gambar</label>
+                                        <label for="Upload Foto"
+                                            class="font-verdana font-normal text-base text-teal">Gambar</label>
                                         <input class="border border-silver py-2 min-w-[550px] pl-2 rounded-md" type="file"
                                             name="Foto Berita" id="foto-berita" @change="handleFileChange" required>
                                     </div>
@@ -207,7 +246,9 @@ export default {
                                     <div class="flex gap-2 flex-col">
                                         <label for="Kategori"
                                             class="font-verdana font-normal text-base text-teal">Kategori</label>
-                                        <select name="" id="" class="border border-silver py-4 min-w-[550px] pl-2 rounded-md" required v-model="form.kategori">
+                                        <select name="" id=""
+                                            class="border border-silver py-4 min-w-[550px] pl-2 rounded-md" required
+                                            v-model="form.kategori">
                                             <option value="perkembanganCML" selected>Perkembangan CML</option>
                                             <option value="perkembanganKomunitas">Perkembangan Komunitas</option>
                                         </select>
@@ -216,8 +257,8 @@ export default {
                                     <div class="flex gap-2 flex-col">
                                         <label for="doi_link"
                                             class="font-verdana font-normal text-base text-teal">doi_link</label>
-                                        <input class="border border-silver py-4 min-w-[550px] pl-2 rounded-md" type="text" required
-                                            v-model="form.doi_link" name="doi_link" id="" >
+                                        <input class="border border-silver py-4 min-w-[550px] pl-2 rounded-md" type="text"
+                                            required v-model="form.doi_link" name="doi_link" id="">
                                     </div>
 
                                 </div>
@@ -251,5 +292,4 @@ export default {
 ol {
     list-style-type: decimal;
     margin-left: 1rem;
-}
-</style>
+}</style>

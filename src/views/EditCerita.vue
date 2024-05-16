@@ -105,7 +105,7 @@ export default {
 
 
                         <div class="flex gap-2 flex-col mt-8 px-2">
-                            <label for="Status" class="font-poppins font-bold text-base text-orange">Status</label>
+                            <label for="Status" class="font-poppins font-bold text-base text-teal">Status</label>
                             <!-- <input class="border border-black py-4 min-w-[550px] pr-2 rounded-md" type="text" name="nama lengkap" id="" placeholder="  Muhammad Abieb Basnuril"> -->
                             <select
                                 class="border bg-white border-silver py-4 min-w-[320px] max-w-[325px] pl-2 rounded-lg shadow-[0px_1px_2px_0px_rgba(16, 24, 40, 0.05)] px-2 font-poppins font-medium text-base text-[#00000080]"
@@ -117,7 +117,7 @@ export default {
 
                         <div class="flex flex-col gap-8 relative mt-8 px-2">
                             <div class="flex gap-2 flex-col">
-                                <label for="Generate Quote" class="font-poppins font-bold text-base text-orange">Generate
+                                <label for="Generate Quote" class="font-poppins font-bold text-base text-teal">Generate
                                     Quote
                                     (ChatGPT)</label>
                                 <div class="flex flex-col justify-center items-center">
@@ -125,7 +125,7 @@ export default {
                                         class="border bg-white border-silver py-4 min-w-[320px] max-w-[325px] pl-2 rounded-lg shadow-[0px_1px_2px_0px_rgba(16, 24, 40, 0.05)] px-2 font-poppins font-medium text-base text-[#00000080]"
                                         type="text" name="username" id="" v-model="prompt" placeholder="Enter prompt here">
                                     <button type="button"
-                                        class=" px-4 py-1 bg-orange text-white font-poppins font-bold rounded-lg my-2 flex flex-col"
+                                        class=" px-4 py-1 bg-teal text-white font-poppins font-bold rounded-lg my-2 flex flex-col"
                                         @click="generateQuote">Generate</button>
                                 </div>
                             </div>
@@ -133,9 +133,9 @@ export default {
 
                         <div class="px-6 py-4 mt-4 flex items-center justify-center text-base font-medium">
                             <a><button type="submit"
-                                    class="py-1 px-4 rounded-[5px] bg-orange font-inter font-bold text-base text-white">Simpan</button></a>
+                                    class="py-1 px-4 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Simpan</button></a>
                             <button href="/verifikasicerita"
-                                class="py-1 px-4 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-orange  ml-2 font-inter font-bold text-base border border-orange">Batal</button>
+                                class="py-1 px-4 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-teal  ml-2 font-inter font-bold text-base border border-teal">Batal</button>
                         </div>
                     </div>
                 </form>

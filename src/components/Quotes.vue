@@ -1,30 +1,32 @@
 <script>
-import Sidebar from "./Sidebar.vue"
-import axios from 'axios'
+import Sidebar from "./Sidebar.vue";
+import axios from 'axios';
 import VueCookies from 'vue-cookies';
 import moment from 'moment';
 import 'moment/locale/id';
+import { useToast } from 'vue-toastification';
 
 export default {
     async created() {
         try {
-            const tokenlogin = VueCookies.get('tokenlogin')
+            const tokenlogin = VueCookies.get('tokenlogin');
             if (tokenlogin) {
-                const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/quotes'
+                const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/quotes';
                 const response = await axios.get(url, {
                     headers: {
                         Authorization: `Bearer ${tokenlogin}`
                     },
-                })
-                VueCookies.get('tokenlogin')
-                this.daftarquotes = response.data.result.data
-                // this.daftarquotes.sort((x, y) => x.id - y.id) supaya urut menurut id nya
+                });
+                VueCookies.get('tokenlogin');
+                this.daftarquotes = response.data.result.data;
                 this.daftarquotes.forEach((item, index) => {
                     item.no = index + 1;
                 });
-                console.log(this.daftarquotes)
+                this.totalPages = Math.ceil(this.daftarquotes.length / this.perPage);
+                this.updatePaginatedData();
+                console.log(this.daftarquotes);
             } else {
-                this.error = 'dilarang akses halaman ini'
+                this.error = 'dilarang akses halaman ini';
             }
         } catch (error) {
             console.error(error);
@@ -45,60 +47,118 @@ export default {
                 author_name: '',
                 image: [],
             },
+            formErrors: {
+                author_name: '',
+                quote: '',
+                image: '',
+            },
             daftarquotes: [],
             showcreatequotes: false,
             showdeletequotes: false,
+            perPage: 5,
+            currentPage: 1,
+            totalPages: 0,
+            PaginatedDaftarQuotes: []
         };
     },
     methods: {
-        async generateQuote() {
+        updatePaginatedData() {
+            const startIndex = (this.currentPage - 1) * this.perPage;
+            const endIndex = startIndex + this.perPage;
+            this.PaginatedDaftarQuotes = this.daftarquotes.slice(startIndex, endIndex);
+        },
+        goToPage(pageNumber) {
+            this.currentPage = pageNumber;
+            this.updatePaginatedData();
+        },
+        nextPage() {
+            if (this.currentPage < this.totalPages) {
+                this.currentPage++;
+                this.updatePaginatedData();
+            }
+        },
+        prevPage() {
+            if (this.currentPage > 1) {
+                this.currentPage--;
+                this.updatePaginatedData();
+            }
+        },
+        async generateQuote(event) {
+            event.preventDefault();
             try {
-                const tokenlogin = VueCookies.get('tokenlogin')
-                const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/quotes/generate'
+                const tokenlogin = VueCookies.get('tokenlogin');
+                const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/quotes/generate';
                 const response = await axios.post(url, { prompt: this.prompt }, { headers: { 'Authorization': `Bearer ${tokenlogin}` } });
-                this.token = tokenlogin
+                this.token = tokenlogin;
                 this.form.quote = response.data.result.generated_quote;
                 console.log(this.quote);
-                console.log(this.token)
+                console.log(this.token);
             } catch (error) {
                 console.error('Error generating quote:', error);
             }
         },
-        createquote() {
-            const tokenlogin = VueCookies.get('tokenlogin')
-            const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/quotes'
-            const formData = new FormData();
-            formData.append('image', this.form.image);
-            formData.append('quote', this.form.quote);
-            formData.append('author_name', this.form.author_name);
-            axios.post(url, formData, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
-                .then(response => {
+        validateForm() {
+            let isValid = true;
+            this.formErrors = { author_name: '', quote: '', image: '' };
+
+            if (!this.form.author_name) {
+                this.formErrors.author_name = 'Author tidak boleh kosong';
+                isValid = false;
+            }
+            if (!this.form.quote) {
+                this.formErrors.quote = 'Quotes tidak boleh kosong';
+                isValid = false;
+            }
+            if (!this.form.image) {
+                this.formErrors.image = 'Gambar tidak boleh kosong';
+                isValid = false;
+            }
+
+            return isValid;
+        },
+        async createquote() {
+            const toast = useToast();
+            if (this.validateForm()) {
+                const tokenlogin = VueCookies.get('tokenlogin');
+                const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/quotes';
+                const formData = new FormData();
+                formData.append('image', this.form.image);
+                formData.append('quote', this.form.quote);
+                formData.append('author_name', this.form.author_name);
+                try {
+                    const response = await axios.post(url, formData, { headers: { 'Authorization': `Bearer ${tokenlogin}` } });
                     console.log(response.data);
                     this.statuscode = response.data.code;
                     console.log(this.statuscode);
-                    if (response.data.code === 201) {
+                    if (response.data.code === 201 && response.data.message === 'Create Quote Successfully') {
+                        toast.success('Quotes berhasil dibuat');
                         setTimeout(() => {
                             window.location.reload();
                         }, 2000);
-                    } else if (response.data.code === 400) {
                     }
-                })
-                .catch(error => {
-                    console.log(error)
-                })
+                } catch (error) {
+                    console.log(error);
+                }
+            }
         },
         deletequotes(id) {
+            const toast = useToast();
             if (confirm('Apakah kamu yakin untuk menghapus Quotes ini?')) {
-                const tokenlogin = VueCookies.get('tokenlogin')
-                const url = `https://elgeka-web-api-production.up.railway.app/api/v1/quotes/${id}`
+                const tokenlogin = VueCookies.get('tokenlogin');
+                const url = `https://elgeka-web-api-production.up.railway.app/api/v1/quotes/${id}`;
                 axios.delete(url, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
                     .then(response => {
-                        console.log(response.data)
-                        window.location.reload();
+                        console.log(response.data);
+                        if (response.data.code === 200 && response.data.message === 'Delete Quote by ID Successfully') {
+                        toast.success('Quotes berhasil dihapus');
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 2000);
+                    }
                     })
                     .catch(error => {
-                        console.log(error)
-                    })
+                        console.log(error);
+                    });
             }
         },
         formatDateTime(dateTimeString) {
@@ -106,36 +166,34 @@ export default {
             return moment(dateTimeString).format('LLL');
         },
         handleFileChange(event) {
-            // Mengambil file yang dipilih oleh pengguna
             const selectedFile = event.target.files[0];
-
-            // Mengatur file yang dipilih ke dalam variabel edited.image
             this.form.image = selectedFile;
 
             const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
 
             if (!allowedExtensions.exec(selectedFile.name)) {
                 this.errorMessage = 'Hanya file JPEG, JPG, dan PNG yang diizinkan';
+                this.form.image = null;  // Reset the image if validation fails
             } else {
-                // Lakukan proses upload file
-                // this.uploadFile(file);
                 this.errorMessage = ''; // Bersihkan pesan error jika file valid
             }
         },
-        toggleModalCreateQuotes: function () {
+        toggleModalCreateQuotes() {
             this.showcreatequotes = !this.showcreatequotes;
         },
-        toggleModalDeleteQuotes: function () {
+        toggleModalDeleteQuotes() {
             this.showdeletequotes = !this.showdeletequotes;
         },
     }
 }
 </script>
 
+
+
+
 <template>
     <div class="flex">
         <sidebar />
-
         <div class="px-8">
             <p class="text-[30px] text-teal font-gotham font-bold">Quotes</p>
             <hr>
@@ -164,7 +222,7 @@ export default {
                             </th>
                         </tr>
                     </thead>
-                    <tbody v-for="data in daftarquotes" :key="data.id" class="bg-white divide-y divide-gray-200">
+                    <tbody v-for="data in PaginatedDaftarQuotes" :key="data.id" class="bg-white divide-y divide-gray-200">
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap font-gotham font-normal text-sulfurblack text-base">
                                 {{ data.no }}
@@ -199,198 +257,69 @@ export default {
                                     class="py-1 px-8 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-teal  ml-2 font-inter font-bold text-base">Hapus</button>
                             </td>
                         </tr>
-                        <!-- More rows... -->
-
-                        <!-- Pop up modal buat hapus Quotes -->
-                        <div>
-                            <form v-if="showdeletequotes" @submit.prevent="deletequotes(data.id)"
-                                class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-                                <div class="relative w-auto my-6 mx-auto max-w-6xl">
-                                    <!--content-->
-                                    <div
-                                        class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                                        <!--header-->
-                                        <div
-                                            class="flex items-start justify-between p-5 border-b-2 border-teal rounded-t">
-                                            <h3 class="text-[40px] text-teal font-semibold font-poppins">
-                                                Konfirmasi Hapus Quotes
-                                            </h3>
-                                        </div>
-                                        <!--footer-->
-                                        <div
-                                            class="flex items-center justify-center p-6 border-t-2 border-teal rounded-b">
-                                            <button
-                                                class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
-                                                type="submit">
-                                                Hapus
-                                            </button>
-                                            <button
-                                                class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
-                                                type="button" v-on:click="toggleModalDeleteQuotes()">
-                                                batal
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                            <div v-if="showdeletequotes" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
-                        </div>
                     </tbody>
                 </table>
 
+                <!-- Pagination navigation -->
+                <div class="ml-8 mt-4 flex justify-center">
+                    <button @click="prevPage" :disabled="currentPage === 1"
+                        class="px-4 py-2 mr-2 bg-teal  text-white rounded-md">Previous</button>
+                    <button v-for="pageNumber in totalPages" :key="pageNumber" @click="goToPage(pageNumber)"
+                        :class="{ 'bg-teal  text-white rounded-md': pageNumber === currentPage, 'bg-white text-blue-500 border border-blue-500 rounded-md': pageNumber !== currentPage }"
+                        class="px-4 py-2 mr-2">{{ pageNumber }}</button>
+                    <button @click="nextPage" :disabled="currentPage === totalPages"
+                        class="px-4 py-2 bg-teal  text-white rounded-md">Next</button>
+                </div>
+
                 <!-- Pop up modal buat Quotes baru... -->
-                <div>
-                    <form v-if="showcreatequotes" @submit.prevent="createquote()"
-                        class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-                        <div class="relative w-auto my-6 mx-auto max-w-6xl">
-                             <!-- Alert Error -->
-                            <div v-if="statuscode === 201" class="px-2 mt-4">
-                                <div
-                                    class="bg-[#473FE8] px-6 py-4 mx-2 my-4 rounded-md text-lg flex items-center mx-auto max-w-lg">
-                                    <svg viewBox="0 0 24 24" class="text-[#4576F5] w-5 h-5 sm:w-5 sm:h-5 mr-3">
-                                        <path fill="currentColor"
-                                            d="M11.983,0a12.206,12.206,0,0,0-8.51,3.653A11.8,11.8,0,0,0,0,12.207,11.779,11.779,0,0,0,11.8,24h.214A12.111,12.111,0,0,0,24,11.791h0A11.766,11.766,0,0,0,11.983,0ZM10.5,16.542a1.476,1.476,0,0,1,1.449-1.53h.027a1.527,1.527,0,0,1,1.523,1.47,1.475,1.475,0,0,1-1.449,1.53h-.027A1.529,1.529,0,0,1,10.5,16.542ZM11,12.5v-6a1,1,0,0,1,2,0v6a1,1,0,1,1-2,0Z">
-                                        </path>
-                                    </svg>
-                                    <span class="text-white">Berhasil membuat quotes, halaman akan refresh dalam 2
-                                        detik</span>
-                                </div>
-                                <!-- End Alert Error -->
-                            </div>
-                            <!--content-->
-                            <div
-                                class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                                <!--header-->
-                                <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
-                                    <h3 class="text-[40px] text-teal font-semibold font-poppins">
-                                        Tambah Quotes
-                                    </h3>
-                                    <button
-                                        class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                                        v-on:click="toggleModalCreateQuotes()">
-                                        <span
-                                            class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                                        </span>
-                                    </button>
-                                </div>
-                                <!--body-->
-                                <div class="flex flex-col gap-8 relative p-6">
-                                    <div class="flex gap-2 flex-col">
-                                        <label for="Author"
-                                            class="font-poppins font-bold text-base text-teal">Author</label>
-                                        <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
-                                            name="Author" v-model="form.author_name" id=""
-                                            placeholder="Muhammad Abieb Basnuril" required>
-                                    </div>
-
-                                    <div class="flex gap-2 flex-col">
-                                        <label for="username"
-                                            class="font-poppins font-bold text-base text-teal">Quotes</label>
-                                        <textarea class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
-                                            name="username" id="" v-model="form.quote" placeholder="Masukkan Quotes"
-                                            required></textarea>
-                                    </div>
-
-                                    <div class="flex gap-2 flex-col">
-                                        <label for="Gambar"
-                                            class="font-poppins font-bold text-base text-teal">Gambar</label>
-                                        <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="file"
-                                            name="Password" @change="handleFileChange" id="" required>
-                                        <p v-if="errorMessage" class="text-[#EF0307] font-semibold" >{{ errorMessage
-                                        }}</p>
-                                    </div>
-
-                                    <div class="flex gap-2 flex-col justify-end">
-                                        <label for="Generate Quote"
-                                            class="font-poppins font-bold text-base text-teal">Generate Quote
-                                            (ChatGPT)</label>
-                                        <div class="flex flex-col">
-                                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md"
-                                                type="text" name="username" id="" v-model="prompt"
-                                                placeholder="Enter prompt here">
-                                            <button
-                                                class="w-[150px] py-1 bg-teal text-white font-poppins rounded-md my-2 flex flex-col"
-                                                @click="generateQuote">Generate</button>
-                                            <!-- <textarea class="bg-offwhite text-black font-bold font-poppins px-2"
-                                                v-model="quote"></textarea> -->
-
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                                <!--footer-->
-                                <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
-                                    <button
-                                        class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
-                                        type="submit">
-                                        Simpan
-                                    </button>
-                                    <button
-                                        class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
-                                        type="button" v-on:click="toggleModalCreateQuotes()">
-                                        Tidak Simpan
-                                    </button>
-                                </div>
+                <!-- Pop up modal buat Quotes baru... -->
+            <div>
+                <form v-if="showcreatequotes" @submit.prevent="createquote()"
+                    class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                    <div class="bg-white p-6 rounded-lg min-w-[600px] max-w-[650px]">
+                        <h2 class="text-[40px] text-teal font-poppins font-semibold mb-4 border-b border-teal">Buat Quotes Baru</h2>
+                        <div class="mb-4">
+                            <label for="author" class="block text-[14px] font-verdana font-normal mb-1">Author</label>
+                            <input v-model="form.author_name" id="author" type="text"
+                                class="w-full px-3 py-2 border border-gray-300 rounded" />
+                            <span v-if="formErrors.author_name" class="text-red text-sm font-bold">{{ formErrors.author_name }}</span>
+                        </div>
+                        <div class="mb-4">
+                            <label for="quote" class="block text-[14px] font-verdana font-normal mb-1">Quotes</label>
+                            <textarea v-model="form.quote" id="quote" rows="3"
+                                class="w-full px-3 py-2 border border-gray-300 rounded"></textarea>
+                            <span v-if="formErrors.quote" class="text-red text-sm font-bold">{{ formErrors.quote }}</span>
+                        </div>
+                        <div class="mb-4">
+                            <label for="image" class="block text-[14px] font-verdana font-normal mb-1">Gambar</label>
+                            <input @change="handleFileChange" id="image" type="file"
+                                class="w-full px-3 py-2 border border-gray-300 rounded" required />
+                            <span v-if="formErrors.image" class="text-red text-sm font-bold">{{ formErrors.image }}</span>
+                        </div>
+                        <div v-if="errorMessage" class="text-red text-sm font-bold mb-4">{{ errorMessage }}</div>
+                        <div class="flex flex-col gap-4">
+                            <div>
+                                <input type="text" class="bg-grey pl-4 py-2 w-full rounded-md" v-model="prompt"
+                                    placeholder="Enter your prompt here">
+                                <button class="px-8 py-2 bg-teal text-white font-poppins rounded-md my-2"
+                                    @click.prevent="generateQuote">Generate Quote</button>
+                                <div class="bg-teal text-white font-bold font-poppins px-2" v-if="quote">{{
+                                    quote.generated_quote
+                                }}</div>
                             </div>
 
                         </div>
-
-                    </form>
-                    <div v-if="showcreatequotes" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
-                </div>
-
-
-
-
-
-                <div v-if="error" class="text-red font-gotham font-bold text-2xl pt-4">{{ error }}</div>
+                        <div class="flex justify-end">
+                            <button @click="toggleModalCreateQuotes()"
+                                class="px-4 py-2 bg-gray-300 text-gray-800 rounded mr-2">Cancel</button>
+                            <button type="submit" class="px-4 py-2 bg-teal text-white rounded">Buat</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+                <!-- Pop up modal buat Quotes baru... -->
             </div>
         </div>
-
-
-        <!-- <div class="flex flex-col gap-4">
-                <div>
-                    <input type="text" class="bg-grey pl-4 py-1 w-full rounded-full" v-model="prompt"
-                        placeholder="Enter your prompt here">
-                    <button class="px-8 py-2 bg-teal text-white font-poppins rounded-md my-2"
-                        @click="generateQuote">Generate Quote</button>
-                    <div class="bg-teal text-white font-bold font-poppins px-2" v-if="quote">{{ quote.generated_quote
-                    }}</div>
-                    <div v-else>(Hasil Generate Quote akan tampil disini)</div>
-                </div>
-
-            </div> -->
-
-        <!-- <form @submit.prevent="createquote()" class="flex flex-col gap-4">
-                <div>
-                    <p class="font-gotham font-normal text-2xl text-black mb-2">Quotes</p>
-                    <input class="bg-grey pl-4 py-1 w-full rounded-full" type="text" name="Judul" id=""
-                        v-model="form.quote">
-                </div>
-
-                <div>
-                    <p class="font-gotham font-normal text-2xl text-black mb-2">Author</p>
-                    <input class="bg-grey pl-4 py-8 w-full rounded-lg" type="text" name="Author" id=""
-                        v-model="form.author_name">
-                </div>
-
-                <div>
-                    <p class="font-gotham font-normal text-2xl text-black mb-2">Media</p>
-                    <input accept="image/jpeg, image/jpg, image/png" class="bg-grey pl-4 py-28 w-full rounded-lg"
-                        type="file" name="Media" id="" @change="handleFileChange">
-                    <p v-if="errorMessage" class="text-[#EF0307] font-semibold">{{ errorMessage }}</p>
-                </div>
-
-                <div class="flex flex-col items-center">
-                    <button type="submit"
-                        class="bg-grey py-2 px-8 font-gotham font-bold text-black rounded-full">Simpan</button>
-                </div>
-            </form> -->
-
-
-
-
-
     </div>
 </template>
+

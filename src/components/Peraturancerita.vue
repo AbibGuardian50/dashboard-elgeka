@@ -59,11 +59,11 @@ export default {
     <div class="flex">
         <Sidebar />
 
-        <div class="w-[1200px] px-4">
-            <p class="font=gotham font-bold text-[30px] leading-6 text-sulfurblack my-4 border-b border-[#D0D5DD] pb-4">Peraturan Cerita</p>
-            <p class="font=gotham font-normal text-[20px] leading-6 text-sulfurblack my-4 pb-4">Tentang Peraturan Cerita</p>
+        <div class="w-[1200px] pl-8 my-4">
+            <p class="font=gotham font-bold text-[30px] leading-6 text-sulfurblack mt-8 border-b border-[#D0D5DD] pb-4">Update Aturan Cerita</p>
+
             <div v-if="aturanblog.currentPage === 1"
-                class="flex flex-col text-center bg-[#FF6200B2] py-8 px-16 mb-8 m-auto">
+                class="flex flex-col text-center bg-oceanteal rounded-md mt-16 py-8 px-16 mb-8 m-auto">
                 <div class="font-poppins font-semibold text-[40px] p-8 text-white">
                     {{ aturanblog.data.title }}
                 </div>

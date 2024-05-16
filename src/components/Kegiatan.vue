@@ -29,6 +29,8 @@ export default {
                 this.daftarkegiatan.forEach((item, index) => {
                     item.no = index + 1;
                 });
+                this.totalPages = Math.ceil(this.daftarkegiatan.length / this.perPage);
+                this.updatePaginatedData();
                 console.log(this.daftarkegiatan)
             } else {
                 this.error = 'dilarang akses halaman ini'
@@ -49,10 +51,35 @@ export default {
                 tempat: '',
                 date: '',
                 image: []
-            }
+            },
+            perPage: 5,
+            currentPage: 1,
+            totalPages: 0,
+            PaginatedDaftarKegiatan: []
         }
     },
     methods: {
+        updatePaginatedData() {
+            const startIndex = (this.currentPage - 1) * this.perPage;
+            const endIndex = startIndex + this.perPage;
+            this.PaginatedDaftarKegiatan = this.daftarkegiatan.slice(startIndex, endIndex);
+        },
+        goToPage(pageNumber) {
+            this.currentPage = pageNumber;
+            this.updatePaginatedData();
+        },
+        nextPage() {
+            if (this.currentPage < this.totalPages) {
+                this.currentPage++;
+                this.updatePaginatedData();
+            }
+        },
+        prevPage() {
+            if (this.currentPage > 1) {
+                this.currentPage--;
+                this.updatePaginatedData();
+            }
+        },
         handleFileChange(event) {
             // Mengambil file yang dipilih oleh pengguna
             const selectedFile = event.target.files[0];
@@ -126,17 +153,14 @@ export default {
                             <th scope="col" class="px-6 py-3 text-left font-gotham text-sulfurblack text-base font-normal">
                                 Deskripsi
                             </th>
-                            <th scope="col"
-                                class="px-6 py-3 text-left font-gotham text-sulfurblack text-base w-[300px] font-normal">
-                            </th>
                             <th scope="col" class="">
                                 <button v-on:click="toggleModalCreateKegiatan()"
-                                    class="bg-teal px-2 py-1 text-left font-gotham text-sulfurblack text-base">+</button>
+                                    class="bg-teal px-2 py-1 text-left font-gotham text-white text-base">Tambah</button>
                             </th>
                         </tr>
                     </thead>
 
-                    <tbody v-for="data in daftarkegiatan" :key="data.id" class="bg-white divide-y divide-gray-200">
+                    <tbody v-for="data in PaginatedDaftarKegiatan" :key="data.id" class="bg-white divide-y divide-gray-200">
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap font-gotham font-normal text-sulfurblack text-base">
                                 {{ data.no }}
@@ -157,7 +181,7 @@ export default {
                                 <p class="font-gotham font-normal text-sulfurblack text-base">{{ data.tempat }}</p>
                             </td>
                             <td class="px-6 py-4 max-w-[300px]">
-                                <span v-html="data.content" class="text-base text-gray-900">
+                                <span v-html="data.content" class="line-clamp-4 text-base text-gray-900">
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap  text-sm font-medium">
@@ -170,6 +194,18 @@ export default {
                         <!-- More rows... -->
                     </tbody>
                 </table>
+
+                <!-- Pagination navigation -->
+                <div class="ml-8 mt-4 flex justify-center">
+                    <button @click="prevPage" :disabled="currentPage === 1"
+                        class="px-4 py-2 mr-2 bg-teal  text-white rounded-md">Previous</button>
+                    <button v-for="pageNumber in totalPages" :key="pageNumber" @click="goToPage(pageNumber)"
+                        :class="{ 'bg-teal  text-white rounded-md': pageNumber === currentPage, 'bg-white text-blue-500 border border-blue-500 rounded-md': pageNumber !== currentPage }"
+                        class="px-4 py-2 mr-2">{{ pageNumber }}</button>
+                    <button @click="nextPage" :disabled="currentPage === totalPages"
+                        class="px-4 py-2 bg-teal  text-white rounded-md">Next</button>
+                </div>
+
                 <!-- Pop up Modal buat kegiatan baru... -->
                 <div>
                     <form v-if="showcreatekegiatan" @submit.prevent="createkegiatan()"

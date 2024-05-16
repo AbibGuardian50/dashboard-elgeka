@@ -27,9 +27,10 @@ export default {
         'greynight': '#BBB2B0',
         'silver': '#D0D5DD',
         'teal': '#0A6B77',
+        'oceanteal': '#0A6B77B2',
       },
       fontFamily: {
-        'inter' : ['inter', 'sans-serif'],
+        'inter' : ['Inter', 'sans-serif'],
         'poppins': ["Poppins", 'sans-serif'],
         'gotham': ["gotham", 'sans-serif'],
         'verdana': ["verdana", 'sans-serif'],

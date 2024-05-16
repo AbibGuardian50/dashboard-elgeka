@@ -2,11 +2,8 @@
 import Sidebar from "./Sidebar.vue"
 import axios from "axios"
 import VueCookies from 'vue-cookies';
-import moment from 'moment';
-import 'moment/locale/id';
 import { format } from 'date-fns';
 import id from 'date-fns/locale/id';
-import idLocale from 'date-fns/locale/id';
 
 export default {
     async created() {
@@ -20,17 +17,12 @@ export default {
                     },
                 })
                 this.DaftarVerifCerita = response.data.result.data
-                // this.DaftarVerifCerita.sort((x, y) => x.id - y.id)
                 this.DaftarVerifCerita.forEach((item, index) => {
                     item.no = index + 1;
                 });
-                this.StatusVerifCerita = response.data.result.data.isVerified
-                console.log(this.StatusVerifCerita)
+                this.totalPages = Math.ceil(this.DaftarVerifCerita.length / this.perPage);
+                this.updatePaginatedData();
                 console.log(this.DaftarVerifCerita)
-                // this.daftaradmin.sort((x, y) => x.id - y.id)
-                // this.daftaradmin.forEach((item, index) => {
-                //     item.no = index + 1;
-                // });
             } else {
                 this.error = 'dilarang akses halaman ini'
             }
@@ -44,13 +36,38 @@ export default {
     data() {
         return {
             DaftarVerifCerita: [],
-            StatusVerifCerita: ''
+            paginatedData: [],
+            currentPage: 1,
+            perPage: 10,
+            totalPages: 0,
+            error: '',
         }
     },
     methods: {
         formatDate(dateString) {
             // Ubah format tanggal
             return format(new Date(dateString), 'dd MMMM yyyy HH:mm', { locale: id });
+        },
+        updatePaginatedData() {
+            const start = (this.currentPage - 1) * this.perPage;
+            const end = this.currentPage * this.perPage;
+            this.paginatedData = this.DaftarVerifCerita.slice(start, end);
+        },
+        goToPage(pageNumber) {
+            this.currentPage = pageNumber;
+            this.updatePaginatedData();
+        },
+        nextPage() {
+            if (this.currentPage < this.totalPages) {
+                this.currentPage++;
+                this.updatePaginatedData();
+            }
+        },
+        prevPage() {
+            if (this.currentPage > 1) {
+                this.currentPage--;
+                this.updatePaginatedData();
+            }
         },
         deletecerita(id) {
             if (confirm('Apakah kamu yakin untuk menghapus cerita ini?')) {
@@ -82,7 +99,7 @@ export default {
             <div>
                 <table class="min-w-full divide-y divide-gray-200 overflow-x-auto">
 
-                    <tbody v-for="data in DaftarVerifCerita" :key="data.id" class="bg-white divide-y divide-gray-200">
+                    <tbody v-for="data in paginatedData" :key="data.id" class="bg-white divide-y divide-gray-200">
                         <tr>
                             <div class="px-6 py-4 max-w-[400px] mr-32">
                                 <p class="text-[20px] leading-5 font-inter font-bold text-fullblack">{{ data.title }}</p>
@@ -95,30 +112,25 @@ export default {
                                 </div>
                             </div>
 
-                            <td class="px-6 py-4 whitespace-nowrap  text-base font-medium">
+                            <td class="px-6 py-4 whitespace-nowrap text-base font-medium">
                                 <a :href="'editcerita/' + data.id"><button
                                         class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button></a>
                                 <button href="#" @click="deletecerita(data.id)"
-                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-teal  ml-2 font-inter font-bold text-base">Hapus</button>
+                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-teal ml-2 font-inter font-bold text-base">Hapus</button>
                             </td>
-                            <!-- <td class="px-6 py-4 whitespace-nowrap">
-                                <span v-if="data.isVerified === true"
-                                    class="inline-flex text-base text-black leading-5 font-bold font-inter rounded-md">
-                                    Sudah di Verifikasi
-                                </span>
-
-                                <span v-if="data.isVerified === false"
-                                    class="inline-flex text-base text-black leading-5 font-bold font-inter rounded-md">
-                                    Pending
-                                </span>
-                            </td> -->
-                            
                         </tr>
                     </tbody>
 
                 </table>
+
+                <div class="flex justify-center mt-4">
+                    <button @click="prevPage" :disabled="currentPage === 1" class="px-4 py-2 mr-2 bg-teal text-white rounded-md">Previous</button>
+                    <button v-for="pageNumber in totalPages" :key="pageNumber" @click="goToPage(pageNumber)"
+                        :class="{ 'bg-teal text-white rounded-md': pageNumber === currentPage, 'bg-white text-blue-500 border border-blue-500 rounded-md': pageNumber !== currentPage }"
+                        class="px-4 py-2 mr-2">{{ pageNumber }}</button>
+                    <button @click="nextPage" :disabled="currentPage === totalPages" class="px-4 py-2 bg-teal text-white rounded-md">Next</button>
+                </div>
             </div>
         </div>
-
     </div>
 </template>

@@ -25,6 +25,8 @@ export default {
                 this.daftarpengurus.forEach((item, index) => {
                     item.no = index + 1;
                 });
+                this.totalPages = Math.ceil(this.daftarpengurus.length / this.perPage);
+                this.updatePaginatedData();
                 console.log(this.daftarpengurus)
             } else {
                 this.error = 'dilarang akses halaman ini'
@@ -53,9 +55,34 @@ export default {
                 quote: '',
                 image: [],
             },
+            perPage: 5,
+            currentPage: 1,
+            totalPages: 0,
+            PaginatedDaftarPengurus: []
         }
     },
     methods: {
+        updatePaginatedData() {
+            const startIndex = (this.currentPage - 1) * this.perPage;
+            const endIndex = startIndex + this.perPage;
+            this.PaginatedDaftarPengurus = this.daftarpengurus.slice(startIndex, endIndex);
+        },
+        goToPage(pageNumber) {
+            this.currentPage = pageNumber;
+            this.updatePaginatedData();
+        },
+        nextPage() {
+            if (this.currentPage < this.totalPages) {
+                this.currentPage++;
+                this.updatePaginatedData();
+            }
+        },
+        prevPage() {
+            if (this.currentPage > 1) {
+                this.currentPage--;
+                this.updatePaginatedData();
+            }
+        },
         createpengurus() {
             const tokenlogin = VueCookies.get('tokenlogin')
             const formData = new FormData();
@@ -133,7 +160,7 @@ export default {
                             </th>
                         </tr>
                     </thead>
-                    <tbody v-for="data in daftarpengurus" :key="data.id" class="bg-white divide-y divide-gray-200">
+                    <tbody v-for="data in PaginatedDaftarPengurus" :key="data.id" class="bg-white divide-y divide-gray-200">
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap font-gotham font-normal text-sulfurblack text-base">
                                 {{ data.no }}
@@ -170,6 +197,16 @@ export default {
 
                     </tbody>
                 </table>
+                <!-- Pagination navigation -->
+                <div class="ml-8 mt-4 flex justify-center">
+                    <button @click="prevPage" :disabled="currentPage === 1"
+                        class="px-4 py-2 mr-2 bg-teal  text-white rounded-md">Previous</button>
+                    <button v-for="pageNumber in totalPages" :key="pageNumber" @click="goToPage(pageNumber)"
+                        :class="{ 'bg-teal  text-white rounded-md': pageNumber === currentPage, 'bg-white text-blue-500 border border-blue-500 rounded-md': pageNumber !== currentPage }"
+                        class="px-4 py-2 mr-2">{{ pageNumber }}</button>
+                    <button @click="nextPage" :disabled="currentPage === totalPages"
+                        class="px-4 py-2 bg-teal  text-white rounded-md">Next</button>
+                </div>
 
                 <!-- Pop up modal buat Pengurus baru... -->
                 <div>
@@ -218,8 +255,7 @@ export default {
                                         </label>
                                         <div class="flex gap-2 flex-col">
                                             <quill-editor class="border border-black py-4 min-w-[550px] pl-2 rounded-md"
-                                                theme="snow" contentType="html"
-                                                v-model:content="form.quote"></quill-editor>
+                                                theme="snow" contentType="html" v-model:content="form.quote"></quill-editor>
                                         </div>
                                     </div>
                                     <div class="flex gap-2 flex-col">
@@ -295,4 +331,5 @@ export default {
                 <div v-if="error" class="text-red font-gotham font-bold text-2xl pt-4">{{ error }}</div>
             </div>
         </div>
-</div></template>
+    </div>
+</template>

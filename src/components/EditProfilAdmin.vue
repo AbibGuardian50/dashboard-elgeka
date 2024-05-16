@@ -29,7 +29,7 @@ export default {
     data() {
         return {
             profiladmin: [],
-            edited: {
+            profiladmin: {
                 full_name: '',
                 email: ''
             },
@@ -42,7 +42,7 @@ export default {
             const AdminId = VueCookies.get('id_user')
             // const toast = useToast();
             const url = `https://elgeka-web-api-production.up.railway.app/api/v1/admin/${AdminId}`
-            axios.patch(url, this.edited, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
+            axios.patch(url, this.profiladmin, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
                 .then(response => {
                     console.log(response.data)
                     this.statuscode = response.data.code
@@ -73,14 +73,18 @@ export default {
             <div class="flex gap-16">
                 <div v-if="profiladmin.is_active === true" class="border border-teal mt-4 ml-4 pb-8 px-8">
                     <div class="flex my-8 gap-8 items-center">
-
                         <div class="flex flex-col">
                             <p class="font-poppins font-bold text-2xl text-teal">{{ profiladmin.full_name }}</p>
-                            <p class="font-poppins font-medium text-xl text-lightteal">{{ profiladmin.email }}</p>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-8">
+                        <div class="w-96 pb-8 border border-teal flex flex-col">
+                            <p class="pl-8 py-8 font-poppins font-bold text-2xl text-teal text-left">Nama Lengkap</p>
+                            <p
+                                class="pl-8 text-lightteal font-poppins font-medium">
+                                {{ profiladmin.full_name }}</p>
+                        </div>
                         <div class="w-96 pb-8 border border-teal flex flex-col">
                             <p class="pl-8 py-8 font-poppins font-bold text-2xl text-teal text-left">Roles</p>
                             <p v-if="profiladmin.superAdmin === true"
@@ -95,7 +99,6 @@ export default {
 
                 <form class="flex flex-col items-center gap-4" @submit.prevent="editprofiladmin()">
                     <div v-if="statuscode===200" class="px-2 max-w-[250px] mt-4">
-
                         <!-- Alert Error -->
                         <div class="bg-[#86efac] px-6 py-4 mx-2 my-4 rounded-md text-lg flex items-center mx-auto max-w-lg">
                             <svg viewBox="0 0 24 24" class="text-[#16a34a] w-5 h-5 sm:w-5 sm:h-5 mr-3">
@@ -110,17 +113,17 @@ export default {
                     </div>
                     <div class="w-full flex flex-col">
                         <p class="font-poppins font-bold text-[16px] text-teal text-center">Nama Lengkap</p>
-                        <input type="text" name="" id="" :placeholder="profiladmin.full_name"
-                            class="border border-black py-1 px-2" v-model="edited.full_name">
+                        <input type="text" name="" id="" 
+                            class="border border-black py-1 px-2" v-model="profiladmin.full_name">
                     </div>
 
                     <div class="w-full flex flex-col">
-                        <p class="font-poppins font-bold text-[16px] text-teal text-center">Email</p>
-                        <input type="email" name="" id="" :placeholder="profiladmin.email"
-                            class=" py-1 px-2 border border-black" v-model="edited.email">
+                        <p class="font-poppins font-bold text-[16px] text-teal text-center">Username</p>
+                        <input type="username" name="" id=""
+                            class=" py-1 px-2 border border-black" v-model="profiladmin.username">
                     </div>
 
-                    <button type="submit" class="bg-teal mt-4 py-1 px-6">Ganti</button>
+                    <button type="submit" class="bg-teal text-white font-medium font-poppins mt-4 py-1 px-6">Ganti</button>
                 </form>
 
                 <div>

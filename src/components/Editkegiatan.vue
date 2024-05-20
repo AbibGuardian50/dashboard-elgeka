@@ -86,13 +86,13 @@ export default {
                     <div class="flex flex-col gap-8 relative p-6">
                         <div class="flex gap-2 flex-col">
                             <label for="Judul" class="font-poppins font-bold text-base text-teal">Judul</label>
-                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
+                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" required
                                 v-model="daftarkegiatan.title" name="Judul" id="" :placeholder="daftarkegiatan.title">
                         </div>
 
                         <div class="flex gap-2 flex-col">
                             <label for="tempat" class="font-poppins font-bold text-base text-teal">Tempat</label>
-                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" name="tempat" 
+                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" name="tempat" required
                             v-model="daftarkegiatan.tempat" :placeholder="daftarkegiatan.tempat">
                         </div>
 
@@ -107,7 +107,7 @@ export default {
 
                         <div class="flex gap-2 flex-col">
                             <label for="Tanggal" class="font-poppins font-bold text-base text-teal">Tanggal</label>
-                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" name="Tanggal"
+                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" name="Tanggal" required
                                 v-model="daftarkegiatan.date" id="" :placeholder="daftarkegiatan.date">
                         </div>
 

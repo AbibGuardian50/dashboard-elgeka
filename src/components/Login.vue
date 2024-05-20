@@ -1,6 +1,7 @@
 <script>
 import axios from 'axios'
 import VueCookies from 'vue-cookies';
+import { useToast } from 'vue-toastification';
 export default {
     data() {
         return {
@@ -15,6 +16,7 @@ export default {
     methods: {
         async login() {
             try {
+                const toast = useToast();
                 const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/admin/login'
                 const response = await axios.post(url, {
                     username: this.username,
@@ -24,6 +26,7 @@ export default {
                     this.$router.push('/kelolaakun');
                     console.log(response)
                     VueCookies.set('tokenlogin', response.data.result.token)
+                    toast.success('Login Berhasil!');
                     // VueCookies.set('fullname', response.data.result.user.full_name)
                     // VueCookies.set('email', response.data.result.user.email)
                     VueCookies.set('id_user', response.data.result.user.id)

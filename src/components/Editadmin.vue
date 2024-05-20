@@ -40,9 +40,10 @@ export default {
         },
         editadmin(id) {
             const tokenlogin = VueCookies.get('tokenlogin')
+            this.daftaradmin.is_active = this.daftaradmin.is_active.toString();
             // const toast = useToast();
             const url = `https://elgeka-web-api-production.up.railway.app/api/v1/admin/${id}`
-            axios.patch(url, this.edited, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
+            axios.patch(url, this.daftaradmin, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
                 .then(response => {
                     console.log(response.data)
                     this.resulterror = response.data
@@ -65,9 +66,10 @@ export default {
             getRoles: false,
             resulterror: '',
             daftaradmin: '',
-            edited: {
+            daftaradmin: {
                 full_name: '',
-                username: ''
+                username: '',
+                is_active: '',
             }
         }
     },
@@ -103,26 +105,26 @@ export default {
                         <div class="flex gap-2 flex-col">
                             <label for="nama lengkap" class="font-poppins font-bold text-base text-teal">Nama
                                 Lengkap</label>
-                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
-                                v-model="edited.full_name" name="nama lengkap" id="" :placeholder="daftaradmin.full_name">
+                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" required
+                                v-model="daftaradmin.full_name" name="nama lengkap" id="" >
                         </div>
 
                         <div class="flex gap-2 flex-col">
                             <label for="username" class="font-poppins font-bold text-base text-teal">Username</label>
-                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" name="username"
-                                v-model="edited.username" id="" :placeholder="daftaradmin.username">
+                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" name="username" required
+                                v-model="daftaradmin.username" id="" > 
                         </div>
 
-                        <!-- <div class="flex gap-2 flex-col">
-                        <label for="Status" class="font-poppins font-bold text-base text-teal">Status</label>
-                         <input class="border border-black py-4 min-w-[550px] pr-2 rounded-md" type="text" name="nama lengkap" id="" placeholder="  Muhammad Abieb Basnuril">
-                        <select
-                          class="border bg-white border-black py-4 min-w-[550px] pl-2 rounded-md font-poppins font-medium text-base text-[#00000080]"
-                          name="Status" id="">
-                          <option value="aktif" selected> aktif</option>
-                          <option value="nonaktif">nonaktif</option>
-                        </select>
-                      </div> -->
+                        <div class="flex gap-2 flex-col">
+                            <label for="Status" class="font-poppins font-bold text-base text-teal">Status Aktif</label>
+                            <!-- <input class="border border-black py-4 min-w-[550px] pr-2 rounded-md" type="text" name="nama lengkap" id="" placeholder="  Muhammad Abieb Basnuril"> -->
+                            <select required 
+                            class="border border-black py-4 min-w-[550px] pl-2 rounded-md"
+                                name="Status" id="" v-model="daftaradmin.is_active">
+                                <option value="false">Nonaktif</option>
+                                <option value="true">Aktif</option>
+                            </select>
+                        </div>
 
 
                     </div>

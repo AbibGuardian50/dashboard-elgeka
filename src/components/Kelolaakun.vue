@@ -2,7 +2,7 @@
 import axios from "axios";
 import Sidebar from "./Sidebar.vue";
 import VueCookies from 'vue-cookies';
-import useToast from "vue-toastification";
+import { useToast } from 'vue-toastification';
 import 'vue-toastification/dist/index.css';
 
 export default {
@@ -92,16 +92,19 @@ export default {
       this.formErrors.password = '';
 
       if (this.form.username.length < 6 || this.form.username.length > 16) {
+        const toast = useToast();
+        toast.warning('Username harus memiliki panjang antara 6 dan 16 karakter');
         this.formErrors.username = 'Username harus memiliki panjang antara 6 dan 16 karakter.';
         valid = false;
       }
 
       const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])/;
       if (this.form.password.length < 8 || !passwordRegex.test(this.form.password)) {
+        const toast = useToast();
+        toast.warning('Password harus memiliki minimal 8 karakter dan mengandung setidaknya satu angka dan satu karakter spesial.');
         this.formErrors.password = 'Password harus memiliki minimal 8 karakter dan mengandung setidaknya satu angka dan satu karakter spesial.';
         valid = false;
       }
-
       return valid;
     },
 

@@ -159,11 +159,11 @@ export default {
 
                 </div>
             </div>
-            <div v-else>
+            <!-- <div v-else>
                 <p class="font-bold font-poppins text-5xl">Dilarang Akses Halaman Ini</p>
                 <a href="/kelolaakun" class="hover:text-teal hover:underline font-bold font-poppins text-5xl">Klik Disini
                     Untuk Kembali ke Halaman Sebelumnya</a>
-            </div>
+            </div> -->
 
 
 

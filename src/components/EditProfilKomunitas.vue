@@ -24,12 +24,13 @@ export default {
     },
     data() {
         return {
+            isContentEmpty: false,
             communityprofile: [],
             communityprofile: {
                 title: [],
                 content: [],
                 ig_link: [],
-                fb_link: [], 
+                fb_link: [],
                 twitter_link: [],
                 visi: [],
                 misi: [],
@@ -38,6 +39,10 @@ export default {
     },
     methods: {
         editprofile() {
+            if (!this.communityprofile.content) {
+                this.isContentEmpty = true; // Set isContentEmpty menjadi true jika konten Quill Editor kosong
+                return; // Berhenti jika konten Quill Editor kosong
+            }
             const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/profilKomunitas'
             const tokenlogin = VueCookies.get('tokenlogin')
             axios.patch(url, this.communityprofile, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
@@ -57,7 +62,7 @@ export default {
 <template>
     <div>
         <form v-if="communityprofile" @submit.prevent="editprofile()"
-            class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+            class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center flex">
             <div class="relative w-[100rem] my-6 mx-auto max-w-6xl">
                 <!--content-->
                 <div
@@ -80,7 +85,7 @@ export default {
                             <label for="Judul" class="font-poppins font-bold text-base text-teal">Judul
                             </label>
                             <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text" name="Judul"
-                                id="" v-model="communityprofile.title" :placeholder="communityprofile.title">
+                                required id="" v-model="communityprofile.title" :placeholder="communityprofile.title">
                         </div>
                     </div>
 
@@ -89,13 +94,15 @@ export default {
                             <label for="Deskripsi Komunitas" class="font-poppins font-bold text-base text-teal">Deskripsi
                                 Komunitas
                             </label>
-                            <div  class="border border-black py-2 min-w-[550px] pl-2 rounded-md" id="app">
-                                <quill-editor :toolbar="['bold', 'italic', 'underline','image']" theme="snow" contentType="html" v-model:content="communityprofile.content"></quill-editor>
+                            <div class="border border-black py-2 min-w-[550px] pl-2 rounded-md" id="app">
+                                <quill-editor :toolbar="['bold', 'italic', 'underline', 'image']" theme="snow"
+                                    contentType="html" v-model:content="communityprofile.content" required></quill-editor>
+                                <p v-if="isContentEmpty" class="text-red text-sm mt-1">Konten tidak boleh kosong.</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="flex flex-col gap-8 relative p-6">
+                    <div class="flex flex-col gap-8 relative p-6 py-4">
                         <div class="flex gap-2 flex-col">
                             <label for="Link Instagram" class="font-poppins font-bold text-base text-teal">Link
                                 Instagram
@@ -106,17 +113,18 @@ export default {
                         </div>
                     </div>
 
-                    <div class="flex flex-col gap-8 relative p-6">
+                    <div class="flex flex-col gap-8 relative p-6 py-4">
                         <div class="flex gap-2 flex-col">
                             <label for="Link Facebook" class="font-poppins font-bold text-base text-teal">Link
                                 Facebook
                             </label>
                             <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
-                                name="Link Facebook" id="" v-model="communityprofile.fb_link" :placeholder="communityprofile.fb_link">
+                                name="Link Facebook" id="" v-model="communityprofile.fb_link"
+                                :placeholder="communityprofile.fb_link">
                         </div>
                     </div>
 
-                    <div class="flex flex-col gap-8 relative p-6">
+                    <div class="flex flex-col gap-8 relative p-6 py-4">
                         <div class="flex gap-2 flex-col">
                             <label for="Link Twitter" class="font-poppins font-bold text-base text-teal">Link Twitter
                             </label>
@@ -126,23 +134,21 @@ export default {
                         </div>
                     </div>
 
-                    <div class="flex flex-col gap-8 relative p-6">
+                    <div class="flex flex-col gap-8 relative p-6 py-4">
                         <div class="flex gap-2 flex-col">
                             <label for="Visi" class="font-poppins font-bold text-base text-teal">Visi
                             </label>
-                            <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
-                                name="Visi" id="" v-model="communityprofile.visi"
-                                :placeholder="communityprofile.visi">
+                            <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text" name="Visi"
+                                id="" v-model="communityprofile.visi" :placeholder="communityprofile.visi">
                         </div>
                     </div>
 
-                    <div class="flex flex-col gap-8 relative p-6">
+                    <div class="flex flex-col gap-8 relative p-6 py-4">
                         <div class="flex gap-2 flex-col">
                             <label for="Misi" class="font-poppins font-bold text-base text-teal">Misi
                             </label>
-                            <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
-                                name="Misi" id="" v-model="communityprofile.misi"
-                                :placeholder="communityprofile.misi">
+                            <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text" name="Misi"
+                                id="" v-model="communityprofile.misi" :placeholder="communityprofile.misi">
                         </div>
                     </div>
                     <!--footer-->
@@ -154,12 +160,12 @@ export default {
                         </button>
                         <router-link to="/profilkomunitas">
                             <button
-                            class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
-                            type="button">
-                            Batal
-                        </button>
+                                class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                                type="button">
+                                Batal
+                            </button>
                         </router-link>
-                        
+
                     </div>
                 </div>
             </div>

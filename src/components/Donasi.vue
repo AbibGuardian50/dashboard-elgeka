@@ -134,14 +134,14 @@ export default {
                                     <div class="flex gap-2 flex-col">
                                         <label for="Judul" class="font-poppins font-bold text-base text-teal">Judul
                                         </label>
-                                        <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
+                                        <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text" required
                                             name="Judul" id="Judul" :placeholder="donasielgeka.data.title"
                                             v-model="donasielgeka.data.title">
                                     </div>
                                     <div class="flex gap-2 flex-col">
                                         <label for="Link" class="font-poppins font-bold text-base text-teal">Link
                                         </label>
-                                        <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
+                                        <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text" required
                                             name="Link" id="Link" :placeholder="donasielgeka.data.donate_link"
                                             v-model="donasielgeka.data.donate_link">
                                     </div>
@@ -150,7 +150,7 @@ export default {
                                             class="font-poppins font-bold text-base text-teal">Deskripsi
                                         </label>
                                         <div class="border border-black py-2 min-w-[550px] pl-2 rounded-md" id="app">
-                                            <quill-editor theme="snow" contentType="html"
+                                            <quill-editor theme="snow" contentType="html" required
                                                 v-model:content="donasielgeka.data.content"></quill-editor>
                                         </div>
                                     </div>

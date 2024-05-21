@@ -309,10 +309,11 @@ export default {
                             </div>
 
                         </div>
-                        <div class="flex justify-end">
+                        <div class="flex gap-2 justify-end">
+                            <button type="submit" class="px-4 py-2 bg-teal text-white rounded">Simpan</button>
                             <button @click="toggleModalCreateQuotes()"
-                                class="px-4 py-2 bg-gray-300 text-gray-800 rounded mr-2">Cancel</button>
-                            <button type="submit" class="px-4 py-2 bg-teal text-white rounded">Buat</button>
+                                class="px-4 py-2 bg-gray-300 text-gray-800 rounded mr-2">Batal</button>
+                            
                         </div>
                     </div>
                 </form>

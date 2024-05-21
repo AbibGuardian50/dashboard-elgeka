@@ -183,7 +183,7 @@ export default {
                         <a href="/quotes"><button
                                 class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
                                 type="button">
-                                Tidak Simpan
+                                Batal
                             </button></a>
 
                     </div>

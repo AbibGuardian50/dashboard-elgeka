@@ -35,7 +35,7 @@ export default {
     data() {
         return {
             daftarberita: '',
-            edited: {
+            daftarberita: {
                 title: '',
                 content: '',
                 kategori: '',
@@ -88,19 +88,19 @@ export default {
                         <div class="flex gap-2 flex-col">
                             <label for="Judul" class="font-poppins font-bold text-base text-teal">Judul</label>
                             <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
-                                v-model="edited.title" required name="Judul" id="" :placeholder="daftarberita.title">
+                                v-model="daftarberita.title" required name="Judul" id="" :placeholder="daftarberita.title">
                         </div>
 
                         <div class="flex gap-2 flex-col">
                             <label for="doi_link" class="font-poppins font-bold text-base text-teal">doi_link</label>
                             <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" name="tempat"
-                                v-model="edited.doi_link" required :placeholder="daftarberita.doi_link">
+                                v-model="daftarberita.doi_link" required :placeholder="daftarberita.doi_link">
                         </div>
 
                         <div class="flex gap-2 flex-col">
                             <label for="Kategori" class="font-verdana font-normal text-base text-teal">Kategori</label>
                             <select name="" id="" class="border border-silver py-4 min-w-[550px] pl-2 rounded-md" required
-                                v-model="edited.kategori">
+                                v-model="daftarberita.kategori">
                                 <option value="perkembanganCML" selected>Perkembangan CML</option>
                                 <option value="perkembanganKomunitas">Perkembangan Komunitas</option>
                             </select>
@@ -111,8 +111,8 @@ export default {
                                 berita</label>
                             <div class="border border-black py-2 min-w-[550px] pl-2 rounded-md" id="app">
                                 <input type="text" name="" id="">
-                                <quill-editor theme="snow" contentType="html" required
-                                    v-model:content="edited.content" :content="editedData"></quill-editor>
+                                <quill-editor theme="snow" contentType="html" required class="font-poppins font-normal text-[16px]"
+                                    v-model:content="daftarberita.content" :content="editedData"></quill-editor>
                             </div>
                         </div>
 
@@ -125,7 +125,7 @@ export default {
                             type="submit">
                             Simpan
                         </button>
-                        <router-link to="/kegiatan">
+                        <router-link to="/berita">
                             <button
                                 class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
                                 type="button">

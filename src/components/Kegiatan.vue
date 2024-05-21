@@ -41,6 +41,7 @@ export default {
     },
     data() {
         return {
+            url: 'https://elgeka-web-api-production.up.railway.app/',
             daftarkegiatan: [],
             error: '',
             noUrut: 0,
@@ -153,6 +154,9 @@ export default {
                             <th scope="col" class="px-6 py-3 text-left font-gotham text-sulfurblack text-base font-normal">
                                 Deskripsi
                             </th>
+                            <th scope="col" class="px-6 py-3 text-left font-gotham text-sulfurblack text-base font-normal">
+                                Gambar
+                            </th>
                             <th scope="col" class="">
                                 <button v-on:click="toggleModalCreateKegiatan()"
                                     class="bg-teal px-2 py-1 text-left font-gotham text-white text-base">Tambah</button>
@@ -183,6 +187,9 @@ export default {
                             <td class="px-6 py-4 max-w-[300px]">
                                 <span v-html="data.content" class="line-clamp-4 text-base text-gray-900">
                                 </span>
+                            </td>
+                            <td class="px-6 py-4 max-w-[200px]">
+                                <img :src="url + data.image_url">
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap  text-sm font-medium">
                                 <a :href="'editkegiatan/' + data.id"><button
@@ -230,8 +237,7 @@ export default {
                                 <!--body-->
                                 <div class="flex flex-col gap-8 relative p-6">
                                     <div class="flex gap-2 flex-col">
-                                        <label for="Judul"
-                                            class="font-poppins font-bold text-base text-teal">Judul</label>
+                                        <label for="Judul" class="font-poppins font-bold text-base text-teal">Judul</label>
                                         <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
                                             v-model="form.title" name="Judul" id="" :placeholder="daftarkegiatan.title">
                                     </div>

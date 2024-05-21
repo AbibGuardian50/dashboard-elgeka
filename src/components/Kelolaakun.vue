@@ -296,10 +296,11 @@ export default {
                 <!-- Tampilkan pesan kesalahan jika peran belum dipilih -->
               <p v-if="formErrors.superAdmin" class="text-red text-sm mt-1">{{ formErrors.superAdmin }}</p>
             </div>
-            <div class="flex justify-end">
+            <div class="flex justify-end gap-2">
+              <button type="submit" class="px-4 py-2 bg-teal text-white rounded-md">Simpan</button>
               <button @click="toggleModalCreateAdmin" type="button"
                 class="mr-4 px-4 py-2 bg-white border border-teal text-teal rounded-md">Batal</button>
-              <button type="submit" class="px-4 py-2 bg-teal text-white rounded-md">Simpan</button>
+              
             </div>
           </form>
         </div>

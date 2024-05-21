@@ -1,6 +1,7 @@
 <script>
 import axios from 'axios'
 import VueCookies from 'vue-cookies';
+import { useToast } from 'vue-toastification';
 
 export default {
     async created() {
@@ -48,8 +49,14 @@ export default {
                     // Mengatur nilai quote sesuai dengan respons yang diterima
                     this.quotesdata.quote = response.data.result.generated_quote;
                     console.log(this.quotesdata.quote); // Mencetak kutipan yang dihasilkan dari respons
+                    const toast = useToast();
+                    if (response.data.message === "Generated Quote Successfully") {
+                        toast.success('Generate AI Berhasil Dimuat')
+                    }
                 })
                 .catch(error => {
+                    const toast = useToast();
+                    toast.error('Generate AI Gagal Dimuat')
                     console.error('Error generating quote:', error);
                     // Handle error here
                 });
@@ -63,13 +70,19 @@ export default {
             formData.append('author_name', this.quotesdata.author_name);
             axios.patch(url, formData, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
                 .then(response => {
-                    console.log(response.data)
+                    console.log(response)
                     this.resulterror = response.data
-                    // setTimeout(() => {
+                    const toast = useToast();
+                    if (response.data.message === "Update Quote by ID Successfully") {
+                        toast.success('Quotes berhasil diubah')
+                    }
+                    setTimeout(() => {
                         this.$router.push('/quotes')
-                    // }, 2000);
+                    }, 2000);
                 })
                 .catch(error => {
+                    const toast = useToast();
+                    toast.success('Quotes gagal diubah, mohon coba lagi')
                     console.log(error)
                 })
         },
@@ -81,9 +94,15 @@ export default {
             this.quotesdata.image = selectedFile;
 
             const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
-
             if (!allowedExtensions.exec(selectedFile.name)) {
-                this.errorMessage = 'Hanya file JPEG, JPG, dan PNG yang diizinkan';
+                const toast = useToast();
+                this.errorMessage = 'Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!';
+                toast.warning('Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!');
+                // alert('Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!');
+                // Atau, Anda dapat mengatur pesan kesalahan pada variabel data untuk ditampilkan dalam template
+                // this.errorMessage = 'Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!';
+                // Bersihkan nilai input file
+                event.target.value = '';
             } else {
                 // Lakukan proses upload file
                 // this.uploadFile(file);
@@ -166,8 +185,7 @@ export default {
                             <div class="flex flex-col">
                                 <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
                                     name="username" id="" v-model="prompt" placeholder="Enter prompt here">
-                                <p
-                                    class="w-[150px] hover:cursor-pointer text-center py-1 bg-teal text-white font-poppins rounded-md my-2 flex flex-col"
+                                <p class="w-[150px] hover:cursor-pointer text-center py-1 bg-teal text-white font-poppins rounded-md my-2 flex flex-col"
                                     @click="generateQuote">Generate</p>
 
                             </div>

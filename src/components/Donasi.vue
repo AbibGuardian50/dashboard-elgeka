@@ -2,7 +2,7 @@
 import Sidebar from "./Sidebar.vue"
 import axios from 'axios';
 import VueCookies from 'vue-cookies';
-
+import { useToast } from 'vue-toastification';
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.bubble.css";
 import "quill/dist/quill.snow.css";
@@ -39,8 +39,7 @@ export default {
             },
             edited: {
                 image: [],
-            },
-                
+            },  
             
         }
     },
@@ -74,7 +73,14 @@ export default {
             const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
 
             if (!allowedExtensions.exec(selectedFile.name)) {
-                this.errorMessage = 'Hanya file JPEG, JPG, dan PNG yang diizinkan';
+                const toast = useToast();
+                this.errorMessage = 'Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!';
+                toast.warning('Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!');
+                // alert('Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!');
+                // Atau, Anda dapat mengatur pesan kesalahan pada variabel data untuk ditampilkan dalam template
+                // this.errorMessage = 'Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!';
+                // Bersihkan nilai input file
+                event.target.value = '';
             } else {
                 // Lakukan proses upload file
                 // this.uploadFile(file);
@@ -95,7 +101,7 @@ export default {
             <p class="font-gotham font-bold text-[30px] leading-6 text-sulfurblack my-4 border-b border-[#D0D5DD] pb-4">
                 Donasi</p>
             <div v-if="donasielgeka.currentPage === 1"
-                class="bg-offwhite flex flex-col justify-center items-center border-2 border-teal m-auto min-w-7/12">
+                class="bg-semitransparentwhite flex flex-col justify-center items-center border-2 border-teal m-auto min-w-7/12">
                 <p class="font-poppins font-bold text-[40px] text-teal text-center">{{ donasielgeka.data.title }}</p>
                 <img class="max-w-[314px] max-h-[283px] border-8 border-teal my-4"
                     :src="gambar_url + donasielgeka.data.image_url" alt="Gambar QR" srcset="">
@@ -149,8 +155,8 @@ export default {
                                         <label for="Deskripsi"
                                             class="font-poppins font-bold text-base text-teal">Deskripsi
                                         </label>
-                                        <div class="border border-black py-2 min-w-[550px] pl-2 rounded-md" id="app">
-                                            <quill-editor theme="snow" contentType="html" required
+                                        <div class="border border-black py-2 min-w-[550px] pl-2  rounded-md" id="app">
+                                            <quill-editor theme="snow" contentType="html" required class="text-[16px]"
                                                 v-model:content="donasielgeka.data.content"></quill-editor>
                                         </div>
                                     </div>

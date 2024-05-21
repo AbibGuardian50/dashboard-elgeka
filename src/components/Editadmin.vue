@@ -1,83 +1,113 @@
 <script>
-import axios from 'axios'
+import axios from 'axios';
 import VueCookies from 'vue-cookies';
 import { useToast } from 'vue-toastification';
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
+import 'vue-toastification/dist/index.css';
 
 export default {
     async created() {
         try {
-            const id = this.$route.params.id
-            const tokenlogin = VueCookies.get('tokenlogin')
+            const toast = useToast();
+            const id = this.$route.params.id;
+            const tokenlogin = VueCookies.get('tokenlogin');
             if (tokenlogin) {
-                const url = `https://elgeka-web-api-production.up.railway.app/api/v1/admin/${id}`
+                const url = `https://elgeka-web-api-production.up.railway.app/api/v1/admin/${id}`;
                 const response = await axios.get(url, {
                     headers: {
                         Authorization: `Bearer ${tokenlogin}`
                     },
-                })
-                this.daftaradmin = response.data.result.data
-                const superAdmin = VueCookies.get('superAdmin')
-                this.getRoles = superAdmin
-                console.log(this.getRoles)
-                console.log(this.daftaradmin)
+                });
+                this.daftaradmin = response.data.result.data;
+                const superAdmin = VueCookies.get('superAdmin');
+                this.getRoles = superAdmin;
+                console.log(response);
+                if (response.data.message === "Get Admin by ID Successfully") {
+                    toast.success('Data Admin berhasil dimuat');
+                }
             } else {
-                this.error = 'dilarang akses halaman ini'
+                this.error = 'dilarang akses halaman ini';
             }
         } catch (error) {
+            const toast = useToast();
+            toast.error('Data Admin gagal dimuat');
             console.error(error);
         }
     },
     methods: {
-        // showToatWarning(){
-        //     toast.warning('Wow warning!',{
-        //         autoClose: 1000,
-        //     });   
-        // },
         toggleModalEditAdmin: function () {
             this.showeditadmin = !this.showeditadmin;
         },
-        editadmin(id) {
-            const tokenlogin = VueCookies.get('tokenlogin')
-            this.daftaradmin.is_active = this.daftaradmin.is_active.toString();
-            // const toast = useToast();
-            const url = `https://elgeka-web-api-production.up.railway.app/api/v1/admin/${id}`
-            axios.patch(url, this.daftaradmin, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
-                .then(response => {
-                    console.log(response.data)
-                    this.resulterror = response.data
-                    if (response.data.code === 200) {
-                        this.$router.push('/kelolaakun')
-                    } else if (response.data.code === 400){
+        async editadmin(id) {
+            const toast = useToast();
+            if (this.validateForm()) {
+                const tokenlogin = VueCookies.get('tokenlogin');
+                this.daftaradmin.is_active = this.daftaradmin.is_active.toString();
+                const url = `https://elgeka-web-api-production.up.railway.app/api/v1/admin/${id}`;
+                try {
+                    const response = await axios.patch(url, this.daftaradmin, {
+                        headers: {
+                            Authorization: `Bearer ${tokenlogin}`
+                        }
+                    });
+                    console.log(response);
+                    this.resulterror = response.data;
+                    if (response.data.message === "Update Admin by ID Successfully") {
+                        toast.success('Data Admin berhasil diubah');
                         setTimeout(() => {
                             this.$router.push('/kelolaakun');
                         }, 5000);
+                    } else if (response.data.message === "Error Data Request") {
+                        toast.error('Data Admin gagal diubah, mohon coba lagi');
                     }
-                })
-                .catch(error => {
-                    console.log(error)
-                })
+                } catch (error) {
+                    console.error(error);
+                    toast.error('Terjadi kesalahan, mohon coba lagi');
+                }
+            }
+        },
+        validateForm() {
+            const toast = useToast();
+            let valid = true;
+            this.formErrors.username = '';
+
+            if (this.daftaradmin.username.length < 6 || this.daftaradmin.username.length > 16) {
+                toast.warning('Username harus memiliki panjang antara 6 dan 16 karakter');
+                this.formErrors.username = 'Username harus memiliki panjang antara 6 dan 16 karakter.';
+                valid = false;
+            } else if (/[A-Z]/.test(this.daftaradmin.username)) {
+                toast.warning('Username tidak boleh mengandung huruf kapital');
+                this.formErrors.username = 'Username tidak boleh mengandung huruf kapital.';
+                valid = false;
+            } else if (/\s/.test(this.daftaradmin.username)) {
+                toast.warning('Username tidak boleh mengandung spasi');
+                this.formErrors.username = 'Username tidak boleh mengandung spasi.';
+                valid = false;
+            }
+
+            console.log('Validasi Form:', valid, this.formErrors); // Debug log
+
+            return valid;
         },
     },
     data() {
         return {
             showeditadmin: false,
             getRoles: false,
+            formErrors: {
+                username: '',
+            },
             resulterror: '',
-            daftaradmin: '',
             daftaradmin: {
                 full_name: '',
                 username: '',
                 is_active: '',
             }
-        }
+        };
     },
-    // setup() {
-    //     toast('welcome to my website');
-    // }
-}
+};
 </script>
+
+
 
 <template>
     <div>
@@ -106,27 +136,25 @@ export default {
                             <label for="nama lengkap" class="font-poppins font-bold text-base text-teal">Nama
                                 Lengkap</label>
                             <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" required
-                                v-model="daftaradmin.full_name" name="nama lengkap" id="" >
+                                v-model="daftaradmin.full_name" name="nama lengkap" id="">
                         </div>
 
                         <div class="flex gap-2 flex-col">
                             <label for="username" class="font-poppins font-bold text-base text-teal">Username</label>
-                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" name="username" required
-                                v-model="daftaradmin.username" id="" > 
+                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
+                                name="username" required v-model="daftaradmin.username" id="">
+                            <p v-if="formErrors.username" class="text-red text-sm mt-1">{{ formErrors.username }}</p>
                         </div>
 
                         <div class="flex gap-2 flex-col">
                             <label for="Status" class="font-poppins font-bold text-base text-teal">Status Aktif</label>
                             <!-- <input class="border border-black py-4 min-w-[550px] pr-2 rounded-md" type="text" name="nama lengkap" id="" placeholder="  Muhammad Abieb Basnuril"> -->
-                            <select required 
-                            class="border border-black py-4 min-w-[550px] pl-2 rounded-md"
-                                name="Status" id="" v-model="daftaradmin.is_active">
+                            <select required class="border border-black py-4 min-w-[550px] pl-2 rounded-md" name="Status"
+                                id="" v-model="daftaradmin.is_active">
                                 <option value="false">Nonaktif</option>
                                 <option value="true">Aktif</option>
                             </select>
                         </div>
-
-
                     </div>
                     <!--footer-->
                     <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
@@ -144,7 +172,8 @@ export default {
                         </router-link>
                     </div>
                 </div>
-                <div v-if="resulterror.message === 'Error Update Admin by ID: Unauthorized, Superadmins cannot update other superadmins'" class="px-2 mt-4">
+                <div v-if="resulterror.message === 'Error Update Admin by ID: Unauthorized, Superadmins cannot update other superadmins'"
+                    class="px-2 mt-4">
 
                     <!-- Alert Error -->
                     <div class="bg-[#fecdd3] px-6 py-4 mx-2 my-4 rounded-md text-lg flex items-center mx-auto max-w-lg">

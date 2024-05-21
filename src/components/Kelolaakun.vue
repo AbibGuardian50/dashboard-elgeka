@@ -22,6 +22,7 @@ export default {
         if (response.data.code === 400) {
           console.log('Superadmin tidak bisa edit superadmin lainnya');
         }
+        const toast = useToast();
         const superAdmin = VueCookies.get('superAdmin');
         this.getRoles = superAdmin;
         this.daftarid = response.data.result.data.id;
@@ -32,7 +33,10 @@ export default {
         });
         this.totalPages = Math.ceil(this.daftaradmin.length / this.perPage);
         this.updatePaginatedData();
-        console.log(this.daftaradmin);
+        console.log(response);
+        if (response.data.message === "Get All Admin Successfully") {
+          toast.success('Data semua admin berhasil dimuat')
+        }
       } else {
         this.error = 'dilarang akses halaman ini';
       }
@@ -99,6 +103,11 @@ export default {
         toast.warning('Username harus memiliki panjang antara 6 dan 16 karakter');
         this.formErrors.username = 'Username harus memiliki panjang antara 6 dan 16 karakter.';
         valid = false;
+      } else if (/[A-Z]/.test(this.form.username)) {
+        const toast = useToast();
+        toast.warning('Username tidak boleh mengandung huruf kapital');
+        this.formErrors.username = 'Username tidak boleh mengandung huruf kapital.';
+        valid = false;
       }
 
       const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])/;
@@ -110,11 +119,11 @@ export default {
       }
 
       // Validasi peran
-    if (!this.form.superAdmin) {
-      this.formErrors.superAdmin = 'Role harus dipilih.'; // Set pesan error jika peran belum dipilih
-      valid = false;
-    }
-  
+      if (!this.form.superAdmin) {
+        this.formErrors.superAdmin = 'Role harus dipilih.'; // Set pesan error jika peran belum dipilih
+        valid = false;
+      }
+
       return valid;
     },
 
@@ -127,7 +136,7 @@ export default {
           .then(response => {
             console.log(response.data);
             window.location.reload();
-            toast.success('Akun Admin Berhasil Dibuat!');
+            // toast.success('Akun Admin Berhasil Dibuat!');
           })
           .catch(error => {
             toast.error('Terdapat Kesalahan pada sistem, mohon coba lagi');
@@ -243,7 +252,7 @@ export default {
                   <button class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button>
                 </a>
                 <button @click="deleteadmin(data.id)"
-                  class="py-1 px-8 rounded-[5px] bg-[#ff4c61] ml-2 shadow-xl bg-offwhite bg-opacity-64 text-teal font-inter font-bold text-base">Hapus</button>
+                  class="py-1 px-8 rounded-[5px] bg-[#ff4c61] ml-2 shadow-xl bg-semitransparentwhite bg-opacity-64 text-teal font-inter font-bold text-base">Hapus</button>
               </td>
             </tr>
           </tbody>
@@ -294,18 +303,19 @@ export default {
                   <option value="false">Admin</option>
                 </select>
                 <!-- Tampilkan pesan kesalahan jika peran belum dipilih -->
-              <p v-if="formErrors.superAdmin" class="text-red text-sm mt-1">{{ formErrors.superAdmin }}</p>
-            </div>
-            <div class="flex justify-end gap-2">
-              <button type="submit" class="px-4 py-2 bg-teal text-white rounded-md">Simpan</button>
-              <button @click="toggleModalCreateAdmin" type="button"
-                class="mr-4 px-4 py-2 bg-white border border-teal text-teal rounded-md">Batal</button>
-              
-            </div>
-          </form>
+                <p v-if="formErrors.superAdmin" class="text-red text-sm mt-1">{{ formErrors.superAdmin }}</p>
+              </div>
+              <div class="flex justify-end gap-2">
+                <button type="submit" class="px-4 py-2 bg-teal text-white rounded-md">Simpan</button>
+                <button @click="toggleModalCreateAdmin" type="button"
+                  class="mr-4 px-4 py-2 bg-white border border-teal text-teal rounded-md">Batal</button>
+
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div></template>
+</template>
 

@@ -9,7 +9,7 @@ import "quill/dist/quill.bubble.css";
 import "quill/dist/quill.snow.css";
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
-
+import { useToast } from 'vue-toastification';
 
 export default {
     components: {
@@ -18,6 +18,7 @@ export default {
     },
     data() {
         return {
+            errorMessage: '',
             edited: {
                 image: [],
             },
@@ -45,6 +46,23 @@ export default {
 
             // Mengatur file yang dipilih ke dalam variabel edited.image
             this.edited.image = selectedFile;
+
+            const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+
+            if (!allowedExtensions.exec(selectedFile.name)) {
+                const toast = useToast();
+                this.errorMessage = 'Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!';
+                toast.warning('Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!');
+                // alert('Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!');
+                // Atau, Anda dapat mengatur pesan kesalahan pada variabel data untuk ditampilkan dalam template
+                // this.errorMessage = 'Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!';
+                // Bersihkan nilai input file
+                event.target.value = '';
+            } else {
+                // Lakukan proses upload file
+                // this.uploadFile(file);
+                this.errorMessage = ''; // Bersihkan pesan error jika file valid
+            }
         },
         editcoverphoto() {
             const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/profilKomunitas'
@@ -65,12 +83,18 @@ export default {
     },
     async created() {
         try {
+            const toast = useToast();
             const response = await axios.get('https://elgeka-web-api-production.up.railway.app/api/v1/profilKomunitas');
             this.profilkomunitas = response.data.result;
+            if (response.data.message === "Get Profil Komunitas Successfully") {
+                toast.success('Data profil komunitas berhasil dimuat')
+            }
             // this.parsed_aturanblog = this.aturanblog.split("\n");
-            console.log(this.profilkomunitas)
+            console.log(response)
         } catch (error) {
             console.error(error);
+            const toast = useToast();
+            toast.error('Data profil komunitas gagal dimuat, mohon coba lagi')
         }
     },
 }
@@ -87,14 +111,15 @@ export default {
                 <div class="flex flex-col justify-center items-center m-auto gap-8">
                     <!-- Ubah profil komunitas -->
                     <div v-if="profilkomunitas.currentPage === 1"
-                        class="bg-offwhite pb-2 w-[1022px] left-[24rem] top-[10rem] isolate rounded-xl shadow-lg border-2 border-teal">
+                        class="bg-semitransparentwhite pb-2 w-[1022px] left-[24rem] top-[10rem] isolate rounded-xl shadow-lg border-2 border-teal">
                         <div class="max-w-[2023px] min-[2400px]:mx-auto">
                             <div class="flex mx-10 my-8 justify-between  ">
                                 <div class="w-9/12">
                                     <p class="font-poppins font-bold text-[40px] text-fullblack">{{
                                         profilkomunitas.data.title }}
                                     </p>
-                                    <div class="font-poppins font-normal text-[12px] text-darkgrey pr-8" v-html="profilkomunitas.data.content">
+                                    <div class="font-poppins font-normal text-[12px] text-darkgrey pr-8"
+                                        v-html="profilkomunitas.data.content">
                                     </div>
                                     <div class="mt-4 flex gap-4 ">
                                         <a :href="profilkomunitas.data.twitter_link" target="_blank"><img
@@ -136,7 +161,7 @@ export default {
                     </div>
                     <!-- Ubah Foto Sampul -->
                     <div v-if="profilkomunitas.currentPage === 1"
-                        class="bg-offwhite w-[1022px] left-[24rem] top-[40rem] isolate rounded-xl shadow-lg border-2 border-teal">
+                        class="bg-semitransparentwhite w-[1022px] left-[24rem] top-[40rem] isolate rounded-xl shadow-lg border-2 border-teal">
                         <div class="flex justify-between ">
                             <div class="flex">
                                 <img class="max-w-[340px] p-4 max-h-[200px]" :src="url + profilkomunitas.data.image_url"
@@ -279,6 +304,8 @@ export default {
                                 </label>
                                 <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="file"
                                     name="Foto Sampul" id="foto-sampul-input" @change="handleFileChange">
+                                    <p v-if="errorMessage" class="text-[#EF0307] font-semibold" >{{ errorMessage
+                                        }}</p>
                             </div>
                         </div>
                         <!--footer-->

@@ -8,14 +8,19 @@ import "quill/dist/quill.bubble.css";
 import "quill/dist/quill.snow.css";
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
+import { useToast } from 'vue-toastification';
 
 export default {
     async created() {
         try {
+            const toast = useToast();
             const id = this.$route.params.id
             const response = await axios.get(`https://elgeka-web-api-production.up.railway.app/api/v1/blog/${id}`);
             this.storyblog = response.data.result.data;
-            console.log(this.storyblog)
+            console.log(response)
+            if (response.data.message === "Get Blog by ID Successfully") {
+                toast.success('Data cerita pengguna berhasil dimuat')
+            }
         } catch (error) {
             console.error(error);
         }
@@ -58,12 +63,17 @@ export default {
             this.storyblog.isVerified = this.storyblog.isVerified.toString();
             axios.patch(url, this.storyblog, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
                 .then(response => {
-                    console.log(response.data)
-                    this.$router.push('/verifikasicerita')
+                    console.log(response)
+                    if (response.data.message === "Update Blog by ID Successfully") {
+                        const toast = useToast();
+                        toast.success('Cerita pengguna berhasil diubah')
+                        this.$router.push('/verifikasicerita')
+                    }
                 })
                 .catch(error => {
                     console.log(error)
-                    this.$router.push('/verifikasicerita')
+                    const toast = useToast();
+                    toast.error('Edit cerita gagal, mohon coba lagi')
                 })
         },
         async generateQuote() {
@@ -72,8 +82,14 @@ export default {
                 const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/blog/generate'
                 const response = await axios.post(url, { prompt: this.prompt + "" + this.storyblog.content }, { headers: { 'Authorization': `Bearer ${tokenlogin}` } });
                 this.storyblog.content = response.data.result.generated_blog;
-                console.log(response.data);
+                console.log(response);
+                const toast = useToast();
+                if (response.data.message === "Generated Blog Successfully") {
+                toast.success('Hasil Generate AI berhasil')
+            }
             } catch (error) {
+                const toast = useToast();
+                toast.error('Hasil Generate AI error, mohon coba lagi')
                 console.error('Error generating quote:', error);
             }
         },
@@ -96,9 +112,10 @@ export default {
                     <div class="bg-[#EEE8E7] p-4">
                         <p class="font-gotham font-bold text-[30px] text-sulfurblack py-2">{{ storyblog.title }}</p>
                         <div class="py-2 min-w-[720px] max-w-[721px] rounded-md" id="app">
-                                <quill-editor class="font-poppins font-normal text-[20px] leading-7" :toolbar="['bold', 'italic', 'underline', 'image']"
-                                    contentType="html" v-model:content="storyblog.content"></quill-editor>
-                            </div>
+                            <quill-editor class="font-poppins font-normal text-[20px] leading-7"
+                                :toolbar="['bold', 'italic', 'underline', 'image']" contentType="html"
+                                v-model:content="storyblog.content"></quill-editor>
+                        </div>
                     </div>
 
                     <div class="max-w-[325px] flex-col">
@@ -134,8 +151,8 @@ export default {
                         <div class="px-6 py-4 mt-4 flex items-center justify-center text-base font-medium">
                             <a><button type="submit"
                                     class="py-1 px-4 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Simpan</button></a>
-                            <button href="/verifikasicerita"
-                                class="py-1 px-4 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-teal  ml-2 font-inter font-bold text-base border border-teal">Batal</button>
+                            <a href="/verifikasicerita"
+                                class="py-1 px-4 rounded-[5px] shadow-xl bg-semitransparantwhite bg-opacity-64 text-teal  ml-2 font-inter font-bold text-base border border-teal">Batal</a>
                         </div>
                     </div>
                 </form>
@@ -158,7 +175,7 @@ select option {
 } */
 
 .ql-container {
-    font-size : 20px;
+    font-size: 20px;
     font-weight: 400;
     line-height: 30px;
     color: #000000B2;

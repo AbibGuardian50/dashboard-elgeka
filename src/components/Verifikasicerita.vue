@@ -4,10 +4,13 @@ import axios from "axios"
 import VueCookies from 'vue-cookies';
 import { format } from 'date-fns';
 import id from 'date-fns/locale/id';
+import { useToast } from 'vue-toastification';
+
 
 export default {
     async created() {
         try {
+            const toast = useToast();
             const tokenlogin = VueCookies.get('tokenlogin')
             if (tokenlogin) {
                 const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/blog'
@@ -16,13 +19,17 @@ export default {
                         Authorization: `Bearer ${tokenlogin}`
                     },
                 })
+
                 this.DaftarVerifCerita = response.data.result.data
                 this.DaftarVerifCerita.forEach((item, index) => {
                     item.no = index + 1;
                 });
                 this.totalPages = Math.ceil(this.DaftarVerifCerita.length / this.perPage);
                 this.updatePaginatedData();
-                console.log(this.DaftarVerifCerita)
+                console.log(response)
+                if (response.data.message === "Get Blog Successfully") {
+                    toast.success('Data cerita pengguna berhasil dimuat')
+                }
             } else {
                 this.error = 'dilarang akses halaman ini'
             }
@@ -104,11 +111,15 @@ export default {
                             <div class="px-6 py-4 max-w-[400px] mr-32">
                                 <p class="text-[20px] leading-5 font-inter font-bold text-fullblack">{{ data.title }}</p>
                                 <div class="flex gap-1">
-                                    <p class="font-poppins font-normal text-[12px] leading-4 text-transparentblack">{{ data.author_name }}</p>
+                                    <p class="font-poppins font-normal text-[12px] leading-4 text-transparentblack">{{
+                                        data.author_name }}</p>
                                     <p class="font-poppins font-normal text-[12px] leading-4 text-transparentblack">-</p>
-                                    <p class="font-poppins font-normal text-[12px] leading-4 text-transparentblack">{{ formatDate(data.createdAt) }}</p>
-                                    <p class="font-poppins font-normal text-[12px] leading-4 text-transparentblack ml-4" v-if="data.isVerified === false">Pending</p>
-                                    <p class="font-poppins font-normal text-[12px] leading-4 text-transparentblack ml-4" v-else-if="data.isVerified === true">Disetujui</p>
+                                    <p class="font-poppins font-normal text-[12px] leading-4 text-transparentblack">{{
+                                        formatDate(data.createdAt) }}</p>
+                                    <p class="font-poppins font-normal text-[12px] leading-4 text-transparentblack ml-4"
+                                        v-if="data.isVerified === false">Pending</p>
+                                    <p class="font-poppins font-normal text-[12px] leading-4 text-transparentblack ml-4"
+                                        v-else-if="data.isVerified === true">Disetujui</p>
                                 </div>
                             </div>
 
@@ -116,7 +127,7 @@ export default {
                                 <a :href="'editcerita/' + data.id"><button
                                         class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button></a>
                                 <button href="#" @click="deletecerita(data.id)"
-                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-teal ml-2 font-inter font-bold text-base">Hapus</button>
+                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-semitransparentwhite bg-opacity-64 text-teal ml-2 font-inter font-bold text-base">Hapus</button>
                             </td>
                         </tr>
                     </tbody>
@@ -124,13 +135,14 @@ export default {
                 </table>
 
                 <div class="flex justify-center mt-4">
-                    <button @click="prevPage" :disabled="currentPage === 1" class="px-4 py-2 mr-2 bg-teal text-white rounded-md">Previous</button>
+                    <button @click="prevPage" :disabled="currentPage === 1"
+                        class="px-4 py-2 mr-2 bg-teal text-white rounded-md">Previous</button>
                     <button v-for="pageNumber in totalPages" :key="pageNumber" @click="goToPage(pageNumber)"
                         :class="{ 'bg-teal text-white rounded-md': pageNumber === currentPage, 'bg-white text-blue-500 border border-blue-500 rounded-md': pageNumber !== currentPage }"
                         class="px-4 py-2 mr-2">{{ pageNumber }}</button>
-                    <button @click="nextPage" :disabled="currentPage === totalPages" class="px-4 py-2 bg-teal text-white rounded-md">Next</button>
+                    <button @click="nextPage" :disabled="currentPage === totalPages"
+                        class="px-4 py-2 bg-teal text-white rounded-md">Next</button>
                 </div>
-            </div>
         </div>
     </div>
-</template>
+</div></template>

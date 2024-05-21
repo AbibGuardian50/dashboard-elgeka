@@ -15,7 +15,7 @@ app.use(router, plugin, Toast, createPinia(),defaultConfig(config))
 
 app.use(Toast, {
     position: POSITION.TOP_RIGHT,
-    timeout: 3000
+    timeout: 5000
 });
 
 app.mount('#app')

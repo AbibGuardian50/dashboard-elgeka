@@ -7,13 +7,18 @@ import "quill/dist/quill.bubble.css";
 import "quill/dist/quill.snow.css";
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
+import { useToast } from 'vue-toastification';
 
 export default {
     async created() {
         try {
+            const toast = useToast();
             const response = await axios.get(`https://elgeka-web-api-production.up.railway.app/api/v1/profilKomunitas`);
             this.communityprofile = response.data.result.data;
-            console.log(this.communityprofile)
+            console.log(response)
+            if (response.data.message === "Get Profil Komunitas Successfully") {
+                toast.success('Data profil komunitas berhasil dimuat')
+            }
             this.datacontent = this.communityprofile
         } catch (error) {
             console.error(error);
@@ -47,14 +52,22 @@ export default {
             const tokenlogin = VueCookies.get('tokenlogin')
             axios.patch(url, this.communityprofile, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
                 .then(response => {
-                    console.log(response.data)
-                    this.$router.push('/profilkomunitas')
+                    console.log(response)
+                    if (response.data.message === "Update Profil Komunitas Successfully") {
+                        const toast = useToast();
+                        toast.success('Data profil komunitas berhasil diubah, halaman akan redirect otomatis dalam beberapa detik')
+                        setTimeout(() => { // Menggunakan arrow function di sini
+                            this.$router.push('/profilkomunitas')
+                        }, 2000);
+
+                    }
+
                 })
                 .catch(error => {
                     console.log(error)
-                    this.$router.push('/profilkomunitas')
                 })
         }
+
     }
 }
 </script>

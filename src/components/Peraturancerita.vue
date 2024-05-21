@@ -68,7 +68,7 @@ export default {
                     {{ aturanblog.data.title }}
                 </div>
                 <div v-html="aturanblog.data.content"
-                    class="font-poppins font-normal text-[16px] flex flex-col items-center justify-center text-left m-auto w-[673px] text-offwhite px-8 whitespace-break-spaces">
+                    class="font-poppins font-normal text-[16px] flex flex-col items-center justify-center text-left m-auto w-[673px] text-semitransparentwhite px-8 whitespace-break-spaces">
                     
                 </div>
                 <div class="flex flex-col justify-end items-end" @click="toggleModalEditAturanBlog()">

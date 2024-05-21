@@ -1,5 +1,6 @@
 <script>
 import axios from 'axios'
+import { useToast } from 'vue-toastification';
 import VueCookies from 'vue-cookies';
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.bubble.css";
@@ -33,30 +34,57 @@ export default {
     },
     data() {
         return {
+            errorMessage: '',
             daftarkegiatan: '',
             daftarkegiatan: {
                 title: '',
                 content: '',
                 tempat: '',
                 date: '',
+                image: null,
             }
         }
     },
     methods: {
         editkegiatan(id) {
+            const toast = useToast();
             const tokenlogin = VueCookies.get('tokenlogin')
             const url = `https://elgeka-web-api-production.up.railway.app/api/v1/kegiatanKomunitas/${id}`
-            axios.patch(url, this.daftarkegiatan, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
+            const formData = new FormData();
+            formData.append('title', this.daftarkegiatan.title);
+            formData.append('content', this.daftarkegiatan.content);
+            formData.append('tempat', this.daftarkegiatan.tempat);
+            formData.append('date', this.daftarkegiatan.date);
+            if (this.daftarkegiatan.image) {
+                formData.append('image', this.daftarkegiatan.image);
+            }
+            axios.patch(url, formData, { headers: { 'Authorization': `Bearer ${tokenlogin}`, 'Content-Type': 'multipart/form-data' } })
                 .then(response => {
                     this.$router.push('/kegiatan')
                     console.log(response.data)
-
+                    if (response.data.message === "Update Kegiatan Komunitas by ID Successfully") {
+                        toast.success('Kegiatan Komunitas berhasil diperbarui')
+                    }
                 })
                 .catch(error => {
                     console.log(error)
                     this.$router.push('/kegiatan')
                 })
         },
+        handleFileChange(event) {
+            const selectedFile = event.target.files[0];
+            const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+            
+            if (!allowedExtensions.exec(selectedFile.name)) {
+                const toast = useToast();
+                this.errorMessage = 'Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!';
+                toast.warning('Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!');
+                event.target.value = ''; // Clear the input
+            } else {
+                this.daftarkegiatan.image = selectedFile; // Update the image in daftarkegiatan
+                this.errorMessage = ''; // Clear the error message if the file is valid
+            }
+        }
     }
 }
 </script>
@@ -100,7 +128,7 @@ export default {
                             <label for="Deskripsi Kegiatan" class="font-poppins font-bold text-base text-teal">Deskripsi
                                 Kegiatan</label>
                             <div class="border border-black py-2 min-w-[550px] pl-2 rounded-md" id="app">
-                                <quill-editor theme="snow" contentType="html"
+                                <quill-editor theme="snow" contentType="html" class="text-[16px]"
                                     v-model:content="daftarkegiatan.content"><p>{{ daftarkegiatan.content }}</p></quill-editor>
                             </div>
                         </div>
@@ -109,6 +137,13 @@ export default {
                             <label for="Tanggal" class="font-poppins font-bold text-base text-teal">Tanggal</label>
                             <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" name="Tanggal" required
                                 v-model="daftarkegiatan.date" id="" :placeholder="daftarkegiatan.date">
+                        </div>
+
+                        <div class="flex gap-2 flex-col">
+                            <label for="Gambar" class="font-poppins font-bold text-base text-teal">Gambar</label>
+                            <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="file" name="Gambar"
+                                id="foto-sampul-input" @change="handleFileChange">
+                            <p v-if="errorMessage" class="text-[#EF0307] font-semibold">{{ errorMessage }}</p>
                         </div>
 
 

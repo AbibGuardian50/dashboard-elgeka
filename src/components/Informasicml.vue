@@ -2,6 +2,7 @@
 import Sidebar from "./Sidebar.vue"
 import axios from "axios"
 import VueCookies from 'vue-cookies';
+import { useToast } from 'vue-toastification';
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.bubble.css";
 import "quill/dist/quill.snow.css";
@@ -18,12 +19,14 @@ export default {
         try {
             const tokenlogin = VueCookies.get('tokenlogin')
             if (tokenlogin) {
+                const toast = useToast();
                 const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/berita'
                 const response = await axios.get(url, {
                     headers: {
                         Authorization: `Bearer ${tokenlogin}`
                     },
                 })
+
                 VueCookies.get('tokenlogin')
                 this.daftarberita = response.data.result.data
                 // this.daftarberita.sort((x, y) => x.id - y.id) supaya urut menurut id nya
@@ -32,16 +35,22 @@ export default {
                 });
                 this.totalPages = Math.ceil(this.daftarberita.length / this.perPage);
                 this.updatePaginatedData();
-                console.log(this.daftarberita)
+                console.log(response)
+                if (response.data.message === "Get Berita Successfully") {
+                    toast.success('Berita berhasil dimuat')
+                }
             } else {
                 this.error = 'dilarang akses halaman ini'
             }
         } catch (error) {
+            const toast = useToast();
+            toast.error('Berita gagal dimuat. mohon coba lagi')
             console.error(error);
         }
     },
     data() {
         return {
+            errorMessage: '',
             url: 'https://elgeka-web-api-production.up.railway.app/',
             daftarberita: [],
             error: '',
@@ -88,8 +97,26 @@ export default {
 
             // Mengatur file yang dipilih ke dalam variabel edited.image
             this.form.image = selectedFile;
+
+            const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+
+            if (!allowedExtensions.exec(selectedFile.name)) {
+                const toast = useToast();
+                this.errorMessage = 'Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!';
+                toast.warning('Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!');
+                // alert('Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!');
+                // Atau, Anda dapat mengatur pesan kesalahan pada variabel data untuk ditampilkan dalam template
+                // this.errorMessage = 'Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!';
+                // Bersihkan nilai input file
+                event.target.value = '';
+            } else {
+                // Lakukan proses upload file
+                // this.uploadFile(file);
+                this.errorMessage = ''; // Bersihkan pesan error jika file valid
+            }
         },
         createberita() {
+            const toast = useToast();
             const tokenlogin = VueCookies.get('tokenlogin')
             const formData = new FormData();
             formData.append('image', this.form.image);
@@ -97,14 +124,18 @@ export default {
             formData.append('content', this.form.content);
             formData.append('kategori', this.form.kategori);
             formData.append('doi_link', this.form.doi_link);
-
             const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/berita'
             axios.post(url, formData, { headers: { 'Authorization': `Bearer ${tokenlogin}`, 'Content-Type': 'multipart/form-data' } })
                 .then(response => {
-                    console.log(response.data);
+                    console.log(response);
                     window.location.reload();
+                    if (response.data.message === "Create Berita Successfully") {
+                        toast.success('Berita baru berhasil ditambahkan')
+                    }
                 })
                 .catch(error => {
+                    const toast = useToast();
+                    toast.error('Berita baru gagal ditambahkan, mohon coba lagi')
                     console.log(error)
                 })
         },
@@ -114,10 +145,19 @@ export default {
                 const url = `https://elgeka-web-api-production.up.railway.app/api/v1/berita/${id}`
                 axios.delete(url, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
                     .then(response => {
-                        console.log(response.data)
-                        window.location.reload();
+                        console.log(response)
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 3000);
+                        const toast = useToast();
+                        if (response.data.message === "Delete Berita by ID Successfully") {
+                            toast.success('Berita berhasil dihapus, halaman akan auto refresh dalam beberapa detik')
+                        }
                     })
                     .catch(error => {
+                        const toast = useToast();
+                        toast.error('Berita gagal dihapus, mohon coba lagi')
+
                         console.log(error)
                     })
             }
@@ -130,7 +170,7 @@ export default {
 </script>
 
 <template>
-    <div class="flex ">
+    <div class="flex bg-offwhite">
         <Sidebar />
 
         <div class="px-8">
@@ -138,7 +178,7 @@ export default {
             <hr class="border-[#D0D5DD]">
             <div class="w-[1400px]">
                 <table class=" overflow-x-auto">
-                    <thead class="bg-gray-50">
+                    <thead>
                         <tr>
                             <th scope="col" class="px-6 py-3 text-left font-gotham text-sulfurblack text-base font-normal">
                                 Nomor
@@ -162,7 +202,7 @@ export default {
                         </tr>
                     </thead>
 
-                    <tbody v-for="data in paginatedBerita" :key="data.id" class="bg-white divide-y divide-gray-200">
+                    <tbody v-for="data in paginatedBerita" :key="data.id" class="divide-y divide-gray-200">
                         <tr class="border-b border-black">
                             <td class="px-6 py-4 whitespace-nowrap font-gotham font-normal text-sulfurblack text-base">
                                 {{ data.no }}
@@ -174,7 +214,7 @@ export default {
                                 <p class="font-gotham font-normal text-sulfurblack text-base">{{ data.kategori }}</p>
                             </td>
                             <td class="px-6 py-4 max-w-[400px]">
-                                <span v-html="data.content"  class="line-clamp-4 text-base text-gray-900">
+                                <span v-html="data.content" class="line-clamp-4 text-base text-gray-900">
                                 </span>
                             </td>
                             <td class="px-6 py-4 max-w-[200px]">
@@ -184,7 +224,7 @@ export default {
                                 <a :href="'editberita/' + data.id"><button
                                         class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button></a>
                                 <button href="#" @click="deleteberita(data.id)"
-                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-teal  ml-2 font-inter font-bold text-base">Hapus</button>
+                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-semitransparentwhite bg-opacity-64 text-teal  ml-2 font-inter font-bold text-base">Hapus</button>
                             </td>
                         </tr>
                         <!-- More rows... -->
@@ -248,6 +288,7 @@ export default {
                                             class="font-verdana font-normal text-base text-teal">Gambar</label>
                                         <input class="border border-silver py-2 min-w-[550px] pl-2 rounded-md" type="file"
                                             name="Foto Berita" id="foto-berita" @change="handleFileChange" required>
+                                        <p v-if="errorMessage" class="text-[#EF0307] font-semibold">{{ errorMessage }}</p>
                                     </div>
 
                                     <div class="flex gap-2 flex-col">
@@ -299,4 +340,5 @@ export default {
 ol {
     list-style-type: decimal;
     margin-left: 1rem;
-}</style>
+}
+</style>

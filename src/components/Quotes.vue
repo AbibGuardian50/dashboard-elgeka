@@ -6,9 +6,11 @@ import moment from 'moment';
 import 'moment/locale/id';
 import { useToast } from 'vue-toastification';
 
+
 export default {
     async created() {
         try {
+            const toast = useToast();
             const tokenlogin = VueCookies.get('tokenlogin');
             if (tokenlogin) {
                 const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/quotes';
@@ -24,7 +26,10 @@ export default {
                 });
                 this.totalPages = Math.ceil(this.daftarquotes.length / this.perPage);
                 this.updatePaginatedData();
-                console.log(this.daftarquotes);
+                console.log(response);
+                if (response.data.message === "Get Quotes Successfully") {
+                    toast.success('Data Quotes berhasil dimuat')
+                }
             } else {
                 this.error = 'dilarang akses halaman ini';
             }
@@ -91,9 +96,14 @@ export default {
                 const response = await axios.post(url, { prompt: this.prompt }, { headers: { 'Authorization': `Bearer ${tokenlogin}` } });
                 this.token = tokenlogin;
                 this.form.quote = response.data.result.generated_quote;
-                console.log(this.quote);
-                console.log(this.token);
+                console.log(response)
+                const toast = useToast();
+                if (response.data.message === "Generated Quote Successfully") {
+                    toast.success('Generate AI Berhasil Dimuat')
+                }
             } catch (error) {
+                const toast = useToast();
+                toast.error('Generate AI Gagal Dimuat')
                 console.error('Error generating quote:', error);
             }
         },
@@ -150,11 +160,11 @@ export default {
                     .then(response => {
                         console.log(response.data);
                         if (response.data.code === 200 && response.data.message === 'Delete Quote by ID Successfully') {
-                        toast.success('Quotes berhasil dihapus');
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 2000);
-                    }
+                            toast.success('Quotes berhasil dihapus');
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 2000);
+                        }
                     })
                     .catch(error => {
                         console.log(error);
@@ -168,13 +178,19 @@ export default {
         handleFileChange(event) {
             const selectedFile = event.target.files[0];
             this.form.image = selectedFile;
-
             const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
-
             if (!allowedExtensions.exec(selectedFile.name)) {
-                this.errorMessage = 'Hanya file JPEG, JPG, dan PNG yang diizinkan';
-                this.form.image = null;  // Reset the image if validation fails
+                const toast = useToast();
+                this.errorMessage = 'Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!';
+                toast.warning('Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!');
+                // alert('Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!');
+                // Atau, Anda dapat mengatur pesan kesalahan pada variabel data untuk ditampilkan dalam template
+                // this.errorMessage = 'Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!';
+                // Bersihkan nilai input file
+                event.target.value = '';
             } else {
+                // Lakukan proses upload file
+                // this.uploadFile(file);
                 this.errorMessage = ''; // Bersihkan pesan error jika file valid
             }
         },
@@ -254,7 +270,7 @@ export default {
                                         class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button>
                                 </a>
                                 <button href="#" @click="deletequotes(data.id)"
-                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-offwhite bg-opacity-64 text-teal  ml-2 font-inter font-bold text-base">Hapus</button>
+                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-semitransparentwhite bg-opacity-64 text-teal  ml-2 font-inter font-bold text-base">Hapus</button>
                             </td>
                         </tr>
                     </tbody>
@@ -273,51 +289,55 @@ export default {
 
                 <!-- Pop up modal buat Quotes baru... -->
                 <!-- Pop up modal buat Quotes baru... -->
-            <div>
-                <form v-if="showcreatequotes" @submit.prevent="createquote()"
-                    class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-                    <div class="bg-white p-6 rounded-lg min-w-[600px] max-w-[650px]">
-                        <h2 class="text-[40px] text-teal font-poppins font-semibold mb-4 border-b border-teal">Buat Quotes Baru</h2>
-                        <div class="mb-4">
-                            <label for="author" class="block text-[14px] font-verdana font-normal mb-1">Author</label>
-                            <input v-model="form.author_name" id="author" type="text"
-                                class="w-full px-3 py-2 border border-gray-300 rounded" />
-                            <span v-if="formErrors.author_name" class="text-red text-sm font-bold">{{ formErrors.author_name }}</span>
-                        </div>
-                        <div class="mb-4">
-                            <label for="quote" class="block text-[14px] font-verdana font-normal mb-1">Quotes</label>
-                            <textarea v-model="form.quote" id="quote" rows="3"
-                                class="w-full px-3 py-2 border border-gray-300 rounded"></textarea>
-                            <span v-if="formErrors.quote" class="text-red text-sm font-bold">{{ formErrors.quote }}</span>
-                        </div>
-                        <div class="mb-4">
-                            <label for="image" class="block text-[14px] font-verdana font-normal mb-1">Gambar</label>
-                            <input @change="handleFileChange" id="image" type="file"
-                                class="w-full px-3 py-2 border border-gray-300 rounded" required />
-                            <span v-if="formErrors.image" class="text-red text-sm font-bold">{{ formErrors.image }}</span>
-                        </div>
-                        <div v-if="errorMessage" class="text-red text-sm font-bold mb-4">{{ errorMessage }}</div>
-                        <div class="flex flex-col gap-4">
-                            <div>
-                                <input type="text" class="bg-grey pl-4 py-2 w-full rounded-md" v-model="prompt"
-                                    placeholder="Enter your prompt here">
-                                <button class="px-8 py-2 bg-teal text-white font-poppins rounded-md my-2"
-                                    @click.prevent="generateQuote">Generate Quote</button>
-                                <div class="bg-teal text-white font-bold font-poppins px-2" v-if="quote">{{
-                                    quote.generated_quote
-                                }}</div>
+                <div>
+                    <form v-if="showcreatequotes" @submit.prevent="createquote()"
+                        class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                        <div class="bg-white p-6 rounded-lg min-w-[600px] max-w-[650px]">
+                            <h2 class="text-[40px] text-teal font-poppins font-semibold mb-4 border-b border-teal">Buat
+                                Quotes Baru</h2>
+                            <div class="mb-4">
+                                <label for="author" class="block text-[14px] font-verdana font-normal mb-1">Author</label>
+                                <input v-model="form.author_name" id="author" type="text"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded" />
+                                <span v-if="formErrors.author_name" class="text-red text-sm font-bold">{{
+                                    formErrors.author_name }}</span>
                             </div>
+                            <div class="mb-4">
+                                <label for="quote" class="block text-[14px] font-verdana font-normal mb-1">Quotes</label>
+                                <textarea v-model="form.quote" id="quote" rows="3"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded"></textarea>
+                                <span v-if="formErrors.quote" class="text-red text-sm font-bold">{{ formErrors.quote
+                                }}</span>
+                            </div>
+                            <div class="mb-4">
+                                <label for="image" class="block text-[14px] font-verdana font-normal mb-1">Gambar</label>
+                                <input @change="handleFileChange" id="image" type="file"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded" required />
+                                <span v-if="formErrors.image" class="text-red text-sm font-bold">{{ formErrors.image
+                                }}</span>
+                            </div>
+                            <div v-if="errorMessage" class="text-red text-sm font-bold mb-4">{{ errorMessage }}</div>
+                            <div class="flex flex-col gap-4">
+                                <div>
+                                    <input type="text" class="bg-grey pl-4 py-2 w-full rounded-md" v-model="prompt"
+                                        placeholder="Enter your prompt here">
+                                    <button class="px-8 py-2 bg-teal text-white font-poppins rounded-md my-2"
+                                        @click.prevent="generateQuote">Generate Quote</button>
+                                    <div class="bg-teal text-white font-bold font-poppins px-2" v-if="quote">{{
+                                        quote.generated_quote
+                                    }}</div>
+                                </div>
 
+                            </div>
+                            <div class="flex gap-2 justify-end">
+                                <button type="submit" class="px-4 py-2 bg-teal text-white rounded">Simpan</button>
+                                <button @click="toggleModalCreateQuotes()"
+                                    class="px-4 py-2 bg-gray-300 text-gray-800 rounded mr-2">Batal</button>
+
+                            </div>
                         </div>
-                        <div class="flex gap-2 justify-end">
-                            <button type="submit" class="px-4 py-2 bg-teal text-white rounded">Simpan</button>
-                            <button @click="toggleModalCreateQuotes()"
-                                class="px-4 py-2 bg-gray-300 text-gray-800 rounded mr-2">Batal</button>
-                            
-                        </div>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
                 <!-- Pop up modal buat Quotes baru... -->
             </div>
         </div>

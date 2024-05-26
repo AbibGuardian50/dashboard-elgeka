@@ -6,6 +6,7 @@ import "quill/dist/quill.bubble.css";
 import "quill/dist/quill.snow.css";
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
+import { useToast } from 'vue-toastification';
 
 export default {
     async created() {
@@ -41,6 +42,7 @@ export default {
                 quote: '',
                 image: [],
             },
+            errorMessage: '',
         }
     },
     methods: {
@@ -70,6 +72,21 @@ export default {
 
             // Mengatur file yang dipilih ke dalam variabel edited.image
             this.daftarpengurus.image = selectedFile;
+            const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+            if (!allowedExtensions.exec(selectedFile.name)) {
+                const toast = useToast();
+                this.errorMessage = 'Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!';
+                toast.warning('Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!');
+                // alert('Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!');
+                // Atau, Anda dapat mengatur pesan kesalahan pada variabel data untuk ditampilkan dalam template
+                // this.errorMessage = 'Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!';
+                // Bersihkan nilai input file
+                event.target.value = '';
+            } else {
+                // Lakukan proses upload file
+                // this.uploadFile(file);
+                this.errorMessage = ''; // Bersihkan pesan error jika file valid
+            }
         },
     }
 }
@@ -126,6 +143,7 @@ export default {
                                 Lengkap</label>
                             <input @change="handleFileChange" class="border border-black py-4 min-w-[550px] pl-2 rounded-md"
                                 type="file" name="Foto Profil" id="">
+                                <div v-if="errorMessage" class="text-red text-sm font-bold mb-4">{{ errorMessage }}</div>
                         </div>
 
 

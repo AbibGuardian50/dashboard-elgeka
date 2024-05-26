@@ -63,7 +63,8 @@ export default {
             perPage: 5,
             currentPage: 1,
             totalPages: 0,
-            PaginatedDaftarPengurus: []
+            PaginatedDaftarPengurus: [],
+            errorMessage: '',
         }
     },
     methods: {
@@ -128,6 +129,21 @@ export default {
             const selectedFile = event.target.files[0];
             // Mengatur file yang dipilih ke dalam variabel edited.image
             this.form.image = selectedFile;
+            const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+            if (!allowedExtensions.exec(selectedFile.name)) {
+                const toast = useToast();
+                this.errorMessage = 'Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!';
+                toast.warning('Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!');
+                // alert('Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!');
+                // Atau, Anda dapat mengatur pesan kesalahan pada variabel data untuk ditampilkan dalam template
+                // this.errorMessage = 'Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!';
+                // Bersihkan nilai input file
+                event.target.value = '';
+            } else {
+                // Lakukan proses upload file
+                // this.uploadFile(file);
+                this.errorMessage = ''; // Bersihkan pesan error jika file valid
+            }
         },
         toggleModalCreatePengurus: function () {
             this.showcreatepengurus = !this.showcreatepengurus;
@@ -269,6 +285,7 @@ export default {
                                         <input @change="handleFileChange"
                                             class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="file"
                                             name="Foto Profil" id="">
+                                            <div v-if="errorMessage" class="text-red text-sm font-bold mb-4">{{ errorMessage }}</div>
                                     </div>
                                 </div>
                                 <!--footer-->

@@ -1,4 +1,5 @@
 <script>
+import { useToast } from 'vue-toastification';
 import Sidebar from "./Sidebar.vue"
 import axios from "axios"
 import VueCookies from 'vue-cookies';
@@ -10,6 +11,7 @@ import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 export default {
     async created() {
+        const toast = useToast();
         try {
             const tokenlogin = VueCookies.get('tokenlogin')
             if (tokenlogin) {
@@ -27,7 +29,10 @@ export default {
                 });
                 this.totalPages = Math.ceil(this.daftarpengurus.length / this.perPage);
                 this.updatePaginatedData();
-                console.log(this.daftarpengurus)
+                if (response.data.message === "Get Member Komunitas Successfully") {
+                    toast.success('Data Member Komunitas Berhasil Dimuat')
+                }
+                console.log(response)
             } else {
                 this.error = 'dilarang akses halaman ini'
             }

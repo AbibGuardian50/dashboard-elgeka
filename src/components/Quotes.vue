@@ -208,14 +208,14 @@ export default {
 
 
 <template>
-    <div class="flex">
+    <div class="flex bg-offwhite">
         <sidebar />
         <div class="px-8">
             <p class="text-[30px] text-teal font-gotham font-bold">Quotes</p>
             <hr>
             <div>
                 <table class="min-w-full divide-y divide-gray-200 overflow-x-auto w-[1200px]">
-                    <thead class="bg-gray-50">
+                    <thead>
                         <tr class="border-b-[0.5px] border-b-teal">
                             <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-sulfurblack text-base">
                                 No
@@ -238,7 +238,7 @@ export default {
                             </th>
                         </tr>
                     </thead>
-                    <tbody v-for="data in PaginatedDaftarQuotes" :key="data.id" class="bg-white divide-y divide-gray-200">
+                    <tbody v-for="data in PaginatedDaftarQuotes" :key="data.id" class="divide-y divide-gray-200">
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap font-gotham font-normal text-sulfurblack text-base">
                                 {{ data.no }}

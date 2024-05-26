@@ -44,7 +44,6 @@ export default {
         }
     },
     mounted() {
-        if (this.$route.path === '/login') {
             const rememberedUsername = localStorage.getItem('rememberedUsername');
             const rememberedPassword = localStorage.getItem('rememberedPassword');
             if (rememberedUsername && rememberedPassword) {
@@ -52,7 +51,6 @@ export default {
                 this.password = rememberedPassword;
                 this.rememberMe = true;
             }
-        }
 
     }
 }

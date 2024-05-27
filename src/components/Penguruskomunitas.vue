@@ -38,6 +38,7 @@ export default {
             }
         } catch (error) {
             console.error(error);
+            toast.error('Data Member Komunitas Gagal Dimuat')
         }
     },
     components: {

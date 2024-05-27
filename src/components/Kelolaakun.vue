@@ -23,6 +23,7 @@ export default {
           console.log('Superadmin tidak bisa edit superadmin lainnya');
         }
         const toast = useToast();
+        this.currentAdminId = VueCookies.get('id_user');
         const superAdmin = VueCookies.get('superAdmin');
         this.getRoles = superAdmin;
         this.daftarid = response.data.result.data.id;
@@ -36,6 +37,11 @@ export default {
         console.log(response);
         if (response.data.message === "Get All Admin Successfully") {
           toast.success('Data semua admin berhasil dimuat')
+          setTimeout(() => {
+            // Setelah 2 detik, ubah status showWelcomeMessage menjadi true
+            toast.info('SuperAdmin tidak bisa melakukan edit ke SuperAdmin lainnya')
+          }, 1000);
+
         }
       } else {
         this.error = 'dilarang akses halaman ini';
@@ -47,6 +53,7 @@ export default {
 
   data() {
     return {
+      currentAdminId: '',
       daftaradmin: [],
       paginatedData: [],
       error: '',
@@ -206,18 +213,19 @@ export default {
   <div class="flex">
     <Sidebar />
     <div class="px-8">
-      <p class="text-[30px] text-teal font-gotham font-bold">Kelola Akun Admin</p>
+      <p class="text-[30px] text-teal font-poppins font-bold">Kelola Akun Admin</p>
       <hr>
       <div>
         <table class="min-w-full divide-y divide-gray-200 overflow-x-auto w-[1200px]">
           <thead class="bg-gray-50">
-            <tr class="border-b-[0.5px] border-b-teal">
-              <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-sulfurblack text-base">NO</th>
-              <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-sulfurblack text-base">Nama Lengkap
+            <tr class="border-b-[0.5px]">
+              <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">NO</th>
+              <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">Nama Lengkap
               </th>
-              <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-sulfurblack text-base">Username</th>
-              <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-sulfurblack text-base">Status</th>
-              <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-sulfurblack text-base">Roles</th>
+              <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">Username
+              </th>
+              <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">Status</th>
+              <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">Roles</th>
               <th v-if="getRoles === 'true'" scope="col" class="">
                 <button v-on:click="toggleModalCreateAdmin()"
                   class="bg-teal px-4 py-1 rounded-md text-left font-inter font-semibold text-white text-base">Tambah</button>
@@ -225,35 +233,64 @@ export default {
             </tr>
           </thead>
           <tbody>
-            <tr v-for="data in paginatedData" :key="data.id" class="bg-white divide-y divide-gray-200">
-              <td class="px-6 py-4 whitespace-nowrap font-gotham font-normal text-sulfurblack text-base">{{ data.no }}
+            <tr v-for="data in paginatedData" :key="data.id" class="bg-white">
+              <td
+                class="px-6 py-4 border-b border-gray-200 whitespace-nowrap font-poppins font-normal text-sulfurblack text-base">
+                {{ data.no }}
               </td>
-              <td class="px-6 py-4 whitespace-nowrap">
+              <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                 <div class="flex items-center">
-                  <div class="font-gotham font-normal text-sulfurblack text-base">{{ data.full_name }}</div>
+                  <div class="font-poppins font-normal text-sulfurblack text-base">{{ data.full_name }}</div>
                 </div>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <p class="font-gotham font-normal text-sulfurblack text-base underline">{{ data.username }}</p>
+              <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+                <p class="font-poppins font-normal text-sulfurblack text-base underline">{{ data.username }}</p>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap">
+              <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                 <span v-if="data.is_active"
                   class="inline-flex font-inter text-base text-[#52FF00] leading-5 font-extrabold rounded-md">Aktif</span>
                 <span v-else
                   class="inline-flex font-inter text-base text-red leading-5 font-extrabold rounded-md">Nonaktif</span>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap">
+              <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                 <span v-if="data.superAdmin" class="inline-flex font-inter text-base leading-5 font-bold rounded-md">Super
                   Admin</span>
                 <span v-else class="inline-flex font-inter text-base leading-5 font-bold rounded-md">Admin</span>
               </td>
-              <td v-if="getRoles === 'true'" class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                <a :href="'editadmin/' + data.id">
-                  <button class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button>
-                </a>
-                <button @click="deleteadmin(data.id)"
-                  class="py-1 px-8 rounded-[5px] bg-[#ff4c61] ml-2 shadow-xl bg-semitransparentwhite bg-opacity-64 text-teal font-inter font-bold text-base">Hapus</button>
+              <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap text-sm font-medium">
+                <template v-if="data.id === currentAdminId">
+                  <a :href="'editadmin/' + data.id">
+                    <button
+                      class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button>
+                  </a>
+                  <button @click="deleteadmin(data.id)"
+                    class="py-1 px-8 rounded-[5px] bg-[#ff4c61] ml-2 shadow-xl bg-semitransparentwhite bg-opacity-64 text-teal font-inter font-bold text-base">Hapus</button>
+                </template>
+                <template v-else-if="getRoles === 'true' && (data.is_active || !data.is_active) && !data.superAdmin">
+                  <a :href="'editadmin/' + data.id">
+                    <button
+                      class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button>
+                  </a>
+                  <button @click="deleteadmin(data.id)"
+                    class="py-1 px-8 rounded-[5px] bg-[#ff4c61] ml-2 shadow-xl bg-semitransparentwhite bg-opacity-64 text-teal font-inter font-bold text-base">Hapus</button>
+                </template>
+                <template v-else-if="getRoles === 'true' && !data.is_active && data.id === currentAdminId">
+                  <a :href="'editadmin/' + data.id">
+                    <button
+                      class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button>
+                  </a>
+                </template>
+                <template v-else-if="getRoles === 'false' && data.id === currentAdminId">
+                  <a :href="'editadmin/' + data.id">
+                    <button
+                      class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button>
+                  </a>
+                </template>
               </td>
+
+              <!-- <td v-else class="px-6 py-4 border-b border-gray-200 whitespace-nowrap text-sm font-medium"> -->
+              <!-- Empty cell to keep the layout consistent -->
+              <!-- </td> -->
             </tr>
           </tbody>
         </table>
@@ -309,13 +346,12 @@ export default {
                 <button type="submit" class="px-4 py-2 bg-teal text-white rounded-md">Simpan</button>
                 <button @click="toggleModalCreateAdmin" type="button"
                   class="mr-4 px-4 py-2 bg-white border border-teal text-teal rounded-md">Batal</button>
-
               </div>
             </form>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</template>
+  </div></template>
+
 

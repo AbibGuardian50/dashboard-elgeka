@@ -34,34 +34,66 @@ export default {
         }
     },
     methods: {
-        toggleModalEditAdmin: function () {
+        toggleModalEditAdmin() {
             this.showeditadmin = !this.showeditadmin;
         },
         async editadmin(id) {
             const toast = useToast();
             if (this.validateForm()) {
                 const tokenlogin = VueCookies.get('tokenlogin');
-                this.daftaradmin.is_active = this.daftaradmin.is_active.toString();
+                const AdminId = VueCookies.get('id_user');
                 const url = `https://elgeka-web-api-production.up.railway.app/api/v1/admin/${id}`;
+
+                // Clone daftaradmin to avoid modifying the original object directly
+                let updatedAdmin = { ...this.daftaradmin };
+
+                // Remove is_active from the payload if the user is active
+                if (this.daftaradmin.is_active === true) {
+                    delete updatedAdmin.is_active;
+                }
+
+                // Remove superAdmin from the payload
+                delete updatedAdmin.superAdmin;
+
+                console.log("Updated Admin Data before sending:", updatedAdmin);
+
                 try {
-                    const response = await axios.patch(url, this.daftaradmin, {
+                    const response = await axios.patch(url, updatedAdmin, {
                         headers: {
                             Authorization: `Bearer ${tokenlogin}`
                         }
                     });
-                    console.log(response);
-                    this.resulterror = response.data;
-                    if (response.data.message === "Update Admin by ID Successfully") {
-                        toast.success('Data Admin berhasil diubah');
-                        setTimeout(() => {
-                            this.$router.push('/kelolaakun');
-                        }, 5000);
-                    } else if (response.data.message === "Error Data Request") {
-                        toast.error('Data Admin gagal diubah, mohon coba lagi');
+
+                    console.log(response.data);
+                    this.statuscode = response.data.code;
+
+                    if (response.data.code === 200) {
+                        // Check if the status was changed from nonaktif to aktif
+                        if (this.daftaradmin.is_active && updatedAdmin.is_active === 'true') {
+                            if (id === AdminId) {
+                                // Log out the user and redirect to login page
+                                VueCookies.remove('tokenlogin');
+                                VueCookies.remove('superAdmin');
+                                VueCookies.remove('email');
+                                VueCookies.remove('fullname');
+                                VueCookies.remove('id_user');
+                                VueCookies.remove('status_akun');
+                                this.$router.push('/');
+                                toast.success('Status akun berhasil diubah, mohon untuk login kembali')
+                            } else {
+                                // Redirect to /kelolaakun
+                                this.$router.push('/kelolaakun');
+                            }
+                        } else {
+                            setTimeout(() => {
+                                this.$router.push('/kelolaakun');
+                            }, 1000);
+                        }
+                    } else if (response.data.code === 400) {
+                        console.log(response);
                     }
                 } catch (error) {
-                    console.error(error);
-                    toast.error('Terjadi kesalahan, mohon coba lagi');
+                    console.log(error);
                 }
             }
         },
@@ -107,13 +139,11 @@ export default {
 };
 </script>
 
-
-
 <template>
     <div>
         <form v-if="daftaradmin" @submit.prevent="editadmin(daftaradmin.id)"
             class="overflow-x-hidden overflow-y-auto inset-0 justify-center items-center flex">
-            <div v-if="getRoles === 'true'" class="relative w-auto my-6 mx-auto max-w-6xl flex flex-col-reverse">
+            <div class="relative w-auto my-6 mx-auto max-w-6xl flex flex-col-reverse">
                 <!--content-->
                 <div
                     class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -148,7 +178,6 @@ export default {
 
                         <div class="flex gap-2 flex-col">
                             <label for="Status" class="font-poppins font-bold text-base text-teal">Status Aktif</label>
-                            <!-- <input class="border border-black py-4 min-w-[550px] pr-2 rounded-md" type="text" name="nama lengkap" id="" placeholder="  Muhammad Abieb Basnuril"> -->
                             <select required class="border border-black py-4 min-w-[550px] pl-2 rounded-md" name="Status"
                                 id="" v-model="daftaradmin.is_active">
                                 <option value="false">Nonaktif</option>
@@ -188,17 +217,7 @@ export default {
 
                 </div>
             </div>
-            <!-- <div v-else>
-                <p class="font-bold font-poppins text-5xl">Dilarang Akses Halaman Ini</p>
-                <a href="/kelolaakun" class="hover:text-teal hover:underline font-bold font-poppins text-5xl">Klik Disini
-                    Untuk Kembali ke Halaman Sebelumnya</a>
-            </div> -->
-
-
-
         </form>
         <div v-if="showeditadmin" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
-
-
     </div>
 </template>

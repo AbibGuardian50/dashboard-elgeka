@@ -134,9 +134,7 @@ export default {
 
                         <div class="flex flex-col gap-8 relative mt-8 px-2">
                             <div class="flex gap-2 flex-col">
-                                <label for="Generate Quote" class="font-poppins font-bold text-base text-teal">Generate
-                                    Quote
-                                    (ChatGPT)</label>
+                                <label for="Generate Quote" class="font-poppins font-bold text-base text-teal">Bantuan(ChatGPT)</label>
                                 <div class="flex flex-col justify-center items-center">
                                     <input
                                         class="border bg-white border-silver py-4 min-w-[320px] max-w-[325px] pl-2 rounded-lg shadow-[0px_1px_2px_0px_rgba(16, 24, 40, 0.05)] px-2 font-poppins font-medium text-base text-[#00000080]"

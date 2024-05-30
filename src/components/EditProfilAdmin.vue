@@ -63,8 +63,8 @@ export default {
                         setTimeout(() => {
                             window.location.reload();
                         }, 3000);
-                    } else if (response.data.code === 400) {
-                        console.log(response);
+                    } else if (response.data.message === "Your admin status is not active, authorization denied!") {
+                        toast.error('Status admin masih nonaktif, mohon untuk login kembali jika merasa sudah mengubahnya')
                     }
                 })
                 .catch(error => {

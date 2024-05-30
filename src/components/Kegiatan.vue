@@ -1,6 +1,8 @@
 <script>
 import Sidebar from "./Sidebar.vue"
 import axios from "axios"
+import { format } from 'date-fns';
+import idLocale from 'date-fns/locale/id';
 import VueCookies from 'vue-cookies';
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.bubble.css";
@@ -60,6 +62,9 @@ export default {
         }
     },
     methods: {
+        formatDate(dateString) {
+            return format(new Date(dateString), 'dd MMMM yyyy', { locale: idLocale });
+        },
         updatePaginatedData() {
             const startIndex = (this.currentPage - 1) * this.perPage;
             const endIndex = startIndex + this.perPage;
@@ -100,7 +105,7 @@ export default {
             const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/kegiatanKomunitas'
             axios.post(url, formData, { headers: { 'Authorization': `Bearer ${tokenlogin}`, 'Content-Type': 'multipart/form-data' } })
                 .then(response => {
-                    console.log(response.data);
+                    console.log(response);
                     window.location.reload();
                 })
                 .catch(error => {
@@ -113,7 +118,7 @@ export default {
                 const url = `https://elgeka-web-api-production.up.railway.app/api/v1/kegiatanKomunitas/${id}`
                 axios.delete(url, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
                     .then(response => {
-                        console.log(response.data)
+                        console.log(response)
                         window.location.reload();
                     })
                     .catch(error => {
@@ -173,7 +178,8 @@ export default {
                                 <div class="flex items-center">
                                     <div class="">
                                         <div class="font-gotham font-normal text-sulfurblack text-base">
-                                            {{ data.date }}
+                                            {{ formatDate(data.date)
+                                }}
                                         </div>
                                     </div>
                                 </div>

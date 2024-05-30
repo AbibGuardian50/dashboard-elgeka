@@ -48,6 +48,7 @@ export default {
     },
     methods: {
         async editberita(id) {
+            const toast = useToast();
             const tokenlogin = VueCookies.get('tokenlogin');
             const url = `https://elgeka-web-api-production.up.railway.app/api/v1/berita/${id}`;
             const formData = new FormData();
@@ -58,16 +59,24 @@ export default {
             if (this.daftarberita.image) {
                 formData.append('image', this.daftarberita.image);
             }
-
             try {
-                const response = await axios.patch(url, formData, { 
-                    headers: { 
-                        'Authorization': `Bearer ${tokenlogin}`, 
-                        'Content-Type': 'multipart/form-data' 
-                    } 
+                const response = await axios.patch(url, formData, {
+                    headers: {
+                        'Authorization': `Bearer ${tokenlogin}`,
+                        'Content-Type': 'multipart/form-data'
+                    }
                 });
-                this.$router.push('/berita');
-                console.log(response.data);
+                if (response.data.message === "Update Berita by ID Successfully") {
+                    toast.success('Berita berhasil diubah')
+                    setTimeout(function () {
+                        window.location.href = '/berita'
+                    }, 1000);
+                    console.log(response);
+                }
+                else if (response.data.message === "Your admin status is not active, authorization denied!") {
+                    toast.error('Status admin masih nonaktif, mohon untuk login kembali jika merasa sudah mengubahnya')
+                }
+
             } catch (error) {
                 console.log(error);
                 this.$router.push('/berita');
@@ -76,7 +85,7 @@ export default {
         handleFileChange(event) {
             const selectedFile = event.target.files[0];
             const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
-            
+
             if (!allowedExtensions.exec(selectedFile.name)) {
                 const toast = useToast();
                 this.errorMessage = 'Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!';
@@ -97,7 +106,8 @@ export default {
         <form v-if="daftarberita" @submit.prevent="editberita(daftarberita.id)"
             class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
             <div class="relative w-auto my-6 mx-auto max-w-6xl">
-                <div class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div
+                    class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                     <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
                         <h3 class="text-[40px] text-teal font-semibold font-poppins">
                             Edit berita Komunitas
@@ -105,7 +115,8 @@ export default {
                         <button
                             class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                             v-on:click="toggleModalCreateAdmin()">
-                            <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none"></span>
+                            <span
+                                class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none"></span>
                         </button>
                     </div>
                     <div class="flex flex-col gap-8 relative p-6">
@@ -133,7 +144,8 @@ export default {
                         </div>
 
                         <div class="flex gap-2 flex-col">
-                            <label for="Deskripsi berita" class="font-poppins font-bold text-base text-teal">Deskripsi berita</label>
+                            <label for="Deskripsi berita" class="font-poppins font-bold text-base text-teal">Deskripsi
+                                berita</label>
                             <div class="border border-black py-2 min-w-[550px] pl-2 rounded-md">
                                 <quill-editor theme="snow" contentType="html" required
                                     class="font-poppins font-normal text-[16px]" v-model:content="daftarberita.content"

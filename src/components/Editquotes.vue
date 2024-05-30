@@ -75,6 +75,8 @@ export default {
                     const toast = useToast();
                     if (response.data.message === "Update Quote by ID Successfully") {
                         toast.success('Quotes berhasil diubah')
+                    } else if (response.data.message === "Your admin status is not active, authorization denied!") {
+                        toast.error('Status admin masih nonaktif, mohon untuk login kembali jika merasa sudah mengubahnya')
                     }
                     setTimeout(() => {
                         this.$router.push('/quotes')

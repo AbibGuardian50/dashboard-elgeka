@@ -77,13 +77,17 @@ export default {
             }
         },
         deletecerita(id) {
+            const toast = useToast();
             if (confirm('Apakah kamu yakin untuk menghapus cerita ini?')) {
                 const tokenlogin = VueCookies.get('tokenlogin')
                 const url = `https://elgeka-web-api-production.up.railway.app/api/v1/blog/${id}`
                 axios.delete(url, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
                     .then(response => {
-                        console.log(response.data)
+                        console.log(response)
                         window.location.reload();
+                        if (response.data.message === "Your admin status is not active, authorization denied!") {
+                            toast.error('Status admin masih nonaktif, mohon untuk login kembali jika merasa sudah mengubahnya')
+                        }
                     })
                     .catch(error => {
                         console.log(error)
@@ -143,6 +147,7 @@ export default {
                     <button @click="nextPage" :disabled="currentPage === totalPages"
                         class="px-4 py-2 bg-teal text-white rounded-md">Next</button>
                 </div>
+            </div>
         </div>
     </div>
-</div></template>
+</template>

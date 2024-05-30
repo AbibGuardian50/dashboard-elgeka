@@ -1,368 +1,141 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import VueCookies from 'vue-cookies';
 
+// Fungsi untuk memeriksa autentikasi
+const requireAuth = (to, from, next) => {
+  const tokenlogin = VueCookies.get('tokenlogin');
+  if (!tokenlogin) {
+    next('/');
+  } else {
+    next();
+  }
+};
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    // {
-    //   path: '/',
-    //   name: 'home',
-    //   component: HomeView
-    // },
-
-    // beforeEach((to, from, next) => {
-    //   if (to.matched.some(record => record.meta.requiresAuth)) {
-    //     const tokenlogin = VueCookies.get('tokenlogin');
-
-    //     if (!tokenlogin) {
-    //       next('/');
-    //     }
-    //     else {
-    //       next()
-    //     }
-    //   }
-    // }),
-
-
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
-    },
-
-    {
-      path: '/donasi',
-      name: 'donasi',
-      // route level code-splitting
-      // this generates a separate chunk (Donasi.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/Donasi.vue'),
-      beforeEnter: (to, from, next) => {
-        const tokenlogin = VueCookies.get('tokenlogin');
-        if (!tokenlogin) {
-          next('/')
-        } else {
-          next()
-        }
-      }
-    },
-
-    {
-      path: '/berita',
-      name: 'berita',
-      // route level code-splitting
-      // this generates a separate chunk (Informasicml.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/Informasicml.vue'),
-      beforeEnter: (to, from, next) => {
-        const tokenlogin = VueCookies.get('tokenlogin');
-        if (!tokenlogin) {
-          next('/')
-        } else {
-          next()
-        }
-      }
-    },
-
     {
       path: '/',
       name: 'login',
-      // route level code-splitting
-      // this generates a separate chunk (Login.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/Login.vue')
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: () => import('../views/AboutView.vue')
+    },
+    {
+      path: '/donasi',
+      name: 'donasi',
+      component: () => import('../views/Donasi.vue'),
+      beforeEnter: requireAuth
+    },
+    {
+      path: '/berita',
+      name: 'berita',
+      component: () => import('../views/Informasicml.vue'),
+      beforeEnter: requireAuth
     },
     {
       path: '/editadmin/:id',
       name: 'editadmin',
-      // route level code-splitting
-      // this generates a separate chunk (Editadmin.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/Editadmin.vue'),
-      beforeEnter: (to, from, next) => {
-        const tokenlogin = VueCookies.get('tokenlogin');
-        if (!tokenlogin) {
-          next('/')
-        } else {
-          next()
-        }
-      }
-
+      beforeEnter: requireAuth
     },
     {
       path: '/editberita/:id',
       name: 'editberita',
-      // route level code-splitting
-      // this generates a separate chunk (EditBerita.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/Editberita.vue'),
-      beforeEnter: (to, from, next) => {
-        const tokenlogin = VueCookies.get('tokenlogin');
-        if (!tokenlogin) {
-          next('/')
-        } else {
-          next()
-        }
-      }
-
+      beforeEnter: requireAuth
     },
-
     {
       path: '/editcerita/:id',
       name: 'editcerita',
-      // route level code-splitting
-      // this generates a separate chunk (EditBerita.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/EditCerita.vue'),
-      beforeEnter: (to, from, next) => {
-        const tokenlogin = VueCookies.get('tokenlogin');
-        if (!tokenlogin) {
-          next('/')
-        } else {
-          next()
-        }
-      }
-
+      beforeEnter: requireAuth
     },
-
     {
       path: '/editkegiatan/:id',
       name: 'editkegiatan',
-      // route level code-splitting
-      // this generates a separate chunk (Editkegiatan.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/Editkegiatan.vue'),
-      beforeEnter: (to, from, next) => {
-        const tokenlogin = VueCookies.get('tokenlogin');
-        if (!tokenlogin) {
-          next('/')
-        } else {
-          next()
-        }
-      }
+      beforeEnter: requireAuth
     },
-
     {
       path: '/editprofiladmin',
       name: 'editprofiladmin',
-      // route level code-splitting
-      // this generates a separate chunk (EditProfilAdmin.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/EditProfilAdmin.vue'),
-      beforeEnter: (to, from, next) => {
-        const tokenlogin = VueCookies.get('tokenlogin');
-        if (!tokenlogin) {
-          next('/')
-        } else {
-          next()
-        }
-      }
-
+      beforeEnter: requireAuth
     },
-
     {
       path: '/editProfilKomunitas',
       name: 'editProfilKomunitas',
-      // route level code-splitting
-      // this generates a separate chunk (EditProfilKomunitas.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/EditProfilKomunitas.vue'),
-      beforeEnter: (to, from, next) => {
-        const tokenlogin = VueCookies.get('tokenlogin');
-        if (!tokenlogin) {
-          next('/')
-        } else {
-          next()
-        }
-      }
-
+      beforeEnter: requireAuth
     },
-
     {
       path: '/Editpengurus/:id',
       name: 'Editpengurus',
-      // route level code-splitting
-      // this generates a separate chunk (Editpengurus.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/Editpengurus.vue'),
-      beforeEnter: (to, from, next) => {
-        const tokenlogin = VueCookies.get('tokenlogin');
-        if (!tokenlogin) {
-          next('/')
-        } else {
-          next()
-        }
-      }
-
+      beforeEnter: requireAuth
     },
-
     {
       path: '/editquotes/:id',
       name: 'editquotes',
-      // route level code-splitting
-      // this generates a separate chunk (Editquotes.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/Editquotes.vue'),
-      beforeEnter: (to, from, next) => {
-        const tokenlogin = VueCookies.get('tokenlogin');
-        if (!tokenlogin) {
-          next('/')
-        } else {
-          next()
-        }
-      }
-
+      beforeEnter: requireAuth
     },
-
     {
       path: '/kelolaakun',
       name: 'kelolaakun',
-      // route level code-splitting
-      // this generates a separate chunk (Kelolaakun.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/Kelolaakun.vue'),
-      beforeEnter: (to, from, next) => {
-        const tokenlogin = VueCookies.get('tokenlogin');
-        if (!tokenlogin) {
-          next('/')
-        } else {
-          next()
-        }
-      }
-
+      beforeEnter: requireAuth
     },
-
     {
       path: '/komunitas',
       name: 'komunitas',
-      // route level code-splitting
-      // this generates a separate chunk (Komunitas.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/Komunitas.vue'),
-      beforeEnter: (to, from, next) => {
-        const tokenlogin = VueCookies.get('tokenlogin');
-        if (!tokenlogin) {
-          next('/')
-        } else {
-          next()
-        }
-      }
+      beforeEnter: requireAuth
     },
-
     {
       path: '/kegiatan',
       name: 'kegiatan',
-      // route level code-splitting
-      // this generates a separate chunk (Kegiatan.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/Kegiatan.vue'),
-      beforeEnter: (to, from, next) => {
-        const tokenlogin = VueCookies.get('tokenlogin');
-        if (!tokenlogin) {
-          next('/')
-        } else {
-          next()
-        }
-      }
+      beforeEnter: requireAuth
     },
-
     {
       path: '/notfound',
       name: 'notfound',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visitedcd .
       component: () => import('../views/Notfound.vue')
     },
-
     {
       path: '/profilkomunitas',
       name: 'profilkomunitas',
-      // route level code-splitting
-      // this generates a separate chunk (Komunitas.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/Profilkomunitas.vue'),
-      beforeEnter: (to, from, next) => {
-        const tokenlogin = VueCookies.get('tokenlogin');
-        if (!tokenlogin) {
-          next('/')
-        } else {
-          next()
-        }
-      }
+      beforeEnter: requireAuth
     },
-
     {
       path: '/Penguruskomunitas',
       name: 'Penguruskomunitas',
-      // route level code-splitting
-      // this generates a separate chunk (Komunitas.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/Penguruskomunitas.vue'),
-      beforeEnter: (to, from, next) => {
-        const tokenlogin = VueCookies.get('tokenlogin');
-        if (!tokenlogin) {
-          next('/')
-        } else {
-          next()
-        }
-      }
+      beforeEnter: requireAuth
     },
-
     {
       path: '/peraturancerita',
       name: 'peraturancerita',
-      // route level code-splitting
-      // this generates a separate chunk (Komunitas.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/Peraturancerita.vue'),
-      beforeEnter: (to, from, next) => {
-        const tokenlogin = VueCookies.get('tokenlogin');
-        if (!tokenlogin) {
-          next('/')
-        } else {
-          next()
-        }
-      }
+      beforeEnter: requireAuth
     },
-
     {
       path: '/quotes',
       name: 'quotes',
-      // route level code-splitting
-      // this generates a separate chunk (Quotes.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/Quotes.vue'),
-      beforeEnter: (to, from, next) => {
-        const tokenlogin = VueCookies.get('tokenlogin');
-        if (!tokenlogin) {
-          next('/')
-        } else {
-          next()
-        }
-      }
+      beforeEnter: requireAuth
     },
-
     {
       path: '/verifikasicerita',
       name: 'verifikasicerita',
-      // route level code-splitting
-      // this generates a separate chunk (Verifikasicerita.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/Verifikasicerita.vue'),
-      beforeEnter: (to, from, next) => {
-        const tokenlogin = VueCookies.get('tokenlogin');
-        if (!tokenlogin) {
-          next('/')
-        } else {
-          next()
-        }
-      }
-
-
+      beforeEnter: requireAuth
     },
   ]
 })

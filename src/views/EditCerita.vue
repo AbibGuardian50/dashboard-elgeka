@@ -58,6 +58,7 @@ export default {
             }
         },
         editstory(id) {
+            const toast = useToast();
             const url = `https://elgeka-web-api-production.up.railway.app/api/v1/blog/${id}`
             const tokenlogin = VueCookies.get('tokenlogin')
             this.storyblog.isVerified = this.storyblog.isVerified.toString();
@@ -65,9 +66,10 @@ export default {
                 .then(response => {
                     console.log(response)
                     if (response.data.message === "Update Blog by ID Successfully") {
-                        const toast = useToast();
                         toast.success('Cerita pengguna berhasil diubah')
                         this.$router.push('/verifikasicerita')
+                    } else if (response.data.message === "Your admin status is not active, authorization denied!") {
+                        toast.error('Status admin masih nonaktif, mohon untuk login kembali jika merasa sudah mengubahnya')
                     }
                 })
                 .catch(error => {
@@ -85,8 +87,10 @@ export default {
                 console.log(response);
                 const toast = useToast();
                 if (response.data.message === "Generated Blog Successfully") {
-                toast.success('Hasil Generate AI berhasil')
-            }
+                    toast.success('Hasil Generate AI berhasil')
+                } else if (response.data.message === "Your admin status is not active, authorization denied!") {
+                    toast.error('Status admin masih nonaktif, mohon untuk login kembali jika merasa sudah mengubahnya')
+                }
             } catch (error) {
                 const toast = useToast();
                 toast.error('Hasil Generate AI error, mohon coba lagi')
@@ -134,7 +138,8 @@ export default {
 
                         <div class="flex flex-col gap-8 relative mt-8 px-2">
                             <div class="flex gap-2 flex-col">
-                                <label for="Generate Quote" class="font-poppins font-bold text-base text-teal">Bantuan(ChatGPT)</label>
+                                <label for="Generate Quote"
+                                    class="font-poppins font-bold text-base text-teal">Bantuan(ChatGPT)</label>
                                 <div class="flex flex-col justify-center items-center">
                                     <input
                                         class="border bg-white border-silver py-4 min-w-[320px] max-w-[325px] pl-2 rounded-lg shadow-[0px_1px_2px_0px_rgba(16, 24, 40, 0.05)] px-2 font-poppins font-medium text-base text-[#00000080]"

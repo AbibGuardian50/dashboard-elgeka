@@ -7,6 +7,7 @@ import "quill/dist/quill.bubble.css";
 import "quill/dist/quill.snow.css";
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
+import { useToast } from 'vue-toastification';
 
 export default {
     async created() {
@@ -38,12 +39,18 @@ export default {
             this.showeditaturanblog = !this.showeditaturanblog;
         },
         editaturan() {
+            const toast = useToast();
             const tokenlogin = VueCookies.get('tokenlogin')
             const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/aturanBlog'
             axios.patch(url, this.aturanblog.data, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
                 .then(response => {
-                    console.log(response.data)
-                    window.location.reload()
+                    console.log(response)
+                    setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
+                    if (response.data.message === "Your admin status is not active, authorization denied!") {
+                        toast.error('Status admin masih nonaktif, mohon untuk login kembali jika merasa sudah mengubahnya')
+                    }
                 })
                 .catch(error => {
                     console.log(error)
@@ -60,7 +67,8 @@ export default {
         <Sidebar />
 
         <div class="w-[1200px] pl-8 my-4">
-            <p class="font=gotham font-bold text-[30px] leading-6 text-sulfurblack mt-8 border-b border-[#D0D5DD] pb-4">Update Aturan Cerita</p>
+            <p class="font=gotham font-bold text-[30px] leading-6 text-sulfurblack mt-8 border-b border-[#D0D5DD] pb-4">
+                Update Aturan Cerita</p>
 
             <div v-if="aturanblog.currentPage === 1"
                 class="flex flex-col text-center bg-oceanteal rounded-md mt-16 py-8 px-16 mb-8 m-auto">
@@ -69,11 +77,10 @@ export default {
                 </div>
                 <div v-html="aturanblog.data.content"
                     class="font-poppins font-normal text-[16px] flex flex-col items-center justify-center text-left m-auto w-[673px] text-semitransparentwhite px-8 whitespace-break-spaces">
-                    
+
                 </div>
                 <div class="flex flex-col justify-end items-end" @click="toggleModalEditAturanBlog()">
-                    <button
-                        class="py-1 px-8 bg-white font-poppins font-bold text-[14px] text-teal rounded-lg">Edit</button>
+                    <button class="py-1 px-8 bg-white font-poppins font-bold text-[14px] text-teal rounded-lg">Edit</button>
                 </div>
 
 

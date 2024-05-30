@@ -45,6 +45,7 @@ export default {
     },
     methods: {
         editdonasi() {
+            const toast = useToast();
             const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/donasi'
             const tokenlogin = VueCookies.get('tokenlogin')
             const formData = new FormData();
@@ -54,13 +55,16 @@ export default {
             formData.append('image', this.donasielgeka.data.image);
             axios.patch(url, formData, { headers: { 'Authorization': `Bearer ${tokenlogin}`, 'Content-Type': 'multipart/form-data' } })
                 .then(response => {
-                    console.log(response.data)
-                    this.$router.push('/donasi')
-                    window.location.reload()
+                    if (response.data.message === "Update Info Donasi Successfully") {
+                        toast.success ('Data donasi berhasil diubah')
+                        window.location.reload();
+                    } else if (response.data.message === "Your admin status is not active, authorization denied!") {
+                        toast.error('Status admin masih nonaktif, mohon untuk login kembali jika merasa sudah mengubahnya')
+                    }
                 })
                 .catch(error => {
                     console.log(error)
-                    this.$router.push('/donasi')
+                    toast.error ('Data donasi gagal diubah, mohon coba lagi')
                 })
         },
         handleFileChange(event) {

@@ -59,12 +59,13 @@ export default {
                         setTimeout(() => { // Menggunakan arrow function di sini
                             this.$router.push('/profilkomunitas')
                         }, 2000);
-
+                    } else if (response.data.message === "Your admin status is not active, authorization denied!") {
+                        toast.error('Status admin masih nonaktif, mohon untuk login kembali jika merasa sudah mengubahnya')
                     }
-
                 })
                 .catch(error => {
                     console.log(error)
+                    toast.error ('Profil komunitas gagal diubah, mohon coba lagi')
                 })
         }
 

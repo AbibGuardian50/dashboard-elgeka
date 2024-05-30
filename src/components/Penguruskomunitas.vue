@@ -91,31 +91,43 @@ export default {
             }
         },
         createpengurus() {
+            const toast = useToast();
             const tokenlogin = VueCookies.get('tokenlogin')
             const formData = new FormData();
             formData.append('full_name', this.form.full_name);
             formData.append('jabatan', this.form.jabatan);
             formData.append('quote', this.form.quote);
             formData.append('image', this.form.image);
-
             const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/memberKomunitas'
             axios.post(url, formData, { headers: { 'Authorization': `Bearer ${tokenlogin}`, 'Content-Type': 'multipart/form-data' } })
                 .then(response => {
-                    console.log(response.data);
-                    window.location.reload();
+                    console.log(response);
+                    if (response.data.message === "Your admin status is not active, authorization denied!") {
+                        toast.error('Status admin masih nonaktif, mohon untuk login kembali jika merasa sudah mengubahnya')
+                    }
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1000);
                 })
                 .catch(error => {
                     console.log(error)
+                    toast.error('Tidak bisa menambahkan pengurus, mohon coba lagi')
                 })
         },
         deletepengurus(id) {
             if (confirm('Are you sure you want to delete this admin account?')) {
+                const toast = useToast();
                 const tokenlogin = VueCookies.get('tokenlogin')
                 const url = `https://elgeka-web-api-production.up.railway.app/api/v1/memberKomunitas/${id}`
                 axios.delete(url, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
                     .then(response => {
-                        console.log(response.data)
-                        window.location.reload();
+                        console.log(response)
+                        if (response.data.message === "Your admin status is not active, authorization denied!") {
+                            toast.error('Status admin masih nonaktif, mohon untuk login kembali jika merasa sudah mengubahnya')
+                        }
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
                     })
                     .catch(error => {
                         console.log(error)
@@ -286,7 +298,8 @@ export default {
                                         <input @change="handleFileChange"
                                             class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="file"
                                             name="Foto Profil" id="">
-                                            <div v-if="errorMessage" class="text-red text-sm font-bold mb-4">{{ errorMessage }}</div>
+                                        <div v-if="errorMessage" class="text-red text-sm font-bold mb-4">{{ errorMessage }}
+                                        </div>
                                     </div>
                                 </div>
                                 <!--footer-->

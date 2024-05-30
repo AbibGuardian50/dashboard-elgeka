@@ -127,10 +127,12 @@ export default {
             const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/berita'
             axios.post(url, formData, { headers: { 'Authorization': `Bearer ${tokenlogin}`, 'Content-Type': 'multipart/form-data' } })
                 .then(response => {
-                    console.log(response);
-                    window.location.reload();
                     if (response.data.message === "Create Berita Successfully") {
                         toast.success('Berita baru berhasil ditambahkan')
+                        console.log(response);
+                        window.location.reload();
+                    } else if (response.data.message === "Your admin status is not active, authorization denied!") {
+                        toast.error('Status admin masih nonaktif, mohon untuk login kembali jika merasa sudah mengubahnya')
                     }
                 })
                 .catch(error => {
@@ -140,6 +142,7 @@ export default {
                 })
         },
         deleteberita(id) {
+            const toast = useToast();
             if (confirm('Yakin Mau menghapus data ini?')) {
                 const tokenlogin = VueCookies.get('tokenlogin')
                 const url = `https://elgeka-web-api-production.up.railway.app/api/v1/berita/${id}`
@@ -149,15 +152,14 @@ export default {
                         setTimeout(function () {
                             window.location.reload();
                         }, 3000);
-                        const toast = useToast();
                         if (response.data.message === "Delete Berita by ID Successfully") {
                             toast.success('Berita berhasil dihapus, halaman akan auto refresh dalam beberapa detik')
+                        } else if (response.data.message === "Your admin status is not active, authorization denied!") {
+                            toast.error('Status admin masih nonaktif, mohon untuk login kembali jika merasa sudah mengubahnya')
                         }
                     })
                     .catch(error => {
-                        const toast = useToast();
                         toast.error('Berita gagal dihapus, mohon coba lagi')
-
                         console.log(error)
                     })
             }

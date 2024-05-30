@@ -1,7 +1,5 @@
 <script>
 import Sidebar from './Sidebar.vue'
-import moment from 'moment';
-import 'moment/locale/id';
 import VueCookies from 'vue-cookies';
 import axios from 'axios'
 import "quill/dist/quill.core.css";
@@ -10,6 +8,8 @@ import "quill/dist/quill.snow.css";
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import { useToast } from 'vue-toastification';
+import { format } from 'date-fns';
+import id from 'date-fns/locale/id';
 
 export default {
     components: {
@@ -30,9 +30,9 @@ export default {
         }
     },
     methods: {
-        formatDateTime(dateTimeString) {
-            moment.locale('id');
-            return moment(dateTimeString).format('LLL');
+        formatDate(dateString) {
+            // Ubah format tanggal
+            return format(new Date(dateString), 'dd MMMM yyyy HH:mm', { locale: id });
         },
         toggleModalEditProfilKomunitas: function () {
             this.ShowEditProfilKomunitas = !this.ShowEditProfilKomunitas;
@@ -65,15 +65,18 @@ export default {
             }
         },
         editcoverphoto() {
+            const toast = useToast();
             const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/profilKomunitas'
             const tokenlogin = VueCookies.get('tokenlogin')
             const formData = new FormData();
             formData.append('image', this.edited.image);
             axios.patch(url, formData, { headers: { 'Authorization': `Bearer ${tokenlogin}`, 'Content-Type': 'multipart/form-data' } })
                 .then(response => {
-                    console.log(response.data)
+                    console.log(response)
                     this.$router.push('/profilkomunitas')
-                    window.location.reload()
+                    if (response.data.message === "Your admin status is not active, authorization denied!") {
+                        toast.error('Status admin masih nonaktif, mohon untuk login kembali jika merasa sudah mengubahnya')
+                    }
                 })
                 .catch(error => {
                     console.log(error)
@@ -173,7 +176,7 @@ export default {
                                         class="text-base text-[#FFFFFFB2] font-normal text-black font-poppins leading-6 pb-4 ">
                                         Terakhir
                                         Diubah : {{
-                                            formatDateTime(profilkomunitas.data.updatedAt) }}</p>
+                                            formatDate(profilkomunitas.data.updatedAt) }}</p>
                                 </div>
                             </div>
                             <div class="flex justify-end items-end py-4 pr-4">

@@ -64,6 +64,8 @@ export default {
                     console.log(response.data)
                     if (response.data.message === "Update Kegiatan Komunitas by ID Successfully") {
                         toast.success('Kegiatan Komunitas berhasil diperbarui')
+                    } else if (response.data.message === "Your admin status is not active, authorization denied!") {
+                        toast.error('Status admin masih nonaktif, mohon untuk login kembali jika merasa sudah mengubahnya')
                     }
                 })
                 .catch(error => {

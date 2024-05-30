@@ -47,19 +47,21 @@ export default {
     },
     methods: {
         editpengurus(id) {
+            const toast = useToast();
             const tokenlogin = VueCookies.get('tokenlogin')
             const formData = new FormData();
             formData.append('full_name', this.daftarpengurus.full_name);
             formData.append('jabatan', this.daftarpengurus.jabatan);
             formData.append('quote', this.daftarpengurus.quote);
             formData.append('image', this.daftarpengurus.image);
-
             const url = `https://elgeka-web-api-production.up.railway.app/api/v1/memberKomunitas/${id}`
             axios.patch(url, formData, { headers: { 'Authorization': `Bearer ${tokenlogin}`, 'Content-Type': 'multipart/form-data' } })
                 .then(response => {
                     this.$router.push('/penguruskomunitas')
                     console.log(response.data)
-
+                    if (response.data.message === "Your admin status is not active, authorization denied!") {
+                        toast.error('Status admin masih nonaktif, mohon untuk login kembali jika merasa sudah mengubahnya')
+                    }
                 })
                 .catch(error => {
                     console.log(error)

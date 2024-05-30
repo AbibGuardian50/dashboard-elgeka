@@ -63,23 +63,21 @@ export default {
                             Authorization: `Bearer ${tokenlogin}`
                         }
                     });
-
                     console.log(response.data);
                     this.statuscode = response.data.code;
-
                     if (response.data.code === 200) {
                         // Check if the status was changed from nonaktif to aktif
                         if (this.daftaradmin.is_active && updatedAdmin.is_active === 'true') {
                             if (id === AdminId) {
                                 // Log out the user and redirect to login page
-                                VueCookies.remove('tokenlogin');
-                                VueCookies.remove('superAdmin');
-                                VueCookies.remove('email');
-                                VueCookies.remove('fullname');
-                                VueCookies.remove('id_user');
-                                VueCookies.remove('status_akun');
-                                this.$router.push('/');
-                                toast.success('Status akun berhasil diubah, mohon untuk login kembali')
+                                // VueCookies.remove('tokenlogin');
+                                // VueCookies.remove('superAdmin');
+                                // VueCookies.remove('email');
+                                // VueCookies.remove('fullname');
+                                // VueCookies.remove('id_user');
+                                // VueCookies.remove('status_akun');
+                                // this.$router.push('/');
+                                // toast.success('Status akun berhasil diubah, mohon untuk login kembali')
                             } else {
                                 // Redirect to /kelolaakun
                                 this.$router.push('/kelolaakun');

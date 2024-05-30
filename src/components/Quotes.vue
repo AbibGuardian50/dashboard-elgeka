@@ -2,8 +2,8 @@
 import Sidebar from "./Sidebar.vue";
 import axios from 'axios';
 import VueCookies from 'vue-cookies';
-import moment from 'moment';
-import 'moment/locale/id';
+import { format } from 'date-fns';
+import id from 'date-fns/locale/id';
 import { useToast } from 'vue-toastification';
 
 
@@ -145,9 +145,12 @@ export default {
                         setTimeout(() => {
                             window.location.reload();
                         }, 2000);
+                    } else if (response.data.message === "Your admin status is not active, authorization denied!") {
+                        toast.error('Status admin masih nonaktif, mohon untuk login kembali jika merasa sudah mengubahnya')
                     }
                 } catch (error) {
                     console.log(error);
+                    toast.error('Quotes gagal dibuat, mohon coba lagi');
                 }
             }
         },
@@ -164,16 +167,19 @@ export default {
                             setTimeout(() => {
                                 window.location.reload();
                             }, 2000);
+                        } else if (response.data.message === "Your admin status is not active, authorization denied!") {
+                            toast.error('Status admin masih nonaktif, mohon untuk login kembali jika merasa sudah mengubahnya')
                         }
                     })
                     .catch(error => {
                         console.log(error);
+                        toast.error('Quotes gagal dihapus, mohon coba lagi');
                     });
             }
         },
-        formatDateTime(dateTimeString) {
-            moment.locale('id');
-            return moment(dateTimeString).format('LLL');
+        formatDate(dateString) {
+            // Ubah format tanggal
+            return format(new Date(dateString), 'dd MMMM yyyy HH:mm', { locale: id });
         },
         handleFileChange(event) {
             const selectedFile = event.target.files[0];
@@ -247,7 +253,7 @@ export default {
                                 <div class="flex items-center">
                                     <div class="">
                                         <div class="font-gotham font-normal text-sulfurblack text-base">
-                                            {{ formatDateTime(data.createdAt) }}
+                                            {{ formatDate(data.createdAt) }}
                                         </div>
                                     </div>
                                 </div>

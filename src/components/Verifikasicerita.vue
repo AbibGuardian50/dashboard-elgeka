@@ -130,6 +130,8 @@ export default {
                             <td class="px-6 py-4 whitespace-nowrap text-base font-medium">
                                 <a :href="'editcerita/' + data.id"><button
                                         class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button></a>
+                                <a :href="'EditComment/' + data.id"><button
+                                        class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit Komentar</button></a>
                                 <button href="#" @click="deletecerita(data.id)"
                                     class="py-1 px-8 rounded-[5px] shadow-xl bg-semitransparentwhite bg-opacity-64 text-teal ml-2 font-inter font-bold text-base">Hapus</button>
                             </td>

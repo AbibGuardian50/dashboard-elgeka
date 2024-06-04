@@ -55,6 +55,12 @@ const router = createRouter({
       beforeEnter: requireAuth
     },
     {
+      path: '/EditComment/:id',
+      name: 'EditComment',
+      component: () => import('../views/EditComment.vue'),
+      beforeEnter: requireAuth
+    },
+    {
       path: '/editkegiatan/:id',
       name: 'editkegiatan',
       component: () => import('../views/Editkegiatan.vue'),
@@ -129,6 +135,12 @@ const router = createRouter({
       path: '/quotes',
       name: 'quotes',
       component: () => import('../views/Quotes.vue'),
+      beforeEnter: requireAuth
+    },
+    {
+      path: '/UserGuide',
+      name: 'UserGuide',
+      component: () => import('../views/UserGuide.vue'),
       beforeEnter: requireAuth
     },
     {

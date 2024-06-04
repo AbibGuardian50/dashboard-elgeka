@@ -13,35 +13,12 @@ export default {
     try {
       const tokenlogin = VueCookies.get('tokenlogin');
       if (tokenlogin) {
-        const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/admin';
-        const response = await axios.get(url, {
-          headers: {
-            Authorization: `Bearer ${tokenlogin}`
-          },
-        });
-        if (response.data.code === 400) {
-          console.log('Superadmin tidak bisa edit superadmin lainnya');
-        }
+        const response = await this.fetchAdminData(tokenlogin);
         const toast = useToast();
-        this.currentAdminId = VueCookies.get('id_user');
-        const superAdmin = VueCookies.get('superAdmin');
-        this.getRoles = superAdmin;
-        this.daftarid = response.data.result.data.id;
-        this.daftaradmin = response.data.result.data;
-        this.daftaradmin.sort((x, y) => x.id - y.id);
-        this.daftaradmin.forEach((item, index) => {
-          item.no = index + 1;
-        });
-        this.totalPages = Math.ceil(this.daftaradmin.length / this.perPage);
-        this.updatePaginatedData();
-        console.log(response);
+        this.initializeAdminData(response);
         if (response.data.message === "Get All Admin Successfully") {
-          toast.success('Data semua admin berhasil dimuat')
-          setTimeout(() => {
-            // Setelah 2 detik, ubah status showWelcomeMessage menjadi true
-            toast.info('SuperAdmin tidak bisa melakukan edit ke SuperAdmin lainnya')
-          }, 1000);
-
+          toast.success('Data semua admin berhasil dimuat');
+          this.showToastMessage('SuperAdmin tidak bisa melakukan edit ke SuperAdmin lainnya');
         }
       } else {
         this.error = 'dilarang akses halaman ini';
@@ -57,7 +34,6 @@ export default {
       daftaradmin: [],
       paginatedData: [],
       error: '',
-      noUrut: 0,
       showcreateadmin: false,
       showeditadmin: false,
       showdeleteadmin: false,
@@ -78,7 +54,6 @@ export default {
         password: '',
         superAdmin: '',
       },
-      isRoleSelected: false, // Tambahkan properti ini
       edited: {
         full_name: '',
         email: '',
@@ -87,51 +62,101 @@ export default {
   },
 
   methods: {
-    toggleModalCreateAdmin: function () {
+    async fetchAdminData(token) {
+      const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/admin';
+      return await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+    },
+
+    initializeAdminData(response) {
+      this.currentAdminId = VueCookies.get('id_user');
+      const superAdmin = VueCookies.get('superAdmin');
+      this.getRoles = superAdmin;
+      this.daftarid = response.data.result.data.id;
+      this.daftaradmin = response.data.result.data;
+      this.sortAdminData();
+      this.updatePaginatedData();
+    },
+
+    sortAdminData() {
+      this.daftaradmin.sort((x, y) => x.id - y.id);
+      this.daftaradmin.forEach((item, index) => {
+        item.no = index + 1;
+      });
+      this.totalPages = Math.ceil(this.daftaradmin.length / this.perPage);
+    },
+
+    showToastMessage(message) {
+      const toast = useToast();
+      setTimeout(() => {
+        toast.info(message);
+      }, 1000);
+    },
+
+    toggleModalCreateAdmin() {
       this.showcreateadmin = !this.showcreateadmin;
     },
 
-    toggleModalEditAdmin: function () {
+    toggleModalEditAdmin() {
       this.showeditadmin = !this.showeditadmin;
     },
 
-    toggleModalDeleteAdmin: function () {
+    toggleModalDeleteAdmin() {
       this.showdeleteadmin = !this.showdeleteadmin;
     },
 
     validateForm() {
       let valid = true;
-      this.formErrors.username = '';
-      this.formErrors.password = '';
-      this.formErrors.superAdmin = ''; // Set properti error untuk peran
+      this.clearFormErrors();
 
-      if (this.form.username.length < 6 || this.form.username.length > 16) {
-        const toast = useToast();
-        toast.warning('Username harus memiliki panjang antara 6 dan 16 karakter');
-        this.formErrors.username = 'Username harus memiliki panjang antara 6 dan 16 karakter.';
-        valid = false;
-      } else if (/[A-Z]/.test(this.form.username)) {
-        const toast = useToast();
-        toast.warning('Username tidak boleh mengandung huruf kapital');
-        this.formErrors.username = 'Username tidak boleh mengandung huruf kapital.';
+      if (this.isInvalidUsername(this.form.username)) {
         valid = false;
       }
 
-      const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])/;
-      if (this.form.password.length < 8 || !passwordRegex.test(this.form.password)) {
-        const toast = useToast();
-        toast.warning('Password harus memiliki minimal 8 karakter dan mengandung setidaknya satu angka dan satu karakter spesial.');
-        this.formErrors.password = 'Password harus memiliki minimal 8 karakter dan mengandung setidaknya satu angka dan satu karakter spesial.';
+      if (this.isInvalidPassword(this.form.password)) {
         valid = false;
       }
 
-      // Validasi peran
       if (!this.form.superAdmin) {
-        this.formErrors.superAdmin = 'Role harus dipilih.'; // Set pesan error jika peran belum dipilih
+        this.formErrors.superAdmin = 'Role harus dipilih.';
         valid = false;
       }
 
       return valid;
+    },
+
+    clearFormErrors() {
+      this.formErrors.username = '';
+      this.formErrors.password = '';
+      this.formErrors.superAdmin = '';
+    },
+
+    isInvalidUsername(username) {
+      const toast = useToast();
+      if (username.length < 6 || username.length > 16) {
+        toast.warning('Username harus memiliki panjang antara 6 dan 16 karakter');
+        this.formErrors.username = 'Username harus memiliki panjang antara 6 dan 16 karakter.';
+        return true;
+      } else if (/[A-Z]/.test(username)) {
+        toast.warning('Username tidak boleh mengandung huruf kapital');
+        this.formErrors.username = 'Username tidak boleh mengandung huruf kapital.';
+        return true;
+      }
+      return false;
+    },
+
+    isInvalidPassword(password) {
+      const toast = useToast();
+      const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])/;
+      if (password.length < 8 || !passwordRegex.test(password)) {
+        toast.warning('Password harus memiliki minimal 8 karakter dan mengandung setidaknya satu angka dan satu karakter spesial.');
+        this.formErrors.password = 'Password harus memiliki minimal 8 karakter dan mengandung setidaknya satu angka dan satu karakter spesial.';
+        return true;
+      }
+      return false;
     },
 
     createadmin() {
@@ -143,7 +168,6 @@ export default {
           .then(response => {
             console.log(response.data);
             window.location.reload();
-            // toast.success('Akun Admin Berhasil Dibuat!');
           })
           .catch(error => {
             toast.error('Terdapat Kesalahan pada sistem, mohon coba lagi');
@@ -208,7 +232,6 @@ export default {
 };
 </script>
 
-
 <template>
   <div class="flex">
     <Sidebar />
@@ -220,24 +243,18 @@ export default {
           <thead class="bg-gray-50">
             <tr class="border-b-[0.5px]">
               <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">NO</th>
-              <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">Nama Lengkap
-              </th>
-              <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">Username
-              </th>
+              <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">Nama Lengkap</th>
+              <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">Username</th>
               <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">Status</th>
               <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">Roles</th>
               <th v-if="getRoles === 'true'" scope="col" class="">
-                <button v-on:click="toggleModalCreateAdmin()"
-                  class="bg-teal px-4 py-1 rounded-md text-left font-inter font-semibold text-white text-base">Tambah</button>
+                <button @click="toggleModalCreateAdmin" class="bg-teal px-4 py-1 rounded-md text-left font-inter font-semibold text-white text-base">Tambah</button>
               </th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="data in paginatedData" :key="data.id" class="bg-white">
-              <td
-                class="px-6 py-4 border-b border-gray-200 whitespace-nowrap font-poppins font-normal text-sulfurblack text-base">
-                {{ data.no }}
-              </td>
+              <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap font-poppins font-normal text-sulfurblack text-base">{{ data.no }}</td>
               <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                 <div class="flex items-center">
                   <div class="font-poppins font-normal text-sulfurblack text-base">{{ data.full_name }}</div>
@@ -247,111 +264,66 @@ export default {
                 <p class="font-poppins font-normal text-sulfurblack text-base underline">{{ data.username }}</p>
               </td>
               <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                <span v-if="data.is_active"
-                  class="inline-flex font-inter text-base text-[#52FF00] leading-5 font-extrabold rounded-md">Aktif</span>
-                <span v-else
-                  class="inline-flex font-inter text-base text-red leading-5 font-extrabold rounded-md">Nonaktif</span>
+                <span v-if="data.is_active" class="inline-flex font-inter text-base text-[#52FF00] leading-5 font-extrabold rounded-md">Aktif</span>
+                <span v-else class="inline-flex font-inter text-base text-red leading-5 font-extrabold rounded-md">Nonaktif</span>
               </td>
               <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                <span v-if="data.superAdmin" class="inline-flex font-inter text-base leading-5 font-bold rounded-md">Super
-                  Admin</span>
+                <span v-if="data.superAdmin" class="inline-flex font-inter text-base leading-5 font-bold rounded-md">Super Admin</span>
                 <span v-else class="inline-flex font-inter text-base leading-5 font-bold rounded-md">Admin</span>
               </td>
               <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap text-sm font-medium">
-                <template v-if="data.id === currentAdminId">
+                <template v-if="data.id === currentAdminId || (getRoles === 'true' && (data.is_active || !data.is_active) && !data.superAdmin)">
                   <a :href="'editadmin/' + data.id">
-                    <button
-                      class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button>
+                    <button class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button>
                   </a>
-                  <button @click="deleteadmin(data.id)"
-                    class="py-1 px-8 rounded-[5px] bg-[#ff4c61] ml-2 shadow-xl bg-semitransparentwhite bg-opacity-64 text-teal font-inter font-bold text-base">Hapus</button>
-                </template>
-                <template v-else-if="getRoles === 'true' && (data.is_active || !data.is_active) && !data.superAdmin">
-                  <a :href="'editadmin/' + data.id">
-                    <button
-                      class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button>
-                  </a>
-                  <button @click="deleteadmin(data.id)"
-                    class="py-1 px-8 rounded-[5px] bg-[#ff4c61] ml-2 shadow-xl bg-semitransparentwhite bg-opacity-64 text-teal font-inter font-bold text-base">Hapus</button>
-                </template>
-                <template v-else-if="getRoles === 'true' && !data.is_active && data.id === currentAdminId">
-                  <a :href="'editadmin/' + data.id">
-                    <button
-                      class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button>
-                  </a>
-                </template>
-                <template v-else-if="getRoles === 'false' && data.id === currentAdminId">
-                  <a :href="'editadmin/' + data.id">
-                    <button
-                      class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button>
-                  </a>
+                  <button @click="deleteadmin(data.id)" class="py-1 px-8 rounded-[5px] bg-[#ff4c61] ml-2 shadow-xl bg-semitransparentwhite bg-opacity-64 text-teal font-inter font-bold text-base">Hapus</button>
                 </template>
               </td>
-
-              <!-- <td v-else class="px-6 py-4 border-b border-gray-200 whitespace-nowrap text-sm font-medium"> -->
-              <!-- Empty cell to keep the layout consistent -->
-              <!-- </td> -->
             </tr>
           </tbody>
         </table>
 
         <div class="flex justify-center mt-4">
-          <button @click="prevPage" :disabled="currentPage === 1"
-            class="px-4 py-2 mr-2 bg-teal text-white rounded-md">Previous</button>
-          <button v-for="pageNumber in totalPages" :key="pageNumber" @click="goToPage(pageNumber)"
-            :class="{ 'bg-teal text-white rounded-md': pageNumber === currentPage, 'bg-white text-blue-500 border border-blue-500 rounded-md': pageNumber !== currentPage }"
-            class="px-4 py-2 mr-2">{{ pageNumber }}</button>
-          <button @click="nextPage" :disabled="currentPage === totalPages"
-            class="px-4 py-2 bg-teal text-white rounded-md">Next</button>
+          <button @click="prevPage" :disabled="currentPage === 1" class="px-4 py-2 mr-2 bg-teal text-white rounded-md">Previous</button>
+          <button v-for="pageNumber in totalPages" :key="pageNumber" @click="goToPage(pageNumber)" :class="{ 'bg-teal text-white rounded-md': pageNumber === currentPage, 'bg-white text-blue-500 border border-blue-500 rounded-md': pageNumber !== currentPage }" class="px-4 py-2 mr-2">{{ pageNumber }}</button>
+          <button @click="nextPage" :disabled="currentPage === totalPages" class="px-4 py-2 bg-teal text-white rounded-md">Next</button>
         </div>
 
         <div v-if="showcreateadmin" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <!-- Modal content -->
           <div class="bg-white p-8 rounded-md min-w-[700px] max-w-[750px] min-h-[500px] max-h-[520px]">
             <h2 class="text-2xl text-teal font-poppins font-semibold mb-4">Tambah Admin</h2>
             <form @submit.prevent="createadmin">
               <div class="mb-4">
                 <label class="block text-sm font-medium text-teal">Nama Lengkap</label>
-                <input type="text" v-model="form.full_name"
-                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  required />
+                <input type="text" v-model="form.full_name" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required />
               </div>
               <div class="mb-4">
                 <label class="block text-sm font-medium text-teal">Username</label>
-                <input type="text" v-model="form.username"
-                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  required />
+                <input type="text" v-model="form.username" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required />
                 <p v-if="formErrors.username" class="text-red text-sm mt-1">{{ formErrors.username }}</p>
               </div>
               <div class="mb-4">
                 <label class="block text-sm font-medium text-teal">Password</label>
-                <input type="password" v-model="form.password"
-                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  required />
+                <input type="password" v-model="form.password" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required />
                 <p v-if="formErrors.password" class="text-red text-sm mt-1">{{ formErrors.password }}</p>
               </div>
               <div class="mb-4">
                 <label class="block text-sm font-medium text-teal">Roles</label>
-                <select v-model="form.superAdmin"
-                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  required>
+                <select v-model="form.superAdmin" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
                   <option value="">Select Role</option>
                   <option value="true">Super Admin</option>
                   <option value="false">Admin</option>
                 </select>
-                <!-- Tampilkan pesan kesalahan jika peran belum dipilih -->
                 <p v-if="formErrors.superAdmin" class="text-red text-sm mt-1">{{ formErrors.superAdmin }}</p>
               </div>
               <div class="flex justify-end gap-2">
                 <button type="submit" class="px-4 py-2 bg-teal text-white rounded-md">Simpan</button>
-                <button @click="toggleModalCreateAdmin" type="button"
-                  class="mr-4 px-4 py-2 bg-white border border-teal text-teal rounded-md">Batal</button>
+                <button @click="toggleModalCreateAdmin" type="button" class="mr-4 px-4 py-2 bg-white border border-teal text-teal rounded-md">Batal</button>
               </div>
             </form>
           </div>
         </div>
       </div>
     </div>
-  </div></template>
-
-
+  </div>
+</template>

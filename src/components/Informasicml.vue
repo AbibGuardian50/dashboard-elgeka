@@ -176,7 +176,7 @@ export default {
         <Sidebar />
 
         <div class="px-8">
-            <p class="font-gotham font-bold text-[30px] text-sulfurblack">Informasi CML</p>
+            <p class="font-gotham font-bold text-[30px] text-sulfurblack">Berita (Informasi CML)</p>
             <hr class="border-[#D0D5DD]">
             <div class="w-[1400px]">
                 <table class=" overflow-x-auto">

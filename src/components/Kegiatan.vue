@@ -276,7 +276,7 @@ export default {
                                     <div class="flex gap-2 flex-col">
                                         <label for="Tanggal"
                                             class="font-poppins font-bold text-base text-teal">Tanggal</label>
-                                        <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
+                                        <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="date"
                                             name="Tanggal" v-model="form.date" id="" :placeholder="daftarkegiatan.date">
                                     </div>
 

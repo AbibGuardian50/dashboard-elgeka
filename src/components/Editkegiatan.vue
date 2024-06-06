@@ -82,6 +82,10 @@ export default {
                 this.errorMessage = 'Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!';
                 toast.warning('Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!');
                 event.target.value = ''; // Clear the input
+            } else if (selectedFile.size > 1024 * 1024) { // 1024 KB * 1024 = 1MB
+                this.errorMessage = 'Ukuran gambar tidak boleh lebih dari 1MB!';
+                // Bersihkan nilai input file
+                event.target.value = '';
             } else {
                 this.daftarkegiatan.image = selectedFile; // Update the image in daftarkegiatan
                 this.errorMessage = ''; // Clear the error message if the file is valid
@@ -137,13 +141,13 @@ export default {
 
                         <div class="flex gap-2 flex-col">
                             <label for="Tanggal" class="font-poppins font-bold text-base text-teal">Tanggal</label>
-                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" name="Tanggal" required
+                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="date" name="Tanggal" required
                                 v-model="daftarkegiatan.date" id="" :placeholder="daftarkegiatan.date">
                         </div>
 
                         <div class="flex gap-2 flex-col">
                             <label for="Gambar" class="font-poppins font-bold text-base text-teal">Gambar</label>
-                            <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="file" name="Gambar"
+                            <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="file" name="Gambar" accept=".jpg,.jpeg,.png"
                                 id="foto-sampul-input" @change="handleFileChange">
                             <p v-if="errorMessage" class="text-[#EF0307] font-semibold">{{ errorMessage }}</p>
                         </div>

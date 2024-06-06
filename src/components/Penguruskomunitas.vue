@@ -152,6 +152,10 @@ export default {
                 // this.errorMessage = 'Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!';
                 // Bersihkan nilai input file
                 event.target.value = '';
+            } else if (selectedFile.size > 1024 * 1024) { // 1024 KB * 1024 = 1MB
+                this.errorMessage = 'Ukuran gambar tidak boleh lebih dari 1MB!';
+                // Bersihkan nilai input file
+                event.target.value = '';
             } else {
                 // Lakukan proses upload file
                 // this.uploadFile(file);
@@ -296,7 +300,7 @@ export default {
                                         <label for="Foto Profil" class="font-poppins font-bold text-base text-teal">Gambar
                                             Lengkap</label>
                                         <input @change="handleFileChange"
-                                            class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="file"
+                                            class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="file" accept=".jpg,.jpeg,.png"
                                             name="Foto Profil" id="">
                                         <div v-if="errorMessage" class="text-red text-sm font-bold mb-4">{{ errorMessage }}
                                         </div>

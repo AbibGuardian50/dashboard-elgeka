@@ -194,6 +194,10 @@ export default {
                 // this.errorMessage = 'Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!';
                 // Bersihkan nilai input file
                 event.target.value = '';
+            } else if (selectedFile.size > 1024 * 1024) { // 1024 KB * 1024 = 1MB
+                this.errorMessage = 'Ukuran gambar tidak boleh lebih dari 1MB!';
+                // Bersihkan nilai input file
+                event.target.value = '';
             } else {
                 // Lakukan proses upload file
                 // this.uploadFile(file);
@@ -317,7 +321,7 @@ export default {
                             </div>
                             <div class="mb-4">
                                 <label for="image" class="block text-[14px] font-verdana font-normal mb-1">Gambar</label>
-                                <input @change="handleFileChange" id="image" type="file"
+                                <input @change="handleFileChange" id="image" type="file" accept=".jpg,.jpeg,.png"
                                     class="w-full px-3 py-2 border border-gray-300 rounded" required />
                                 <span v-if="formErrors.image" class="text-red text-sm font-bold">{{ formErrors.image
                                 }}</span>

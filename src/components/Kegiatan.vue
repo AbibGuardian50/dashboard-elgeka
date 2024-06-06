@@ -9,6 +9,7 @@ import "quill/dist/quill.bubble.css";
 import "quill/dist/quill.snow.css";
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
+import { useToast } from 'vue-toastification';
 
 export default {
     components: {
@@ -58,7 +59,8 @@ export default {
             perPage: 5,
             currentPage: 1,
             totalPages: 0,
-            PaginatedDaftarKegiatan: []
+            PaginatedDaftarKegiatan: [],
+            errorMessage: '',
         }
     },
     methods: {
@@ -87,13 +89,36 @@ export default {
             }
         },
         handleFileChange(event) {
+            const toast = useToast();
             // Mengambil file yang dipilih oleh pengguna
             const selectedFile = event.target.files[0];
 
             // Mengatur file yang dipilih ke dalam variabel edited.image
             this.form.image = selectedFile;
+
+            const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+            if (!allowedExtensions.exec(selectedFile.name)) {
+                const toast = useToast();
+                this.errorMessage = 'Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!';
+                toast.warning('Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!');
+                // alert('Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!');
+                // Atau, Anda dapat mengatur pesan kesalahan pada variabel data untuk ditampilkan dalam template
+                // this.errorMessage = 'Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!';
+                // Bersihkan nilai input file
+                event.target.value = '';
+            } else if (selectedFile.size > 1024 * 1024) { // 1024 KB * 1024 = 1MB
+                this.errorMessage = 'Ukuran gambar tidak boleh lebih dari 1MB!';
+                // Bersihkan nilai input file
+                event.target.value = '';
+            }
+            else {
+                // Lakukan proses upload file
+                // this.uploadFile(file);
+                this.errorMessage = ''; // Bersihkan pesan error jika file valid
+            }
         },
         createkegiatan() {
+            const toast = useToast();
             const tokenlogin = VueCookies.get('tokenlogin')
             const formData = new FormData();
             formData.append('image', this.form.image);
@@ -101,15 +126,23 @@ export default {
             formData.append('content', this.form.content);
             formData.append('tempat', this.form.tempat);
             formData.append('date', this.form.date);
+            // tambahkan validasi file tidak boleh lebih besar dari 1mb / 1024 kb dengan parameter 1024kb
 
             const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/kegiatanKomunitas'
             axios.post(url, formData, { headers: { 'Authorization': `Bearer ${tokenlogin}`, 'Content-Type': 'multipart/form-data' } })
                 .then(response => {
                     console.log(response);
-                    window.location.reload();
+                    if (response.data.message === "Create Kegiatan Komunitas Successfully") {
+                        toast.success('Kegiatan Komunitas berhasil dibuat')
+                        setTimeout(() => {
+                            window.location.reload()
+                        }, 1000);
+
+                    }
                 })
                 .catch(error => {
                     console.log(error)
+                    toast.error('Kegiatan Komunitas gagal dibuat, mohon coba lagi')
                 })
         },
         deletekegiatan(id) {
@@ -179,7 +212,7 @@ export default {
                                     <div class="">
                                         <div class="font-gotham font-normal text-sulfurblack text-base">
                                             {{ formatDate(data.date)
-                                }}
+                                            }}
                                         </div>
                                     </div>
                                 </div>
@@ -258,8 +291,10 @@ export default {
                                     <div class="flex gap-2 flex-col">
                                         <label for="Upload Foto" class="font-poppins font-bold text-base text-teal">Upload
                                             Foto</label>
-                                        <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="file"
+                                        <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="file" accept=".jpg,.jpeg,.png"
                                             name="Foto Sampul" id="foto-sampul-input" @change="handleFileChange">
+                                        <div v-if="errorMessage" class="text-red text-sm font-bold mb-4">{{ errorMessage }}
+                                        </div>
                                     </div>
 
 

@@ -105,6 +105,10 @@ export default {
                 // this.errorMessage = 'Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!';
                 // Bersihkan nilai input file
                 event.target.value = '';
+            } else if (selectedFile.size > 1024 * 1024) { // 1024 KB * 1024 = 1MB
+                this.errorMessage = 'Ukuran gambar tidak boleh lebih dari 1MB!';
+                // Bersihkan nilai input file
+                event.target.value = '';
             } else {
                 // Lakukan proses upload file
                 // this.uploadFile(file);
@@ -175,7 +179,7 @@ export default {
 
                         <div class="flex gap-2 flex-col">
                             <label for="Gambar" class="font-poppins font-bold text-base text-teal">Gambar</label>
-                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="file"
+                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="file" accept=".jpg,.jpeg,.png"
                                 name="Password" @change="handleFileChange" id="">
                             <p v-if="errorMessage" class="text-[#EF0307] font-semibold" required>{{ errorMessage
                             }}</p>

@@ -25,8 +25,8 @@ export default {
             }
         },
         async login() {
+            const toast = useToast();
             try {
-                const toast = useToast();
                 const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/admin/login'
                 const response = await axios.post(url, {
                     username: this.username,
@@ -47,10 +47,10 @@ export default {
                         localStorage.setItem('rememberedPassword', this.password);
                     }
                 } else {
-                    this.error = 'username atau password yang dimasukkan salah, mohon coba lagi'
+                    toast.error('username atau password yang dimasukkan salah, mohon coba lagi');
                 }
             } catch (error) {
-                this.error = 'ada kesalahan dari sistem, mohon coba lagi'
+                toast.error('ada kesalahan dari sistem, mohon coba lagi');
             }
         }
     },

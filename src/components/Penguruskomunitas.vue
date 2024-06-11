@@ -170,15 +170,15 @@ export default {
 </script>
 
 <template>
-    <div class="flex">
+    <div class="flex bg-offwhite">
         <Sidebar />
 
-        <div class="px-8">
+        <div class="px-8 bg-offwhite">
             <p class="text-[30px] text-teal font-gotham font-bold">Pengurus Komunitas</p>
             <hr>
             <div>
                 <table class="min-w-full divide-y divide-gray-200 overflow-x-auto w-[1200px]">
-                    <thead class="bg-gray-50">
+                    <thead>
                         <tr class="border-b-[0.5px] border-b-teal">
                             <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-sulfurblack text-base">
                                 NO
@@ -198,7 +198,7 @@ export default {
                             </th>
                         </tr>
                     </thead>
-                    <tbody v-for="data in PaginatedDaftarPengurus" :key="data.id" class="bg-white divide-y divide-gray-200">
+                    <tbody v-for="data in PaginatedDaftarPengurus" :key="data.id" class="bg-offwhite divide-y divide-gray-200">
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap font-gotham font-normal text-sulfurblack text-base">
                                 {{ data.no }}
@@ -249,7 +249,7 @@ export default {
                 <!-- Pop up modal buat Pengurus baru... -->
                 <div>
                     <form v-if="showcreatepengurus" @submit.prevent="createpengurus()"
-                        class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+                        class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center flex">
                         <div class="relative w-auto my-6 mx-auto max-w-6xl">
                             <!--content-->
                             <div

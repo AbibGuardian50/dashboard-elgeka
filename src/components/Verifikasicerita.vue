@@ -99,9 +99,9 @@ export default {
 </script>
 
 <template>
-    <div class="flex ">
+    <div class="flex bg-offwhite">
         <Sidebar />
-        <div class="px-8">
+        <div class="px-8 bg-offwhite">
             <p class="font-gotham font-bold text-[30px] text-sulfurblack py-2">Verifikasi Cerita</p>
             <hr class="border-[#D0D5DD]">
             <p class="font-gotham font-normal text-[20px] text-sulfurblack py-2">Cerita User</p>
@@ -110,7 +110,7 @@ export default {
             <div>
                 <table class="min-w-full divide-y divide-gray-200 overflow-x-auto">
 
-                    <tbody v-for="data in paginatedData" :key="data.id" class="bg-white divide-y divide-gray-200">
+                    <tbody v-for="data in paginatedData" :key="data.id" class="bg-offwhite divide-y divide-gray-200">
                         <tr>
                             <div class="px-6 py-4 max-w-[400px] mr-32">
                                 <p class="text-[20px] leading-5 font-inter font-bold text-fullblack">{{ data.title }}</p>
@@ -130,8 +130,8 @@ export default {
                             <td class="px-6 py-4 whitespace-nowrap text-base font-medium">
                                 <a :href="'editcerita/' + data.id"><button
                                         class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button></a>
-                                <a :href="'EditComment/' + data.id"><button
-                                        class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit Komentar</button></a>
+                                <!-- <a :href="'EditComment/' + data.id"><button
+                                        class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit Komentar</button></a> -->
                                 <button href="#" @click="deletecerita(data.id)"
                                     class="py-1 px-8 rounded-[5px] shadow-xl bg-semitransparentwhite bg-opacity-64 text-teal ml-2 font-inter font-bold text-base">Hapus</button>
                             </td>

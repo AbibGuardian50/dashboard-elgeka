@@ -233,14 +233,14 @@ export default {
 </script>
 
 <template>
-  <div class="flex">
+  <div class="flex bg-offwhite">
     <Sidebar />
-    <div class="px-8">
+    <div class="px-8 bg-offwhite">
       <p class="text-[30px] text-teal font-poppins font-bold">Kelola Akun Admin</p>
       <hr>
       <div>
         <table class="min-w-full divide-y divide-gray-200 overflow-x-auto w-[1200px]">
-          <thead class="bg-gray-50">
+          <thead>
             <tr class="border-b-[0.5px]">
               <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">NO</th>
               <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">Nama Lengkap</th>
@@ -253,7 +253,7 @@ export default {
             </tr>
           </thead>
           <tbody>
-            <tr v-for="data in paginatedData" :key="data.id" class="bg-white">
+            <tr v-for="data in paginatedData" :key="data.id" class="bg-offwhite">
               <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap font-poppins font-normal text-sulfurblack text-base">{{ data.no }}</td>
               <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                 <div class="flex items-center">

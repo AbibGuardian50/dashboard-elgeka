@@ -103,7 +103,7 @@ export default {
 </script>
 
 <template>
-    <div class="flex">
+    <div class="flex bg-offwhite">
         <sidebar />
         <div class="ml-8 w-[1042px]">
             <p class="font-gotham font-bold text-[30px] leading-6 text-sulfurblack my-4 border-b border-[#D0D5DD] pb-4">

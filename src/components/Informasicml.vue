@@ -249,7 +249,7 @@ export default {
                 <!-- Pop up Modal buat Berita baru... -->
                 <div>
                     <form v-if="showcreateberita" @submit.prevent="createberita()"
-                        class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+                        class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center flex">
                         <div class="relative w-auto my-6 mx-auto max-w-6xl">
                             <!--content-->
                             <div

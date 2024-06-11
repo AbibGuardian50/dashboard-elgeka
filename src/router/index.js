@@ -138,9 +138,15 @@ const router = createRouter({
       beforeEnter: requireAuth
     },
     {
-      path: '/UserGuide',
-      name: 'UserGuide',
-      component: () => import('../views/UserGuide.vue'),
+      path: '/UserGuideCerita',
+      name: 'UserGuideCerita',
+      component: () => import('../views/UserGuideEditCerita.vue'),
+      beforeEnter: requireAuth
+    },
+    {
+      path: '/UserGuideQuote',
+      name: 'UserGuideQuote',
+      component: () => import('../views/UserGuideTambahQuote.vue'),
       beforeEnter: requireAuth
     },
     {

@@ -108,9 +108,9 @@ export default {
 </script>
 
 <template>
-    <div class="flex">
+    <div class="flex bg-offwhite">
         <Sidebar />
-        <div class="pl-8 pt-12">
+        <div class="pl-8 pt-12 bg-offwhite">
             <p class="w-full font-gotham font-bold text-[30px] leading-6 mb-8 border-b pb-4 border-[#D0D5DD]">Update
                 Komunitas</p>
 

@@ -167,15 +167,15 @@ export default {
 </script>
 
 <template>
-    <div class="flex ">
+    <div class="flex bg-offwhite">
         <Sidebar />
 
-        <div class="px-8">
+        <div class="px-8 bg-offwhite">
             <p class="font-gotham font-bold text-[30px] text-sulfurblack">Update Kegiatan</p>
             <hr class="border-[#D0D5DD]">
             <div>
                 <table class="min-w-full divide-y divide-gray-200 overflow-x-auto max-w-[1400px]">
-                    <thead class="bg-gray-50">
+                    <thead>
                         <tr>
                             <th scope="col" class="px-6 py-3 text-left font-gotham text-sulfurblack text-base font-normal">
                                 Nomor
@@ -202,7 +202,7 @@ export default {
                         </tr>
                     </thead>
 
-                    <tbody v-for="data in PaginatedDaftarKegiatan" :key="data.id" class="bg-white divide-y divide-gray-200">
+                    <tbody v-for="data in PaginatedDaftarKegiatan" :key="data.id" class="bg-offwhite divide-y divide-gray-200">
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap font-gotham font-normal text-sulfurblack text-base">
                                 {{ data.no }}

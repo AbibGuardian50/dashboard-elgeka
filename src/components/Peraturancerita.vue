@@ -63,10 +63,10 @@ export default {
 </script>
 
 <template>
-    <div class="flex">
+    <div class="flex bg-offwhite">
         <Sidebar />
 
-        <div class="w-[1200px] pl-8 my-4">
+        <div class="w-[1200px] pl-8 my-4 bg-offwhite">
             <p class="font=gotham font-bold text-[30px] leading-6 text-sulfurblack mt-8 border-b border-[#D0D5DD] pb-4">
                 Update Aturan Cerita</p>
 
@@ -87,7 +87,7 @@ export default {
                 <!-- Pop up Modal Aturan Blog -->
                 <div>
                     <form v-if="showeditaturanblog" @submit.prevent="editaturan()"
-                        class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+                        class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center flex">
                         <div class="relative w-auto my-6 mx-auto max-w-6xl">
                             <!--content-->
                             <div

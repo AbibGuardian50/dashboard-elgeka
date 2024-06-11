@@ -139,7 +139,7 @@ export default {
 
             <div>
                 <form class="flex" v-if="storyblog" @submit.prevent="editstory(storyblog.id)">
-                    <div class="bg-[#EEE8E7] p-4">
+                    <div class="bg-seashell p-4">
                         <p class="font-gotham font-bold text-[30px] text-sulfurblack py-2">{{ storyblog.title }}</p>
                         <div class="py-2 min-w-[720px] max-w-[721px] rounded-md" id="app">
                             <quill-editor class="font-poppins font-normal text-[20px] leading-7"
@@ -148,7 +148,7 @@ export default {
                         </div>
                     </div>
 
-                    <div class="max-w-[325px] flex-col">
+                    <div class="max-w-[325px] ml-2 flex-col">
 
 
                         <div class="flex gap-2 flex-col mt-8 px-2">
@@ -167,9 +167,25 @@ export default {
                                 <label for="Generate Quote"
                                     class="font-poppins font-bold text-base text-teal">Bantuan(ChatGPT)</label>
                                 <div class="flex flex-col justify-center items-center">
-                                    <input
-                                        class="border bg-white border-silver py-4 min-w-[320px] max-w-[325px] pl-2 rounded-lg shadow-[0px_1px_2px_0px_rgba(16, 24, 40, 0.05)] px-2 font-poppins font-medium text-base text-[#00000080]"
-                                        type="text" name="username" id="" v-model="prompt" placeholder="Enter prompt here">
+                                    <div class="relative">
+                                        <input
+                                            class="border bg-white border-silver py-4 min-w-[320px] max-w-[325px] pl-2 rounded-lg shadow-[0px_1px_2px_0px_rgba(16, 24, 40, 0.05)] px-2 font-poppins font-medium text-base text-[#00000080]"
+                                            type="text" name="username" id="" v-model="prompt"
+                                            placeholder="Enter prompt here">
+                                        <a target="_blank" href="/UserGuideCerita"><span
+                                                class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
+                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <g clip-path="url(#clip0_1706_972)">
+                                                        <path
+                                                            d="M6.06016 6.00004C6.2169 5.55449 6.52626 5.17878 6.93347 4.93946C7.34067 4.70015 7.81943 4.61267 8.28495 4.69252C8.75047 4.77236 9.17271 5.01439 9.47688 5.37573C9.78106 5.73706 9.94753 6.19439 9.94683 6.66671C9.94683 8.00004 7.94683 8.66671 7.94683 8.66671M8.00016 11.3334H8.00683M14.6668 8.00004C14.6668 11.6819 11.6821 14.6667 8.00016 14.6667C4.31826 14.6667 1.3335 11.6819 1.3335 8.00004C1.3335 4.31814 4.31826 1.33337 8.00016 1.33337C11.6821 1.33337 14.6668 4.31814 14.6668 8.00004Z"
+                                                            stroke="#98A2B3" stroke-width="1.33333" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                    </g>
+                                                </svg>
+                                            </span></a>
+                                    </div>
+
                                     <button type="button"
                                         class=" px-4 py-1 bg-teal text-white font-poppins font-bold rounded-lg my-2 flex flex-col"
                                         @click="generateQuote">Generate</button>
@@ -183,21 +199,35 @@ export default {
                             <a href="/verifikasicerita"
                                 class="py-1 px-4 rounded-[5px] shadow-xl bg-semitransparantwhite bg-opacity-64 text-teal  ml-2 font-inter font-bold text-base border border-teal">Batal</a>
                         </div>
+                        <div class="pt-2 flex flex-col" name="kolom komentar">
+                            <h1 class="text-teal mb-4">Komentar :</h1>
+                            <div v-for="kolomkomentar in commentblog">
+                                <div class="gap-4 mb-1">
+                                    <div
+                                        class="flex flex-col gap-2 py-4 border border-teal rounded-lg justify-start items-start">
+                                        <p class="max-w-[673px] px-4 text-black font-poppins font-bold text-base"> {{
+                                            kolomkomentar.user_name }}
+                                        </p>
+                                        <p class="min-w-[152px] max-w-[673px] px-4 text-[#636363D9] font-poppins font-base">
+                                            {{
+                                                kolomkomentar.content }}</p>
+                                    </div>
+                                    <p class="px-4 text-[#9D9D9D] font-poppins text-[12px] tracking-wide">{{
+                                        formatDate(kolomkomentar.createdAt)
+                                    }}</p>
+                                </div>
+                                <div class="flex items-center justify-center">
+                                    <button href="#" @click="deletecomment(kolomkomentar.id)"
+                                        class="py-1 px-4 rounded-[5px] bg-teal font-inter font-bold text-base text-white mb-4">Hapus</button>
+                                </div>
+
+                            </div>
+
+                        </div>
                     </div>
                 </form>
             </div>
-            <div class="pt-2 flex flex-col items-start mx-16" v-for="kolomkomentar in commentblog" name="kolom komentar">
-                <div class="flex flex-col gap-2 py-4 border border-teal rounded-lg justify-start items-start">
-                    <p class="max-w-[673px] px-4 text-black font-poppins font-bold text-base"> {{ kolomkomentar.user_name }}
-                    </p>
-                    <p class="min-w-[152px] max-w-[673px] px-4 text-[#636363D9] font-poppins font-base">{{
-                        kolomkomentar.content }}</p>
-                </div>
-                <button href="#" @click="deletecomment(kolomkomentar.id)"
-                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-semitransparentwhite bg-opacity-64 text-teal ml-2 font-inter font-bold text-base">Hapus</button>
-                <p class="px-4 text-[#9D9D9D] font-poppins text-[12px] tracking-wide">{{ formatDate(kolomkomentar.createdAt)
-                }}</p>
-            </div>
+
         </div>
     </div>
 </template>

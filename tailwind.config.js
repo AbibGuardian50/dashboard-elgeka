@@ -10,6 +10,7 @@ export default {
       colors: {
         'red': '#8B1A0F',
         'white': '#ffffff',
+        'seashell': '#EEE8E7',
         'black': '#263238',
         'sulfurblack': '#040503',
         'transparentblack': '#000000B2',

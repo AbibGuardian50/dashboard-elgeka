@@ -37,3 +37,17 @@ a,
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .title-style {
+    @apply text-[30px] bg-offwhite max-lg:text-[25px] max-md:text-[20px] max-sm:text-[17px] text-teal font-poppins font-bold;
+  }
+}
+
+.btn-edit {
+  @apply py-1 max-[1300px]:px-2 px-8 rounded-[5px] bg-teal font-inter font-bold text-base max-[880px]:text-[0.875rem] text-white;
+}
+
+.btn-hapus {
+  @apply py-1 max-[1300px]:px-2 px-8 rounded-[5px] bg-white ml-2 shadow-xl bg-semitransparentwhite text-teal font-inter font-bold text-base max-[880px]:text-[0.875rem];
+}

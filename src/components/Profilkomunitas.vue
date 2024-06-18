@@ -110,90 +110,86 @@ export default {
 <template>
     <div class="flex bg-offwhite">
         <Sidebar />
-        <div class="pl-8 pt-12 bg-offwhite">
-            <p class="w-full font-gotham font-bold text-[30px] leading-6 mb-8 border-b pb-4 border-[#D0D5DD]">Update
-                Komunitas</p>
+        <div class="pl-8 max-[520px]:pl-1 pt-12 bg-offwhite w-full lg:w-3/4">
+            <p class="title-style pb-4 text-xl md:text-2xl lg:text-3xl xl:text-4xl">Update Komunitas</p>
 
-            <div id="container" class="flex">
-                <div class="flex flex-col justify-center items-center m-auto gap-8">
+            <div id="container" class="flex flex-col md:flex-row">
+                <div class="flex flex-col justify-center items-center m-auto gap-8 w-full">
                     <!-- Ubah profil komunitas -->
                     <div v-if="profilkomunitas.currentPage === 1"
-                        class="bg-semitransparentwhite pb-2 w-[1022px] left-[24rem] top-[10rem] isolate rounded-xl shadow-lg border-2 border-teal">
+                        class="bg-semitransparentwhite pb-2 w-full max-w-[1022px] isolate rounded-xl shadow-lg border-2 border-teal mx-auto">
                         <div class="max-w-[2023px] min-[2400px]:mx-auto">
-                            <div class="flex mx-10 my-8 justify-between  ">
-                                <div class="w-9/12">
-                                    <p class="font-poppins font-bold text-[40px] text-fullblack">{{
-                                        profilkomunitas.data.title }}
+                            <div class="flex flex-col md:flex-row mx-4 md:mx-10 my-8 justify-between">
+                                <div class="w-full md:w-9/12">
+                                    <p class="font-poppins font-bold text-2xl md:text-3xl lg:text-4xl text-fullblack">
+                                        {{ profilkomunitas.data.title }}
                                     </p>
-                                    <div class="font-poppins font-normal text-[12px] text-darkgrey pr-8"
+                                    <div class="font-poppins font-normal text-sm md:text-base text-darkgrey pr-8"
                                         v-html="profilkomunitas.data.content">
                                     </div>
-                                    <div class="mt-4 flex gap-4 ">
+                                    <div class="mt-4 flex gap-4 max-md:mb-4">
                                         <a :href="profilkomunitas.data.twitter_link" target="_blank"><img
-                                                class="w-[44px] h-[44px]" src="../assets/Logo-X.png" alt="Twitter"></a>
+                                                class="w-[30px] md:w-[44px] h-[30px] md:h-[44px]" src="../assets/Logo-X.png"
+                                                alt="Twitter"></a>
                                         <a :href="profilkomunitas.data.fb_link" target="_blank"><img
-                                                class="w-[44px] h-[44px]" src="../assets/Logo-Facebook.png"
-                                                alt="Facebook"></a>
+                                                class="w-[30px] md:w-[44px] h-[30px] md:h-[44px]"
+                                                src="../assets/Logo-Facebook.png" alt="Facebook"></a>
                                         <a :href="profilkomunitas.data.ig_link" target="_blank"><img
-                                                class="w-[44px] h-[44px]" src="../assets/Logo-Instagram.png"
-                                                alt="Instagram"></a>
+                                                class="w-[30px] md:w-[44px] h-[30px] md:h-[44px]"
+                                                src="../assets/Logo-Instagram.png" alt="Instagram"></a>
                                     </div>
                                 </div>
-                                <img class="w-3/12 max-w-[438px] max-h-[463px] max-xl:h-full" src="../assets/together.png"
-                                    alt="foto">
+                                <img class="w-full md:w-3/12 max-w-[438px] max-h-[463px] max-xl:h-full mx-auto md:mx-0"
+                                    src="../assets/together.png" alt="foto">
                             </div>
                             <div class="flex flex-col gap-12">
                                 <div
-                                    class="border-2 border-grey flex flex-col items-center px-4 pt-1 max-[900px]:w-auto w-[972px] m-auto relative">
+                                    class="border-2 border-grey flex flex-col items-center px-4 pt-1 max-[900px]:w-auto w-full max-w-[972px] mx-auto relative">
                                     <p
-                                        class="absolute bg-teal bottom-[75%] right-[46%] px-4 py-1 rounded-lg font-inter font-bold text-[20px] text-white">
+                                        class="absolute bg-teal bottom-[75%] max-[900px]:right-[43%] right-[46%] px-4 py-1 rounded-lg font-inter font-bold text-lg md:text-xl text-white">
                                         VISI</p>
-                                    <p class="p-4 font-poppins font-normal text-[20px] text-darkgrey">{{
-                                        profilkomunitas.data.visi }}</p>
+                                    <p class="p-4 font-poppins font-normal text-base md:text-lg text-darkgrey">
+                                        {{ profilkomunitas.data.visi }}</p>
                                 </div>
                                 <div
-                                    class="border-2 border-grey flex flex-col items-center px-4 pt-1 max-[900px]:w-auto w-[972px] m-auto relative">
+                                    class="border-2 border-grey flex flex-col items-center px-4 pt-1 max-[900px]:w-auto w-full max-w-[972px] mx-auto relative">
                                     <p
-                                        class="absolute bg-teal bottom-[75%] right-[46%] px-4 py-1 rounded-lg font-inter font-bold text-[20px] text-white">
+                                        class="absolute bg-teal bottom-[75%] max-[900px]:right-[43%] right-[46%] px-4 py-1 rounded-lg font-inter font-bold text-lg md:text-xl text-white">
                                         MISI</p>
-                                    <p class="p-4 font-poppins font-normal text-[20px] text-darkgrey">{{
-                                        profilkomunitas.data.misi }}</p>
+                                    <p class="p-4 font-poppins font-normal text-base md:text-lg text-darkgrey">
+                                        {{ profilkomunitas.data.misi }}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="flex justify-end items-end py-4 pr-4">
                             <a :href="'editprofilkomunitas'"><button
-                                    class="bg-teal py-2 px-8 font-poppins font-bold text-xl text-white leading-6 rounded-lg text-teal">Edit</button></a>
+                                    class="bg-teal py-2 px-4 md:px-8 font-poppins font-bold text-base md:text-xl text-white leading-6 rounded-lg">Edit</button></a>
                         </div>
                     </div>
                     <!-- Ubah Foto Sampul -->
                     <div v-if="profilkomunitas.currentPage === 1"
-                        class="bg-semitransparentwhite w-[1022px] left-[24rem] top-[40rem] isolate rounded-xl shadow-lg border-2 border-teal">
-                        <div class="flex justify-between ">
-                            <div class="flex">
-                                <img class="max-w-[340px] p-4 max-h-[200px]" :src="url + profilkomunitas.data.image_url"
-                                    alt="foto-sampul">
-                                <div>
-                                    <p class="font-bold font-poppins text-base text-black  py-4">Ubah Foto Sampul
-                                    </p>
+                        class="bg-semitransparentwhite w-full max-w-[1022px] isolate rounded-xl shadow-lg border-2 border-teal mx-auto">
+                        <div class="flex flex-col md:flex-row justify-between">
+                            <div class="flex flex-col md:flex-row">
+                                <img class="max-w-[340px] p-4 max-h-[200px] mx-auto md:mx-0"
+                                    :src="url + profilkomunitas.data.image_url" alt="foto-sampul">
+                                <div class="p-4">
+                                    <p class="font-bold font-poppins text-base md:text-lg lg:text-xl text-black">Ubah Foto
+                                        Sampul</p>
                                     <p
-                                        class="text-base text-[#FFFFFFB2] font-normal text-black font-poppins leading-6 pb-4 ">
-                                        Terakhir
-                                        Diubah : {{
-                                            formatDate(profilkomunitas.data.updatedAt) }}</p>
+                                        class="text-sm md:text-base text-[#FFFFFFB2] font-normal text-black font-poppins leading-6">
+                                        Terakhir Diubah : {{ formatDate(profilkomunitas.data.updatedAt) }}</p>
                                 </div>
                             </div>
                             <div class="flex justify-end items-end py-4 pr-4">
                                 <button v-on:click="toggleModalEditFotoSampul()"
-                                    class="bg-teal py-2 px-8 font-poppins font-bold text-xl text-white leading-6 rounded-lg">Edit</button>
+                                    class="bg-teal py-2 px-4 md:px-8 font-poppins font-bold text-base md:text-xl text-white leading-6 rounded-lg">Edit</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
 
         <!-- Pop up modal buat edit profil komunitas... -->
         <div>
@@ -205,11 +201,11 @@ export default {
                         class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                         <!--header-->
                         <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
-                            <h3 class="text-[40px] text-teal font-semibold font-poppins">
+                            <h3 class="text-2xl md:text-3xl lg:text-4xl text-teal font-semibold font-poppins">
                                 Edit Profil Komunitas
                             </h3>
                             <button
-                                class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                                class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-2xl md:text-3xl leading-none font-semibold outline-none focus:outline-none"
                                 v-on:click="toggleModalEditProfilKomunitas()">
                                 <span
                                     class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
@@ -219,62 +215,55 @@ export default {
                         <!--body-->
                         <div class="flex flex-col gap-8 relative p-6">
                             <div class="flex gap-2 flex-col">
-                                <label for="Judul" class="font-poppins font-bold text-base text-teal">Judul
-                                </label>
-                                <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
-                                    name="Judul" id="" placeholder="Judul">
+                                <label for="Judul" class="font-poppins font-bold text-base text-teal">Judul</label>
+                                <input class="border border-black py-2 min-w-full md:min-w-[550px] pl-2 rounded-md"
+                                    type="text" name="Judul" id="" placeholder="Judul">
                             </div>
                         </div>
-
                         <div class="flex flex-col gap-8 relative p-6">
                             <div class="flex gap-2 flex-col">
                                 <label for="Deskripsi Komunitas"
-                                    class="font-poppins font-bold text-base text-teal">Deskripsi Komunitas
-                                </label>
-                                <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
-                                    name="Deskripsi Komunitas" id="" placeholder="Deskripsi Komunitas">
+                                    class="font-poppins font-bold text-base text-teal">Deskripsi Komunitas</label>
+                                <input class="border border-black py-2 min-w-full md:min-w-[550px] pl-2 rounded-md"
+                                    type="text" name="Deskripsi Komunitas" id="" placeholder="Deskripsi Komunitas">
                             </div>
                         </div>
-
                         <div class="flex flex-col gap-8 relative p-6">
                             <div class="flex gap-2 flex-col">
                                 <label for="Link Instagram" class="font-poppins font-bold text-base text-teal">Link
-                                    Instagram
-                                </label>
-                                <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
-                                    name="Link Instagram" id="" placeholder="Link Instagram">
+                                    Instagram</label>
+                                <input class="border border-black py-2 min-w-full md:min-w-[550px] pl-2 rounded-md"
+                                    type="text" name="Link Instagram" id="" placeholder="Link Instagram">
                             </div>
                         </div>
-
                         <div class="flex flex-col gap-8 relative p-6">
                             <div class="flex gap-2 flex-col">
                                 <label for="Link Facebook" class="font-poppins font-bold text-base text-teal">Link
-                                    Facebook
-                                </label>
-                                <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
-                                    name="Link Facebook" id="" placeholder="Link Facebook">
+                                    Facebook</label>
+                                <input class="border border-black py-2 min-w-full md:min-w-[550px] pl-2 rounded-md"
+                                    type="text" name="Link Facebook" id="" placeholder="Link Facebook">
                             </div>
                         </div>
-
                         <div class="flex flex-col gap-8 relative p-6">
                             <div class="flex gap-2 flex-col">
-                                <label for="Link Twitter" class="font-poppins font-bold text-base text-teal">Link Twitter
-                                </label>
-                                <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="text"
-                                    name="Link Twitter" id="" placeholder="Link Twitter">
+                                <label for="Link Twitter" class="font-poppins font-bold text-base text-teal">Link
+                                    Twitter</label>
+                                <input class="border border-black py-2 min-w-full md:min-w-[550px] pl-2 rounded-md"
+                                    type="text" name="Link Twitter" id="" placeholder="Link Twitter">
                             </div>
                         </div>
                         <!--footer-->
                         <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
-                            <router-link to="/createcerita"><button
-                                    class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
-                                    type="button">
+                            <router-link to="/createcerita">
+                                <button
+                                    class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-4 md:px-12 py-2 md:py-3 rounded outline-none focus:outline-none mr-1 mb-1">
                                     Simpan
-                                </button></router-link>
+                                </button>
+                            </router-link>
                             <button
-                                class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                                class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-4 md:px-6 py-2 md:py-3 rounded outline-none focus:outline-none mr-1 mb-1"
                                 type="button" v-on:click="toggleModalEditProfilKomunitas()">
-                                batal
+                                Batal
                             </button>
                         </div>
                     </div>
@@ -293,11 +282,11 @@ export default {
                         class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                         <!--header-->
                         <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
-                            <h3 class="text-[40px] text-teal font-semibold font-poppins">
+                            <h3 class="text-2xl md:text-3xl lg:text-4xl text-teal font-semibold font-poppins">
                                 Edit Foto Sampul
                             </h3>
                             <button
-                                class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                                class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-2xl md:text-3xl leading-none font-semibold outline-none focus:outline-none"
                                 v-on:click="toggleModalEditFotoSampul()">
                                 <span
                                     class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
@@ -307,25 +296,25 @@ export default {
                         <!--body-->
                         <div class="flex flex-col gap-8 relative p-6">
                             <div class="flex gap-2 flex-col">
-                                <label for="Foto Sampul" class="font-poppins font-bold text-base text-teal">Foto Sampul
-                                </label>
-                                <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="file" accept=".jpg,.jpeg,.png"
-                                    name="Foto Sampul" id="foto-sampul-input" @change="handleFileChange">
-                                    <p v-if="errorMessage" class="text-[#EF0307] font-semibold" >{{ errorMessage
-                                        }}</p>
+                                <label for="Foto Sampul" class="font-poppins font-bold text-base text-teal">Foto
+                                    Sampul</label>
+                                <input class="border border-black py-2 min-w-full md:min-w-[550px] pl-2 rounded-md"
+                                    type="file" accept=".jpg,.jpeg,.png" name="Foto Sampul" id="foto-sampul-input"
+                                    @change="handleFileChange">
+                                <p v-if="errorMessage" class="text-[#EF0307] font-semibold">{{ errorMessage }}</p>
                             </div>
                         </div>
                         <!--footer-->
                         <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
                             <button
-                                class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
+                                class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-4 md:px-12 py-2 md:py-3 rounded outline-none focus:outline-none mr-1 mb-1"
                                 type="submit">
                                 Simpan
                             </button>
                             <button
-                                class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                                class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-4 md:px-6 py-2 md:py-3 rounded outline-none focus:outline-none mr-1 mb-1"
                                 type="button" v-on:click="toggleModalEditFotoSampul()">
-                                batal
+                                Batal
                             </button>
                         </div>
                     </div>
@@ -335,6 +324,7 @@ export default {
         </div>
     </div>
 </template>
+
 
 <style>
 #container {
@@ -350,5 +340,4 @@ ol {
 
 ul {
     list-style-type: disc;
-}
-</style>
+}</style>

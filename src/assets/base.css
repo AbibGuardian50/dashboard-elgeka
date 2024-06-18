@@ -89,3 +89,9 @@ body {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* @layer components {
+  .tablehead-style {
+    @apply text-[30px] bg-offwhite max-lg:text-[25px] max-md:text-[20px] max-sm:text-[17px] text-teal font-poppins font-bold;
+  }
+} */

@@ -235,95 +235,118 @@ export default {
 <template>
   <div class="flex bg-offwhite">
     <Sidebar />
-    <div class="px-8 bg-offwhite">
-      <p class="text-[30px] text-teal font-poppins font-bold">Kelola Akun Admin</p>
+    <div class="px-8 max-[800px]:px-1 bg-offwhite w-full">
+      <p class="title-style">Kelola Akun Admin</p>
       <hr>
-      <div>
-        <table class="min-w-full divide-y divide-gray-200 overflow-x-auto w-[1200px]">
-          <thead>
+      <div class="overflow-x-auto max-[1300px]:overflow-x-visible">
+        <table class="min-w-full bg-offwhite divide-y divide-gray-200 w-full">
+          <thead class="bg-offwhite">
             <tr class="border-b-[0.5px]">
-              <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">NO</th>
-              <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">Nama Lengkap</th>
-              <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">Username</th>
-              <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">Status</th>
-              <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">Roles</th>
-              <th v-if="getRoles === 'true'" scope="col" class="">
-                <button @click="toggleModalCreateAdmin" class="bg-teal px-4 py-1 rounded-md text-left font-inter font-semibold text-white text-base">Tambah</button>
+              <th scope="col" class="max-[1300px]:px-3 max-[1100px]:px-1 max-[880px]:text-[0.875rem] px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">NO</th>
+              <th scope="col" class="max-[1300px]:px-3 max-[1100px]:px-1 max-[880px]:text-[0.875rem] px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">Nama Lengkap
+              </th>
+              <th scope="col" class="max-[1300px]:px-3 max-[1100px]:px-1 max-[880px]:text-[0.875rem] px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">Username
+              </th>
+              <th scope="col" class="max-[1300px]:px-3 max-[1100px]:px-1 max-[880px]:text-[0.875rem] px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">Status</th>
+              <th scope="col" class="max-[1300px]:px-3 max-[1100px]:px-1 max-[880px]:text-[0.875rem] px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">Roles</th>
+              <th v-if="getRoles === 'true'" scope="col"
+                class="max-[1300px]:px-3 max-[1100px]:px-1 px-6 py-3 max-[880px]:text-[0.875rem] text-left font-normal font-poppins text-sulfurblack text-base">
+                <button @click="toggleModalCreateAdmin"
+                  class="bg-teal max-[1300px]:px-3 max-[1100px]:px-1 px-4 py-1 rounded-md text-left font-inter max-[880px]:text-[0.875rem] font-semibold text-white text-base">Tambah</button>
               </th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="data in paginatedData" :key="data.id" class="bg-offwhite">
-              <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap font-poppins font-normal text-sulfurblack text-base">{{ data.no }}</td>
-              <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+              <td
+                class="max-[1300px]:px-3 max-[1100px]:px-1 px-6 py-4 border-b border-gray-200 whitespace-nowrap font-poppins font-normal text-sulfurblack text-base max-[880px]:text-[0.875rem]">
+                {{ data.no }}</td>
+              <td class="max-[1300px]:px-3 max-[1100px]:px-1 px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                 <div class="flex items-center">
-                  <div class="font-poppins font-normal text-sulfurblack text-base">{{ data.full_name }}</div>
+                  <div class="font-poppins font-normal text-sulfurblack text-base max-[880px]:text-[0.875rem]">{{ data.full_name }}</div>
                 </div>
               </td>
-              <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                <p class="font-poppins font-normal text-sulfurblack text-base underline">{{ data.username }}</p>
+              <td class="max-[1300px]:px-3 max-[1100px]:px-1 px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+                <p class="font-poppins font-normal text-sulfurblack text-base underline max-[880px]:text-[0.875rem]">{{ data.username }}</p>
               </td>
-              <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                <span v-if="data.is_active" class="inline-flex font-inter text-base text-[#52FF00] leading-5 font-extrabold rounded-md">Aktif</span>
-                <span v-else class="inline-flex font-inter text-base text-red leading-5 font-extrabold rounded-md">Nonaktif</span>
+              <td class="max-[1300px]:px-3 max-[1100px]:px-1 px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+                <span v-if="data.is_active"
+                  class="inline-flex font-inter text-base text-[#52FF00] leading-5 font-extrabold rounded-md max-[880px]:text-[0.875rem]">Aktif</span>
+                <span v-else
+                  class="inline-flex font-inter text-base text-red leading-5 font-extrabold rounded-md max-[880px]:text-[0.875rem]">Nonaktif</span>
               </td>
-              <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                <span v-if="data.superAdmin" class="inline-flex font-inter text-base leading-5 font-bold rounded-md">Super Admin</span>
-                <span v-else class="inline-flex font-inter text-base leading-5 font-bold rounded-md">Admin</span>
+              <td class="max-[1300px]:px-3 max-[1100px]:px-1 px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+                <span v-if="data.superAdmin" class="inline-flex font-inter text-base leading-5 font-bold rounded-md max-[880px]:text-[0.875rem]">Super
+                  Admin</span>
+                <span v-else class="inline-flex font-inter text-base leading-5 font-bold rounded-md max-[880px]:text-[0.875rem]">Admin</span>
               </td>
-              <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap text-sm font-medium">
-                <template v-if="data.id === currentAdminId || (getRoles === 'true' && (data.is_active || !data.is_active) && !data.superAdmin)">
+              <td class="max-[1300px]:px-3 max-[1100px]:px-1 px-6 py-4 border-b border-gray-200 whitespace-nowrap text-sm  font-medium">
+                <template
+                  v-if="data.id === currentAdminId || (getRoles === 'true' && (data.is_active || !data.is_active) && !data.superAdmin)">
                   <a :href="'editadmin/' + data.id">
-                    <button class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button>
+                    <button
+                      class="btn-edit">Edit</button>
                   </a>
-                  <button @click="deleteadmin(data.id)" class="py-1 px-8 rounded-[5px] bg-[#ff4c61] ml-2 shadow-xl bg-semitransparentwhite bg-opacity-64 text-teal font-inter font-bold text-base">Hapus</button>
+                  <button @click="deleteadmin(data.id)"
+                    class="btn-hapus">Hapus</button>
                 </template>
               </td>
             </tr>
           </tbody>
         </table>
-
-        <div class="flex justify-center mt-4">
-          <button @click="prevPage" :disabled="currentPage === 1" class="px-4 py-2 mr-2 bg-teal text-white rounded-md">Previous</button>
-          <button v-for="pageNumber in totalPages" :key="pageNumber" @click="goToPage(pageNumber)" :class="{ 'bg-teal text-white rounded-md': pageNumber === currentPage, 'bg-white text-blue-500 border border-blue-500 rounded-md': pageNumber !== currentPage }" class="px-4 py-2 mr-2">{{ pageNumber }}</button>
-          <button @click="nextPage" :disabled="currentPage === totalPages" class="px-4 py-2 bg-teal text-white rounded-md">Next</button>
-        </div>
-
-        <div v-if="showcreateadmin" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div class="bg-white p-8 rounded-md min-w-[700px] max-w-[750px] min-h-[500px] max-h-[520px]">
-            <h2 class="text-2xl text-teal font-poppins font-semibold mb-4">Tambah Admin</h2>
-            <form @submit.prevent="createadmin">
-              <div class="mb-4">
-                <label class="block text-sm font-medium text-teal">Nama Lengkap</label>
-                <input type="text" v-model="form.full_name" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required />
-              </div>
-              <div class="mb-4">
-                <label class="block text-sm font-medium text-teal">Username</label>
-                <input type="text" v-model="form.username" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required />
-                <p v-if="formErrors.username" class="text-red text-sm mt-1">{{ formErrors.username }}</p>
-              </div>
-              <div class="mb-4">
-                <label class="block text-sm font-medium text-teal">Password</label>
-                <input type="password" v-model="form.password" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required />
-                <p v-if="formErrors.password" class="text-red text-sm mt-1">{{ formErrors.password }}</p>
-              </div>
-              <div class="mb-4">
-                <label class="block text-sm font-medium text-teal">Roles</label>
-                <select v-model="form.superAdmin" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
-                  <option value="">Select Role</option>
-                  <option value="true">Super Admin</option>
-                  <option value="false">Admin</option>
-                </select>
-                <p v-if="formErrors.superAdmin" class="text-red text-sm mt-1">{{ formErrors.superAdmin }}</p>
-              </div>
-              <div class="flex justify-end gap-2">
-                <button type="submit" class="px-4 py-2 bg-teal text-white rounded-md">Simpan</button>
-                <button @click="toggleModalCreateAdmin" type="button" class="mr-4 px-4 py-2 bg-white border border-teal text-teal rounded-md">Batal</button>
-              </div>
-            </form>
-          </div>
-        </div>
+      </div>
+      <div class="flex justify-center mt-4">
+        <button @click="prevPage" :disabled="currentPage === 1"
+          class="px-4 py-2 mr-2 bg-teal text-white rounded-md">Previous</button>
+        <button v-for="pageNumber in totalPages" :key="pageNumber" @click="goToPage(pageNumber)"
+          :class="{ 'bg-teal text-white rounded-md': pageNumber === currentPage, 'bg-white text-blue-500 border border-blue-500 rounded-md': pageNumber !== currentPage }"
+          class="px-4 py-2 mr-2">{{ pageNumber }}</button>
+        <button @click="nextPage" :disabled="currentPage === totalPages"
+          class="px-4 py-2 bg-teal text-white rounded-md">Next</button>
+      </div>
+      <div v-if="showcreateadmin" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div class="bg-white p-8 rounded-md min-w-[700px] max-w-[750px] min-h-[500px] max-h-[520px]">
+          <h2 class="text-2xl text-teal font-poppins font-semibold mb-4">Tambah Admin</h2>
+          <form @submit.prevent="createadmin">
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-teal">Nama Lengkap</label>
+              <input type="text" v-model="form.full_name"
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                required />
+            </div>
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-teal">Username</label>
+              <input type="text" v-model="form.username"
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                required />
+              <p v-if="formErrors.username" class="text-red text-sm mt-1">{{ formErrors.username }}</p>
+            </div>
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-teal">Password</label>
+              <input type="password" v-model="form.password"
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                required />
+              <p v-if="formErrors.password" class="text-red text-sm mt-1">{{ formErrors.password }}</p>
+            </div>
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-teal">Roles</label>
+              <select v-model="form.superAdmin"
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                required>
+                <option value="">Select Role</option>
+                <option value="true">Super Admin</option>
+                <option value="false">Admin</option>
+              </select>
+              <p v-if="formErrors.superAdmin" class="text-red text-sm mt-1">{{ formErrors.superAdmin }}</p>
+            </div>
+            <div class="flex justify-end gap-2">
+              <button type="submit" class="px-4 py-2 bg-teal text-white rounded-md">Simpan</button>
+              <button @click="toggleModalCreateAdmin" type="button"
+                class="mr-4 px-4 py-2 bg-white border border-teal text-teal rounded-md">Batal</button>
+            </div>
+        </form>
       </div>
     </div>
   </div>
-</template>
+</div></template>
+

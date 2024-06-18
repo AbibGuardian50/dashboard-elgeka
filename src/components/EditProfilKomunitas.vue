@@ -76,7 +76,7 @@ export default {
 <template>
     <div>
         <form v-if="communityprofile" @submit.prevent="editprofile()"
-            class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center flex">
+            class="overflow-x-hidden max-[600px]:overflow-x-visible overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center flex">
             <div class="relative w-[100rem] my-6 mx-auto max-w-6xl">
                 <!--content-->
                 <div

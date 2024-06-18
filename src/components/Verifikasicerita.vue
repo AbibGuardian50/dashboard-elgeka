@@ -101,39 +101,39 @@ export default {
 <template>
     <div class="flex bg-offwhite">
         <Sidebar />
-        <div class="px-8 bg-offwhite">
-            <p class="font-gotham font-bold text-[30px] text-sulfurblack py-2">Verifikasi Cerita</p>
+        <div class="max-[800px]:px-1 px-8 bg-offwhite">
+            <p class="title-style">Verifikasi Cerita</p>
             <hr class="border-[#D0D5DD]">
-            <p class="font-gotham font-normal text-[20px] text-sulfurblack py-2">Cerita User</p>
+            <p class="font-gotham font-normal text-[20px] max-md:text-[15px] text-sulfurblack py-2">Cerita User</p>
             <hr class="border-[#D0D5DD]">
 
             <div>
-                <table class="min-w-full divide-y divide-gray-200 overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200 max-[1300px]:overflow-x-visible overflow-x-auto">
 
                     <tbody v-for="data in paginatedData" :key="data.id" class="bg-offwhite divide-y divide-gray-200">
                         <tr>
-                            <div class="px-6 py-4 max-w-[400px] mr-32">
-                                <p class="text-[20px] leading-5 font-inter font-bold text-fullblack">{{ data.title }}</p>
+                            <div class="px-6 max-[800px]:px-1 py-4 max-w-[400px] max-md:mr-2 mr-32">
+                                <p class="text-[20px] max-md:text-[15px] leading-5 font-inter font-bold text-fullblack">{{ data.title }}</p>
                                 <div class="flex gap-1">
-                                    <p class="font-poppins font-normal text-[12px] leading-4 text-transparentblack">{{
+                                    <p class="font-poppins font-normal max-md:text-[10px] text-[12px] leading-4 text-transparentblack">{{
                                         data.author_name }}</p>
-                                    <p class="font-poppins font-normal text-[12px] leading-4 text-transparentblack">-</p>
-                                    <p class="font-poppins font-normal text-[12px] leading-4 text-transparentblack">{{
+                                    <p class="font-poppins font-normal max-md:text-[10px] text-[12px] leading-4 text-transparentblack">-</p>
+                                    <p class="font-poppins font-normal max-md:text-[10px] text-[12px] leading-4 text-transparentblack">{{
                                         formatDate(data.createdAt) }}</p>
-                                    <p class="font-poppins font-normal text-[12px] leading-4 text-transparentblack ml-4"
+                                    <p class="font-poppins font-normal max-md:text-[10px] text-[12px] leading-4 text-transparentblack ml-4"
                                         v-if="data.isVerified === false">Pending</p>
-                                    <p class="font-poppins font-normal text-[12px] leading-4 text-transparentblack ml-4"
+                                    <p class="font-poppins font-normal max-md:text-[10px] text-[12px] leading-4 text-transparentblack ml-4"
                                         v-else-if="data.isVerified === true">Disetujui</p>
                                 </div>
                             </div>
 
-                            <td class="px-6 py-4 whitespace-nowrap text-base font-medium">
+                            <td class="px-6 py-4 whitespace-nowrap text-base font-medium max-[800px]:flex max-[800px]:flex-col max-[800px]:gap-2 max-[800px]:items-center">
                                 <a :href="'editcerita/' + data.id"><button
-                                        class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button></a>
+                                        class="btn-edit">Edit</button></a>
                                 <!-- <a :href="'EditComment/' + data.id"><button
                                         class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit Komentar</button></a> -->
                                 <button href="#" @click="deletecerita(data.id)"
-                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-semitransparentwhite bg-opacity-64 text-teal ml-2 font-inter font-bold text-base">Hapus</button>
+                                    class="btn-hapus">Hapus</button>
                             </td>
                         </tr>
                     </tbody>

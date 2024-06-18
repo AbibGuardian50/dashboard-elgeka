@@ -131,45 +131,43 @@ export default {
     <div class="flex">
         <Sidebar />
 
-        <div class="pl-8">
+        <div class="pl-8 max-[520px]:pl-1">
             <div class="flex border-b border-silver mb-1 justify-between">
-                <p class="font-gotham font-bold text-[30px] text-sulfurblack py-2">Edit</p>
+                <p class="font-gotham font-bold text-[30px] max-md:text-[25px] text-sulfurblack py-2">Edit</p>
             </div>
 
 
             <div>
-                <form class="flex" v-if="storyblog" @submit.prevent="editstory(storyblog.id)">
+                <form class="flex max-[800px]:flex-col" v-if="storyblog" @submit.prevent="editstory(storyblog.id)">
                     <div class="bg-seashell p-4">
-                        <p class="font-gotham font-bold text-[30px] text-sulfurblack py-2">{{ storyblog.title }}</p>
-                        <div class="py-2 min-w-[720px] max-w-[721px] rounded-md" id="app">
-                            <quill-editor class="font-poppins font-normal text-[20px] leading-7"
+                        <p class="font-gotham font-bold text-[30px] max-[520px]:text-[20px] text-sulfurblack py-2">{{
+                            storyblog.title }}</p>
+                        <div class="py-2 min-w-[720px] max-[800px]:min-w-full max-w-[721px] rounded-md" id="app">
+                            <quill-editor class="font-poppins font-normal text-[20px] max-[520px]:text-[14px] leading-7"
                                 :toolbar="['bold', 'italic', 'underline', 'image']" contentType="html"
                                 v-model:content="storyblog.content"></quill-editor>
                         </div>
                     </div>
 
-                    <div class="max-w-[325px] ml-2 flex-col">
-
-
-                        <div class="flex gap-2 flex-col mt-8 px-2">
+                    <div class="w-full max-w-[325px] md:ml-2 ml-1 flex-col">
+                        <div class="flex gap-2 w-full flex-col mt-8 px-2 md:px-0 md:mr-[9px]">
                             <label for="Status" class="font-poppins font-bold text-base text-teal">Status</label>
-                            <!-- <input class="border border-black py-4 min-w-[550px] pr-2 rounded-md" type="text" name="nama lengkap" id="" placeholder="  Muhammad Abieb Basnuril"> -->
                             <select
-                                class="border bg-white border-silver py-4 min-w-[320px] max-w-[325px] pl-2 rounded-lg shadow-[0px_1px_2px_0px_rgba(16, 24, 40, 0.05)] px-2 font-poppins font-medium text-base text-[#00000080]"
+                                class="border bg-white border-silver py-4 w-full max-w-[325px] pl-2 rounded-lg shadow-[0px_1px_2px_0px_rgba(16, 24, 40, 0.05)] px-2 font-poppins font-medium text-base text-[#00000080]"
                                 name="Status" id="" v-model="storyblog.isVerified">
                                 <option value="false">Pending</option>
                                 <option value="true">Disetujui</option>
                             </select>
                         </div>
 
-                        <div class="flex flex-col gap-8 relative mt-8 px-2">
+                        <div class="flex flex-col gap-8 relative mt-8 w-full px-2 md:px-0 md:mr-[9px]">
                             <div class="flex gap-2 flex-col">
                                 <label for="Generate Quote"
                                     class="font-poppins font-bold text-base text-teal">Bantuan(ChatGPT)</label>
                                 <div class="flex flex-col justify-center items-center">
-                                    <div class="relative">
+                                    <div class="relative w-full">
                                         <input
-                                            class="border bg-white border-silver py-4 min-w-[320px] max-w-[325px] pl-2 rounded-lg shadow-[0px_1px_2px_0px_rgba(16, 24, 40, 0.05)] px-2 font-poppins font-medium text-base text-[#00000080]"
+                                            class="border bg-white border-silver py-4 w-full max-w-[325px] pl-2 rounded-lg shadow-[0px_1px_2px_0px_rgba(16, 24, 40, 0.05)] px-2 font-poppins font-medium text-base text-[#00000080]"
                                             type="text" name="username" id="" v-model="prompt"
                                             placeholder="Enter prompt here">
                                         <a target="_blank" href="/UserGuideCerita"><span
@@ -185,9 +183,8 @@ export default {
                                                 </svg>
                                             </span></a>
                                     </div>
-
                                     <button type="button"
-                                        class=" px-4 py-1 bg-teal text-white font-poppins font-bold rounded-lg my-2 flex flex-col"
+                                        class="px-4 py-1 bg-teal text-white font-poppins font-bold rounded-lg my-2 flex flex-col"
                                         @click="generateQuote">Generate</button>
                                 </div>
                             </div>
@@ -197,34 +194,33 @@ export default {
                             <a><button type="submit"
                                     class="py-1 px-4 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Simpan</button></a>
                             <a href="/verifikasicerita"
-                                class="py-1 px-4 rounded-[5px] shadow-xl bg-semitransparantwhite bg-opacity-64 text-teal  ml-2 font-inter font-bold text-base border border-teal">Batal</a>
+                                class="py-1 px-4 rounded-[5px] shadow-xl bg-semitransparantwhite bg-opacity-64 text-teal ml-2 font-inter font-bold text-base border border-teal">Batal</a>
                         </div>
-                        <div class="pt-2 flex flex-col" name="kolom komentar">
+
+                        <!-- Kolom Komentar -->
+                        <div class="pt-2 flex flex-col w-full max-[520px]:pr-4" name="kolom komentar">
                             <h1 class="text-teal mb-4">Komentar :</h1>
                             <div v-for="kolomkomentar in commentblog">
                                 <div class="gap-4 mb-1">
                                     <div
                                         class="flex flex-col gap-2 py-4 border border-teal rounded-lg justify-start items-start">
-                                        <p class="max-w-[673px] px-4 text-black font-poppins font-bold text-base"> {{
-                                            kolomkomentar.user_name }}
+                                        <p class="w-full px-4 text-black font-poppins font-bold text-base">
+                                            {{ kolomkomentar.user_name }}
                                         </p>
-                                        <p class="min-w-[152px] max-w-[673px] px-4 text-[#636363D9] font-poppins font-base">
-                                            {{
-                                                kolomkomentar.content }}</p>
+                                        <p class="w-full px-4 text-[#636363D9] font-poppins font-base">
+                                            {{ kolomkomentar.content }}</p>
                                     </div>
                                     <p class="px-4 text-[#9D9D9D] font-poppins text-[12px] tracking-wide">{{
-                                        formatDate(kolomkomentar.createdAt)
-                                    }}</p>
+                                        formatDate(kolomkomentar.createdAt) }}</p>
                                 </div>
                                 <div class="flex items-center justify-center">
                                     <button href="#" @click="deletecomment(kolomkomentar.id)"
                                         class="py-1 px-4 rounded-[5px] bg-teal font-inter font-bold text-base text-white mb-4">Hapus</button>
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
+
                 </form>
             </div>
 
@@ -251,4 +247,9 @@ select option {
     line-height: 30px;
     color: #000000B2;
 }
-</style>
+
+@media (max-width: 520px) {
+    .ql-container {
+        font-size: 14px;
+    }
+}</style>

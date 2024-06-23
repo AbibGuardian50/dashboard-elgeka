@@ -3,7 +3,7 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
-    // "./node_modules/flowbite/**/*.js"
+    "./node_modules/flowbite/**/*.js"
   ],
   theme: {
     extend: {
@@ -15,7 +15,7 @@ export default {
         'sulfurblack': '#040503',
         'transparentblack': '#000000B2',
         'lightwhite': 'rgba(255, 255, 255, 0.7)',
-        'milkwhite' : 'F9F0EE',
+        'milkwhite': 'F9F0EE',
         'semitransparentwhite': '#FFFFFFB2',
         'offwhite': '#F9F0EE',
         'darkgrey': '#363636',
@@ -32,14 +32,15 @@ export default {
         'oceanteal': '#0A6B77B2',
       },
       fontFamily: {
-        'inter' : ['Inter', 'sans-serif'],
+        'inter': ['Inter', 'sans-serif'],
         'poppins': ["Poppins", 'sans-serif'],
         'gotham': ["gotham", 'sans-serif'],
         'verdana': ["verdana", 'sans-serif'],
       },
     },
-    
   },
-  plugins: [],
+  plugins: [
+    require('flowbite/plugin')
+  ],
 }
 

@@ -1,4 +1,5 @@
 import './assets/main.css'
+import './assets/index.css' // pastikan file ini ada
 import Toast, { POSITION } from 'vue-toastification';
 import 'vue-toastification/dist/index.css'
 

@@ -214,80 +214,77 @@ export default {
 }
 </script>
 
-
-
-
 <template>
     <div class="flex bg-offwhite">
         <sidebar />
-        <div class="px-8">
-            <p class="text-[30px] text-teal font-gotham font-bold">Quotes</p>
+        <div class="px-8 max-[1400px]:px-2">
+            <p class="title-style">Quotes</p>
             <hr>
             <div>
                 <table class="min-w-full divide-y divide-gray-200 overflow-x-auto w-[1200px]">
                     <thead>
-                        <tr class="border-b-[0.5px] border-b-teal">
-                            <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-sulfurblack text-base">
+                        <tr class="border-b-[0.5px] border-b-teal bg-offwhite">
+                            <th scope="col" class="th-general max-[1000px]:text-[14px]">
                                 No
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-sulfurblack text-base">
+                            <th scope="col" class="th-general max-[1000px]:text-[14px]">
                                 Tanggal dibuat
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-sulfurblack text-base">
+                            <th scope="col" class="th-general max-[1000px]:text-[14px]">
                                 Author
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-sulfurblack text-base">
+                            <th scope="col" class="th-general max-[1000px]:text-[14px]">
                                 Media
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-sulfurblack text-base">
+                            <th scope="col" class="th-general max-[1000px]:text-[14px]">
                                 Quotes
                             </th>
-                            <th scope="col" class="">
+                            <th scope="col" class="flex">
                                 <button v-on:click="toggleModalCreateQuotes()"
-                                    class="py-1 px-6 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Tambah</button>
+                                    class="py-1 px-6 rounded-[5px] bg-teal font-inter font-bold text-base text-white mt-2 max-[1000px]:px-2 max-[1000px]:mt-4 max-[1000px]:text-[14px] max-md:text-[12px] max-md:px-1">Tambah</button>
                             </th>
                         </tr>
                     </thead>
                     <tbody v-for="data in PaginatedDaftarQuotes" :key="data.id" class="divide-y divide-gray-200">
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap font-gotham font-normal text-sulfurblack text-base">
+                        <tr class="bg-offwhite">
+                            <td class="td-general whitespace-nowrap font-poppins font-normal text-sulfurblack max-[1300px]:w-[50px] max-md:w-[30px] max-md:text-[12px]">
                                 {{ data.no }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
+                            <td class="td-general whitespace-nowrap max-[1300px]:w-[130px] max-[1000px]:w-[80px] max-md:w-[50px] max-[1000px]:whitespace-normal max-md:text-[12px]">
+                                <div class="flex items-center ">
                                     <div class="">
-                                        <div class="font-gotham font-normal text-sulfurblack text-base">
+                                        <div class="font-poppins font-normal text-sulfurblack ">
                                             {{ formatDate(data.createdAt) }}
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 max-w-[250px]">
-                                <p class="font-gotham font-normal text-sulfurblack text-base ">{{ data.author_name }}</p>
+                            <td class="td-general max-[1300px]:w-[130px] max-md:w-[70px] break-words max-md:text-[12px]">
+                                <p class="font-poppins font-normal break-words text-sulfurblack ">{{ data.author_name }}</p>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="pr-4 inline-flex text-base leading-5 font-semibold rounded-full">
+                            <td class="td-general whitespace-nowrap max-[1300px]:w-[160px] max-md:w-[100px] max-md:text-[12px]">
+                                <span class="pr-4 inline-flex leading-5 font-semibold rounded-full">
                                     <img class="bg-[url('https://i.pinimg.com/736x/c0/74/9b/c0749b7cc401421662ae901ec8f9f660.jpg')] bg-cover bg-center w-[160px] max-h-[160px]"
                                         :src="url + data.image_url">
                                 </span>
                             </td>
-                            <td class="px-6 py-4 w-[300px]">
-                                <p class="font-gotham font-normal text-sulfurblack text-base">{{ data.quote }}</p>
+                            <td class="td-general max-w-[300px] max-[1300px]:w-[150px] max-md:text-[12px] max-md:w-[100px] ">
+                                <p class="font-poppins  font-normal text-sulfurblack whitespace-normal break-words max-md:line-clamp-4">{{ data.quote }}</p>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap  text-sm font-medium">
+                            <td class="td-general whitespace-nowrap text-sm font-medium max-[850px]:flex max-[850px]:flex-col max-[850px]:items-center max-[850px]:justify-center max-[850px]:w-[50px] max-[850px]:gap-1">
                                 <a :href="'editquotes/' + data.id">
                                     <button
-                                        class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button>
+                                        class="btn-edit">Edit</button>
                                 </a>
                                 <button href="#" @click="deletequotes(data.id)"
-                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-semitransparentwhite bg-opacity-64 text-teal  ml-2 font-inter font-bold text-base">Hapus</button>
+                                    class="btn-hapus">Hapus</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
 
                 <!-- Pagination navigation -->
-                <div class="ml-8 mt-4 flex justify-center">
+                <div class="ml-8 mt-4 flex justify-center max-[1000px]:w-[50%] max-[600px]:justify-start">
                     <button @click="prevPage" :disabled="currentPage === 1"
                         class="px-4 py-2 mr-2 bg-teal  text-white rounded-md">Previous</button>
                     <button v-for="pageNumber in totalPages" :key="pageNumber" @click="goToPage(pageNumber)"

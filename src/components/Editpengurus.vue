@@ -121,7 +121,7 @@ export default {
                     </div>
                     <!--body-->
                     <div class="flex flex-col gap-8 relative p-6">
-                        <p class="font-gotham font-normal text-[20px] leading-6 text-sulfurblack">Edit Pengurus Komunitas</p>
+                        <p class="font-poppins font-normal text-[20px] leading-6 text-sulfurblack">Edit Pengurus Komunitas</p>
                         <div class="flex gap-2 flex-col">
                             <label for="nama lengkap" class="font-poppins font-bold text-base text-teal">Nama
                                 Lengkap</label>

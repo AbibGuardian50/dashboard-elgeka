@@ -179,58 +179,62 @@ export default {
     <div class="flex bg-offwhite">
         <Sidebar />
 
-        <div class="px-8">
-            <p class="font-gotham font-bold text-[30px] text-sulfurblack">Berita (Informasi CML)</p>
+        <div class="px-8 max-md:px-2 bg-offwhite">
+            <p class="title-style">Berita (Informasi CML)</p>
             <hr class="border-[#D0D5DD]">
-            <div class="w-[1400px]">
+            <div class="max-w-[1400px]">
                 <table class=" overflow-x-auto">
                     <thead>
                         <tr>
-                            <th scope="col" class="px-6 py-3 text-left font-gotham text-sulfurblack text-base font-normal">
-                                Nomor
+                            <th scope="col" class="th-general">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="9" stroke="black" stroke-width="2" />
+                                </svg>
+
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left font-gotham text-sulfurblack text-base font-normal">
+                            <th scope="col" class="th-general">
                                 Judul
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left font-gotham text-sulfurblack text-base font-normal">
+                            <th scope="col" class="th-general">
                                 Kategori
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left font-gotham text-sulfurblack text-base font-normal">
+                            <th scope="col" class="th-general">
                                 Deskripsi
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left font-gotham text-sulfurblack text-base font-normal">
+                            <th scope="col" class="th-general">
                                 Gambar
                             </th>
                             <th scope="col" class="">
-                                <button v-on:click="toggleModalCreateBerita()"
-                                    class="bg-teal px-2 py-1 text-left font-gotham text-white text-base">Tambah</button>
+                                <button v-on:click="toggleModalCreateBerita()" class="btn-add">Tambah</button>
                             </th>
                         </tr>
                     </thead>
 
                     <tbody v-for="data in paginatedBerita" :key="data.id" class="divide-y divide-gray-200">
                         <tr class="border-b border-black">
-                            <td class="px-6 py-4 whitespace-nowrap font-gotham font-normal text-sulfurblack text-base">
+                            <td class="px-6 py-4 whitespace-nowrap font-poppins font-normal text-sulfurblack md:text-base">
                                 {{ data.no }}
                             </td>
-                            <td class="px-6 py-4 max-w-[250px]">
-                                <p class="font-gotham font-normal text-sulfurblack text-base">{{ data.title }}</p>
+                            <td class="td-general max-w-[250px]">
+                                <p class="font-poppins font-normal text-sulfurblack md:text-base">{{ data.title }}</p>
                             </td>
-                            <td class="px-6 py-4 max-w-[200px]">
-                                <p class="font-gotham font-normal text-sulfurblack text-base">{{ data.kategori }}</p>
+                            <td class="td-general max-w-[200px] max-sm:max-w-[100px] truncate">
+                                <p
+                                    class="font-poppins font-normal text-sulfurblack md:text-base max-md:max-w-[100px] truncate">
+                                    {{ data.kategori }}</p>
                             </td>
-                            <td class="px-6 py-4 max-w-[400px]">
-                                <span v-html="data.content" class="line-clamp-4 text-base text-gray-900">
+                            <td class="td-general max-w-[400px]">
+                                <span v-html="data.content" class="line-clamp-4 md:text-base text-gray-900">
                                 </span>
                             </td>
-                            <td class="px-6 py-4 max-w-[200px]">
+                            <td class="td-general max-w-[200px]">
                                 <img :src="url + data.image_url">
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap  text-sm font-medium">
-                                <a :href="'editberita/' + data.id"><button
-                                        class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button></a>
-                                <button href="#" @click="deleteberita(data.id)"
-                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-semitransparentwhite bg-opacity-64 text-teal  ml-2 font-inter font-bold text-base">Hapus</button>
+                            <td
+                                class="td-general whitespace-nowrap max-[831px]:flex max-[831px]:flex-col max-[831px]:gap-2 max-[831px]:items-center text-sm font-medium">
+                                <a :href="'editberita/' + data.id"><button class="btn-edit">Edit</button></a>
+                                <button href="#" @click="deleteberita(data.id)" class="btn-hapus">Hapus</button>
                             </td>
                         </tr>
                         <!-- More rows... -->
@@ -269,7 +273,8 @@ export default {
                                 </div>
                                 <!--body-->
                                 <div class="flex flex-col gap-8 relative p-6">
-                                    <p class="font-gotham font-normal text-[20px] leading-6 text-sulfurblack">Masukan Berita
+                                    <p class="font-poppins font-normal text-[20px] leading-6 text-sulfurblack">Masukan
+                                        Berita
                                         CML</p>
 
                                     <div class="flex gap-2 flex-col">
@@ -292,8 +297,9 @@ export default {
                                     <div class="flex gap-2 flex-col">
                                         <label for="Upload Foto"
                                             class="font-verdana font-normal text-base text-teal">Gambar</label>
-                                        <input class="border border-silver py-2 min-w-[550px] pl-2 rounded-md" type="file" accept=".jpg,.jpeg,.png"
-                                            name="Foto Berita" id="foto-berita" @change="handleFileChange" required>
+                                        <input class="border border-silver py-2 min-w-[550px] pl-2 rounded-md" type="file"
+                                            accept=".jpg,.jpeg,.png" name="Foto Berita" id="foto-berita"
+                                            @change="handleFileChange" required>
                                         <p v-if="errorMessage" class="text-[#EF0307] font-semibold">{{ errorMessage }}</p>
                                     </div>
 
@@ -346,5 +352,4 @@ export default {
 ol {
     list-style-type: decimal;
     margin-left: 1rem;
-}
-</style>
+}</style>

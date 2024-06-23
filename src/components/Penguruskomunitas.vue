@@ -174,46 +174,46 @@ export default {
         <Sidebar />
 
         <div class="px-8 bg-offwhite">
-            <p class="text-[30px] text-teal font-gotham font-bold">Pengurus Komunitas</p>
+            <p class="text-[30px] text-teal font-poppins font-bold">Pengurus Komunitas</p>
             <hr>
             <div>
                 <table class="min-w-full divide-y divide-gray-200 overflow-x-auto w-[1200px]">
                     <thead>
                         <tr class="border-b-[0.5px] border-b-teal">
-                            <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-sulfurblack text-base">
+                            <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">
                                 NO
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-sulfurblack text-base">
+                            <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">
                                 Nama Lengkap
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-sulfurblack text-base">
+                            <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">
                                 Role
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left font-normal font-gotham text-sulfurblack text-base">
+                            <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">
                                 Gambar
                             </th>
                             <th scope="col" class="">
                                 <button v-on:click="toggleModalCreatePengurus()"
-                                    class="bg-teal px-2 py-1 text-left font-gotham text-white rounded-md text-base">Tambah</button>
+                                    class="bg-teal px-2 py-1 text-left font-poppins text-white rounded-md text-base">Tambah</button>
                             </th>
                         </tr>
                     </thead>
                     <tbody v-for="data in PaginatedDaftarPengurus" :key="data.id" class="bg-offwhite divide-y divide-gray-200">
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap font-gotham font-normal text-sulfurblack text-base">
+                            <td class="px-6 py-4 whitespace-nowrap font-poppins font-normal text-sulfurblack text-base">
                                 {{ data.no }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="">
-                                        <div class="font-gotham font-normal text-sulfurblack text-base">
+                                        <div class="font-poppins font-normal text-sulfurblack text-base">
                                             {{ data.full_name }}
                                         </div>
                                     </div>
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <p class="font-gotham font-normal text-sulfurblack text-base">{{ data.jabatan }}</p>
+                                <p class="font-poppins font-normal text-sulfurblack text-base">{{ data.jabatan }}</p>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="pr-4 inline-flex text-base leading-5 font-semibold rounded-full">
@@ -271,7 +271,7 @@ export default {
 
                                 <!--body-->
                                 <div class="flex flex-col gap-8 relative p-6">
-                                    <p class="font-gotham font-normal text-[20px] leading-6 text-sulfurblack">Input Pengurus
+                                    <p class="font-poppins font-normal text-[20px] leading-6 text-sulfurblack">Input Pengurus
                                         Komunitas</p>
                                     <div class="flex gap-2 flex-col">
                                         <label for="nama lengkap" class="font-poppins font-bold text-base text-teal">Nama
@@ -368,7 +368,7 @@ export default {
 
 
 
-                <div v-if="error" class="text-red font-gotham font-bold text-2xl pt-4">{{ error }}</div>
+                <div v-if="error" class="text-red font-poppins font-bold text-2xl pt-4">{{ error }}</div>
             </div>
         </div>
     </div>

@@ -223,7 +223,7 @@ export default {
                 </div>
 
                 <!-- Error Message, hanya muncul jika ada kesalahan dari user atau sistem -->
-                <div v-if="error" class="text-red font-gotham font-bold text-2xl pt-4">{{ error }}</div>
+                <div v-if="error" class="text-red font-poppins font-bold text-2xl pt-4">{{ error }}</div>
 
             </form>
             <!-- Forgot Password Link -->

@@ -67,7 +67,7 @@ export default {
         <Sidebar />
 
         <div class="w-[1200px] pl-8 my-4 bg-offwhite">
-            <p class="font=gotham font-bold text-[30px] leading-6 text-sulfurblack mt-8 border-b border-[#D0D5DD] pb-4">
+            <p class="font=poppins font-bold text-[30px] leading-6 text-sulfurblack mt-8 border-b border-[#D0D5DD] pb-4">
                 Update Aturan Cerita</p>
 
             <div v-if="aturanblog.currentPage === 1"

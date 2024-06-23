@@ -106,7 +106,7 @@ export default {
     <div class="flex bg-offwhite">
         <sidebar />
         <div class="ml-8 w-[1042px]">
-            <p class="font-gotham font-bold text-[30px] leading-6 text-sulfurblack my-4 border-b border-[#D0D5DD] pb-4">
+            <p class="font-poppins font-bold text-[30px] leading-6 text-sulfurblack my-4 border-b border-[#D0D5DD] pb-4">
                 Donasi</p>
             <div v-if="donasielgeka.currentPage === 1"
                 class="bg-semitransparentwhite flex flex-col justify-center items-center border-2 border-teal m-auto min-w-7/12">

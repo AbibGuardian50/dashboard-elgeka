@@ -171,46 +171,46 @@ export default {
         <Sidebar />
 
         <div class="px-8 bg-offwhite">
-            <p class="font-gotham font-bold text-[30px] text-sulfurblack">Update Kegiatan</p>
+            <p class="font-poppins font-bold text-[30px] text-sulfurblack">Update Kegiatan</p>
             <hr class="border-[#D0D5DD]">
             <div>
                 <table class="min-w-full divide-y divide-gray-200 overflow-x-auto max-w-[1400px]">
                     <thead>
                         <tr>
-                            <th scope="col" class="px-6 py-3 text-left font-gotham text-sulfurblack text-base font-normal">
+                            <th scope="col" class="px-6 py-3 text-left font-poppins text-sulfurblack text-base font-normal">
                                 Nomor
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left font-gotham text-sulfurblack text-base font-normal">
+                            <th scope="col" class="px-6 py-3 text-left font-poppins text-sulfurblack text-base font-normal">
                                 Tanggal
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left font-gotham text-sulfurblack text-base font-normal">
+                            <th scope="col" class="px-6 py-3 text-left font-poppins text-sulfurblack text-base font-normal">
                                 Judul
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left font-gotham text-sulfurblack text-base font-normal">
+                            <th scope="col" class="px-6 py-3 text-left font-poppins text-sulfurblack text-base font-normal">
                                 Tempat
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left font-gotham text-sulfurblack text-base font-normal">
+                            <th scope="col" class="px-6 py-3 text-left font-poppins text-sulfurblack text-base font-normal">
                                 Deskripsi
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left font-gotham text-sulfurblack text-base font-normal">
+                            <th scope="col" class="px-6 py-3 text-left font-poppins text-sulfurblack text-base font-normal">
                                 Gambar
                             </th>
                             <th scope="col" class="">
                                 <button v-on:click="toggleModalCreateKegiatan()"
-                                    class="bg-teal px-2 py-1 text-left font-gotham text-white text-base">Tambah</button>
+                                    class="bg-teal px-2 py-1 text-left font-poppins text-white text-base">Tambah</button>
                             </th>
                         </tr>
                     </thead>
 
                     <tbody v-for="data in PaginatedDaftarKegiatan" :key="data.id" class="bg-offwhite divide-y divide-gray-200">
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap font-gotham font-normal text-sulfurblack text-base">
+                            <td class="px-6 py-4 whitespace-nowrap font-poppins font-normal text-sulfurblack text-base">
                                 {{ data.no }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="">
-                                        <div class="font-gotham font-normal text-sulfurblack text-base">
+                                        <div class="font-poppins font-normal text-sulfurblack text-base">
                                             {{ formatDate(data.date)
                                             }}
                                         </div>
@@ -218,10 +218,10 @@ export default {
                                 </div>
                             </td>
                             <td class="px-6 py-4 max-w-[250px]">
-                                <p class="font-gotham font-normal text-sulfurblack text-base">{{ data.title }}</p>
+                                <p class="font-poppins font-normal text-sulfurblack text-base">{{ data.title }}</p>
                             </td>
                             <td class="px-6 py-4 max-w-[200px]">
-                                <p class="font-gotham font-normal text-sulfurblack text-base">{{ data.tempat }}</p>
+                                <p class="font-poppins font-normal text-sulfurblack text-base">{{ data.tempat }}</p>
                             </td>
                             <td class="px-6 py-4 max-w-[300px]">
                                 <span v-html="data.content" class="line-clamp-4 text-base text-gray-900">

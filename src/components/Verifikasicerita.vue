@@ -104,7 +104,7 @@ export default {
         <div class="max-[800px]:px-1 px-8 bg-offwhite">
             <p class="title-style">Verifikasi Cerita</p>
             <hr class="border-[#D0D5DD]">
-            <p class="font-gotham font-normal text-[20px] max-md:text-[15px] text-sulfurblack py-2">Cerita User</p>
+            <p class="font-poppins font-normal text-[20px] max-md:text-[15px] text-sulfurblack py-2">Cerita User</p>
             <hr class="border-[#D0D5DD]">
 
             <div>

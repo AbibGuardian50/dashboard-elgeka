@@ -104,8 +104,8 @@ export default {
 
 <template>
     <div class="flex bg-offwhite">
-        <sidebar class="w-1/4 min-w-[250px]" />
-        <div class="ml-8 max-sm:ml-1 bg-offwhite flex-1">
+        <sidebar class="min-w-[250px]" />
+        <div class="ml-8 max-sm:ml-1 bg-offwhite">
             <p class="font-poppins font-bold text-[24px] sm:text-[30px] leading-6 text-sulfurblack my-4 border-b border-teal pb-4">
                 Donasi</p>
             <div v-if="donasielgeka.currentPage === 1"

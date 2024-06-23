@@ -173,62 +173,67 @@ export default {
     <div class="flex bg-offwhite">
         <Sidebar />
 
-        <div class="px-8 bg-offwhite">
-            <p class="text-[30px] text-teal font-poppins font-bold">Pengurus Komunitas</p>
+        <div class="px-8 max-md:px-2 bg-offwhite">
+            <p class="title-style">Pengurus Komunitas</p>
             <hr>
             <div>
-                <table class="min-w-full divide-y divide-gray-200 overflow-x-auto w-[1200px]">
+                <table
+                    class="min-w-full divide-y divide-gray-200 overflow-x-auto w-[1200px] max-[1400px]:w-full max-[1400px]:max-w-[1200px]">
                     <thead>
                         <tr class="border-b-[0.5px] border-b-teal">
-                            <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">
-                                NO
+                            <th scope="col" class="th-general max-sm:pl-0">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="9" stroke="black" stroke-width="2" />
+                                </svg>
+
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">
+                            <th scope="col" class="th-general max-sm:text-[14px]">
                                 Nama Lengkap
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">
+                            <th scope="col" class="th-general max-sm:text-[14px]">
                                 Role
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">
+                            <th scope="col" class="th-general max-sm:text-[14px]">
                                 Gambar
                             </th>
-                            <th scope="col" class="">
-                                <button v-on:click="toggleModalCreatePengurus()"
-                                    class="bg-teal px-2 py-1 text-left font-poppins text-white rounded-md text-base">Tambah</button>
+                            <th scope="col" class="max-w-[200px]">
+                                <button v-on:click="toggleModalCreatePengurus()" class="btn-add">Tambah</button>
                             </th>
                         </tr>
                     </thead>
-                    <tbody v-for="data in PaginatedDaftarPengurus" :key="data.id" class="bg-offwhite divide-y divide-gray-200">
+                    <tbody v-for="data in PaginatedDaftarPengurus" :key="data.id"
+                        class="bg-offwhite divide-y divide-gray-200">
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap font-poppins font-normal text-sulfurblack text-base">
+                            <td
+                                class="td-general whitespace-nowrap font-poppins font-normal text-sulfurblack md:text-base max-[565px]:px-1">
                                 {{ data.no }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="td-general whitespace-nowrap max-[565px]:px-1">
                                 <div class="flex items-center">
                                     <div class="">
-                                        <div class="font-poppins font-normal text-sulfurblack text-base">
+                                        <div class="font-poppins font-normal text-sulfurblack md:text-base">
                                             {{ data.full_name }}
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <p class="font-poppins font-normal text-sulfurblack text-base">{{ data.jabatan }}</p>
+                            <td class="td-general whitespace-nowrap max-[565px]:px-1">
+                                <p class="font-poppins font-normal text-sulfurblack md:text-base ">{{ data.jabatan }}</p>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="td-general whitespace-nowrap max-[565px]:px-1">
                                 <span class="pr-4 inline-flex text-base leading-5 font-semibold rounded-full">
                                     <img class="bg-[url('https://i.pinimg.com/736x/c0/74/9b/c0749b7cc401421662ae901ec8f9f660.jpg')] bg-cover bg-center w-[160px] max-h-[160px]"
                                         :src="url + data.image_url">
 
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap  text-sm font-medium">
+                            <td
+                                class="mt-4 whitespace-nowrap text-sm font-medium max-w-[200px] max-[1150px]:flex max-[1150px]:flex-col max-[1150px]:gap-2 max-[1150px]:items-center">
                                 <a :href="'editpengurus/' + data.id">
-                                    <button
-                                        class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button>
+                                    <button class="btn-edit">Edit</button>
                                 </a>
-                                <button href="#" @click="deletepengurus(data.id)"
-                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-semitransparentwhite bg-opacity-64 text-teal  ml-2 font-inter font-bold text-base">Hapus</button>
+                                <button href="#" @click="deletepengurus(data.id)" class="btn-hapus">Hapus</button>
                             </td>
                         </tr>
                         <!-- More rows... -->
@@ -271,7 +276,8 @@ export default {
 
                                 <!--body-->
                                 <div class="flex flex-col gap-8 relative p-6">
-                                    <p class="font-poppins font-normal text-[20px] leading-6 text-sulfurblack">Input Pengurus
+                                    <p class="font-poppins font-normal text-[20px] leading-6 text-sulfurblack">Input
+                                        Pengurus
                                         Komunitas</p>
                                     <div class="flex gap-2 flex-col">
                                         <label for="nama lengkap" class="font-poppins font-bold text-base text-teal">Nama
@@ -300,8 +306,8 @@ export default {
                                         <label for="Foto Profil" class="font-poppins font-bold text-base text-teal">Gambar
                                             Lengkap</label>
                                         <input @change="handleFileChange"
-                                            class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="file" accept=".jpg,.jpeg,.png"
-                                            name="Foto Profil" id="">
+                                            class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="file"
+                                            accept=".jpg,.jpeg,.png" name="Foto Profil" id="">
                                         <div v-if="errorMessage" class="text-red text-sm font-bold mb-4">{{ errorMessage }}
                                         </div>
                                     </div>
@@ -371,5 +377,4 @@ export default {
                 <div v-if="error" class="text-red font-poppins font-bold text-2xl pt-4">{{ error }}</div>
             </div>
         </div>
-    </div>
-</template>
+</div></template>

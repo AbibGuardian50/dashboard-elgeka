@@ -221,7 +221,7 @@ export default {
             <p class="title-style">Quotes</p>
             <hr>
             <div>
-                <table class="min-w-full divide-y divide-gray-200 overflow-x-auto w-[1200px]">
+                <table class="divide-y divide-gray-200 max-w-[1200px]">
                     <thead>
                         <tr class="border-b-[0.5px] border-b-teal bg-offwhite">
                             <th scope="col" class="th-general max-[1000px]:text-[14px] max-sm:pl-0">
@@ -306,7 +306,7 @@ export default {
                 <!-- Pop up modal buat Quotes baru... -->
                 <!-- Pop up modal buat Quotes baru... -->
                 <div v-if="showcreatequotes">
-                    <div class="fixed max-md:absolute inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                    <div class="fixed max-sm:absolute inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
                         <form @submit.prevent="createquote()"
                             class="bg-white p-6 rounded-lg w-full max-w-md sm:max-w-lg lg:max-w-xl">
                             <h2

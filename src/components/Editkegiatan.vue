@@ -76,7 +76,7 @@ export default {
         handleFileChange(event) {
             const selectedFile = event.target.files[0];
             const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
-            
+
             if (!allowedExtensions.exec(selectedFile.name)) {
                 const toast = useToast();
                 this.errorMessage = 'Hanya gambar dengan format PNG, JPEG, atau JPG yang diizinkan!';
@@ -98,79 +98,69 @@ export default {
 <template>
     <div>
         <form v-if="daftarkegiatan" @submit.prevent="editkegiatan(daftarkegiatan.id)"
-            class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-            <div class="relative w-auto my-6 mx-auto max-w-6xl">
+            class="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none">
+            <div class="relative w-full max-w-6xl mx-auto my-6">
                 <!--content-->
                 <div
-                    class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                    class="flex flex-col w-full bg-white border border-red rounded-lg shadow-lg outline-none focus:outline-none">
                     <!--header-->
-                    <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
-                        <h3 class="text-[40px] text-teal font-semibold font-poppins">
+                    <div class="flex items-start justify-between p-5 border-b border-black rounded-t">
+                        <h3 class="text-2xl font-semibold text-teal font-poppins">
                             Edit Kegiatan Komunitas
                         </h3>
-                        <button
-                            class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                            v-on:click="toggleModalCreateAdmin()">
-                            <span
-                                class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                            </span>
-                        </button>
                     </div>
                     <!--body-->
-                    <div class="flex flex-col gap-8 relative p-6">
-                        <div class="flex gap-2 flex-col">
-                            <label for="Judul" class="font-poppins font-bold text-base text-teal">Judul</label>
-                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" required
-                                v-model="daftarkegiatan.title" name="Judul" id="" :placeholder="daftarkegiatan.title">
+                    <div class="relative flex flex-col gap-6 p-6">
+                        <div class="flex flex-col gap-2">
+                            <label for="Judul" class="text-base font-bold text-teal font-poppins">Judul</label>
+                            <input class="w-full px-3 py-2 border rounded-md" type="text" required
+                                v-model="daftarkegiatan.title" name="Judul" placeholder="Masukkan judul kegiatan">
                         </div>
 
-                        <div class="flex gap-2 flex-col">
-                            <label for="tempat" class="font-poppins font-bold text-base text-teal">Tempat</label>
-                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" name="tempat" required
-                            v-model="daftarkegiatan.tempat" :placeholder="daftarkegiatan.tempat">
+                        <div class="flex flex-col gap-2">
+                            <label for="tempat" class="text-base font-bold text-teal font-poppins">Tempat</label>
+                            <input class="w-full px-3 py-2 border rounded-md" type="text" name="tempat" required
+                                v-model="daftarkegiatan.tempat" placeholder="Masukkan tempat kegiatan">
                         </div>
 
-                        <div class="flex gap-2 flex-col">
-                            <label for="Deskripsi Kegiatan" class="font-poppins font-bold text-base text-teal">Deskripsi
+                        <div class="flex flex-col gap-2">
+                            <label for="Deskripsi Kegiatan" class="text-base font-bold text-teal font-poppins">Deskripsi
                                 Kegiatan</label>
-                            <div class="border border-black py-2 min-w-[550px] pl-2 rounded-md" id="app">
-                                <quill-editor theme="snow" contentType="html" class="text-[16px]"
-                                    v-model:content="daftarkegiatan.content"><p>{{ daftarkegiatan.content }}</p></quill-editor>
+                            <div class="w-full p-2 border rounded-md">
+                                <quill-editor theme="snow" contentType="html" class="w-full text-base"
+                                    v-model:content="daftarkegiatan.content"></quill-editor>
                             </div>
                         </div>
 
-                        <div class="flex gap-2 flex-col">
-                            <label for="Tanggal" class="font-poppins font-bold text-base text-teal">Tanggal</label>
-                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="date" name="Tanggal" required
-                                v-model="daftarkegiatan.date" id="" :placeholder="daftarkegiatan.date">
+                        <div class="flex flex-col gap-2">
+                            <label for="Tanggal" class="text-base font-bold text-teal font-poppins">Tanggal</label>
+                            <input class="w-full px-3 py-2 border rounded-md" type="date" name="Tanggal" required
+                                v-model="daftarkegiatan.date" placeholder="Pilih tanggal kegiatan">
                         </div>
 
-                        <div class="flex gap-2 flex-col">
-                            <label for="Gambar" class="font-poppins font-bold text-base text-teal">Gambar</label>
-                            <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="file" name="Gambar" accept=".jpg,.jpeg,.png"
-                                id="foto-sampul-input" @change="handleFileChange">
-                            <p v-if="errorMessage" class="text-[#EF0307] font-semibold">{{ errorMessage }}</p>
+                        <div class="flex flex-col gap-2">
+                            <label for="Gambar" class="text-base font-bold text-teal font-poppins">Gambar</label>
+                            <input class="w-full px-3 py-2 border rounded-md" type="file" name="Gambar"
+                                accept=".jpg,.jpeg,.png" @change="handleFileChange">
+                            <p v-if="errorMessage" class="font-semibold text-red-600">{{ errorMessage }}</p>
                         </div>
-
-
                     </div>
                     <!--footer-->
-                    <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
+                    <div class="flex items-center justify-center p-6 border-t border-black rounded-b">
                         <button
-                            class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
+                            class="px-12 py-3 text-sm font-bold text-white uppercase bg-teal rounded hover:bg-teal-600 focus:outline-none"
                             type="submit">
                             Simpan
                         </button>
                         <router-link to="/kegiatan">
                             <button
-                                class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
-                                type="button">
-                                batal
-                            </button>
-                        </router-link>
-                    </div>
+                                class="px-6 py-3 ml-4 text-sm font-bold text-teal uppercase bg-white border border-teal rounded hover:bg-teal-600 focus:outline-none"
+                            type="button">
+                            Batal
+                        </button>
+                    </router-link>
                 </div>
             </div>
-        </form>
-    </div>
-</template>
+        </div>
+    </form>
+</div></template>

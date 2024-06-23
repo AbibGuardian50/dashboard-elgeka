@@ -108,74 +108,52 @@ export default {
 <template>
     <div>
         <form v-if="daftarberita" @submit.prevent="editberita(daftarberita.id)"
-            class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-            <div class="relative w-auto my-6 mx-auto max-w-6xl">
-                <div
-                    class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                    <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
-                        <h3 class="text-[40px] text-teal font-semibold font-poppins">
-                            Edit berita Komunitas
-                        </h3>
-                        <button
-                            class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                            v-on:click="toggleModalCreateAdmin()">
-                            <span
-                                class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none"></span>
-                        </button>
+            class="fixed inset-0 z-50 flex justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none">
+            <div class="relative w-full max-w-6xl mx-auto my-6">
+                <div class="flex flex-col w-full bg-white border rounded-lg shadow-lg outline-none focus:outline-none">
+                    <!-- Header -->
+                    <div class="flex items-start justify-between p-5 border-b border-gray-300 rounded-t">
+                        <h3 class="text-2xl font-semibold text-teal">Edit Berita Komunitas</h3>
                     </div>
-                    <div class="flex flex-col gap-8 relative p-6">
-                        <div class="flex gap-2 flex-col">
-                            <label for="Judul" class="font-poppins font-bold text-base text-teal">Judul</label>
-                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
-                                v-model="daftarberita.title" required name="Judul" id="" :placeholder="daftarberita.title">
+                    <!-- Body -->
+                    <div class="relative flex flex-col gap-6 p-6">
+                        <div class="flex flex-col gap-2">
+                            <label for="Judul" class="text-base font-bold text-teal">Judul</label>
+                            <input class="w-full px-3 py-2 border rounded-md" type="text" v-model="daftarberita.title" required name="Judul"
+                                placeholder="Masukkan judul">
                         </div>
-
-                        <div class="flex gap-2 flex-col">
-                            <label for="doi_link" class="font-poppins font-bold text-base text-teal">doi_link</label>
-                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
-                                name="doi_link" v-model="daftarberita.doi_link" required
-                                :placeholder="daftarberita.doi_link">
+                        <div class="flex flex-col gap-2">
+                            <label for="doi_link" class="text-base font-bold text-teal">DOI Link</label>
+                            <input class="w-full px-3 py-2 border rounded-md" type="text" name="doi_link" v-model="daftarberita.doi_link" required
+                                placeholder="Masukkan DOI Link">
                         </div>
-
-                        <div class="flex gap-2 flex-col">
-                            <label for="Kategori" class="font-verdana font-normal text-base text-teal">Kategori</label>
-                            <select name="Kategori" id="Kategori"
-                                class="border border-silver py-4 min-w-[550px] pl-2 rounded-md" required
-                                v-model="daftarberita.kategori">
-                                <option value="perkembanganCML" selected>Perkembangan CML</option>
+                        <div class="flex flex-col gap-2">
+                            <label for="Kategori" class="text-base font-normal text-teal">Kategori</label>
+                            <select name="Kategori" id="Kategori" class="w-full px-3 py-2 border rounded-md" required v-model="daftarberita.kategori">
+                                <option value="perkembanganCML">Perkembangan CML</option>
                                 <option value="perkembanganKomunitas">Perkembangan Komunitas</option>
                             </select>
                         </div>
-
-                        <div class="flex gap-2 flex-col">
-                            <label for="Deskripsi berita" class="font-poppins font-bold text-base text-teal">Deskripsi
-                                berita</label>
-                            <div class="border border-black py-2 min-w-[550px] pl-2 rounded-md">
-                                <quill-editor theme="snow" contentType="html" required
-                                    class="font-poppins font-normal text-[16px]" v-model:content="daftarberita.content"
+                        <div class="flex flex-col gap-2">
+                            <label for="Deskripsi berita" class="text-base font-bold text-teal">Deskripsi Berita</label>
+                            <div class="w-full p-2 border rounded-md">
+                                <quill-editor theme="snow" contentType="html" required class="w-full font-normal text-base" v-model:content="daftarberita.content"
                                     :content="editedData"></quill-editor>
                             </div>
                         </div>
-
-                        <div class="flex gap-2 flex-col">
-                            <label for="Gambar" class="font-poppins font-bold text-base text-teal">Gambar</label>
-                            <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="file" name="Gambar" accept=".jpg,.jpeg,.png"
-                                id="foto-sampul-input" @change="handleFileChange">
-                            <p v-if="errorMessage" class="text-[#EF0307] font-semibold">{{ errorMessage }}</p>
+                        <div class="flex flex-col gap-2">
+                            <label for="Gambar" class="text-base font-bold text-teal">Gambar</label>
+                            <input class="w-full px-3 py-2 border rounded-md" type="file" name="Gambar" accept=".jpg,.jpeg,.png" id="foto-sampul-input" @change="handleFileChange">
+                            <p v-if="errorMessage" class="text-red-600 font-semibold">{{ errorMessage }}</p>
                         </div>
                     </div>
-                    <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
-                        <button
-                            class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
-                            type="submit">
-                            Simpan
-                        </button>
+                    <!-- Footer -->
+                    <div class="flex items-center justify-center p-6 border-t border-gray-300 rounded-b">
+                        <button class="px-6 py-3 text-sm font-bold text-white uppercase bg-teal rounded hover:bg-teal-600 focus:outline-none"
+                            type="submit">Simpan</button>
                         <router-link to="/berita">
-                            <button
-                                class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
-                                type="button">
-                                batal
-                            </button>
+                            <button class="px-6 py-3 ml-4 text-sm font-bold text-teal uppercase bg-white border border-teal rounded hover:bg-teal-600 focus:outline-none"
+                                type="button">Batal</button>
                         </router-link>
                     </div>
                 </div>

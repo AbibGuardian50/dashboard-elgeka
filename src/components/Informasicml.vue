@@ -176,10 +176,10 @@ export default {
 </script>
 
 <template>
-    <div class="flex bg-offwhite">
+    <div class="flex bg-offwhite max-lg:h-screen">
         <Sidebar />
 
-        <div class="px-8 max-md:px-2 bg-offwhite">
+        <div class="px-8 max-md:px-2 bg-offwhite max-lg:h-screen">
             <p class="title-style">Berita (Informasi CML)</p>
             <hr class="border-[#D0D5DD]">
             <div class="max-w-[1400px]">

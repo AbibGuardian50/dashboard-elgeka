@@ -217,15 +217,19 @@ export default {
 <template>
     <div class="flex bg-offwhite max-lg:h-screen">
         <sidebar />
-        <div class="px-8 max-[1400px]:px-2">
+        <div class="px-8 max-[1400px]:px-2 bg-offwhite">
             <p class="title-style">Quotes</p>
             <hr>
             <div>
                 <table class="min-w-full divide-y divide-gray-200 overflow-x-auto w-[1200px]">
                     <thead>
                         <tr class="border-b-[0.5px] border-b-teal bg-offwhite">
-                            <th scope="col" class="th-general max-[1000px]:text-[14px]">
-                                No
+                            <th scope="col" class="th-general max-[1000px]:text-[14px] max-sm:pl-0">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="9" stroke="black" stroke-width="2" />
+                                </svg>
+
                             </th>
                             <th scope="col" class="th-general max-[1000px]:text-[14px]">
                                 Tanggal dibuat
@@ -247,10 +251,12 @@ export default {
                     </thead>
                     <tbody v-for="data in PaginatedDaftarQuotes" :key="data.id" class="divide-y divide-gray-200">
                         <tr class="bg-offwhite">
-                            <td class="td-general whitespace-nowrap font-poppins font-normal text-sulfurblack max-[1300px]:w-[50px] max-md:w-[30px] max-md:text-[12px]">
+                            <td
+                                class="td-general whitespace-nowrap font-poppins font-normal text-sulfurblack max-[1300px]:w-[50px] max-md:w-[30px] max-md:text-[12px]">
                                 {{ data.no }}
                             </td>
-                            <td class="td-general whitespace-nowrap max-[1300px]:w-[130px] max-[1000px]:w-[80px] max-md:w-[50px] max-[1000px]:whitespace-normal max-md:text-[12px]">
+                            <td
+                                class="td-general whitespace-nowrap max-[1300px]:w-[130px] max-[1000px]:w-[80px] max-md:w-[50px] max-[1000px]:whitespace-normal max-md:text-[12px]">
                                 <div class="flex items-center ">
                                     <div class="">
                                         <div class="font-poppins font-normal text-sulfurblack ">
@@ -262,22 +268,25 @@ export default {
                             <td class="td-general max-[1300px]:w-[130px] max-md:w-[70px] break-words max-md:text-[12px]">
                                 <p class="font-poppins font-normal break-words text-sulfurblack ">{{ data.author_name }}</p>
                             </td>
-                            <td class="td-general whitespace-nowrap max-[1300px]:w-[160px] max-md:w-[100px] max-md:text-[12px]">
+                            <td
+                                class="td-general whitespace-nowrap max-[1300px]:w-[160px] max-md:w-[100px] max-md:text-[12px]">
                                 <span class="pr-4 inline-flex leading-5 font-semibold rounded-full">
                                     <img class="bg-[url('https://i.pinimg.com/736x/c0/74/9b/c0749b7cc401421662ae901ec8f9f660.jpg')] bg-cover bg-center w-[160px] max-h-[160px]"
                                         :src="url + data.image_url">
                                 </span>
                             </td>
-                            <td class="td-general max-w-[300px] max-[1300px]:w-[150px] max-md:text-[12px] max-md:w-[100px] ">
-                                <p class="font-poppins  font-normal text-sulfurblack whitespace-normal break-words max-md:line-clamp-4">{{ data.quote }}</p>
+                            <td
+                                class="td-general max-w-[300px] max-[1300px]:w-[150px] max-md:text-[12px] max-md:w-[100px] ">
+                                <p
+                                    class="font-poppins  font-normal text-sulfurblack whitespace-normal break-words max-md:line-clamp-4">
+                                    {{ data.quote }}</p>
                             </td>
-                            <td class="td-general whitespace-nowrap text-sm font-medium max-[850px]:flex max-[850px]:flex-col max-[850px]:items-center max-[850px]:justify-center max-[850px]:w-[50px] max-[850px]:gap-1">
+                            <td
+                                class="td-general whitespace-nowrap text-sm font-medium max-[850px]:flex max-[850px]:flex-col max-[850px]:items-center max-[850px]:justify-center max-[850px]:w-[50px] max-[850px]:gap-1">
                                 <a :href="'editquotes/' + data.id">
-                                    <button
-                                        class="btn-edit">Edit</button>
+                                    <button class="btn-edit">Edit</button>
                                 </a>
-                                <button href="#" @click="deletequotes(data.id)"
-                                    class="btn-hapus">Hapus</button>
+                                <button href="#" @click="deletequotes(data.id)" class="btn-hapus">Hapus</button>
                             </td>
                         </tr>
                     </tbody>
@@ -361,7 +370,6 @@ export default {
                 </div>
                 <!-- Pop up modal buat Quotes baru... -->
             </div>
-        </div>
     </div>
-</template>
+</div></template>
 

@@ -132,11 +132,11 @@ export default {
 <template>
     <div>
         <form v-if="quotesdata" @submit.prevent="editquotes(quotesdata.id)"
-            class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-            <div class="relative w-auto my-6 mx-auto max-w-6xl">
+            class="fixed inset-0 z-50 flex justify-center items-center overflow-y-auto outline-none focus:outline-none">
+            <div class="relative w-full max-w-4xl mx-auto my-6 px-4 sm:px-6 lg:px-8">
                 <!-- Alert Error -->
                 <div v-if="statuscode === 200" class="px-2 mt-4">
-                    <div class="bg-[#473FE8] px-6 py-4 mx-2 my-4 rounded-md text-lg flex items-center mx-auto max-w-lg">
+                    <div class="bg-[#473FE8] px-6 py-4 mx-2 my-4 rounded-md text-lg flex items-center max-w-lg mx-auto">
                         <svg viewBox="0 0 24 24" class="text-[#4576F5] w-5 h-5 sm:w-5 sm:h-5 mr-3">
                             <path fill="currentColor"
                                 d="M11.983,0a12.206,12.206,0,0,0-8.51,3.653A11.8,11.8,0,0,0,0,12.207,11.779,11.779,0,0,0,11.8,24h.214A12.111,12.111,0,0,0,24,11.791h0A11.766,11.766,0,0,0,11.983,0ZM10.5,16.542a1.476,1.476,0,0,1,1.449-1.53h.027a1.527,1.527,0,0,1,1.523,1.47,1.475,1.475,0,0,1-1.449,1.53h-.027A1.529,1.529,0,0,1,10.5,16.542ZM11,12.5v-6a1,1,0,0,1,2,0v6a1,1,0,1,1-2,0Z">
@@ -144,90 +144,78 @@ export default {
                         </svg>
                         <span class="text-white">Berhasil mengedit quote, halaman akan refresh dalam beberapa detik</span>
                     </div>
-                    <!-- End Alert Error -->
                 </div>
                 <!--content-->
                 <div
                     class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                     <!--header-->
                     <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
-                        <h3 class="text-[40px] text-teal font-semibold font-poppins">
+                        <h3 class="text-[24px] sm:text-[32px] md:text-[40px] text-teal font-semibold font-poppins">
                             Edit Quotes
                         </h3>
-                        <!-- <button
-                            class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                            v-on:click="toggleModalCreateQuotes()">
-                            <span
-                                class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                            </span>
-                        </button> -->
                     </div>
                     <!--body-->
-                    <div class="flex flex-col gap-8 relative p-6">
+                    <div class="flex flex-col gap-6 p-6">
                         <div class="flex gap-2 flex-col">
                             <label for="Author" class="font-poppins font-bold text-base text-teal">Author</label>
-                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" name="Author"
-                                v-model="quotesdata.author_name" id="" placeholder="Muhammad Abieb Basnuril" required>
+                            <input class="border border-black py-2 sm:py-3 w-full rounded-md" type="text" name="Author"
+                                v-model="quotesdata.author_name" placeholder="Muhammad Abieb Basnuril" required>
                         </div>
 
                         <div class="flex gap-2 flex-col">
                             <label for="username" class="font-poppins font-bold text-base text-teal">Quotes</label>
-                            <textarea class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
-                                name="username" id="" v-model="quotesdata.quote" placeholder="Masukkan Quotes"
-                                required></textarea>
+                            <textarea class="border border-black py-2 sm:py-3 w-full rounded-md" type="text" name="username"
+                                v-model="quotesdata.quote" placeholder="Masukkan Quotes" required></textarea>
                         </div>
 
                         <div class="flex gap-2 flex-col">
                             <label for="Gambar" class="font-poppins font-bold text-base text-teal">Gambar</label>
-                            <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="file"
-                                accept=".jpg,.jpeg,.png" name="Password" @change="handleFileChange" id="">
-                            <p v-if="errorMessage" class="text-[#EF0307] font-semibold" required>{{ errorMessage
-                            }}</p>
+                            <input class="border border-black py-2 sm:py-3 w-full rounded-md" type="file"
+                                accept=".jpg,.jpeg,.png" @change="handleFileChange">
+                            <p v-if="errorMessage" class="text-[#EF0307] font-semibold">{{ errorMessage }}</p>
                         </div>
 
-                        <div class="flex gap-2 flex-col justify-end">
+                        <div class="flex gap-2 flex-col">
                             <label for="Generate Quote" class="font-poppins font-bold text-base text-teal">Generate Quote
                                 (ChatGPT)</label>
-                            <div class="flex flex-col">
-                                <div class="relative">
-                                    <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
-                                        name="username" id="" v-model="prompt" placeholder="Enter prompt here">
-                                    <a target="_blank" href="/UserGuideQuote"><span
-                                            class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <g clip-path="url(#clip0_1706_972)">
-                                                    <path
-                                                        d="M6.06016 6.00004C6.2169 5.55449 6.52626 5.17878 6.93347 4.93946C7.34067 4.70015 7.81943 4.61267 8.28495 4.69252C8.75047 4.77236 9.17271 5.01439 9.47688 5.37573C9.78106 5.73706 9.94753 6.19439 9.94683 6.66671C9.94683 8.00004 7.94683 8.66671 7.94683 8.66671M8.00016 11.3334H8.00683M14.6668 8.00004C14.6668 11.6819 11.6821 14.6667 8.00016 14.6667C4.31826 14.6667 1.3335 11.6819 1.3335 8.00004C1.3335 4.31814 4.31826 1.33337 8.00016 1.33337C11.6821 1.33337 14.6668 4.31814 14.6668 8.00004Z"
-                                                        stroke="#98A2B3" stroke-width="1.33333" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                </g>
-                                            </svg>
-                                        </span></a>
-                                </div>
-                                <p class="w-[150px] hover:cursor-pointer text-center py-1 bg-teal text-white font-poppins rounded-md my-2 flex flex-col"
-                                    @click="generateQuote">Generate</p>
+                            <div class="relative">
+                                <input class="border border-black py-2 sm:py-3 w-full rounded-md" type="text"
+                                    v-model="prompt" placeholder="Enter prompt here">
+                                <a target="_blank" href="/UserGuideQuote">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_1706_972)">
+                                                <path
+                                                    d="M6.06016 6.00004C6.2169 5.55449 6.52626 5.17878 6.93347 4.93946C7.34067 4.70015 7.81943 4.61267 8.28495 4.69252C8.75047 4.77236 9.17271 5.01439 9.47688 5.37573C9.78106 5.73706 9.94753 6.19439 9.94683 6.66671C9.94683 8.00004 7.94683 8.66671 7.94683 8.66671M8.00016 11.3334H8.00683M14.6668 8.00004C14.6668 11.6819 11.6821 14.6667 8.00016 14.6667C4.31826 14.6667 1.3335 11.6819 1.3335 8.00004C1.3335 4.31814 4.31826 1.33337 8.00016 1.33337C11.6821 1.33337 14.6668 4.31814 14.6668 8.00004Z"
+                                                    stroke="#98A2B3" stroke-width="1.33333" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                </a>
                             </div>
+                            <p class="w-full sm:w-[150px] hover:cursor-pointer text-center py-2 bg-teal text-white font-poppins rounded-md my-2"
+                                @click="generateQuote">Generate</p>
                         </div>
                     </div>
                     <!--footer-->
                     <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
                         <button
-                            class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
+                            class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-6 sm:px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
                             type="submit">
                             Simpan
                         </button>
-                        <a href="/quotes"><button
+                        <a href="/quotes">
+                            <button
                                 class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
                                 type="button">
                                 Batal
-                            </button></a>
-
+                            </button>
+                        </a>
                     </div>
                 </div>
-
             </div>
-
         </form>
         <div v-if="showcreatequotes" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
     </div>

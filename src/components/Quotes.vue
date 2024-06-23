@@ -215,7 +215,7 @@ export default {
 </script>
 
 <template>
-    <div class="flex bg-offwhite">
+    <div class="flex bg-offwhite max-lg:h-screen">
         <sidebar />
         <div class="px-8 max-[1400px]:px-2">
             <p class="title-style">Quotes</p>

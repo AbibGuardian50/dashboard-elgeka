@@ -173,7 +173,7 @@ export default {
     <div class="flex bg-offwhite">
         <Sidebar />
 
-        <div class="px-8 max-md:px-2 bg-offwhite">
+        <div class="px-8 max-md:px-2 bg-offwhite max-lg:h-screen">
             <p class="title-style">Pengurus Komunitas</p>
             <hr>
             <div>

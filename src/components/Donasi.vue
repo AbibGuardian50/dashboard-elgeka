@@ -103,9 +103,9 @@ export default {
 </script>
 
 <template>
-    <div class="flex bg-offwhite">
-        <sidebar class="min-w-[250px]" />
-        <div class="ml-8 max-sm:ml-1 bg-offwhite">
+    <div class="flex bg-offwhite max-lg:h-screen">
+        <sidebar class="min-w-[250px]"/>
+        <div class="ml-8 max-sm:ml-1 max-sm:mr-1 bg-offwhite">
             <p class="font-poppins font-bold text-[24px] sm:text-[30px] leading-6 text-sulfurblack my-4 border-b border-teal pb-4">
                 Donasi</p>
             <div v-if="donasielgeka.currentPage === 1"

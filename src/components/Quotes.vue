@@ -305,71 +305,71 @@ export default {
 
                 <!-- Pop up modal buat Quotes baru... -->
                 <!-- Pop up modal buat Quotes baru... -->
-                <div>
-                    <form v-if="showcreatequotes" @submit.prevent="createquote()"
-                        class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-                        <div class="bg-white p-6 rounded-lg min-w-[600px] max-w-[650px]">
-                            <h2 class="text-[40px] text-teal font-poppins font-semibold mb-4 border-b border-teal">Buat
-                                Quotes Baru</h2>
+                <div v-if="showcreatequotes">
+                    <div class="fixed max-md:absolute inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                        <form @submit.prevent="createquote()"
+                            class="bg-white p-6 rounded-lg w-full max-w-md sm:max-w-lg lg:max-w-xl">
+                            <h2
+                                class="text-2xl sm:text-3xl lg:text-4xl text-teal font-poppins font-semibold mb-4 border-b border-teal">
+                                Buat Quotes Baru
+                            </h2>
                             <div class="mb-4">
-                                <label for="author" class="block text-[14px] font-verdana font-normal mb-1">Author</label>
+                                <label for="author"
+                                    class="block text-sm sm:text-base font-verdana font-normal mb-1">Author</label>
                                 <input v-model="form.author_name" id="author" type="text"
                                     class="w-full px-3 py-2 border border-gray-300 rounded" />
                                 <span v-if="formErrors.author_name" class="text-red text-sm font-bold">{{
                                     formErrors.author_name }}</span>
                             </div>
                             <div class="mb-4">
-                                <label for="quote" class="block text-[14px] font-verdana font-normal mb-1">Quotes</label>
+                                <label for="quote"
+                                    class="block text-sm sm:text-base font-verdana font-normal mb-1">Quotes</label>
                                 <textarea v-model="form.quote" id="quote" rows="3"
                                     class="w-full px-3 py-2 border border-gray-300 rounded"></textarea>
                                 <span v-if="formErrors.quote" class="text-red text-sm font-bold">{{ formErrors.quote
                                 }}</span>
                             </div>
                             <div class="mb-4">
-                                <label for="image" class="block text-[14px] font-verdana font-normal mb-1">Gambar</label>
+                                <label for="image"
+                                    class="block text-sm sm:text-base font-verdana font-normal mb-1">Gambar</label>
                                 <input @change="handleFileChange" id="image" type="file" accept=".jpg,.jpeg,.png"
                                     class="w-full px-3 py-2 border border-gray-300 rounded" required />
                                 <span v-if="formErrors.image" class="text-red text-sm font-bold">{{ formErrors.image
                                 }}</span>
                             </div>
                             <div v-if="errorMessage" class="text-red text-sm font-bold mb-4">{{ errorMessage }}</div>
-                            <div class="flex flex-col gap-4">
-                                <div>
-                                    <div class="relative">
-                                        <input type="text" class="bg-grey pl-4 py-2 w-full rounded-md" v-model="prompt"
-                                            placeholder="Enter your prompt here">
-                                        <a target="_blank" href="/UserGuideQuote"><span
-                                                class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
-                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <g clip-path="url(#clip0_1706_972)">
-                                                        <path
-                                                            d="M6.06016 6.00004C6.2169 5.55449 6.52626 5.17878 6.93347 4.93946C7.34067 4.70015 7.81943 4.61267 8.28495 4.69252C8.75047 4.77236 9.17271 5.01439 9.47688 5.37573C9.78106 5.73706 9.94753 6.19439 9.94683 6.66671C9.94683 8.00004 7.94683 8.66671 7.94683 8.66671M8.00016 11.3334H8.00683M14.6668 8.00004C14.6668 11.6819 11.6821 14.6667 8.00016 14.6667C4.31826 14.6667 1.3335 11.6819 1.3335 8.00004C1.3335 4.31814 4.31826 1.33337 8.00016 1.33337C11.6821 1.33337 14.6668 4.31814 14.6668 8.00004Z"
-                                                            stroke="#98A2B3" stroke-width="1.33333" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                    </g>
-                                                </svg>
-                                            </span></a>
-                                    </div>
-                                    <button class="px-8 py-2 bg-teal text-white font-poppins rounded-md my-2"
-                                        @click.prevent="generateQuote">Generate Quote</button>
-                                    <div class="bg-teal text-white font-bold font-poppins px-2" v-if="quote">{{
-                                        quote.generated_quote
-                                    }}</div>
+                            <div class="mb-4">
+                                <div class="relative mb-2">
+                                    <input type="text" class="bg-gray-100 pl-4 py-2 w-full rounded-md" v-model="prompt"
+                                        placeholder="Enter your prompt here">
+                                    <a target="_blank" href="/UserGuideQuote"
+                                        class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_1706_972)">
+                                                <path
+                                                    d="M6.06016 6.00004C6.2169 5.55449 6.52626 5.17878 6.93347 4.93946C7.34067 4.70015 7.81943 4.61267 8.28495 4.69252C8.75047 4.77236 9.17271 5.01439 9.47688 5.37573C9.78106 5.73706 9.94753 6.19439 9.94683 6.66671C9.94683 8.00004 7.94683 8.66671 7.94683 8.66671M8.00016 11.3334H8.00683M14.6668 8.00004C14.6668 11.6819 11.6821 14.6667 8.00016 14.6667C4.31826 14.6667 1.3335 11.6819 1.3335 8.00004C1.3335 4.31814 4.31826 1.33337 8.00016 1.33337C11.6821 1.33337 14.6668 4.31814 14.6668 8.00004Z"
+                                                    stroke="#98A2B3" stroke-width="1.33333" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                            </g>
+                                        </svg>
+                                    </a>
                                 </div>
-
-                            </div>
-                            <div class="flex gap-2 justify-end">
-                                <button type="submit" class="px-4 py-2 bg-teal text-white rounded">Simpan</button>
-                                <button @click="toggleModalCreateQuotes()"
-                                    class="px-4 py-2 bg-gray-300 text-gray-800 rounded mr-2">Batal</button>
-
-                            </div>
+                            <button class="w-full sm:w-auto px-4 py-2 bg-teal text-white font-poppins rounded-md mb-2"
+                                @click.prevent="generateQuote">Generate Quote</button>
+                            <div class="bg-teal text-white font-bold font-poppins px-2 py-1 rounded" v-if="quote">{{
+                                quote.generated_quote }}</div>
+                        </div>
+                        <div class="flex gap-2 justify-end">
+                            <button type="submit" class="px-4 py-2 bg-teal text-white rounded">Simpan</button>
+                            <button @click="toggleModalCreateQuotes()"
+                                class="px-4 py-2 bg-gray-300 text-gray-800 rounded">Batal</button>
                         </div>
                     </form>
                 </div>
-                <!-- Pop up modal buat Quotes baru... -->
             </div>
+            <!-- Pop up modal buat Quotes baru... -->
+        </div>
     </div>
 </div></template>
 

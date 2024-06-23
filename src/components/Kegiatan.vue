@@ -170,71 +170,73 @@ export default {
     <div class="flex bg-offwhite">
         <Sidebar />
 
-        <div class="px-8 bg-offwhite">
-            <p class="font-poppins font-bold text-[30px] text-sulfurblack">Update Kegiatan</p>
-            <hr class="border-[#D0D5DD]">
-            <div>
+        <div class="px-8 max-[842px]:px-2 bg-offwhite">
+            <p class="title-style">Update Kegiatan</p>
+            <hr class="border-teal">
+            <div class="max-w-[1400px]">
                 <table class="min-w-full divide-y divide-gray-200 overflow-x-auto max-w-[1400px]">
                     <thead>
                         <tr>
-                            <th scope="col" class="px-6 py-3 text-left font-poppins text-sulfurblack text-base font-normal">
-                                Nomor
+                            <th scope="col" class="th-general max-md:px-1">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="9" stroke="black" stroke-width="2" />
+                                </svg>
+
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left font-poppins text-sulfurblack text-base font-normal">
+                            <th scope="col" class="th-general max-md:px-1">
                                 Tanggal
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left font-poppins text-sulfurblack text-base font-normal">
+                            <th scope="col" class="th-general max-md:px-1">
                                 Judul
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left font-poppins text-sulfurblack text-base font-normal">
+                            <th scope="col" class="th-general max-md:px-1">
                                 Tempat
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left font-poppins text-sulfurblack text-base font-normal">
+                            <th scope="col" class="th-general max-md:px-1">
                                 Deskripsi
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left font-poppins text-sulfurblack text-base font-normal">
+                            <th scope="col" class="th-general max-md:px-1">
                                 Gambar
                             </th>
                             <th scope="col" class="">
-                                <button v-on:click="toggleModalCreateKegiatan()"
-                                    class="bg-teal px-2 py-1 text-left font-poppins text-white text-base">Tambah</button>
+                                <button v-on:click="toggleModalCreateKegiatan()" class="btn-add">Tambah</button>
                             </th>
                         </tr>
                     </thead>
 
-                    <tbody v-for="data in PaginatedDaftarKegiatan" :key="data.id" class="bg-offwhite divide-y divide-gray-200">
+                    <tbody v-for="data in PaginatedDaftarKegiatan" :key="data.id"
+                        class="bg-offwhite divide-y divide-gray-200">
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap font-poppins font-normal text-sulfurblack text-base">
+                            <td class="td-general whitespace-nowrap">
                                 {{ data.no }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="td-general whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="">
-                                        <div class="font-poppins font-normal text-sulfurblack text-base">
-                                            {{ formatDate(data.date)
-                                            }}
+                                        <div class="max-[975px]:max-w-[100px] break-words">
+                                            {{ formatDate(data.date) }}
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 max-w-[250px]">
-                                <p class="font-poppins font-normal text-sulfurblack text-base">{{ data.title }}</p>
+                            <td class="td-general max-w-[250px] ">
+                                <p class="">{{ data.title }}</p>
                             </td>
-                            <td class="px-6 py-4 max-w-[200px]">
-                                <p class="font-poppins font-normal text-sulfurblack text-base">{{ data.tempat }}</p>
+                            <td class="td-general max-w-[200px] ">
+                                <p class="">{{ data.tempat }}</p>
                             </td>
-                            <td class="px-6 py-4 max-w-[300px]">
-                                <span v-html="data.content" class="line-clamp-4 text-base text-gray-900">
+                            <td class="td-general max-w-[300px] ">
+                                <span v-html="data.content" class="line-clamp-4 md:text-base">
                                 </span>
                             </td>
-                            <td class="px-6 py-4 max-w-[200px]">
-                                <img :src="url + data.image_url">
+                            <td class="td-general max-w-[200px]">
+                                <img :src="url + data.image_url" alt="foto kegiatan">
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap  text-sm font-medium">
-                                <a :href="'editkegiatan/' + data.id"><button
-                                        class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit</button></a>
-                                <button href="#" @click="deletekegiatan(data.id)"
-                                    class="py-1 px-8 rounded-[5px] shadow-xl bg-semitransparentwhite bg-opacity-64 text-teal  ml-2 font-inter font-bold text-base">Hapus</button>
+                            <td
+                                class="td-general whitespace-nowrap text-sm font-medium max-[1150px]:flex max-[1150px]:flex-col max-[1150px]:gap-2 max-[1150px]:items-center">
+                                <a :href="'editkegiatan/' + data.id"><button class="btn-edit">Edit</button></a>
+                                <button href="#" @click="deletekegiatan(data.id)" class="btn-hapus">Hapus</button>
                             </td>
                         </tr>
                         <!-- More rows... -->
@@ -291,8 +293,9 @@ export default {
                                     <div class="flex gap-2 flex-col">
                                         <label for="Upload Foto" class="font-poppins font-bold text-base text-teal">Upload
                                             Foto</label>
-                                        <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="file" accept=".jpg,.jpeg,.png"
-                                            name="Foto Sampul" id="foto-sampul-input" @change="handleFileChange">
+                                        <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="file"
+                                            accept=".jpg,.jpeg,.png" name="Foto Sampul" id="foto-sampul-input"
+                                            @change="handleFileChange">
                                         <div v-if="errorMessage" class="text-red text-sm font-bold mb-4">{{ errorMessage }}
                                         </div>
                                     </div>

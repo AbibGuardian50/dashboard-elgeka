@@ -66,7 +66,7 @@ export default {
     <div class="flex bg-offwhite min-h-screen">
         <Sidebar />
 
-        <div class="max-w-[1200px] w-full pl-8 max-md:px-1 my-4 bg-offwhite flex-grow">
+        <div class="max-w-[1200px] w-full pl-1 pr-[0.4rem]  my-4 bg-offwhite flex-grow">
             <p class="title-style">Update Aturan Cerita</p>
 
             <div v-if="aturanblog.currentPage === 1"

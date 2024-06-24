@@ -280,7 +280,7 @@ export default {
                                     <div class="flex gap-2 flex-col">
                                         <label for="Judul"
                                             class="font-verdana font-normal text-base text-teal">Judul</label>
-                                        <input class="border border-silver py-4 min-w-[550px] pl-2 rounded-md" type="text"
+                                        <input class="border border-silver py-4 min-w-[550px] max-md:min-w-full max pl-2 rounded-md" type="text"
                                             required v-model="form.title" name="Judul" id="">
                                     </div>
 
@@ -288,7 +288,7 @@ export default {
                                         <label for="Deskripsi Kegiatan"
                                             class="font-verdana font-normal text-base text-teal">Deskripsi
                                             Berita</label>
-                                        <div class="border border-silver py-2 min-w-[550px] pl-2 rounded-md" id="app">
+                                        <div class="border border-silver py-2 min-w-[550px] max-md:min-w-full pl-2 rounded-md" id="app">
                                             <quill-editor theme="snow" contentType="html" required
                                                 v-model:content="form.content"></quill-editor>
                                         </div>
@@ -297,7 +297,7 @@ export default {
                                     <div class="flex gap-2 flex-col">
                                         <label for="Upload Foto"
                                             class="font-verdana font-normal text-base text-teal">Gambar</label>
-                                        <input class="border border-silver py-2 min-w-[550px] pl-2 rounded-md" type="file"
+                                        <input class="border border-silver py-2 min-w-[550px] max-md:min-w-full pl-2 rounded-md" type="file"
                                             accept=".jpg,.jpeg,.png" name="Foto Berita" id="foto-berita"
                                             @change="handleFileChange" required>
                                         <p v-if="errorMessage" class="text-[#EF0307] font-semibold">{{ errorMessage }}</p>
@@ -307,7 +307,7 @@ export default {
                                         <label for="Kategori"
                                             class="font-verdana font-normal text-base text-teal">Kategori</label>
                                         <select name="" id=""
-                                            class="border border-silver py-4 min-w-[550px] pl-2 rounded-md" required
+                                            class="border border-silver py-4 min-w-[550px] max-md:min-w-full pl-2 rounded-md" required
                                             v-model="form.kategori">
                                             <option value="perkembanganCML" selected>Perkembangan CML</option>
                                             <option value="perkembanganKomunitas">Perkembangan Komunitas</option>
@@ -317,7 +317,7 @@ export default {
                                     <div class="flex gap-2 flex-col">
                                         <label for="doi_link"
                                             class="font-verdana font-normal text-base text-teal">doi_link</label>
-                                        <input class="border border-silver py-4 min-w-[550px] pl-2 rounded-md" type="text"
+                                        <input class="border border-silver py-4 min-w-[550px] max-md:min-w-full pl-2 rounded-md" type="text"
                                             required v-model="form.doi_link" name="doi_link" id="">
                                     </div>
 

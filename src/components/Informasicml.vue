@@ -253,103 +253,96 @@ export default {
                 <!-- Pop up Modal buat Berita baru... -->
                 <div>
                     <form v-if="showcreateberita" @submit.prevent="createberita()"
-                        class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center flex">
-                        <div class="relative w-auto my-6 mx-auto max-w-6xl">
+                        class="fixed max-md:absolute inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none">
+                        <div class="relative w-full max-w-6xl mx-auto my-6">
                             <!--content-->
                             <div
-                                class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                                class="flex flex-col w-full bg-white border rounded-lg shadow-lg outline-none focus:outline-none">
                                 <!--header-->
-                                <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
-                                    <h3 class="text-[40px] text-teal font-semibold font-poppins">
+                                <div class="flex items-start justify-between p-5 border-b rounded-t">
+                                    <h3 class="text-2xl font-semibold text-teal font-poppins">
                                         Berita CML
                                     </h3>
                                     <button
-                                        class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                                        class="p-1 ml-auto text-3xl font-semibold leading-none text-black bg-transparent border-0 opacity-5 outline-none focus:outline-none"
                                         v-on:click="toggleModalCreateKegiatan()">
                                         <span
-                                            class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                                            class="block w-6 h-6 text-2xl text-black bg-transparent opacity-5 outline-none focus:outline-none">
                                         </span>
                                     </button>
                                 </div>
                                 <!--body-->
-                                <div class="flex flex-col gap-8 relative p-6">
-                                    <p class="font-poppins font-normal text-[20px] leading-6 text-sulfurblack">Masukan
-                                        Berita
+                                <div class="relative flex flex-col gap-4 p-6">
+                                    <p class="text-lg font-normal leading-6 font-poppins text-sulfurblack">Masukan Berita
                                         CML</p>
 
-                                    <div class="flex gap-2 flex-col">
+                                    <div class="flex flex-col gap-2">
                                         <label for="Judul"
-                                            class="font-verdana font-normal text-base text-teal">Judul</label>
-                                        <input class="border border-silver py-4 min-w-[550px] max-md:min-w-full max pl-2 rounded-md" type="text"
-                                            required v-model="form.title" name="Judul" id="">
+                                            class="text-base font-normal text-teal font-verdana">Judul</label>
+                                        <input class="w-full py-2 pl-2 border rounded-md border-silver" type="text" required
+                                            v-model="form.title" name="Judul" id="">
                                     </div>
 
-                                    <div class="flex gap-2 flex-col" required>
+                                    <div class="flex flex-col gap-2">
                                         <label for="Deskripsi Kegiatan"
-                                            class="font-verdana font-normal text-base text-teal">Deskripsi
-                                            Berita</label>
-                                        <div class="border border-silver py-2 min-w-[550px] max-md:min-w-full pl-2 rounded-md" id="app">
+                                            class="text-base font-normal text-teal font-verdana">Deskripsi Berita</label>
+                                        <div class="w-full py-2 pl-2 border rounded-md border-silver" id="app">
                                             <quill-editor theme="snow" contentType="html" required
                                                 v-model:content="form.content"></quill-editor>
                                         </div>
                                     </div>
 
-                                    <div class="flex gap-2 flex-col">
+                                    <div class="flex flex-col gap-2">
                                         <label for="Upload Foto"
-                                            class="font-verdana font-normal text-base text-teal">Gambar</label>
-                                        <input class="border border-silver py-2 min-w-[550px] max-md:min-w-full pl-2 rounded-md" type="file"
+                                            class="text-base font-normal text-teal font-verdana">Gambar</label>
+                                        <input class="w-full py-2 pl-2 border rounded-md border-silver" type="file"
                                             accept=".jpg,.jpeg,.png" name="Foto Berita" id="foto-berita"
                                             @change="handleFileChange" required>
-                                        <p v-if="errorMessage" class="text-[#EF0307] font-semibold">{{ errorMessage }}</p>
+                                        <p v-if="errorMessage" class="font-semibold text-red-600">{{ errorMessage }}</p>
                                     </div>
 
-                                    <div class="flex gap-2 flex-col">
+                                    <div class="flex flex-col gap-2">
                                         <label for="Kategori"
-                                            class="font-verdana font-normal text-base text-teal">Kategori</label>
-                                        <select name="" id=""
-                                            class="border border-silver py-4 min-w-[550px] max-md:min-w-full pl-2 rounded-md" required
-                                            v-model="form.kategori">
+                                            class="text-base font-normal text-teal font-verdana">Kategori</label>
+                                        <select name="" id="" class="w-full py-2 pl-2 border rounded-md border-silver"
+                                            required v-model="form.kategori">
                                             <option value="perkembanganCML" selected>Perkembangan CML</option>
                                             <option value="perkembanganKomunitas">Perkembangan Komunitas</option>
                                         </select>
                                     </div>
 
-                                    <div class="flex gap-2 flex-col">
+                                    <div class="flex flex-col gap-2">
                                         <label for="doi_link"
-                                            class="font-verdana font-normal text-base text-teal">doi_link</label>
-                                        <input class="border border-silver py-4 min-w-[550px] max-md:min-w-full pl-2 rounded-md" type="text"
-                                            required v-model="form.doi_link" name="doi_link" id="">
+                                            class="text-base font-normal text-teal font-verdana">doi_link</label>
+                                        <input class="w-full py-2 pl-2 border rounded-md border-silver" type="text" required
+                                            v-model="form.doi_link" name="doi_link" id="">
                                     </div>
-
                                 </div>
                                 <!--footer-->
-                                <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
+                                <div class="flex items-center justify-center p-6 border-t rounded-b">
                                     <button
-                                        class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded-md outline-none focus:outline-none mr-1 mb-1   "
+                                        class="px-6 py-2 mr-1 text-sm font-bold text-white uppercase bg-teal rounded-md outline-none focus:outline-none hover:bg-teal-600"
                                         type="submit">
                                         Simpan
                                     </button>
-
                                     <button
-                                        class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded-md outline-none focus:outline-none mr-1 mb-1"
+                                        class="px-6 py-2 ml-1 text-sm font-bold text-teal uppercase bg-white border rounded-md outline-none focus:outline-none hover:bg-teal-50"
                                         type="button" v-on:click="toggleModalCreateBerita()">
-                                        batal
+                                        Batal
                                     </button>
-
                                 </div>
                             </div>
                         </div>
                     </form>
-                    <div v-if="showcreateberita" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
-                </div>
+                    <div v-if="showcreateberita" class="fixed inset-0 z-40 bg-black opacity-25"></div>
             </div>
+
         </div>
-
     </div>
-</template>
 
-<style>
-ol {
+</div></template>
+
+<style>ol {
     list-style-type: decimal;
     margin-left: 1rem;
 }</style>

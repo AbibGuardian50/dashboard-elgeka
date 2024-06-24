@@ -255,7 +255,7 @@ export default {
                 <div>
             <form v-if="showcreatepengurus" @submit.prevent="createpengurus()"
                 class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-centerflex">
-                <div class="relative w-auto my-6 mx-auto max-w-6xl">
+                <div class="relative w-auto max-md:w-[75%] my-6 mx-auto max-w-6xl">
                     <!--content-->
                     <div
                         class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">

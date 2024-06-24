@@ -304,7 +304,7 @@ export default {
         <button @click="nextPage" :disabled="currentPage === totalPages"
           class="px-4 py-2 bg-teal text-white rounded-md">Next</button>
       </div>
-      <div v-if="showcreateadmin" class="fixed inset-0 max-[700px]:block flex items-center justify-center bg-black bg-opacity-50">
+      <div v-if="showcreateadmin" class="fixed inset-0 max-md:z-20 max-[700px]:block flex items-center justify-center bg-black bg-opacity-50">
         <div class="bg-white p-8 rounded-md min-w-[700px] max-[720px]:min-w-[300px] max-[720px]:max-w-[350px] max-[350px]:min-w-[200px] max-[350px]:max-w-[250px] max-w-[750px] min-h-[500px] max-h-[520px]">
           <h2 class="text-2xl text-teal font-poppins font-semibold mb-4">Tambah Admin</h2>
           <form @submit.prevent="createadmin">

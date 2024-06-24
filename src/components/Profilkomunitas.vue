@@ -303,6 +303,33 @@ export default {
                                     @change="handleFileChange">
                                 <p v-if="errorMessage" class="text-[#EF0307] font-semibold">{{ errorMessage }}</p>
                             </div>
+
+                            <div class="flex gap-2 flex-col">
+                                <label for="Foto Sampul" class="font-poppins font-bold text-base text-teal">Foto
+                                    Sampul</label>
+                                <input class="border border-black py-2 min-w-full md:min-w-[550px] pl-2 rounded-md"
+                                    type="file" accept=".jpg,.jpeg,.png" name="Foto Sampul" id="foto-sampul-input"
+                                    @change="handleFileChange">
+                                <p v-if="errorMessage" class="text-[#EF0307] font-semibold">{{ errorMessage }}</p>
+                            </div>
+
+                            <div class="flex gap-2 flex-col">
+                                <label for="Foto Sampul" class="font-poppins font-bold text-base text-teal">Foto
+                                    Sampul</label>
+                                <input class="border border-black py-2 min-w-full md:min-w-[550px] pl-2 rounded-md"
+                                    type="file" accept=".jpg,.jpeg,.png" name="Foto Sampul" id="foto-sampul-input"
+                                    @change="handleFileChange">
+                                <p v-if="errorMessage" class="text-[#EF0307] font-semibold">{{ errorMessage }}</p>
+                            </div>
+
+                            <div class="flex gap-2 flex-col">
+                                <label for="Foto Sampul" class="font-poppins font-bold text-base text-teal">Foto
+                                    Sampul</label>
+                                <input class="border border-black py-2 min-w-full md:min-w-[550px] pl-2 rounded-md"
+                                    type="file" accept=".jpg,.jpeg,.png" name="Foto Sampul" id="foto-sampul-input"
+                                    @change="handleFileChange">
+                                <p v-if="errorMessage" class="text-[#EF0307] font-semibold">{{ errorMessage }}</p>
+                            </div>
                         </div>
                         <!--footer-->
                         <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">

@@ -115,7 +115,7 @@ export default {
                 })
         },
         deletepengurus(id) {
-            if (confirm('Are you sure you want to delete this admin account?')) {
+            if (confirm('Apakah kamu yakin untuk menghapus pengurus ini?')) {
                 const toast = useToast();
                 const tokenlogin = VueCookies.get('tokenlogin')
                 const url = `https://elgeka-web-api-production.up.railway.app/api/v1/memberKomunitas/${id}`
@@ -124,10 +124,13 @@ export default {
                         console.log(response)
                         if (response.data.message === "Your admin status is not active, authorization denied!") {
                             toast.error('Status admin masih nonaktif, mohon untuk login kembali jika merasa sudah mengubahnya')
+                        } else if (response.data.message === "Delete Member Komunitas by ID Successfully") {
+                            toast.success('Pengurus berhasil dihapus')
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 1000);
                         }
-                        setTimeout(function () {
-                            window.location.reload();
-                        }, 1000);
+
                     })
                     .catch(error => {
                         console.log(error)
@@ -223,8 +226,8 @@ export default {
                             </td>
                             <td class="td-general whitespace-nowrap max-[565px]:px-1">
                                 <span class="pr-4 inline-flex text-base leading-5 font-semibold rounded-full">
-                                    <img class="bg-[url('https://i.pinimg.com/736x/c0/74/9b/c0749b7cc401421662ae901ec8f9f660.jpg')] bg-cover bg-center w-[160px] max-h-[160px]"
-                                        :src="url + data.image_url">
+                                    <img class="bg-cover bg-center w-[160px] max-h-[160px]"
+                                    :src="data.image_url ? url + data.image_url : 'https://cdn.pixabay.com/photo/2021/11/20/03/16/doctor-6810750_1280.png'">
 
                                 </span>
                             </td>
@@ -252,82 +255,59 @@ export default {
                 </div>
 
                 <!-- Pop up modal buat Pengurus baru... -->
-                <div>
-            <form v-if="showcreatepengurus" @submit.prevent="createpengurus()"
-                class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-centerflex">
-                <div class="relative w-auto max-md:w-[75%] my-6 mx-auto max-w-6xl">
-                    <!--content-->
+                <div v-if="showcreatepengurus"
+                    class="fixed inset-0 max-md:z-20 max-[700px]:block flex items-center justify-center bg-black bg-opacity-50">
                     <div
-                        class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                        <!--header-->
-                        <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
-                            <h3 class="text-2xl md:text-3xl lg:text-4xl text-teal font-semibold font-poppins">
-                                Edit Foto Sampul
-                            </h3>
-                            <button
-                                class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-2xl md:text-3xl leading-none font-semibold outline-none focus:outline-none"
-                                v-on:click="toggleModalEditFotoSampul()">
-                                <span
-                                    class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                                </span>
-                            </button>
-                        </div>
-                        <!--body-->
-                        <div class="flex flex-col gap-8 relative p-6">
+                        class="bg-white p-8 rounded-md min-w-[700px] max-[720px]:min-w-[300px] max-[720px]:max-w-[350px] max-[350px]:min-w-[200px] max-[350px]:max-w-[250px] max-w-[750px]">
+                        <h2 class="text-2xl text-teal font-poppins font-semibold mb-4">Input Pengurus Kom</h2>
+                        <form @submit.prevent="createpengurus()">
                             <div class="flex gap-2 flex-col">
-                                <label for="Foto Sampul" class="font-poppins font-bold text-base text-teal">Foto
-                                    Sampul</label>
-                                <input class="border border-black py-2 min-w-full md:min-w-[550px] pl-2 rounded-md"
-                                    type="file" accept=".jpg,.jpeg,.png" name="Foto Sampul" id="foto-sampul-input"
-                                    @change="handleFileChange">
-                                <p v-if="errorMessage" class="text-[#EF0307] font-semibold">{{ errorMessage }}</p>
+                                <label for="nama lengkap" class="font-poppins font-bold text-base text-teal">Nama
+                                    Lengkap</label>
+                                <input class="border border-black py-4 pl-2 rounded-md" type="text" required
+                                    v-model="form.full_name" name="nama lengkap" id="" placeholder="Isi Nama Lengkap">
                             </div>
 
                             <div class="flex gap-2 flex-col">
-                                <label for="Foto Sampul" class="font-poppins font-bold text-base text-teal">Foto
-                                    Sampul</label>
-                                <input class="border border-black py-2 min-w-full md:min-w-[550px] pl-2 rounded-md"
-                                    type="file" accept=".jpg,.jpeg,.png" name="Foto Sampul" id="foto-sampul-input"
-                                    @change="handleFileChange">
-                                <p v-if="errorMessage" class="text-[#EF0307] font-semibold">{{ errorMessage }}</p>
+                                <label for="Peran" class="font-poppins font-bold text-base text-teal">Role
+                                </label>
+                                <input class="border border-black py-4 pl-2 rounded-md" type="text" required
+                                    v-model="form.jabatan" name="Peran" id="" placeholder="Peran/Jabatan">
                             </div>
 
                             <div class="flex gap-2 flex-col">
-                                <label for="Foto Sampul" class="font-poppins font-bold text-base text-teal">Foto
-                                    Sampul</label>
-                                <input class="border border-black py-2 min-w-full md:min-w-[550px] pl-2 rounded-md"
-                                    type="file" accept=".jpg,.jpeg,.png" name="Foto Sampul" id="foto-sampul-input"
-                                    @change="handleFileChange">
-                                <p v-if="errorMessage" class="text-[#EF0307] font-semibold">{{ errorMessage }}</p>
+                                <label for="Quote" class="font-poppins font-bold text-base text-teal">Deskripsi
+                                </label>
+                                <div class="flex gap-2 flex-col">
+                                    <quill-editor class="border border-black py-4 pl-2 rounded-md" theme="snow"
+                                        contentType="html" v-model:content="form.quote"></quill-editor>
+                                </div>
+                            </div>
+                            <div class="flex gap-2 flex-col">
+                                <label for="Foto Profil" class="font-poppins font-bold text-base text-teal">Gambar
+                                    Lengkap</label>
+                                <input @change="handleFileChange" class="border border-black py-4 pl-2 rounded-md"
+                                    type="file" required accept=".jpg,.jpeg,.png" name="Foto Profil" id="">
+                                <div v-if="errorMessage" class="text-red text-sm font-bold mb-4">{{ errorMessage }}
+                                </div>
                             </div>
 
-                            <div class="flex gap-2 flex-col">
-                                <label for="Foto Sampul" class="font-poppins font-bold text-base text-teal">Foto
-                                    Sampul</label>
-                                <input class="border border-black py-2 min-w-full md:min-w-[550px] pl-2 rounded-md"
-                                    type="file" accept=".jpg,.jpeg,.png" name="Foto Sampul" id="foto-sampul-input"
-                                    @change="handleFileChange">
-                                <p v-if="errorMessage" class="text-[#EF0307] font-semibold">{{ errorMessage }}</p>
+                            <!--footer-->
+                            <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
+                                <button
+                                    class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1   "
+                                    type="submit">
+                                    Simpan
+                                </button>
+                                <button @click="toggleModalCreatePengurus()"
+                                    class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                                    type="button">
+                                    Batal
+                                </button>
                             </div>
-                        </div>
-                        <!--footer-->
-                        <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
-                            <button
-                                class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-4 md:px-12 py-2 md:py-3 rounded outline-none focus:outline-none mr-1 mb-1"
-                                type="submit">
-                                Simpan
-                            </button>
-                            <button
-                                class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-4 md:px-6 py-2 md:py-3 rounded outline-none focus:outline-none mr-1 mb-1"
-                                type="button" v-on:click="toggleModalEditFotoSampul()">
-                                Batal
-                            </button>
-                        </div>
+                        </form>
                     </div>
                 </div>
-            </form>
-            <div v-if="showcreatepengurus" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
-        </div>
 
                 <!-- Pop up modal buat hapus akun admin -->
 
@@ -375,4 +355,5 @@ export default {
                 <div v-if="error" class="text-red font-poppins font-bold text-2xl pt-4">{{ error }}</div>
             </div>
         </div>
-</div></template>
+    </div>
+</template>

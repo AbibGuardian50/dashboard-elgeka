@@ -127,7 +127,6 @@ export default {
             formData.append('tempat', this.form.tempat);
             formData.append('date', this.form.date);
             // tambahkan validasi file tidak boleh lebih besar dari 1mb / 1024 kb dengan parameter 1024kb
-
             const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/kegiatanKomunitas'
             axios.post(url, formData, { headers: { 'Authorization': `Bearer ${tokenlogin}`, 'Content-Type': 'multipart/form-data' } })
                 .then(response => {
@@ -231,7 +230,7 @@ export default {
                                 </span>
                             </td>
                             <td class="td-general max-w-[200px]">
-                                <img :src="url + data.image_url" alt="foto kegiatan">
+                                <img :src="data.image_url ? url + data.image_url : 'https://i.pinimg.com/736x/c0/74/9b/c0749b7cc401421662ae901ec8f9f660.jpg'" alt="foto kegiatan">
                             </td>
                             <td
                                 class="td-general whitespace-nowrap text-sm font-medium max-[1150px]:flex max-[1150px]:flex-col max-[1150px]:gap-2 max-[1150px]:items-center">
@@ -279,21 +278,21 @@ export default {
                                 <div class="flex flex-col gap-8 relative p-6">
                                     <div class="flex gap-2 flex-col">
                                         <label for="Judul" class="font-poppins font-bold text-base text-teal">Judul</label>
-                                        <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
+                                        <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" required
                                             v-model="form.title" name="Judul" id="" :placeholder="daftarkegiatan.title">
                                     </div>
 
                                     <div class="flex gap-2 flex-col">
                                         <label for="tempat"
                                             class="font-poppins font-bold text-base text-teal">Tempat</label>
-                                        <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
+                                        <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" required
                                             v-model="form.tempat" name="tempat" :placeholder="daftarkegiatan.tempat">
                                     </div>
 
                                     <div class="flex gap-2 flex-col">
                                         <label for="Upload Foto" class="font-poppins font-bold text-base text-teal">Upload
                                             Foto</label>
-                                        <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="file"
+                                        <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="file" required
                                             accept=".jpg,.jpeg,.png" name="Foto Sampul" id="foto-sampul-input"
                                             @change="handleFileChange">
                                         <div v-if="errorMessage" class="text-red text-sm font-bold mb-4">{{ errorMessage }}
@@ -314,7 +313,7 @@ export default {
                                     <div class="flex gap-2 flex-col">
                                         <label for="Tanggal"
                                             class="font-poppins font-bold text-base text-teal">Tanggal</label>
-                                        <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="date"
+                                        <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="date" required
                                             name="Tanggal" v-model="form.date" id="" :placeholder="daftarkegiatan.date">
                                     </div>
 

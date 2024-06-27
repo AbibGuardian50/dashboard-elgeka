@@ -238,57 +238,54 @@ export default {
     <div class="px-8 max-[800px]:px-1 bg-offwhite w-full">
       <p class="title-style">Kelola Akun Admin</p>
       <hr>
-      <div class="overflow-x-auto max-[1300px]:overflow-x-visible">
-        <table class="min-w-full bg-offwhite divide-y divide-gray-200 w-full">
+      <div class="container-table-general">
+        <table class="table-general">
+
           <thead class="bg-offwhite">
             <tr class="border-b-[0.5px]">
-              <th scope="col" class="max-[1300px]:px-3 max-[1100px]:px-1 max-[880px]:text-[0.875rem] max-sm:text-[0.575rem] px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">NO</th>
-              <th scope="col" class="max-[1300px]:px-3 max-[1100px]:px-1 max-[880px]:text-[0.875rem] max-sm:text-[0.575rem] px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">Nama Lengkap
+              <th scope="col" class="th-general max-[1000px]:text-[14px] max-md:pl-0">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="12" r="9" stroke="black" stroke-width="2" />
+                </svg>
               </th>
-              <th scope="col" class="max-[1300px]:px-3 max-[1100px]:px-1 max-[880px]:text-[0.875rem] max-sm:text-[0.575rem] px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">Username
-              </th>
-              <th scope="col" class="max-[1300px]:px-3 max-[1100px]:px-1 max-[880px]:text-[0.875rem] max-sm:text-[0.575rem] px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">Status</th>
-              <th scope="col" class="max-[1300px]:px-3 max-[1100px]:px-1 max-[880px]:text-[0.875rem] max-sm:text-[0.575rem] px-6 py-3 text-left font-normal font-poppins text-sulfurblack text-base">Roles</th>
-              <th v-if="getRoles === 'true'" scope="col"
-                class="max-[1300px]:px-3 max-[1100px]:px-1 px-6 py-3 max-[880px]:text-[0.875rem] max-sm:text-[0.575rem] text-left font-normal font-poppins text-sulfurblack text-base">
-                <button @click="toggleModalCreateAdmin"
-                  class="btn-add">Tambah</button>
+              <th scope="col" class="th-general max-md:pl-0">Nama Lengkap</th>
+              <th scope="col" class="th-general max-md:pl-0">Username</th>
+              <th scope="col" class="th-general max-md:pl-0">Status</th>
+              <th scope="col" class="th-general max-md:pl-0">Roles</th>
+              <th v-if="getRoles === 'true'" scope="col" class="th-general">
+                <button @click="toggleModalCreateAdmin" class="btn-add">Tambah</button>
               </th>
             </tr>
           </thead>
+
           <tbody>
             <tr v-for="data in paginatedData" :key="data.id" class="bg-offwhite">
-              <td
-                class="max-[1300px]:px-3 max-[1100px]:px-1 px-6 py-4 border-b border-gray-200 whitespace-nowrap font-poppins font-normal text-sulfurblack text-base max-[880px]:text-[0.875rem] max-sm:text-[0.575rem]">
+              <td class="td-general td-text-general">
                 {{ data.no }}</td>
-              <td class="max-[1300px]:px-3 max-[1100px]:px-1 px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+              <td class="td-general">
                 <div class="flex items-center">
-                  <div class="font-poppins font-normal text-sulfurblack text-base max-[880px]:text-[0.875rem] max-sm:text-[0.575rem]">{{ data.full_name }}</div>
+                  <div class="td-text-general">{{ data.full_name }}</div>
                 </div>
               </td>
-              <td class="max-[1300px]:px-3 max-[1100px]:px-1 px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                <p class="font-poppins font-normal text-sulfurblack text-base underline max-[880px]:text-[0.875rem] max-sm:text-[0.575rem]">{{ data.username }}</p>
+              <td class="td-general">
+                <p class="td-text-general">{{ data.username }}</p>
               </td>
-              <td class="max-[1300px]:px-3 max-[1100px]:px-1 px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                <span v-if="data.is_active"
-                  class="inline-flex font-inter text-base text-[#52FF00] leading-5 font-extrabold rounded-md max-[880px]:text-[0.875rem] max-sm:text-[0.575rem]">Aktif</span>
-                <span v-else
-                  class="inline-flex font-inter text-base text-red leading-5 font-extrabold rounded-md max-[880px]:text-[0.875rem] max-sm:text-[0.575rem]">Nonaktif</span>
+              <td class="td-general">
+                <span v-if="data.is_active" class="td-text-general text-[#52FF00] font-extrabold">Aktif</span>
+                <span v-else class="td-text-general text-[#FF0000] font-extrabold">Non-Aktif</span>
               </td>
-              <td class="max-[1300px]:px-3 max-[1100px]:px-1 px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                <span v-if="data.superAdmin" class="inline-flex font-inter text-base leading-5 font-bold rounded-md max-[880px]:text-[0.875rem] max-sm:text-[0.575rem]">Super
+              <td class="td-general">
+                <span v-if="data.superAdmin" class="td-text-general font-bold">Super
                   Admin</span>
-                <span v-else class="inline-flex font-inter text-base leading-5 font-bold rounded-md max-[880px]:text-[0.875rem] max-sm:text-[0.575rem]">Admin</span>
+                <span v-else class="td-text-general font-bold">Admin</span>
               </td>
-              <td class="max-[1300px]:px-3 max-[1100px]:px-1 px-6 py-4 border-b border-gray-200 whitespace-nowrap text-sm  font-medium">
+              <td class="td-general max-md:items-center max-md:flex max-md:flex-col max-md:gap-4 font-medium">
                 <template
                   v-if="data.id === currentAdminId || (getRoles === 'true' && (data.is_active || !data.is_active) && !data.superAdmin)">
                   <a :href="'editadmin/' + data.id">
-                    <button
-                      class="btn-edit">Edit</button>
+                    <button class="btn-edit">Edit</button>
                   </a>
-                  <button @click="deleteadmin(data.id)"
-                    class="btn-hapus">Hapus</button>
+                  <button @click="deleteadmin(data.id)" class="btn-hapus">Hapus</button>
                 </template>
               </td>
             </tr>
@@ -305,8 +302,10 @@ export default {
           class="px-4 py-2 bg-teal text-white rounded-md">Next</button>
       </div>
       <!-- Modal Tambah Admin -->
-      <div v-if="showcreateadmin" class="fixed inset-0 max-md:z-20 max-[700px]:block flex items-center justify-center bg-black bg-opacity-50">
-        <div class="bg-white p-8 rounded-md min-w-[700px] max-[720px]:min-w-[300px] max-[720px]:max-w-[350px] max-[350px]:min-w-[200px] max-[350px]:max-w-[250px] max-w-[750px] min-h-[500px] max-h-[520px]">
+      <div v-if="showcreateadmin"
+        class="fixed inset-0 max-md:z-20 max-[700px]:block flex items-center justify-center bg-black bg-opacity-50">
+        <div
+          class="bg-white p-8 rounded-md min-w-[700px] max-[720px]:min-w-[300px] max-[720px]:max-w-[350px] max-[350px]:min-w-[200px] max-[350px]:max-w-[250px] max-w-[750px] min-h-[500px] max-h-[520px]">
           <h2 class="text-2xl text-teal font-poppins font-semibold mb-4">Tambah Admin</h2>
           <form @submit.prevent="createadmin">
             <div class="mb-4">
@@ -345,9 +344,10 @@ export default {
               <button @click="toggleModalCreateAdmin" type="button"
                 class="mr-4 px-4 py-2 bg-white border border-teal text-teal rounded-md">Batal</button>
             </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div></template>
+</template>
 

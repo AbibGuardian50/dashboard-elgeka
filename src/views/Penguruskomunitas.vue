@@ -179,9 +179,8 @@ export default {
         <div class="px-8 max-md:px-2 bg-offwhite max-lg:h-screen">
             <p class="title-style">Pengurus Komunitas</p>
             <hr>
-            <div>
-                <table
-                    class="min-w-full divide-y divide-gray-200 overflow-x-auto w-[1200px] max-[1400px]:w-full max-[1400px]:max-w-[1200px]">
+            <div class="container-table-general max-[700px]:max-w-full">
+                <table class="table-general">
                     <thead>
                         <tr class="border-b-[0.5px] border-b-teal">
                             <th scope="col" class="th-general max-sm:pl-0">
@@ -191,13 +190,13 @@ export default {
                                 </svg>
 
                             </th>
-                            <th scope="col" class="th-general max-sm:text-[14px]">
+                            <th scope="col" class="th-general max-sm:text-[14px] max-md:px-1">
                                 Nama Lengkap
                             </th>
-                            <th scope="col" class="th-general max-sm:text-[14px]">
+                            <th scope="col" class="th-general max-sm:text-[14px] max-md:px-1">
                                 Role
                             </th>
-                            <th scope="col" class="th-general max-sm:text-[14px]">
+                            <th scope="col" class="th-general max-sm:text-[14px] max-md:px-1">
                                 Gambar
                             </th>
                             <th scope="col" class="max-w-[200px]">
@@ -208,27 +207,21 @@ export default {
                     <tbody v-for="data in PaginatedDaftarPengurus" :key="data.id"
                         class="bg-offwhite divide-y divide-gray-200">
                         <tr>
-                            <td
-                                class="td-general whitespace-nowrap font-poppins font-normal text-sulfurblack md:text-base max-[565px]:px-1">
+                            <td class="td-general whitespace-nowrap td-text-general max-[565px]:px-1">
                                 {{ data.no }}
                             </td>
                             <td class="td-general whitespace-nowrap max-[565px]:px-1">
-                                <div class="flex items-center">
-                                    <div class="">
-                                        <div class="font-poppins font-normal text-sulfurblack md:text-base">
-                                            {{ data.full_name }}
-                                        </div>
-                                    </div>
+                                <div class="td-text-general">
+                                    {{ data.full_name }}
                                 </div>
                             </td>
                             <td class="td-general whitespace-nowrap max-[565px]:px-1">
-                                <p class="font-poppins font-normal text-sulfurblack md:text-base ">{{ data.jabatan }}</p>
+                                <p class="td-text-general ">{{ data.jabatan }}</p>
                             </td>
                             <td class="td-general whitespace-nowrap max-[565px]:px-1">
                                 <span class="pr-4 inline-flex text-base leading-5 font-semibold rounded-full">
                                     <img class="bg-cover bg-center w-[160px] max-h-[160px]"
-                                    :src="data.image_url ? url + data.image_url : 'https://cdn.pixabay.com/photo/2021/11/20/03/16/doctor-6810750_1280.png'">
-
+                                        :src="data.image_url ? url + data.image_url : 'https://cdn.pixabay.com/photo/2021/11/20/03/16/doctor-6810750_1280.png'">
                                 </span>
                             </td>
                             <td

@@ -182,8 +182,8 @@ export default {
         <div class="px-8 max-md:px-2 bg-offwhite max-lg:h-screen">
             <p class="title-style">Berita (Informasi CML)</p>
             <hr class="border-[#D0D5DD]">
-            <div class="max-w-[1400px]">
-                <table class=" overflow-x-auto">
+            <div class="container-table-general max-md:max-w-[70%]">
+                <table class="table-general">
                     <thead>
                         <tr>
                             <th scope="col" class="th-general">
@@ -213,19 +213,19 @@ export default {
 
                     <tbody v-for="data in paginatedBerita" :key="data.id" class="divide-y divide-gray-200">
                         <tr class="border-b border-black">
-                            <td class="px-6 py-4 whitespace-nowrap font-poppins font-normal text-sulfurblack md:text-base">
+                            <td class="px-6 py-4 whitespace-nowrap td-text-general">
                                 {{ data.no }}
                             </td>
                             <td class="td-general max-w-[250px]">
-                                <p class="font-poppins font-normal text-sulfurblack md:text-base">{{ data.title }}</p>
+                                <p class="td-text-general">{{ data.title }}</p>
                             </td>
                             <td class="td-general max-w-[200px] max-sm:max-w-[100px] truncate">
                                 <p
-                                    class="font-poppins font-normal text-sulfurblack md:text-base max-md:max-w-[100px] truncate">
+                                    class="td-text-general max-md:max-w-[100px] truncate">
                                     {{ data.kategori }}</p>
                             </td>
                             <td class="td-general max-w-[400px]">
-                                <span v-html="data.content" class="line-clamp-4 md:text-base text-gray-900">
+                                <span v-html="data.content" class="line-clamp-4 td-text-general">
                                 </span>
                             </td>
                             <td class="td-general max-w-[200px]">

@@ -172,11 +172,11 @@ export default {
         <div class="px-8 max-[842px]:px-2 bg-offwhite">
             <p class="title-style">Update Kegiatan</p>
             <hr class="border-teal">
-            <div class="max-w-[1400px]">
-                <table class="min-w-full divide-y divide-gray-200 overflow-x-auto max-w-[1400px]">
+            <div class="container-table-general">
+                <table class="table-general">
                     <thead>
                         <tr>
-                            <th scope="col" class="th-general max-md:px-1">
+                            <th scope="col" class="th-general max-md:px-2 max-md:pl-0">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="12" cy="12" r="9" stroke="black" stroke-width="2" />
@@ -211,26 +211,23 @@ export default {
                                 {{ data.no }}
                             </td>
                             <td class="td-general whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <div class="">
-                                        <div class="max-[975px]:max-w-[100px] break-words">
-                                            {{ formatDate(data.date) }}
-                                        </div>
-                                    </div>
+                                <div class="max-[975px]:max-w-[10%] td-text-general">
+                                    {{ formatDate(data.date) }}
                                 </div>
                             </td>
                             <td class="td-general max-w-[250px] ">
-                                <p class="">{{ data.title }}</p>
+                                <p class="td-text-general">{{ data.title }}</p>
                             </td>
                             <td class="td-general max-w-[200px] ">
-                                <p class="">{{ data.tempat }}</p>
+                                <p class="td-text-general">{{ data.tempat }}</p>
                             </td>
                             <td class="td-general max-w-[300px] ">
-                                <span v-html="data.content" class="line-clamp-4 md:text-base">
+                                <span v-html="data.content" class="line-clamp-4 td-text-general">
                                 </span>
                             </td>
                             <td class="td-general max-w-[200px]">
-                                <img :src="data.image_url ? url + data.image_url : 'https://i.pinimg.com/736x/c0/74/9b/c0749b7cc401421662ae901ec8f9f660.jpg'" alt="foto kegiatan">
+                                <img :src="data.image_url ? url + data.image_url : 'https://i.pinimg.com/736x/c0/74/9b/c0749b7cc401421662ae901ec8f9f660.jpg'"
+                                    alt="foto kegiatan">
                             </td>
                             <td
                                 class="td-general whitespace-nowrap text-sm font-medium max-[1150px]:flex max-[1150px]:flex-col max-[1150px]:gap-2 max-[1150px]:items-center">
@@ -278,22 +275,24 @@ export default {
                                 <div class="flex flex-col gap-8 relative p-6">
                                     <div class="flex gap-2 flex-col">
                                         <label for="Judul" class="font-poppins font-bold text-base text-teal">Judul</label>
-                                        <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" required
-                                            v-model="form.title" name="Judul" id="" :placeholder="daftarkegiatan.title">
+                                        <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
+                                            required v-model="form.title" name="Judul" id=""
+                                            :placeholder="daftarkegiatan.title">
                                     </div>
 
                                     <div class="flex gap-2 flex-col">
                                         <label for="tempat"
                                             class="font-poppins font-bold text-base text-teal">Tempat</label>
-                                        <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text" required
-                                            v-model="form.tempat" name="tempat" :placeholder="daftarkegiatan.tempat">
+                                        <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="text"
+                                            required v-model="form.tempat" name="tempat"
+                                            :placeholder="daftarkegiatan.tempat">
                                     </div>
 
                                     <div class="flex gap-2 flex-col">
                                         <label for="Upload Foto" class="font-poppins font-bold text-base text-teal">Upload
                                             Foto</label>
-                                        <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="file" required
-                                            accept=".jpg,.jpeg,.png" name="Foto Sampul" id="foto-sampul-input"
+                                        <input class="border border-black py-2 min-w-[550px] pl-2 rounded-md" type="file"
+                                            required accept=".jpg,.jpeg,.png" name="Foto Sampul" id="foto-sampul-input"
                                             @change="handleFileChange">
                                         <div v-if="errorMessage" class="text-red text-sm font-bold mb-4">{{ errorMessage }}
                                         </div>
@@ -311,8 +310,9 @@ export default {
                                     <div class="flex gap-2 flex-col">
                                         <label for="Tanggal"
                                             class="font-poppins font-bold text-base text-teal">Tanggal</label>
-                                        <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="date" required
-                                            name="Tanggal" v-model="form.date" id="" :placeholder="daftarkegiatan.date">
+                                        <input class="border border-black py-4 min-w-[550px] pl-2 rounded-md" type="date"
+                                            required name="Tanggal" v-model="form.date" id=""
+                                            :placeholder="daftarkegiatan.date">
                                     </div>
 
 
@@ -347,5 +347,4 @@ export default {
 ol {
     list-style-type: decimal;
     margin-left: 1rem;
-}
-</style>
+}</style>

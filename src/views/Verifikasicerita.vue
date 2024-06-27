@@ -115,14 +115,14 @@ export default {
                             <div class="px-6 max-[800px]:px-1 py-4 max-w-[400px] max-md:mr-2 mr-32">
                                 <p class="text-[20px] max-md:text-[15px] leading-5 font-inter font-bold text-fullblack">{{ data.title }}</p>
                                 <div class="flex gap-1">
-                                    <p class="font-poppins font-normal max-md:text-[10px] text-[12px] leading-4 text-transparentblack">{{
+                                    <p class="td-text-general">{{
                                         data.author_name }}</p>
-                                    <p class="font-poppins font-normal max-md:text-[10px] text-[12px] leading-4 text-transparentblack">-</p>
-                                    <p class="font-poppins font-normal max-md:text-[10px] text-[12px] leading-4 text-transparentblack">{{
+                                    <p class="td-text-general">-</p>
+                                    <p class="td-text-general">{{
                                         formatDate(data.createdAt) }}</p>
-                                    <p class="font-poppins font-normal max-md:text-[10px] text-[12px] leading-4 text-transparentblack ml-4"
+                                    <p class="td-text-general ml-4"
                                         v-if="data.isVerified === false">Pending</p>
-                                    <p class="font-poppins font-normal max-md:text-[10px] text-[12px] leading-4 text-transparentblack ml-4"
+                                    <p class="td-text-general ml-4"
                                         v-else-if="data.isVerified === true">Disetujui</p>
                                 </div>
                             </div>

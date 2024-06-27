@@ -220,8 +220,8 @@ export default {
         <div class="px-8 max-[1400px]:px-2 bg-offwhite">
             <p class="title-style">Quotes</p>
             <hr>
-            <div>
-                <table class="divide-y divide-gray-200 max-w-[1200px]">
+            <div class="container-table-general">
+                <table class="table-general">
                     <thead>
                         <tr class="border-b-[0.5px] border-b-teal bg-offwhite">
                             <th scope="col" class="th-general max-[1000px]:text-[14px] max-sm:pl-0">
@@ -229,18 +229,17 @@ export default {
                                     xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="12" cy="12" r="9" stroke="black" stroke-width="2" />
                                 </svg>
-
                             </th>
-                            <th scope="col" class="th-general max-[1000px]:text-[14px]">
+                            <th scope="col" class="th-general max-[1000px]:text-[14px] max-md:pl-1">
                                 Tanggal dibuat
                             </th>
-                            <th scope="col" class="th-general max-[1000px]:text-[14px]">
+                            <th scope="col" class="th-general max-[1000px]:text-[14px] max-md:pl-1">
                                 Author
                             </th>
-                            <th scope="col" class="th-general max-[1000px]:text-[14px]">
+                            <th scope="col" class="th-general max-[1000px]:text-[14px] max-md:pl-1">
                                 Media
                             </th>
-                            <th scope="col" class="th-general max-[1000px]:text-[14px]">
+                            <th scope="col" class="th-general max-[1000px]:text-[14px] max-md:pl-1">
                                 Quotes
                             </th>
                             <th scope="col" class="flex">

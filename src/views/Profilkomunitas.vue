@@ -114,10 +114,10 @@ export default {
             <p class="title-style pb-4 text-xl md:text-2xl lg:text-3xl xl:text-4xl">Update Komunitas</p>
 
             <div id="container" class="flex flex-col md:flex-row">
-                <div class="flex flex-col justify-center items-center m-auto gap-8 w-full">
+                <div class="flex flex-col gap-8 w-full">
                     <!-- Ubah profil komunitas -->
                     <div v-if="profilkomunitas.currentPage === 1"
-                        class="bg-semitransparentwhite pb-2 w-full max-w-[1022px] isolate rounded-xl shadow-lg border-2 border-teal mx-auto">
+                        class="bg-semitransparentwhite pb-2 w-full max-w-[1022px] isolate rounded-xl shadow-lg border-2 border-teal">
                         <div class="max-w-[2023px] min-[2400px]:mx-auto">
                             <div class="flex flex-col md:flex-row mx-4 md:mx-10 my-8 justify-between">
                                 <div class="w-full md:w-9/12">
@@ -168,7 +168,7 @@ export default {
                     </div>
                     <!-- Ubah Foto Sampul -->
                     <div v-if="profilkomunitas.currentPage === 1"
-                        class="bg-semitransparentwhite w-full max-w-[1022px] isolate rounded-xl shadow-lg border-2 border-teal mx-auto">
+                        class="bg-semitransparentwhite w-full max-w-[1022px] isolate rounded-xl shadow-lg border-2 border-teal">
                         <div class="flex flex-col md:flex-row justify-between">
                             <div class="flex flex-col md:flex-row">
                                 <img class="max-w-[340px] p-4 max-h-[200px] mx-auto md:mx-0"

@@ -43,6 +43,13 @@ export default {
       currentPage: 1,
       perPage: 10,
       totalPages: 0,
+      sortKey: '',
+      sortOrder: 'asc',
+      sortIcon: {
+        no: 'asc',
+        status: 'asc',
+        roles: 'asc',
+      },
       form: {
         full_name: '',
         username: '',
@@ -228,6 +235,38 @@ export default {
         this.updatePaginatedData();
       }
     },
+
+    sortData(key) {
+      if (this.sortKey === key) {
+        this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+      } else {
+        this.sortKey = key;
+        this.sortOrder = 'asc';
+      }
+
+      // Update sort icon for the clicked column
+      this.sortIcon[key] = this.sortOrder;
+
+      // Reset sort icons for other columns
+      Object.keys(this.sortIcon).forEach(k => {
+        if (k !== key) {
+          this.sortIcon[k] = 'asc';
+        }
+      });
+
+      this.daftaradmin.sort((a, b) => {
+        let result = 0;
+        if (key === 'no') {
+          result = a.no - b.no;
+        } else if (key === 'status') {
+          result = (a.is_active === b.is_active) ? 0 : a.is_active ? -1 : 1;
+        } else if (key === 'roles') {
+          result = (a.superAdmin === b.superAdmin) ? 0 : a.superAdmin ? -1 : 1;
+        }
+        return this.sortOrder === 'asc' ? result : -result;
+      });
+      this.updatePaginatedData();
+    }
   },
 };
 </script>
@@ -240,18 +279,41 @@ export default {
       <hr>
       <div class="container-table-general">
         <table class="table-general">
-
           <thead class="bg-offwhite">
             <tr class="border-b-[0.5px]">
-              <th scope="col" class="th-general max-[1000px]:text-[14px] max-md:pl-0">
+              <th scope="col"
+                class="th-general max-[1000px]:text-[14px] max-md:pl-0 pl-2 cursor-pointer flex items-center"
+                @click="sortData('no')">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="12" cy="12" r="9" stroke="black" stroke-width="2" />
                 </svg>
+                <span v-if="sortIcon.no === 'asc'">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 19V6M5 12l7-7 7 7" />
+                  </svg>
+                </span>
+                <span v-else>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 5v13M5 12l7 7 7-7" />
+                  </svg>
+                </span>
               </th>
               <th scope="col" class="th-general max-md:pl-0">Nama Lengkap</th>
               <th scope="col" class="th-general max-md:pl-0">Username</th>
-              <th scope="col" class="th-general max-md:pl-0">Status</th>
-              <th scope="col" class="th-general max-md:pl-0">Roles</th>
+              <th scope="col" class="th-general max-md:pl-0 cursor-pointer" @click="sortData('status')"><svg fill="none"
+                  height="16" viewBox="0 0 512 512" width="16" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M476.843 57.6L326.333 274.77L326.182 274.99C320.698 282.603 317.745 291.747 317.743 301.13V407.39C317.746 410.792 316.882 414.138 315.232 417.113C313.582 420.088 311.201 422.592 308.313 424.39L212.483 484C204.823 488.77 193.723 487.19 193.773 478.17V301.13C193.77 291.747 190.818 282.603 185.333 274.99L185.183 274.77L34.6728 57.6C28.7267 48.5695 35.1696 36.1 46.4405 36.1H465.554C476.824 36.1 483.266 48.5695 477.32 57.6H476.843Z"
+                    fill="#000000" />
+                </svg>Status</th>
+              <th scope="col" class="th-general max-md:pl-0 cursor-pointer" @click="sortData('roles')"><svg fill="none"
+                  height="16" viewBox="0 0 512 512" width="16" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M476.843 57.6L326.333 274.77L326.182 274.99C320.698 282.603 317.745 291.747 317.743 301.13V407.39C317.746 410.792 316.882 414.138 315.232 417.113C313.582 420.088 311.201 422.592 308.313 424.39L212.483 484C204.823 488.77 193.723 487.19 193.773 478.17V301.13C193.77 291.747 190.818 282.603 185.333 274.99L185.183 274.77L34.6728 57.6C28.7267 48.5695 35.1696 36.1 46.4405 36.1H465.554C476.824 36.1 483.266 48.5695 477.32 57.6H476.843Z"
+                    fill="#000000" />
+                </svg>Roles</th>
               <th v-if="getRoles === 'true'" scope="col" class="th-general">
                 <button @click="toggleModalCreateAdmin" class="btn-add">Tambah</button>
               </th>
@@ -350,4 +412,3 @@ export default {
     </div>
   </div>
 </template>
-

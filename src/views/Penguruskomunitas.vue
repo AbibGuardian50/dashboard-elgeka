@@ -179,7 +179,7 @@ export default {
         <div class="px-8 max-md:px-2 bg-offwhite max-lg:h-screen">
             <p class="title-style">Pengurus Komunitas</p>
             <hr>
-            <div class="container-table-general max-[700px]:max-w-full">
+            <div class="container-table-general max-[700px]:max-w-full lg:w-[800px]">
                 <table class="table-general">
                     <thead>
                         <tr class="border-b-[0.5px] border-b-teal">

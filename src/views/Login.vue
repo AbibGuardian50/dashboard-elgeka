@@ -205,7 +205,7 @@ export default {
                 <!-- Remember Me Checkbox -->
                 <div class="mb-4 flex flex-col">
                     <div>
-                        <input type="checkbox" id="remember" name="remember" class="outline-[#D4A02C]" v-model="rememberMe">
+                        <input type="checkbox" id="rememberMe" name="remember" class="outline-[#D4A02C]" v-model="rememberMe">
                         <label for="rememberMe" class="font-[verdana] text-[#344054] font-normal text[14px] ml-2">Remember
                             Me</label>
                     </div>

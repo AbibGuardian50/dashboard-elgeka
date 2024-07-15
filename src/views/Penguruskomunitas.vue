@@ -176,7 +176,7 @@ export default {
     <div class="flex bg-offwhite">
         <Sidebar />
 
-        <div class="px-8 max-md:px-2 bg-offwhite max-lg:h-screen">
+        <div class="px-8 max-md:px-2 bg-offwhite max-lg:h-full">
             <p class="title-style">Pengurus Komunitas</p>
             <hr>
             <div class="container-table-general max-[700px]:max-w-full lg:w-[800px]">
@@ -249,10 +249,10 @@ export default {
 
                 <!-- Pop up modal buat Pengurus baru... -->
                 <div v-if="showcreatepengurus"
-                    class="fixed inset-0 max-md:z-20 max-[700px]:block flex items-center justify-center bg-black bg-opacity-50">
+                    class="fixed inset-0 max-md:z-20 max-[700px]:block flex justify-center overflow-y-scroll bg-black bg-opacity-50">
                     <div
-                        class="bg-white p-8 rounded-md min-w-[700px] max-[720px]:min-w-[300px] max-[720px]:max-w-[350px] max-[350px]:min-w-[200px] max-[350px]:max-w-[250px] max-w-[750px]">
-                        <h2 class="text-2xl text-teal font-poppins font-semibold mb-4">Input Pengurus Kom</h2>
+                        class="bg-white p-8 rounded-md min-w-[700px] max-[720px]:min-w-[300px] min-h-[38rem] max-md:min-h-[41rem] max-h-[39rem] max-[720px]:max-w-[350px] max-[350px]:min-w-[200px] max-[350px]:max-w-[250px] max-w-[750px]">
+                        <h2 class="text-2xl text-teal font-poppins font-semibold mb-4 border-b border-teal">Tambah Pengurus Komunitas</h2>
                         <form @submit.prevent="createpengurus()">
                             <div class="flex gap-2 flex-col">
                                 <label for="nama lengkap" class="font-poppins font-bold text-base text-teal">Nama

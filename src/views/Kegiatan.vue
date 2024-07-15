@@ -253,7 +253,7 @@ export default {
                 <!-- Pop up Modal buat kegiatan baru... -->
                 <div>
                     <form v-if="showcreatekegiatan" @submit.prevent="createkegiatan()"
-                        class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+                        class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center flex">
                         <div class="relative w-auto my-6 mx-auto max-w-6xl">
                             <!--content-->
                             <div

@@ -40,6 +40,7 @@ export default {
                 title: '',
                 content: '',
                 kategori: '',
+                show: '',
                 doi_link: '',
                 image: null,
             },
@@ -56,6 +57,7 @@ export default {
             formData.append('content', this.daftarberita.content);
             formData.append('kategori', this.daftarberita.kategori);
             formData.append('doi_link', this.daftarberita.doi_link);
+            formData.append('show', this.daftarberita.show);
             if (this.daftarberita.image) {
                 formData.append('image', this.daftarberita.image);
             }
@@ -113,7 +115,7 @@ export default {
                 <div class="flex flex-col w-full bg-white border border-black rounded-lg shadow-lg outline-none focus:outline-none">
                     <!-- Header -->
                     <div class="flex items-start justify-between p-5 border-b border-gray-300 rounded-t">
-                        <h3 class="text-2xl font-semibold text-teal">Edit Berita Komunitas</h3>
+                        <h3 class="text-2xl font-semibold text-teal">Edit Berita (Informasi CML)</h3>
                     </div>
                     <!-- Body -->
                     <div class="relative flex flex-col gap-6 p-6">
@@ -128,10 +130,17 @@ export default {
                                 placeholder="Masukkan DOI Link">
                         </div>
                         <div class="flex flex-col gap-2">
-                            <label for="Kategori" class="text-base font-normal text-teal">Kategori</label>
+                            <label for="Kategori" class="text-base font-bold text-teal">Kategori</label>
                             <select name="Kategori" id="Kategori" class="w-full px-3 py-2 border rounded-md" required v-model="daftarberita.kategori">
                                 <option value="perkembanganCML">Perkembangan CML</option>
                                 <option value="perkembanganKomunitas">Perkembangan Komunitas</option>
+                            </select>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="Kategori" class="text-base font-bold text-teal">Kategori</label>
+                            <select name="Kategori" id="Kategori" class="w-full px-3 py-2 border rounded-md" required v-model="daftarberita.show">
+                                <option value="false">Disembunyikan</option>
+                                <option value="true">Tampil</option>
                             </select>
                         </div>
                         <div class="flex flex-col gap-2">

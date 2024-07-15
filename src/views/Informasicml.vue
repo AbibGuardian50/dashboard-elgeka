@@ -9,6 +9,9 @@ import "quill/dist/quill.snow.css";
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
+import { format } from 'date-fns';
+import id from 'date-fns/locale/id';
+
 export default {
     components: {
         QuillEditor,
@@ -168,6 +171,10 @@ export default {
                     })
             }
         },
+        formatDate(dateString) {
+            // Ubah format tanggal
+            return format(new Date(dateString), 'dd MMMM yyyy HH:mm', { locale: id });
+        },
         toggleModalCreateBerita: function () {
             this.showcreateberita = !this.showcreateberita;
         },
@@ -176,7 +183,7 @@ export default {
 </script>
 
 <template>
-    <div class="flex bg-offwhite max-lg:h-screen">
+    <div class="flex bg-offwhite max-lg:h-full">
         <Sidebar />
 
         <div class="px-8 max-md:px-2 bg-offwhite max-lg:h-screen">
@@ -200,7 +207,13 @@ export default {
                                 Kategori
                             </th>
                             <th scope="col" class="th-general">
+                                Dibuat pada
+                            </th>
+                            <th scope="col" class="th-general">
                                 Deskripsi
+                            </th>
+                            <th scope="col" class="th-general">
+                                Status
                             </th>
                             <th scope="col" class="th-general">
                                 Gambar
@@ -224,9 +237,16 @@ export default {
                                     class="td-text-general max-md:max-w-[100px] truncate">
                                     {{ data.kategori }}</p>
                             </td>
+                            <td class="td-general max-w-[250px]">
+                                <p class="td-text-general">{{formatDate(data.createdAt)}}</p>
+                            </td>
                             <td class="td-general max-w-[400px]">
                                 <span v-html="data.content" class="line-clamp-4 td-text-general">
                                 </span>
+                            </td>
+                            <td class="td-general max-w-[250px]">
+                                <p v-if="data.show === true" class="td-text-general text-[#52FF00] font-bold">Tampil</p>
+                                <p v-if="data.show === false" class="td-text-general text-[#FF0000] font-bold">Disembunyikan</p>
                             </td>
                             <td class="td-general max-w-[200px]">
                                 <img :src="url + data.image_url">
@@ -253,14 +273,14 @@ export default {
                 <!-- Pop up Modal buat Berita baru... -->
                 <div>
                     <form v-if="showcreateberita" @submit.prevent="createberita()"
-                        class="fixed max-md:absolute inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none">
+                        class="fixed max-md:absolute inset-0 z-50 flex justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none">
                         <div class="relative w-full max-w-6xl mx-auto my-6">
                             <!--content-->
                             <div
                                 class="flex flex-col w-full bg-white border rounded-lg shadow-lg outline-none focus:outline-none">
                                 <!--header-->
                                 <div class="flex items-start justify-between p-5 border-b rounded-t">
-                                    <h3 class="text-2xl font-semibold text-teal font-poppins">
+                                    <h3 class="text-3xl font-semibold text-teal font-poppins border-b border-teal w-full">
                                         Berita CML
                                     </h3>
                                     <button
@@ -273,13 +293,10 @@ export default {
                                 </div>
                                 <!--body-->
                                 <div class="relative flex flex-col gap-4 p-6">
-                                    <p class="text-lg font-normal leading-6 font-poppins text-sulfurblack">Masukan Berita
-                                        CML</p>
-
                                     <div class="flex flex-col gap-2">
                                         <label for="Judul"
                                             class="text-base font-normal text-teal font-verdana">Judul</label>
-                                        <input class="w-full py-2 pl-2 border rounded-md border-silver" type="text" required
+                                        <input class="w-full py-2 pl-2 border rounded-md border-silver" type="text" required placeholder="Masukkan judul"
                                             v-model="form.title" name="Judul" id="">
                                     </div>
 
@@ -287,7 +304,7 @@ export default {
                                         <label for="Deskripsi Kegiatan"
                                             class="text-base font-normal text-teal font-verdana">Deskripsi Berita</label>
                                         <div class="w-full py-2 pl-2 border rounded-md border-silver" id="app">
-                                            <quill-editor theme="snow" contentType="html" required
+                                            <quill-editor theme="snow" contentType="html" required placeholder="Masukkan Isi berita"
                                                 v-model:content="form.content"></quill-editor>
                                         </div>
                                     </div>
@@ -314,7 +331,7 @@ export default {
                                     <div class="flex flex-col gap-2">
                                         <label for="doi_link"
                                             class="text-base font-normal text-teal font-verdana">doi_link</label>
-                                        <input class="w-full py-2 pl-2 border rounded-md border-silver" type="text" required
+                                        <input class="w-full py-2 pl-2 border rounded-md border-silver" type="text" required placeholder="Masukkan doi_link"
                                             v-model="form.doi_link" name="doi_link" id="">
                                     </div>
                                 </div>

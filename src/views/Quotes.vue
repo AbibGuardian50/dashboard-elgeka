@@ -215,7 +215,7 @@ export default {
 </script>
 
 <template>
-    <div class="flex bg-offwhite max-lg:h-screen">
+    <div class="flex bg-offwhite max-lg:h-full">
         <sidebar />
         <div class="px-8 max-[1400px]:px-2 bg-offwhite">
             <p class="title-style">Quotes</p>
@@ -277,7 +277,7 @@ export default {
                             <td
                                 class="td-general max-w-[300px] max-[1300px]:w-[150px] max-md:text-[12px] max-md:w-[100px] ">
                                 <p
-                                    class="font-poppins  font-normal text-sulfurblack whitespace-normal break-words max-md:line-clamp-4">
+                                    class="font-poppins  font-normal text-sulfurblack whitespace-normal break-words line-clamp-4">
                                     {{ data.quote }}</p>
                             </td>
                             <td
@@ -304,10 +304,11 @@ export default {
 
                 <!-- Pop up modal buat Quotes baru... -->
                 <!-- Pop up modal buat Quotes baru... -->
-                <div v-if="showcreatequotes">
-                    <div class="fixed max-sm:absolute inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                <div>
+                    <div v-if="showcreatequotes"
+                        class="fixed max-sm:absolute inset-0 z-50 flex overflow-y-scroll justify-center bg-black bg-opacity-50">
                         <form @submit.prevent="createquote()"
-                            class="bg-white p-6 rounded-lg w-full max-w-md sm:max-w-lg lg:max-w-xl">
+                            class="bg-white p-6 rounded-lg w-full max-w-md sm:max-w-lg lg:max-w-xl min-h-[36rem] max-h-[36.25rem]">
                             <h2
                                 class="text-2xl sm:text-3xl lg:text-4xl text-teal font-poppins font-semibold mb-4 border-b border-teal">
                                 Buat Quotes Baru

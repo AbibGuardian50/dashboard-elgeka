@@ -132,7 +132,7 @@ export default {
 <template>
     <div>
         <form v-if="quotesdata" @submit.prevent="editquotes(quotesdata.id)"
-            class="fixed inset-0 z-50 flex justify-center items-center overflow-y-auto outline-none focus:outline-none">
+            class="fixed inset-0 z-50 flex justify-center overflow-y-auto outline-none focus:outline-none">
             <div class="relative w-full max-w-4xl mx-auto my-6 px-4 sm:px-6 lg:px-8">
                 <!-- Alert Error -->
                 <div v-if="statuscode === 200" class="px-2 mt-4">

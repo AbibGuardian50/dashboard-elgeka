@@ -145,7 +145,7 @@ export default {
 <template>
     <div>
         <form v-if="daftaradmin" @submit.prevent="editadmin(daftaradmin.id)"
-            class="fixed inset-0 z-50 flex justify-center items-center overflow-y-auto outline-none focus:outline-none">
+            class="fixed inset-0 z-50 flex justify-center overflow-y-auto outline-none focus:outline-none">
             <div class="relative w-full max-w-4xl mx-auto my-6 px-4 sm:px-6 lg:px-8">
                 <!-- Alert Error -->
                 <div v-if="resulterror.message === 'Error Update Admin by ID: Unauthorized, Superadmins cannot update other superadmins'"
@@ -160,7 +160,7 @@ export default {
                     </div>
                 </div>
                 <!--content-->
-                <div class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div class="border border-black rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                     <!--header-->
                     <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
                         <h3 class="text-[24px] sm:text-[32px] md:text-[40px] text-teal font-semibold font-poppins">

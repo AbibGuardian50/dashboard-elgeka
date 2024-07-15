@@ -368,32 +368,32 @@ export default {
         class="fixed inset-0 max-md:z-20 max-[700px]:block flex items-center justify-center bg-black bg-opacity-50">
         <div
           class="bg-white p-8 rounded-md min-w-[700px] max-[720px]:min-w-[300px] max-[720px]:max-w-[350px] max-[350px]:min-w-[200px] max-[350px]:max-w-[250px] max-w-[750px] min-h-[500px] max-h-[520px]">
-          <h2 class="text-2xl text-teal font-poppins font-semibold mb-4">Tambah Admin</h2>
+          <h2 class="text-2xl text-teal font-poppins font-semibold mb-4 border-b border-teal">Akun admin</h2>
           <form @submit.prevent="createadmin">
             <div class="mb-4">
               <label class="block text-sm font-medium text-teal">Nama Lengkap</label>
-              <input type="text" v-model="form.full_name"
-                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              <input type="text" v-model="form.full_name" placeholder="Masukkan Nama Lengkap"
+                class="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 required />
             </div>
             <div class="mb-4">
               <label class="block text-sm font-medium text-teal">Username</label>
-              <input type="text" v-model="form.username"
-                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              <input type="text" v-model="form.username" placeholder="Masukkan Username"
+                class="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 required />
               <p v-if="formErrors.username" class="text-red text-sm mt-1">{{ formErrors.username }}</p>
             </div>
             <div class="mb-4">
               <label class="block text-sm font-medium text-teal">Password</label>
-              <input type="password" v-model="form.password"
-                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              <input type="password" v-model="form.password" placeholder="Masukkan password"
+                class="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 required />
               <p v-if="formErrors.password" class="text-red text-sm mt-1">{{ formErrors.password }}</p>
             </div>
             <div class="mb-4">
               <label class="block text-sm font-medium text-teal">Roles</label>
               <select v-model="form.superAdmin"
-                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                class="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 required>
                 <option value="">Select Role</option>
                 <option value="true">Super Admin</option>
@@ -401,10 +401,10 @@ export default {
               </select>
               <p v-if="formErrors.superAdmin" class="text-red text-sm mt-1">{{ formErrors.superAdmin }}</p>
             </div>
-            <div class="flex justify-end gap-2">
-              <button type="submit" class="px-4 py-2 bg-teal text-white rounded-md">Simpan</button>
+            <div class="flex justify-center gap-2 border-t pt-2 border-teal">
+              <button type="submit" class="px-8 py-2 bg-teal text-white rounded-md">Simpan</button>
               <button @click="toggleModalCreateAdmin" type="button"
-                class="mr-4 px-4 py-2 bg-white border border-teal text-teal rounded-md">Batal</button>
+                class="mr-4 px-8 py-2 bg-white border border-teal text-teal rounded-md">Batal</button>
             </div>
           </form>
         </div>

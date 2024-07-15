@@ -41,6 +41,7 @@ export default {
                 content: '',
                 tempat: '',
                 date: '',
+                show: '',
                 image: null,
             }
         }
@@ -55,6 +56,7 @@ export default {
             formData.append('content', this.daftarkegiatan.content);
             formData.append('tempat', this.daftarkegiatan.tempat);
             formData.append('date', this.daftarkegiatan.date);
+            formData.append('show', this.daftarkegiatan.show);
             if (this.daftarkegiatan.image) {
                 formData.append('image', this.daftarkegiatan.image);
             }
@@ -124,6 +126,15 @@ export default {
                         </div>
 
                         <div class="flex flex-col gap-2">
+                            <label for="Status" class="text-base font-bold text-teal">Status</label>
+                            <select name="Status" id="Status" class="w-full px-3 py-2 border rounded-md" required
+                                v-model="daftarkegiatan.show">
+                                <option value="false">Disembunyikan</option>
+                                <option value="true">Tampil</option>
+                            </select>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
                             <label for="Deskripsi Kegiatan" class="text-base font-bold text-teal font-poppins">Deskripsi
                                 Kegiatan</label>
                             <div class="w-full p-2 border rounded-md">
@@ -155,12 +166,13 @@ export default {
                         <router-link to="/kegiatan">
                             <button
                                 class="px-6 py-3 ml-4 text-sm font-bold text-teal uppercase bg-white border border-teal rounded hover:bg-teal-600 focus:outline-none"
-                            type="button">
-                            Batal
-                        </button>
-                    </router-link>
+                                type="button">
+                                Batal
+                            </button>
+                        </router-link>
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
-</div></template>
+        </form>
+    </div>
+</template>

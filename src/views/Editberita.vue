@@ -137,8 +137,8 @@ export default {
                             </select>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <label for="Kategori" class="text-base font-bold text-teal">Kategori</label>
-                            <select name="Kategori" id="Kategori" class="w-full px-3 py-2 border rounded-md" required v-model="daftarberita.show">
+                            <label for="Status" class="text-base font-bold text-teal">Status</label>
+                            <select name="Status" id="Status" class="w-full px-3 py-2 border rounded-md" required v-model="daftarberita.show">
                                 <option value="false">Disembunyikan</option>
                                 <option value="true">Tampil</option>
                             </select>

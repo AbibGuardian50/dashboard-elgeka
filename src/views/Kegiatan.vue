@@ -196,6 +196,9 @@ export default {
                                 Deskripsi
                             </th>
                             <th scope="col" class="th-general max-md:px-1">
+                                Status
+                            </th>
+                            <th scope="col" class="th-general max-md:px-1">
                                 Gambar
                             </th>
                             <th scope="col" class="">
@@ -224,6 +227,10 @@ export default {
                             <td class="td-general max-w-[300px] ">
                                 <span v-html="data.content" class="line-clamp-4 td-text-general">
                                 </span>
+                            </td>
+                            <td class="td-general max-w-[250px]">
+                                <p v-if="data.show === true" class="td-text-general text-[#52FF00] font-bold">Tampil</p>
+                                <p v-if="data.show === false" class="td-text-general text-[#FF0000] font-bold">Disembunyikan</p>
                             </td>
                             <td class="td-general max-w-[200px]">
                                 <img :src="data.image_url ? url + data.image_url : 'https://i.pinimg.com/736x/c0/74/9b/c0749b7cc401421662ae901ec8f9f660.jpg'"

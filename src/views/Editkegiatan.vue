@@ -98,7 +98,7 @@ export default {
 <template>
     <div>
         <form v-if="daftarkegiatan" @submit.prevent="editkegiatan(daftarkegiatan.id)"
-            class="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none">
+            class="fixed inset-0 z-50 flex justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none">
             <div class="relative w-full max-w-6xl mx-auto my-6">
                 <!--content-->
                 <div

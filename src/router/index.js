@@ -78,13 +78,14 @@ const routes = [
   {
     path: '/editProfilKomunitas',
     name: 'editProfilKomunitas',
-    component: () => import('../views/EditProfilKomunitas.vue')
+    component: () => import('../views/EditProfilKomunitas.vue'),
+    meta: { title: 'Edit Profil Komunitas' }
   },
   {
     path: '/Editpengurus/:id',
     name: 'Editpengurus',
     component: () => import('../views/Editpengurus.vue'),
-    meta: { title: 'Edit Profil Komunitas' }
+    meta: { title: 'Edit Pengurus' }
   },
   {
     path: '/editquotes/:id',
@@ -167,7 +168,7 @@ const router = createRouter({
 router.beforeEach(requireAuth); // Gunakan requireAuth secara global
 
 router.beforeEach((to, from, next) => {
-  document.title = `${to.meta.title} - Nama Aplikasi Anda`;
+  document.title = `${to.meta.title}`;
   next();
 });
 

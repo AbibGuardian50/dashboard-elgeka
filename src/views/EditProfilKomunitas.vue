@@ -80,7 +80,7 @@ export default {
             <div class="relative w-full max-w-4xl mx-auto my-6 px-4 sm:px-6 lg:px-8">
                 <!--content-->
                 <div
-                    class="border border-red rounded-lg shadow-lg flex flex-col w-full bg-white outline-none focus:outline-none">
+                    class="border border-teal rounded-lg shadow-lg flex flex-col w-full bg-white outline-none focus:outline-none">
                     <!--header-->
                     <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
                         <h3 class="text-[24px] sm:text-[32px] md:text-[40px] text-teal font-semibold font-poppins">

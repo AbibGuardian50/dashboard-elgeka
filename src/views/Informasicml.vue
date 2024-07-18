@@ -233,12 +233,11 @@ export default {
                                 <p class="td-text-general">{{ data.title }}</p>
                             </td>
                             <td class="td-general max-w-[200px] max-sm:max-w-[100px] truncate">
-                                <p
-                                    class="td-text-general max-md:max-w-[100px] truncate">
+                                <p class="td-text-general max-md:max-w-[100px] truncate">
                                     {{ data.kategori }}</p>
                             </td>
                             <td class="td-general max-w-[250px]">
-                                <p class="td-text-general">{{formatDate(data.createdAt)}}</p>
+                                <p class="td-text-general">{{ formatDate(data.createdAt) }}</p>
                             </td>
                             <td class="td-general max-w-[400px]">
                                 <span v-html="data.content" class="line-clamp-4 td-text-general">
@@ -246,7 +245,8 @@ export default {
                             </td>
                             <td class="td-general max-w-[250px]">
                                 <p v-if="data.show === true" class="td-text-general text-[#52FF00] font-bold">Tampil</p>
-                                <p v-if="data.show === false" class="td-text-general text-[#FF0000] font-bold">Disembunyikan</p>
+                                <p v-if="data.show === false" class="td-text-general text-[#FF0000] font-bold">Disembunyikan
+                                </p>
                             </td>
                             <td class="td-general max-w-[200px]">
                                 <img :src="url + data.image_url">
@@ -296,15 +296,16 @@ export default {
                                     <div class="flex flex-col gap-2">
                                         <label for="Judul"
                                             class="text-base font-normal text-teal font-verdana">Judul</label>
-                                        <input class="w-full py-2 pl-2 border rounded-md border-silver" type="text" required placeholder="Masukkan judul"
-                                            v-model="form.title" name="Judul" id="">
+                                        <input class="w-full py-2 pl-2 border rounded-md border-silver" type="text" required
+                                            placeholder="Masukkan judul" v-model="form.title" name="Judul" id="">
                                     </div>
 
                                     <div class="flex flex-col gap-2">
                                         <label for="Deskripsi Kegiatan"
                                             class="text-base font-normal text-teal font-verdana">Deskripsi Berita</label>
                                         <div class="w-full py-2 pl-2 border rounded-md border-silver" id="app">
-                                            <quill-editor theme="snow" contentType="html" required placeholder="Masukkan Isi berita"
+                                            <quill-editor theme="snow" contentType="html" required
+                                                placeholder="Masukkan Isi berita"
                                                 v-model:content="form.content"></quill-editor>
                                         </div>
                                     </div>
@@ -331,8 +332,9 @@ export default {
                                     <div class="flex flex-col gap-2">
                                         <label for="doi_link"
                                             class="text-base font-normal text-teal font-verdana">doi_link</label>
-                                        <input class="w-full py-2 pl-2 border rounded-md border-silver" type="text" placeholder="doi_link, boleh dilewatkan jika tidak ada"
-                                            v-model="form.doi_link" name="doi_link" id="">
+                                        <input class="w-full py-2 pl-2 border rounded-md border-silver" type="text"
+                                            placeholder="doi_link, boleh dilewatkan jika tidak ada" v-model="form.doi_link"
+                                            name="doi_link" id="">
                                     </div>
                                 </div>
                                 <!--footer-->
@@ -352,14 +354,16 @@ export default {
                         </div>
                     </form>
                     <div v-if="showcreateberita" class="fixed inset-0 z-40 bg-black opacity-25"></div>
+                </div>
+
             </div>
-
         </div>
+
     </div>
+</template>
 
-</div></template>
-
-<style>ol {
+<style>
+ol {
     list-style-type: decimal;
     margin-left: 1rem;
 }</style>

@@ -126,8 +126,8 @@ export default {
                         </div>
                         <div class="flex flex-col gap-2">
                             <label for="doi_link" class="text-base font-bold text-teal">DOI Link</label>
-                            <input class="w-full px-3 py-2 border rounded-md" type="text" name="doi_link" v-model="daftarberita.doi_link" required
-                                placeholder="Masukkan DOI Link">
+                            <input class="w-full px-3 py-2 border rounded-md" type="text" name="doi_link" v-model="daftarberita.doi_link"
+                                placeholder="doi_link, boleh dilewatkan jika tidak ada">
                         </div>
                         <div class="flex flex-col gap-2">
                             <label for="Kategori" class="text-base font-bold text-teal">Kategori</label>

@@ -183,13 +183,13 @@ export default {
 </script>
 
 <template>
-    <div class="flex bg-offwhite max-lg:h-full">
+    <div class="flex bg-offwhite h-full">
         <Sidebar />
 
-        <div class="px-8 max-md:px-2 bg-offwhite max-lg:h-screen">
+        <div class="px-8 max-md:px-2 bg-offwhite">
             <p class="title-style">Berita (Informasi CML)</p>
             <hr class="border-[#D0D5DD]">
-            <div class="container-table-general max-md:max-w-[70%]">
+            <div class="container-table-general max-md:max-w-[70%] max-sm:max-w-[35%]">
                 <table class="table-general">
                     <thead>
                         <tr>
@@ -261,7 +261,7 @@ export default {
                     </tbody>
                 </table>
                 <!-- Pagination navigation -->
-                <div class="ml-8 mt-4 flex justify-center">
+                <div class="ml-8 my-8 flex justify-center">
                     <button @click="prevPage" :disabled="currentPage === 1"
                         class="px-4 py-2 mr-2 bg-teal  text-white rounded-md">Previous</button>
                     <button v-for="pageNumber in totalPages" :key="pageNumber" @click="goToPage(pageNumber)"
@@ -331,7 +331,7 @@ export default {
                                     <div class="flex flex-col gap-2">
                                         <label for="doi_link"
                                             class="text-base font-normal text-teal font-verdana">doi_link</label>
-                                        <input class="w-full py-2 pl-2 border rounded-md border-silver" type="text" required placeholder="Masukkan doi_link"
+                                        <input class="w-full py-2 pl-2 border rounded-md border-silver" type="text" placeholder="doi_link, boleh dilewatkan jika tidak ada"
                                             v-model="form.doi_link" name="doi_link" id="">
                                     </div>
                                 </div>

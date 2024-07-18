@@ -354,7 +354,7 @@ export default {
           </tbody>
         </table>
       </div>
-      <div class="flex justify-center mt-4">
+      <div class="flex justify-center my-8">
         <button @click="prevPage" :disabled="currentPage === 1"
           class="px-4 py-2 mr-2 bg-teal text-white rounded-md">Previous</button>
         <button v-for="pageNumber in totalPages" :key="pageNumber" @click="goToPage(pageNumber)"

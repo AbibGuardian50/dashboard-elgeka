@@ -2,6 +2,10 @@
 import axios from 'axios'
 import VueCookies from 'vue-cookies';
 import { useToast } from 'vue-toastification';
+import CryptoJS from 'crypto-js';
+
+const ENCRYPTION_KEY = 'jngbe40jh40ihj04jh0hj';
+
 export default {
     data() {
         return {
@@ -39,8 +43,10 @@ export default {
                     VueCookies.set('status_akun', response.data.result.user.is_active)
                     if (this.rememberMe) {
                         localStorage.setItem('rememberedUsername', this.username);
-                        localStorage.setItem('rememberedPassword', this.password);
-                    }
+                        const encryptedPassword = CryptoJS.AES.encrypt(this.password, ENCRYPTION_KEY).toString();
+                        localStorage.setItem('rememberedPassword', encryptedPassword);
+                    } 
+
                 } else {
                     toast.error('username atau password yang dimasukkan salah, mohon coba lagi');
                 }
@@ -51,10 +57,11 @@ export default {
     },
     mounted() {
         const rememberedUsername = localStorage.getItem('rememberedUsername');
-        const rememberedPassword = localStorage.getItem('rememberedPassword');
-        if (rememberedUsername && rememberedPassword) {
+        const encryptedPassword = localStorage.getItem('rememberedPassword');
+        if (rememberedUsername && encryptedPassword) {
             this.username = rememberedUsername; // Perbaikan disini
-            this.password = rememberedPassword;
+            const decryptedPassword = CryptoJS.AES.decrypt(encryptedPassword, ENCRYPTION_KEY).toString(CryptoJS.enc.Utf8);
+            this.password = decryptedPassword;
             this.rememberMe = true;
         }
 

@@ -174,11 +174,22 @@ export default {
         axios.post(url, this.form, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })
           .then(response => {
             console.log(response.data);
-            window.location.reload();
+            if (response.data.message === 'Create New Admin Success') {
+              toast.success('Admin baru berhasil dibuat')
+              setTimeout(() => {
+                window.location.reload();;
+              }, 1000);
+            } else if (response.data.message === 'Error Creating New Admin: Username already exists') {
+              toast.error('username yang sama sudah ada, mohon untuk mengganti dengan username lain')
+            }
+
+
+
           })
           .catch(error => {
             toast.error('Terdapat Kesalahan pada sistem, mohon coba lagi');
             console.log(error);
+
           });
       }
     },
@@ -272,7 +283,7 @@ export default {
 </script>
 
 <template>
-  <div class="flex bg-offwhite">
+  <div class="flex bg-offwhite h-full">
     <Sidebar />
     <div class="px-8 max-[800px]:px-1 bg-offwhite w-full">
       <p class="title-style">Kelola Akun Admin</p>

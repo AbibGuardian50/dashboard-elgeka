@@ -70,12 +70,6 @@ const routes = [
     meta: { title: 'Edit Kegiatan' }
   },
   {
-    path: '/editprofiladmin',
-    name: 'editprofiladmin',
-    component: () => import('../views/EditProfilAdmin.vue'),
-    meta: { title: 'Edit Profil Admin' }
-  },
-  {
     path: '/editProfilKomunitas',
     name: 'editProfilKomunitas',
     component: () => import('../views/EditProfilKomunitas.vue'),
@@ -98,12 +92,6 @@ const routes = [
     name: 'kelolaakun',
     component: () => import('../views/Kelolaakun.vue'),
     meta: { title: 'Kelola Akun Admin Elgeka Jawa Barat' }
-  },
-  {
-    path: '/komunitas',
-    name: 'komunitas',
-    component: () => import('../views/Komunitas.vue'),
-    meta: { title: 'Komunitas' }
   },
   {
     path: '/kegiatan',

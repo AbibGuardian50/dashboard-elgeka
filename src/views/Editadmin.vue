@@ -43,20 +43,15 @@ export default {
                 const tokenlogin = VueCookies.get('tokenlogin');
                 const AdminId = VueCookies.get('id_user');
                 const url = `https://elgeka-web-api-production.up.railway.app/api/v1/admin/${id}`;
-
                 // Clone daftaradmin to avoid modifying the original object directly
                 let updatedAdmin = { ...this.daftaradmin };
-
                 // Remove is_active from the payload if the user is active
                 if (this.daftaradmin.is_active === true) {
                     delete updatedAdmin.is_active;
                 }
-
                 // Remove superAdmin from the payload
                 delete updatedAdmin.superAdmin;
-
                 console.log("Updated Admin Data before sending:", updatedAdmin);
-
                 try {
                     const response = await axios.patch(url, updatedAdmin, {
                         headers: {

@@ -38,7 +38,7 @@ export default {
 
 <template>
     <!-- > 768 px screen and laptop screen -->
-    <div class="flex max-[520px]:max-w-[230px] max-[520px]:min-w-[25%] max-md:hidden h-full">
+    <div class="flex max-[520px]:max-w-[230px] max-[520px]:min-w-[25%] max-md:hidden">
         <div
             class="bg-teal flex flex-col items-center pt-8 md:w-full max-[520px]:min-w-[70px] min-w-[70px] max-[1800px]:h-full h-screen">
             <div class="flex flex-col items-center">
@@ -109,12 +109,6 @@ export default {
                             <button
                                 class="focus:bg-[#EEEEED] max-[420px]:px-0 max-[420px]:pl-4 px-4 focus:text-black focus:opacity-100 focus:font-inter focus:font-bold font-poppins font-bold text-white opacity-70">Pengurus
                                 Komunitas</button>
-                        </router-link>
-
-                        <router-link to="/editprofiladmin">
-                            <button
-                                class="focus:bg-[#EEEEED] max-[420px]:px-0 max-[420px]:pl-4 px-4 focus:text-black focus:opacity-100 focus:font-inter focus:font-bold font-poppins font-bold text-white opacity-70">Edit
-                                Profil</button>
                         </router-link>
 
                     </div>
@@ -225,12 +219,6 @@ export default {
                                             <button
                                                 class="focus:bg-[#EEEEED] max-sm:px-2 max-sm:ml-4 px-4 focus:text-black focus:opacity-100 focus:font-inter focus:font-bold font-poppins font-bold text-white opacity-70">Pengurus
                                                 Komunitas</button>
-                                        </router-link>
-
-                                        <router-link to="/editprofiladmin">
-                                            <button
-                                                class="focus:bg-[#EEEEED] max-sm:px-2 max-sm:ml-4 px-4 focus:text-black focus:opacity-100 focus:font-inter focus:font-bold font-poppins font-bold text-white opacity-70">Edit
-                                                Profil</button>
                                         </router-link>
 
                                     </div>

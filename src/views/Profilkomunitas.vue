@@ -112,7 +112,7 @@ export default {
 </script>
 
 <template>
-    <div class="flex bg-offwhite">
+    <div class="flex bg-offwhite h-full">
         <Sidebar />
         <div class="pl-8 max-[520px]:pl-1 pt-12 bg-offwhite w-full lg:w-3/4">
             <p class="title-style pb-4 text-xl md:text-2xl lg:text-3xl xl:text-4xl">Update Komunitas</p>

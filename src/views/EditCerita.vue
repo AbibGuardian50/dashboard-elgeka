@@ -98,6 +98,9 @@ export default {
                     console.log(error)
                     const toast = useToast();
                     toast.error('Edit cerita gagal, mohon coba lagi')
+                    if (error.message === 'Request failed with status code 413') {
+                        toast.error('Muatan gambar terlalu besar, mohon untuk melakukan upload foto dengan ukuran di bawah 1mb')
+                    }
                 })
         },
         formatDate(dateString) {
@@ -128,7 +131,7 @@ export default {
 </script>
 
 <template>
-    <div class="flex">
+    <div class="flex h-full">
         <Sidebar />
 
         <div class="pl-8 max-[520px]:pl-1">

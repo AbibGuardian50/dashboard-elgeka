@@ -125,11 +125,11 @@ export default {
                 <!-- Pop up modal edit tampilan Donasi... -->
                 <div>
                     <form v-if="ShowEditDonasi" @submit.prevent="editdonasi()"
-                        class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+                        class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center flex">
                         <div class="relative w-auto my-6 mx-auto max-w-6xl">
                             <!--content-->
                             <div
-                                class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                                class="border border-black rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                 <!--header-->
                                 <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
                                     <h3 class="text-[24px] sm:text-[30px] lg:text-[40px] text-teal font-semibold font-poppins">

@@ -151,6 +151,10 @@ export default {
         toast.warning('Username tidak boleh mengandung huruf kapital');
         this.formErrors.username = 'Username tidak boleh mengandung huruf kapital.';
         return true;
+      } else if (/\s/.test(username)) {
+        toast.warning('Username tidak boleh mengandung spasi');
+        this.formErrors.username = 'Username tidak boleh mengandung spasi.';
+        return true;
       }
       return false;
     },
@@ -182,14 +186,10 @@ export default {
             } else if (response.data.message === 'Error Creating New Admin: Username already exists') {
               toast.error('username yang sama sudah ada, mohon untuk mengganti dengan username lain')
             }
-
-
-
           })
           .catch(error => {
             toast.error('Terdapat Kesalahan pada sistem, mohon coba lagi');
             console.log(error);
-
           });
       }
     },

@@ -138,7 +138,7 @@ export default {
                             <label for="Deskripsi Kegiatan" class="text-base font-bold text-teal font-poppins">Deskripsi
                                 Kegiatan</label>
                             <div class="w-full p-2 border rounded-md">
-                                <quill-editor theme="snow" contentType="html" class="w-full text-base"
+                                <quill-editor theme="snow" :toolbar="[{ 'header': [1, 2, false] },'bold', 'italic', 'underline', 'image', 'link',  , {'list': 'ordered'}, {'list': 'bullet'}]" contentType="html" class="w-full text-base"
                                     v-model:content="daftarkegiatan.content"></quill-editor>
                             </div>
                         </div>

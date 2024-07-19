@@ -128,7 +128,7 @@ export default {
                                     <p class="font-poppins font-bold text-2xl md:text-3xl lg:text-4xl text-fullblack">
                                         {{ profilkomunitas.data.title }}
                                     </p>
-                                    <div class="font-poppins font-normal text-sm md:text-base text-darkgrey pr-8"
+                                    <div class="font-poppins font-normal text-sm md:text-base text-darkgrey pr-8 content-richtext"
                                         v-html="profilkomunitas.data.content">
                                     </div>
                                     <div class="mt-4 flex gap-4 max-md:mb-4">
@@ -338,11 +338,70 @@ export default {
     width: auto;
 }
 
-ol {
-    list-style-type: decimal;
+.content-richtext a {
+    color: blue;
+    text-decoration: underline;
 }
 
-ul {
+.content-richtext b {
+    font-weight: bold;
+}
+
+.content-richtext i {
+    font-style: italic;
+}
+
+.content-richtext u {
+    text-decoration: underline;
+}
+
+.content-richtext h1 {
+    display: block;
+    font-size: 2em;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}
+
+.content-richtext h2 {
+    display: block;
+    font-size: 1.5em;
+    margin-top: 0.83em;
+    margin-bottom: 0.83em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}
+
+.content-richtext h3 {
+    display: block;
+    font-size: 1.17em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}
+
+.content-richtext ul {
+    display: block;
     list-style-type: disc;
+    margin-top: 1em;
+    margin-bottom: 1 em;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 40px;
+}
+
+.content-richtext ol {
+    display: block;
+    list-style-type: decimal;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 40px;
 }
 </style>

@@ -304,7 +304,7 @@ export default {
                                         <label for="Deskripsi Kegiatan"
                                             class="text-base font-normal text-teal font-verdana">Deskripsi Berita</label>
                                         <div class="w-full py-2 pl-2 border rounded-md border-silver" id="app">
-                                            <quill-editor theme="snow" contentType="html" required
+                                            <quill-editor theme="snow" :toolbar="[{ 'header': [1, 2, false] },'bold', 'italic', 'underline', 'image', 'link',  , {'list': 'ordered'}, {'list': 'bullet'}]" contentType="html" required
                                                 placeholder="Masukkan Isi berita"
                                                 v-model:content="form.content"></quill-editor>
                                         </div>

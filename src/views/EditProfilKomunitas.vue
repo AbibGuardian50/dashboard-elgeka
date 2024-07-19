@@ -98,7 +98,7 @@ export default {
                             <label for="Deskripsi Komunitas" class="font-poppins font-bold text-base text-teal">Deskripsi
                                 Komunitas</label>
                             <div class="border border-black py-2 w-full pl-2 rounded-md">
-                                <quill-editor :toolbar="['bold', 'italic', 'underline', 'image']" theme="snow"
+                                <quill-editor :toolbar="[{ 'header': [1, 2, false] },'bold', 'italic', 'underline', 'link',  , {'list': 'ordered'}, {'list': 'bullet'}]" theme="snow"
                                     contentType="html" v-model:content="communityprofile.content" required></quill-editor>
                                 <p v-if="isContentEmpty" class="text-red text-sm mt-1">Konten tidak boleh kosong.</p>
                             </div>

@@ -146,7 +146,7 @@ export default {
                         <div class="flex flex-col gap-2">
                             <label for="Deskripsi berita" class="text-base font-bold text-teal">Deskripsi Berita</label>
                             <div class="w-full p-2 border rounded-md">
-                                <quill-editor theme="snow" contentType="html" required class="w-full font-normal text-base" v-model:content="daftarberita.content"
+                                <quill-editor theme="snow" :toolbar="[{ 'header': [1, 2, false] },'bold', 'italic', 'underline', 'image', 'link',  , {'list': 'ordered'}, {'list': 'bullet'}]" contentType="html" required class="w-full font-normal text-base" v-model:content="daftarberita.content"
                                     :content="editedData"></quill-editor>
                             </div>
                         </div>

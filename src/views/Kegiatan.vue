@@ -309,7 +309,7 @@ export default {
                                             class="font-poppins font-bold text-base text-teal">Deskripsi
                                             Kegiatan</label>
                                         <div class="border border-black py-2 min-w-[550px] pl-2 rounded-md" id="app">
-                                            <quill-editor theme="snow" contentType="html"
+                                            <quill-editor theme="snow" :toolbar="[{ 'header': [1, 2, false] },'bold', 'italic', 'underline', 'image', 'link',  , {'list': 'ordered'}, {'list': 'bullet'}]" contentType="html"
                                                 v-model:content="form.content"></quill-editor>
                                         </div>
                                     </div>

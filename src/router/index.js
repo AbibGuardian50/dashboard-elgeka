@@ -16,7 +16,7 @@ const routes = [
     path: '/',
     name: 'login',
     component: () => import('../views/Login.vue'),
-    meta: { title: 'Login Admin Elgeka Jawa Barat' }
+    meta: { title: 'Login Admin Sahabat CGI' }
   },
 
   {
@@ -43,7 +43,7 @@ const routes = [
     path: '/editadmin/:id',
     name: 'editadmin',
     component: () => import('../views/Editadmin.vue'),
-    meta: { title: 'Edit Admin Elgeka Jawa Barat' }
+    meta: { title: 'Edit Admin Sahabat CGI' }
   },
   {
     path: '/editberita/:id',
@@ -91,7 +91,7 @@ const routes = [
     path: '/kelolaakun',
     name: 'kelolaakun',
     component: () => import('../views/Kelolaakun.vue'),
-    meta: { title: 'Kelola Akun Admin Elgeka Jawa Barat' }
+    meta: { title: 'Kelola Akun Admin Sahabat CGI' }
   },
   {
     path: '/kegiatan',
@@ -108,7 +108,7 @@ const routes = [
     path: '/profilkomunitas',
     name: 'profilkomunitas',
     component: () => import('../views/Profilkomunitas.vue'),
-    meta: { title: 'Profil Komunitas Elgeka Jawa Barat' }
+    meta: { title: 'Profil Komunitas Sahabat CGI' }
   },
   {
     path: '/Penguruskomunitas',

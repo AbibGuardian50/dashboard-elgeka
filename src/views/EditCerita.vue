@@ -152,11 +152,11 @@ export default {
                         </div>
                     </div>
 
-                    <div class="w-full max-w-[325px] md:ml-2 ml-1 flex-col">
+                    <div class="w-full max-w-[350px] md:ml-2 ml-1 flex-col">
                         <div class="flex gap-2 w-full flex-col mt-8 px-2 md:px-0 md:mr-[9px]">
                             <label for="Status" class="font-poppins font-bold text-base text-teal">Status</label>
                             <select
-                                class="border bg-white border-silver py-4 w-full max-w-[325px] pl-2 rounded-lg shadow-[0px_1px_2px_0px_rgba(16, 24, 40, 0.05)] px-2 font-poppins font-medium text-base text-[#00000080]"
+                                class="border bg-white border-silver py-4 w-full max-w-[350px] pl-2 rounded-lg shadow-[0px_1px_2px_0px_rgba(16, 24, 40, 0.05)] px-2 font-poppins font-medium text-base text-[#00000080]"
                                 name="Status" id="" v-model="storyblog.isVerified">
                                 <option value="false">Pending</option>
                                 <option value="true">Disetujui</option>
@@ -170,7 +170,7 @@ export default {
                                 <div class="flex flex-col justify-center items-center">
                                     <div class="relative w-full">
                                         <input
-                                            class="border bg-white border-silver py-4 w-full max-w-[325px] pl-2 rounded-lg shadow-[0px_1px_2px_0px_rgba(16, 24, 40, 0.05)] px-2 font-poppins font-medium text-base text-[#00000080]"
+                                            class="border bg-white border-silver py-4 w-full  pr-8 rounded-lg shadow-[0px_1px_2px_0px_rgba(16, 24, 40, 0.05)] px-2 font-poppins font-medium text-base text-[#00000080]"
                                             type="text" name="username" id="" v-model="prompt"
                                             placeholder="Enter prompt here">
                                         <a target="_blank" href="/UserGuideCerita"><span

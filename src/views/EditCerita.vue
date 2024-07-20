@@ -131,7 +131,7 @@ export default {
 </script>
 
 <template>
-    <div class="flex h-full">
+    <div class="flex">
         <Sidebar />
 
         <div class="pl-8 max-[520px]:pl-1">

@@ -127,7 +127,7 @@ export default {
     </div>
 
     <!-- 768 px screen < and mobile -->
-    <div class="flex md:hidden h-full">
+    <div class="flex md:hidden">
         <!-- Sidebar -->
         <div class="flex top-0 h-full z-20 bg-teal" :class="[right ? 'right-0 flex-row' : 'left-0 flex-row-reverse']">
             <!--Drawer -->

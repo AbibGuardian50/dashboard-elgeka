@@ -248,8 +248,8 @@ export default {
                                 <p v-if="data.show === false" class="td-text-general text-[#FF0000] font-bold">Disembunyikan
                                 </p>
                             </td>
-                            <td class="td-general max-w-[200px]">
-                                <img :src="url + data.image_url">
+                            <td class="td-general">
+                                <img class="w-full h-auto object-cover max-w-[350px] max-h-[350px]" :src="url + data.image_url">
                             </td>
                             <td
                                 class="td-general whitespace-nowrap max-[831px]:flex max-[831px]:flex-col max-[831px]:gap-2 max-[831px]:items-center text-sm font-medium">
@@ -326,7 +326,7 @@ export default {
                                             required v-model="form.kategori">
                                             <option value="perkembanganCML" selected>Perkembangan CML</option>
                                             <option value="perkembanganKomunitas">Perkembangan Komunitas</option>
-                                            <option value="gist">GIST</option>
+                                            <option value="GIST">GIST</option>
                                         </select>
                                     </div>
 

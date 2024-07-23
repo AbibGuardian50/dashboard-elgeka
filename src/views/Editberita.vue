@@ -134,6 +134,7 @@ export default {
                             <select name="Kategori" id="Kategori" class="w-full px-3 py-2 border rounded-md" required v-model="daftarberita.kategori">
                                 <option value="perkembanganCML">Perkembangan CML</option>
                                 <option value="perkembanganKomunitas">Perkembangan Komunitas</option>
+                                <option value="gist">GIST</option>
                             </select>
                         </div>
                         <div class="flex flex-col gap-2">

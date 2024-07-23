@@ -326,6 +326,7 @@ export default {
                                             required v-model="form.kategori">
                                             <option value="perkembanganCML" selected>Perkembangan CML</option>
                                             <option value="perkembanganKomunitas">Perkembangan Komunitas</option>
+                                            <option value="gist">GIST</option>
                                         </select>
                                     </div>
 

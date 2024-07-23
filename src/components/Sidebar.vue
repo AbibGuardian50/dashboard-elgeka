@@ -38,7 +38,7 @@ export default {
 
 <template>
     <!-- > 768 px screen and laptop screen -->
-    <div class="flex max-[520px]:max-w-[230px] max-[520px]:min-w-[25%] max-md:hidden min-h-screen">
+    <div class="flex max-[520px]:max-w-[230px] max-[520px]:min-w-[25%] max-md:hidden min-h-full">
         <div
             class="bg-teal flex flex-col items-center pt-8 md:w-full max-[520px]:min-w-[70px] min-w-[70px] min-h-screen">
             <div class="flex flex-col items-center">

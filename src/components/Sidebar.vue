@@ -38,9 +38,9 @@ export default {
 
 <template>
     <!-- > 768 px screen and laptop screen -->
-    <div class="flex max-[520px]:max-w-[230px] max-[520px]:min-w-[25%] max-md:hidden">
+    <div class="flex max-[520px]:max-w-[230px] max-[520px]:min-w-[25%] max-md:hidden min-h-screen">
         <div
-            class="bg-teal flex flex-col items-center pt-8 md:w-full max-[520px]:min-w-[70px] min-w-[70px]">
+            class="bg-teal flex flex-col items-center pt-8 md:w-full max-[520px]:min-w-[70px] min-w-[70px] min-h-screen">
             <div class="flex flex-col items-center">
                 <img class="mb-8 rounded-md flex items-center justify-center max-md:w-[60px] max-md:h-[60px]"
                     src="../assets/logoElgekaPutih1.png" alt="">
@@ -127,9 +127,9 @@ export default {
     </div>
 
     <!-- 768 px screen < and mobile -->
-    <div class="flex md:hidden">
+    <div class="flex md:hidden min-h-screen">
         <!-- Sidebar -->
-        <div class="flex top-0 h-full z-20 bg-teal" :class="[right ? 'right-0 flex-row' : 'left-0 flex-row-reverse']">
+        <div class="flex top-0 h-full z-20 bg-teal min-h-screen" :class="[right ? 'right-0 flex-row' : 'left-0 flex-row-reverse']">
             <!--Drawer -->
                 <span class="block transform origin-center font-bold flex flex-col items-center w-[60px]">
                     <img class="mb-8 rounded-md flex items-center justify-center max-md:w-[50px] max-md:h-[50px]"

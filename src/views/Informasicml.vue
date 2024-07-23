@@ -183,7 +183,7 @@ export default {
 </script>
 
 <template>
-    <div class="flex bg-offwhite h-full">
+    <div class="flex bg-offwhite min-h-screen">
         <Sidebar />
 
         <div class="px-8 max-md:px-2 bg-offwhite">

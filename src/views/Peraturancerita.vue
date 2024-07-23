@@ -63,7 +63,7 @@ export default {
 </script>
 
 <template>
-    <div class="flex bg-offwhite min-h-full">
+    <div class="flex bg-offwhite min-h-screen">
         <Sidebar />
 
         <div class="max-w-[1200px] w-full pl-1 pr-[0.4rem]  my-4 bg-offwhite flex-grow">

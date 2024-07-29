@@ -45,10 +45,8 @@ export default {
                 const url = `https://elgeka-web-api-production.up.railway.app/api/v1/admin/${id}`;
                 // Clone daftaradmin to avoid modifying the original object directly
                 let updatedAdmin = { ...this.daftaradmin };
-                // Remove is_active from the payload if the user is active
-                if (this.daftaradmin.is_active === true) {
-                    delete updatedAdmin.is_active;
-                }
+                // Convert boolean to string for is_active
+                updatedAdmin.is_active = String(updatedAdmin.is_active);
                 // Remove superAdmin from the payload
                 delete updatedAdmin.superAdmin;
                 console.log("Updated Admin Data before sending:", updatedAdmin);
@@ -73,7 +71,7 @@ export default {
                                 setTimeout(() => {
                                     this.$router.push('/');
                                 }, 1000);
-                                
+
                             } else {
                                 // Redirect to /kelolaakun
                                 toast.success('Status admin berhasil diubah')
@@ -155,22 +153,26 @@ export default {
                     </div>
                 </div>
                 <!--content-->
-                <div class="border border-black rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div
+                    class="border border-black rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                     <!--header-->
                     <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
                         <h3 class="text-[24px] sm:text-[32px] md:text-[40px] text-teal font-semibold font-poppins">
                             Edit Akun Admin
                         </h3>
-                        <button class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                        <button
+                            class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                             v-on:click="toggleModalCreateAdmin()">
-                            <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                            <span
+                                class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
                             </span>
                         </button>
                     </div>
                     <!--body-->
                     <div class="flex flex-col gap-6 p-6">
                         <div class="flex gap-2 flex-col">
-                            <label for="nama lengkap" class="font-poppins font-bold text-base text-teal">Nama Lengkap</label>
+                            <label for="nama lengkap" class="font-poppins font-bold text-base text-teal">Nama
+                                Lengkap</label>
                             <input class="border border-black py-2 sm:py-3 w-full rounded-md" type="text" required
                                 v-model="daftaradmin.full_name" name="nama lengkap" id="">
                         </div>
@@ -184,8 +186,8 @@ export default {
 
                         <div class="flex gap-2 flex-col">
                             <label for="Status" class="font-poppins font-bold text-base text-teal">Status Aktif</label>
-                            <select required class="border border-black py-2 sm:py-3 w-full rounded-md" name="Status"
-                                id="" v-model="daftaradmin.is_active">
+                            <select required class="border border-black py-2 sm:py-3 w-full rounded-md" name="Status" id=""
+                                v-model="daftaradmin.is_active">
                                 <option value="false">Nonaktif</option>
                                 <option value="true">Aktif</option>
                             </select>
@@ -193,12 +195,14 @@ export default {
                     </div>
                     <!--footer-->
                     <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
-                        <button class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-6 sm:px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                        <button
+                            class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-6 sm:px-12 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
                             type="submit">
                             Simpan
                         </button>
                         <router-link to="/kelolaakun">
-                            <button class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                            <button
+                                class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
                                 type="button">
                                 Batal
                             </button>
@@ -207,7 +211,6 @@ export default {
                 </div>
             </div>
         </form>
-        <div v-if="showeditadmin" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
-    </div>
-</template>
+    <div v-if="showeditadmin" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+</div></template>
 

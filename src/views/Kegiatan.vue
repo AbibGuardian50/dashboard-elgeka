@@ -145,7 +145,7 @@ export default {
                 })
         },
         deletekegiatan(id) {
-            if (confirm('Are you sure you want to delete this admin account?')) {
+            if (confirm('Apakah kamu yakin untuk menghapus akun admin ini?')) {
                 const tokenlogin = VueCookies.get('tokenlogin')
                 const url = `https://elgeka-web-api-production.up.railway.app/api/v1/kegiatanKomunitas/${id}`
                 axios.delete(url, { headers: { 'Authorization': `Bearer ${tokenlogin}` } })

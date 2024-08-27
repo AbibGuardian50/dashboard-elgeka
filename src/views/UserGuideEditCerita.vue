@@ -32,11 +32,10 @@
             </li>
             <li>
                 ChatGPT akan memproses prompt anda dan menghasilkan saran perbaikan atau modifikasi untuk cerita sesuai
-                dengan petunjuk yang anda berikan.
+                dengan petunjuk yang anda berikan pada kolom preview hasil generate ChatGPT.
             </li>
             <li>
-                Setelah menerapkan perubahan yang diinginkan, anda dapat melanjutkan untuk menyimpan cerita yang telah
-                diedit.
+                Masukkan perbaikan yang diinginkan dari kolom preview hasil generate ChatGPT ke kolom deskripsi cerita, lalu tekan simpan untuk menyimpan perubahan dan menyelesaikan proses verifikasi.
             </li>
         </ol>
         </p>

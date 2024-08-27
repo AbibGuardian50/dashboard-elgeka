@@ -36,6 +36,8 @@ export default {
     data() {
         return {
             prompt: '',
+            isLoading: false, // Variabel loading
+            generateresult: [],
             storyblog: [],
             commentblog: [],
             storyblog: {
@@ -109,10 +111,11 @@ export default {
         },
         async generateQuote() {
             try {
+                this.isLoading = true; // Aktifkan loading
                 const tokenlogin = VueCookies.get('tokenlogin')
                 const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/blog/generate'
                 const response = await axios.post(url, { prompt: this.prompt + "" + this.storyblog.content }, { headers: { 'Authorization': `Bearer ${tokenlogin}` } });
-                this.storyblog.content = response.data.result.generated_blog;
+                this.generateresult = response.data.result.generated_blog;
                 console.log(response);
                 const toast = useToast();
                 if (response.data.message === "Generated Blog Successfully") {
@@ -124,6 +127,8 @@ export default {
                 const toast = useToast();
                 toast.error('Hasil Generate AI error, mohon coba lagi')
                 console.error('Error generating quote:', error);
+            } finally {
+                this.isLoading = false; // Nonaktifkan loading
             }
         },
     }
@@ -138,8 +143,6 @@ export default {
             <div class="flex border-b border-silver mb-1 justify-between">
                 <p class="font-gotham font-bold text-[30px] max-md:text-[25px] text-sulfurblack py-2">Edit</p>
             </div>
-
-
             <div>
                 <form class="flex max-[800px]:flex-col" v-if="storyblog" @submit.prevent="editstory(storyblog.id)">
                     <div class="bg-seashell p-4">
@@ -150,8 +153,8 @@ export default {
                                 :toolbar="['bold', 'italic', 'underline', 'image']" contentType="html"
                                 v-model:content="storyblog.content"></quill-editor>
                         </div>
-                    </div>
 
+                    </div>
                     <div class="w-full max-w-[350px] md:ml-2 ml-1 flex-col">
                         <div class="flex gap-2 w-full flex-col mt-8 px-2 md:px-0 md:mr-[9px]">
                             <label for="Status" class="font-poppins font-bold text-base text-teal">Status</label>
@@ -187,8 +190,29 @@ export default {
                                             </span></a>
                                     </div>
                                     <button type="button"
-                                        class="px-4 py-1 bg-teal text-white font-poppins font-bold rounded-lg my-2 flex flex-col"
-                                        @click="generateQuote">Generate</button>
+                                        class="px-4 py-1 bg-teal text-white font-poppins font-bold rounded-lg my-2 flex items-center justify-center"
+                                        @click="generateQuote" :disabled="isLoading">
+                                        <svg v-if="isLoading" class="animate-spin h-5 w-5 text-white mr-2"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                                stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor"
+                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                            </path>
+                                        </svg>
+                                        <span v-else>Generate</span>
+                                    </button>
+
+                                    <div>
+                                        <p
+                                            class="font-gotham font-bold text-[20px] max-[520px]:text-[15px] text-sulfurblack py-2">
+                                            Preview Hasil Generate Chat GPT</p>
+                                        <textarea id="readonlyTextarea" v-model="generateresult" readonly
+                                            class="w-full p-2 border border-gray-300 rounded-lg resize-none overflow-y-auto bg-gray-100 text-gray-700 font-poppins font-normal"
+                                            rows="6">
+                            </textarea>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -255,4 +279,5 @@ select option {
     .ql-container {
         font-size: 14px;
     }
-}</style>
+}
+</style>

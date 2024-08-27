@@ -170,7 +170,7 @@ export default {
         <Sidebar />
 
         <div class="px-8 max-[842px]:px-2 bg-offwhite">
-            <p class="title-style">Update Kegiatan</p>
+            <p class="title-style">Kegiatan Komunitas</p>
             <hr class="border-teal">
             <div class="container-table-general">
                 <table class="table-general">

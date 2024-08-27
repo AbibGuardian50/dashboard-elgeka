@@ -48,6 +48,7 @@ export default {
             perPage: 10,
             totalPages: 0,
             error: '',
+            statusFilter: 'all', // Default filter
         }
     },
     methods: {
@@ -55,10 +56,24 @@ export default {
             // Ubah format tanggal
             return format(new Date(dateString), 'dd MMMM yyyy HH:mm', { locale: id });
         },
+        filterByStatus() {
+            this.currentPage = 1; // Reset to first page when filter changes
+            this.updatePaginatedData();
+        },
         updatePaginatedData() {
+            let filteredData = this.DaftarVerifCerita;
+
+            if (this.statusFilter === 'pending') {
+                filteredData = filteredData.filter(data => !data.isVerified);
+            } else if (this.statusFilter === 'approved') {
+                filteredData = filteredData.filter(data => data.isVerified);
+            }
+
+            this.totalPages = Math.ceil(filteredData.length / this.perPage);
+
             const start = (this.currentPage - 1) * this.perPage;
             const end = this.currentPage * this.perPage;
-            this.paginatedData = this.DaftarVerifCerita.slice(start, end);
+            this.paginatedData = filteredData.slice(start, end);
         },
         goToPage(pageNumber) {
             this.currentPage = pageNumber;
@@ -107,33 +122,41 @@ export default {
             <p class="font-poppins font-normal text-[20px] max-md:text-[15px] text-sulfurblack py-2">Cerita User</p>
             <hr class="border-[#D0D5DD]">
 
+            <!-- Dropdown Filter -->
+            <div class="my-4">
+                <label for="statusFilter" class="font-poppins font-normal text-[20px] max-md:text-[15px] text-sulfurblack py-2">Filter berdasarkan status: </label>
+                <select v-model="statusFilter" @change="filterByStatus" id="statusFilter" class="p-2 border border-teal rounded-md">
+                    <option value="all">Semua</option>
+                    <option value="pending">Pending</option>
+                    <option value="approved">Disetujui</option>
+                </select>
+            </div>
+
             <div>
                 <table class="min-w-full divide-y divide-gray-200 max-[1300px]:overflow-x-visible overflow-x-auto">
 
                     <tbody v-for="data in paginatedData" :key="data.id" class="bg-offwhite divide-y divide-gray-200">
                         <tr>
                             <div class="px-6 max-[800px]:px-1 py-4 max-w-[400px] max-md:mr-2 mr-32">
-                                <p class="text-[20px] max-md:text-[15px] leading-5 font-inter font-bold text-fullblack">{{ data.title }}</p>
+                                <p class="text-[20px] max-md:text-[15px] leading-5 font-inter font-bold text-fullblack">{{
+                                    data.title }}</p>
                                 <div class="flex gap-1">
                                     <p class="td-text-general">{{
                                         data.author_name }}</p>
                                     <p class="td-text-general">-</p>
                                     <p class="td-text-general">{{
                                         formatDate(data.createdAt) }}</p>
-                                    <p class="td-text-general ml-4"
-                                        v-if="data.isVerified === false">Pending</p>
-                                    <p class="td-text-general ml-4"
-                                        v-else-if="data.isVerified === true">Disetujui</p>
+                                    <p class="td-text-general ml-4" v-if="data.isVerified === false">Pending</p>
+                                    <p class="td-text-general ml-4" v-else-if="data.isVerified === true">Disetujui</p>
                                 </div>
                             </div>
 
-                            <td class="px-6 py-4 whitespace-nowrap text-base font-medium max-[800px]:flex max-[800px]:flex-col max-[800px]:gap-2 max-[800px]:items-center">
-                                <a :href="'editcerita/' + data.id"><button
-                                        class="btn-edit">Edit</button></a>
+                            <td
+                                class="px-6 py-4 whitespace-nowrap text-base font-medium max-[800px]:flex max-[800px]:flex-col max-[800px]:gap-2 max-[800px]:items-center">
+                                <a :href="'editcerita/' + data.id"><button class="btn-edit">Edit</button></a>
                                 <!-- <a :href="'EditComment/' + data.id"><button
                                         class="py-1 px-8 rounded-[5px] bg-teal font-inter font-bold text-base text-white">Edit Komentar</button></a> -->
-                                <button href="#" @click="deletecerita(data.id)"
-                                    class="btn-hapus">Hapus</button>
+                                <button href="#" @click="deletecerita(data.id)" class="btn-hapus">Hapus</button>
                             </td>
                         </tr>
                     </tbody>

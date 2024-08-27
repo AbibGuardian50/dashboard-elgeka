@@ -60,6 +60,12 @@ export default {
                         console.log(response)
                         if (response.data.message === "Your admin status is not active, authorization denied!") {
                             toast.error('Status admin masih nonaktif, mohon untuk login kembali jika merasa sudah mengubahnya')
+                        } else if (response.data.message === "Delete Blog Comment by ID Successfully") {
+                            toast.success('Komentar berhasil dihapus')
+                            setTimeout(() => {
+                                window.location.reload()
+                            }, 1000);
+
                         }
                     })
                     .catch(error => {
@@ -241,7 +247,7 @@ export default {
                                         formatDate(kolomkomentar.createdAt) }}</p>
                                 </div>
                                 <div class="flex items-center justify-center">
-                                    <button href="#" @click="deletecomment(kolomkomentar.id)"
+                                    <button type="button" @click="deletecomment(kolomkomentar.id)"
                                         class="py-1 px-4 rounded-[5px] bg-teal font-inter font-bold text-base text-white mb-4">Hapus</button>
                                 </div>
                             </div>

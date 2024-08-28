@@ -155,7 +155,7 @@ export default {
                                     <div class="flex gap-2 flex-col">
                                         <label for="Link" class="font-poppins font-bold text-base text-teal">Link
                                         </label>
-                                        <input class="border border-black py-2 w-full lg:min-w-[550px] pl-2 rounded-md" type="text"
+                                        <input class="border border-black py-2 w-full lg:min-w-[550px] pl-2 rounded-md" type="text" required
                                             name="Link" id="Link" :placeholder="donasielgeka.data.donate_link"
                                             v-model="donasielgeka.data.donate_link">
                                     </div>

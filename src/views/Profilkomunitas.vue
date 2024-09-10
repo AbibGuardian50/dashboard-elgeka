@@ -234,7 +234,7 @@ export default {
                     </div>
                     <!-- Ubah Email dan Kontak -->
                     <div v-if="infokontak"
-                        class="bg-semitransparentwhite w-full max-w-[1022px] isolate rounded-xl shadow-lg border-2 border-teal">
+                        class="bg-semitransparentwhite w-full max-w-[1022px] isolate rounded-xl shadow-lg border-2 border-teal mb-4">
                         <div class="flex flex-col md:flex-row justify-between">
                             <div class="flex flex-col md:flex-row">
                                 <div class="p-4">

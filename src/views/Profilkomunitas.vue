@@ -21,11 +21,18 @@ export default {
             errorMessage: '',
             edited: {
                 image: [],
+                
             },
             profilkomunitas: [],
+            infokontak: [],
+            infokontak: {
+                email_komunitas: [],
+                kontak_komunitas: [],
+            },
             content: [],
             ShowEditProfilKomunitas: false,
             ShowEditFotoSampul: false,
+            ShowEditKontak: false,
             url: 'https://elgeka-web-api-production.up.railway.app/',
         }
     },
@@ -39,6 +46,9 @@ export default {
         },
         toggleModalEditFotoSampul: function () {
             this.ShowEditFotoSampul = !this.ShowEditFotoSampul;
+        },
+        toggleModalEditKontak: function () {
+            this.ShowEditKontak = !this.ShowEditKontak;
         },
         handleFileChange(event) {
             // Mengambil file yang dipilih oleh pengguna
@@ -90,6 +100,37 @@ export default {
                     console.log(error)
                     this.$router.push('/profilkomunitas')
                 })
+        },
+        editcontact() {
+            const toast = useToast();
+            const url = 'https://elgeka-web-api-production.up.railway.app/api/v1/profilKomunitas'
+            const tokenlogin = VueCookies.get('tokenlogin')
+            // Data yang akan dikirim
+            const data = {
+                email_komunitas: this.infokontak.email_komunitas,
+                kontak_komunitas: this.infokontak.kontak_komunitas
+            };
+            axios.patch(url, data, {
+                headers: {
+                    'Authorization': `Bearer ${tokenlogin}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => {
+                    console.log(response)
+                    if (response.data.message === "Your admin status is not active, authorization denied!") {
+                        toast.error('Status admin masih nonaktif, mohon untuk login kembali jika merasa sudah mengubahnya')
+                    } else if (response.data.message === "Update Profil Komunitas Successfully") {
+                        toast.success('Update Kontak profil komunitas berhasil')
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1000);
+                    }
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.$router.push('/profilkomunitas')
+                })
         }
     },
     async created() {
@@ -97,11 +138,13 @@ export default {
             const toast = useToast();
             const response = await axios.get('https://elgeka-web-api-production.up.railway.app/api/v1/profilKomunitas');
             this.profilkomunitas = response.data.result;
+            this.infokontak = response.data.result.data
+            console.log(this.profilkomunitas)
             if (response.data.message === "Get Profil Komunitas Successfully") {
                 toast.success('Data profil komunitas berhasil dimuat')
             }
             // this.parsed_aturanblog = this.aturanblog.split("\n");
-            console.log(response)
+            console.log(response.data)
         } catch (error) {
             console.error(error);
             const toast = useToast();
@@ -143,8 +186,6 @@ export default {
                                                 src="../assets/Logo-Instagram.png" alt="Instagram"></a>
                                     </div>
                                 </div>
-                                <img class="w-full md:w-3/12 max-w-[438px] max-h-[463px] max-xl:h-full mx-auto md:mx-0"
-                                    src="../assets/together.png" alt="foto">
                             </div>
                             <div class="flex flex-col gap-12">
                                 <div
@@ -187,6 +228,28 @@ export default {
                             </div>
                             <div class="flex justify-end items-end py-4 pr-4">
                                 <button v-on:click="toggleModalEditFotoSampul()"
+                                    class="bg-teal py-2 px-4 md:px-8 font-poppins font-bold text-base md:text-xl text-white leading-6 rounded-lg">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Ubah Email dan Kontak -->
+                    <div v-if="infokontak"
+                        class="bg-semitransparentwhite w-full max-w-[1022px] isolate rounded-xl shadow-lg border-2 border-teal">
+                        <div class="flex flex-col md:flex-row justify-between">
+                            <div class="flex flex-col md:flex-row">
+                                <div class="p-4">
+                                    <p class="font-bold font-poppins text-base md:text-lg lg:text-xl text-black">Ubah Email
+                                        dan kontak komunitas</p>
+                                    <p
+                                        class="text-sm md:text-base text-[#FFFFFFB2] font-normal text-black font-poppins leading-6">
+                                        Email : {{ infokontak.email_komunitas }}</p>
+                                    <p
+                                        class="text-sm md:text-base text-[#FFFFFFB2] font-normal text-black font-poppins leading-6">
+                                        Kontak : {{ infokontak.kontak_komunitas }}</p>
+                                </div>
+                            </div>
+                            <div class="flex justify-end items-end py-4 pr-4">
+                                <button v-on:click="toggleModalEditKontak()"
                                     class="bg-teal py-2 px-4 md:px-8 font-poppins font-bold text-base md:text-xl text-white leading-6 rounded-lg">Edit</button>
                             </div>
                         </div>
@@ -325,6 +388,64 @@ export default {
                 </div>
             </form>
             <div v-if="ShowEditFotoSampul" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        </div>
+
+        <!-- Pop up modal buat edit kontak komunitas... -->
+        <div>
+            <form v-if="ShowEditKontak" @submit.prevent="editcontact()"
+                class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+                <div class="relative w-auto my-6 mx-auto max-w-6xl">
+                    <!--content-->
+                    <div
+                        class="border border-red rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                        <!--header-->
+                        <div class="flex items-start justify-between p-5 border-b-2 border-black rounded-t">
+                            <h3 class="text-2xl md:text-3xl lg:text-4xl text-teal font-semibold font-poppins">
+                                Edit Email dan Kontak Komunitas
+                            </h3>
+                            <button
+                                class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-2xl md:text-3xl leading-none font-semibold outline-none focus:outline-none"
+                                v-on:click="toggleModalEditKontak()">
+                                <span
+                                    class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                                </span>
+                            </button>
+                        </div>
+                        <!--body-->
+                        <div class="flex flex-col gap-8 relative p-6">
+                            <div class="flex gap-2 flex-col">
+                                <label for="Email Komunitas" class="font-poppins font-bold text-base text-teal">Email
+                                    Komunitas</label>
+                                <input class="border border-black py-2 min-w-full md:min-w-[550px] pl-2 rounded-md"
+                                    type="text" name="Email Komunitas" id="email-komunitas"
+                                    v-model="infokontak.email_komunitas">
+                            </div>
+
+                            <div class="flex gap-2 flex-col">
+                                <label for="Kontak Komunitas" class="font-poppins font-bold text-base text-teal">Kontak
+                                    Komunitas</label>
+                                <input class="border border-black py-2 min-w-full md:min-w-[550px] pl-2 rounded-md"
+                                    type="text" name="Kontak Komunitas" id="kontak-komunitas"
+                                    v-model="infokontak.kontak_komunitas">
+                            </div>
+                        </div>
+                        <!--footer-->
+                        <div class="flex items-center justify-center p-6 border-t-2 border-black rounded-b">
+                            <button
+                                class="text-white bg-teal border hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-4 md:px-12 py-2 md:py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                                type="submit">
+                                Simpan
+                            </button>
+                            <button
+                                class="text-teal bg-white border active:bg-teal-600 font-bold uppercase text-sm px-4 md:px-6 py-2 md:py-3 rounded outline-none focus:outline-none mr-1 mb-1"
+                                type="button" v-on:click="toggleModalEditKontak()">
+                                Batal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div v-if="ShowEditKontak" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </div>
     </div>
 </template>
